@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+
+        .toggle-label input {
+            width: auto;
+            padding: 0;
+            accent-color: #667eea;
+        }
+
+        .helper-text {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .enhanced-prompt {
+            margin-top: 10px;
+            overflow-wrap: anywhere;
+        }
+        
+        .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .result {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .result img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c00;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .success {
+            background: #efe;
+            border: 1px solid #cfc;
+            color: #060;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .chat-section {
+            margin-top: 50px;
+            padding-top: 35px;
+            border-top: 2px solid #e1e5e9;
+        }
+
+        .chat-section h2 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .chat-transcript {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: 120px;
+            max-height: 480px;
+            overflow-y: auto;
+            margin: 20px 0;
+            padding: 18px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            background: #f8f9fb;
+        }
+
+        .chat-empty {
+            margin: auto;
+            color: #777;
+            text-align: center;
+        }
+
+        .chat-message {
+            max-width: 85%;
+            padding: 12px 15px;
+            border-radius: 12px;
+            line-height: 1.45;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .chat-message.user {
+            align-self: flex-end;
+            color: white;
+            background: #667eea;
+        }
+
+        .chat-message.assistant {
+            align-self: flex-start;
+            color: #222;
+            background: white;
+            border: 1px solid #dfe3e8;
+        }
+
+        .chat-images {
+            align-self: stretch;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .chat-images img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .chat-actions {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: end;
+        }
+
+        .chat-actions textarea {
+            min-height: 84px;
+        }
+
+        .chat-actions .btn {
+            width: auto;
+            min-width: 130px;
+        }
+
+        .secondary-btn {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: 1px solid #667eea;
+            border-radius: 7px;
+            color: #5b66c4;
+            background: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 640px) {
+            .content {
+                padding: 24px;
+            }
+
+            .chat-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 AI Image Generator</h1>
+            <p>Generate images with Stable Diffusion or a Diffusion Transformer</p>
+        </div>
+        
+        <div class="content">
+            <form id="generateForm">
+                <div class="form-group">
+                    <label for="model">Generation Model</label>
+                    <select id="model" name="model">
+                        <option value="stable-diffusion" selected>Stable Diffusion (configured)</option>
+                        <option value="pixart-alpha">PixArt-Alpha (DiT, CUDA required)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="promptTemplate">Prompt Template (optional)</label>
+                    <select id="promptTemplate" aria-describedby="promptTemplateHelp">
+                        <option value="" selected>Choose a template...</option>
+                        <option value="portrait">Portrait</option>
+                        <option value="landscape">Landscape</option>
+                        <option value="product-shot">Product shot</option>
+                        <option value="anime">Anime</option>
+                        <option value="concept-art">Concept art</option>
+                    </select>
+                    <p class="helper-text" id="promptTemplateHelp">
+                        Select a starting prompt, then customize it below.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="prompt">Image Prompt *</label>
+                    <textarea 
+                        id="prompt" 
+                        name="prompt" 
+                        placeholder="Describe the image you want to generate...&#10;&#10;Example: A beautiful sunset over the ocean, photorealistic, 8k, detailed, cinematic lighting"
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="toggle-label" for="enhancePrompt">
+                        <input
+                            type="checkbox"
+                            id="enhancePrompt"
+                            name="enhance_prompt"
+                            role="switch"
+                            aria-describedby="enhancePromptHelp"
+                            checked
+                        >
+                        <span>Enhance prompt</span>
+                    </label>
+                    <p class="helper-text" id="enhancePromptHelp">
+                        Add randomized style, lighting, and quality details before generation.
+                    </p>
+                </div>
+
+                <div class="form-group layout-editor-container" id="layoutEditorContainer" style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 18px; margin-bottom: 25px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <label class="toggle-label" for="enableCustomLayout" style="margin-bottom: 0;">
+                            <input type="checkbox" id="enableCustomLayout" role="switch">
+                            <span><strong>📐 Interactive Spatial Layout & Gaussian Canvas</strong></span>
+                        </label>
+                        <div style="display: flex; gap: 8px;">
+                            <button type="button" class="secondary-btn" id="planLayoutBtn" style="width: auto; padding: 6px 14px; font-size: 13px; font-weight: 600;">
+                                ⚡ Auto-Plan from Prompt
+                            </button>
+                        </div>
+                    </div>
+                    <p class="helper-text" style="margin-top: 6px;">
+                        Preview and drag/resize spatial entity bounding boxes and 2D anisotropic Gaussian priors before generating.
+                    </p>
+
+                    <div id="layoutCanvasSection" style="display: none; margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 300px; text-align: center;">
+                                <div style="position: relative; display: inline-block; width: 100%; max-width: 360px;">
+                                    <canvas id="layoutCanvas" width="512" height="512" style="width: 100%; aspect-ratio: 1/1; background: #ffffff; border: 2px dashed #94a3b8; border-radius: 8px; cursor: crosshair; touch-action: none; box-shadow: 0 4px 12px rgba(0,0,0,0.06);"></canvas>
+                                </div>
+                                <div style="margin-top: 8px; font-size: 12px; color: #64748b; display: flex; justify-content: space-between;">
+                                    <span>Drag box to move • Drag corners to resize</span>
+                                    <span id="canvasCoordsDisplay">Pos: (0.00, 0.00)</span>
+                                </div>
+                            </div>
+
+                            <div style="flex: 1.2; min-width: 280px; display: flex; flex-direction: column;">
+                                <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+                                    <button type="button" class="secondary-btn" id="addEntityBtn" style="flex: 1; padding: 7px; font-size: 12px;">+ Add Object</button>
+                                    <button type="button" class="secondary-btn" id="removeEntityBtn" style="flex: 1; padding: 7px; font-size: 12px;">- Delete</button>
+                                    <button type="button" class="secondary-btn" id="toggleHeatmapBtn" style="flex: 1; padding: 7px; font-size: 12px;">Toggle Heatmap</button>
+                                </div>
+
+                                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 10px; font-size: 13px; color: #334155; background: #ffffff; padding: 8px 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                                    <span><strong>Prior:</strong></span>
+                                    <label style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                        <input type="radio" name="ui_guidance_mode" value="gaussian" checked> 2D Gaussian
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 4px; cursor: pointer;">
+                                        <input type="radio" name="ui_guidance_mode" value="box"> Box Mask
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; margin-left: auto;">
+                                        <input type="checkbox" id="ui_adaptive_guidance" checked> Adaptive Strength
+                                    </label>
+                                </div>
+
+                                <div id="entityListContainer" style="max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding-right: 4px;">
+                                    <p style="font-size: 13px; color: #94a3b8; text-align: center; margin-top: 20px;">
+                                        Click "Auto-Plan from Prompt" or "+ Add Object" to position entities.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="negativePrompt">Negative Prompt (optional)</label>
+                    <textarea 
+                        id="negativePrompt" 
+                        name="negative_prompt" 
+                        placeholder="What to avoid in the image...&#10;&#10;Example: blurry, low quality, distorted, deformed, ugly"
+                        style="min-height: 80px;"
+                    ></textarea>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <label for="width">Width</label>
+                        <select id="width" name="width">
+                            <option value="512" selected>512px</option>
+                            <option value="768">768px</option>
+                            <option value="1024">1024px</option>
+                            <option value="1536">1536px</option>
+                            <option value="2048">2048px</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="height">Height</label>
+                        <select id="height" name="height">
+                            <option value="512" selected>512px</option>
+                            <option value="768">768px</option>
+                            <option value="1024">1024px</option>
+                            <option value="1536">1536px</option>
+                            <option value="2048">2048px</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="steps">Inference Steps</label>
+                        <input 
+                            type="number" 
+                            id="steps" 
+                            name="num_inference_steps" 
+                            value="30" 
+                            min="1" 
+                            max="100"
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="guidance">Guidance Scale</label>
+                        <input 
+                            type="number" 
+                            id="guidance" 
+                            name="guidance_scale" 
+                            value="7.5" 
+                            min="1" 
+                            max="20" 
+                            step="0.5"
+                        >
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <label for="numImages">Number of Images</label>
+                        <select id="numImages" name="num_images">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="seed">Seed (optional)</label>
+                        <input 
+                            type="number" 
+                            id="seed" 
+                            name="seed" 
+                            placeholder="Random"
+                        >
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn" id="generateBtn">
+                    ✨ Generate Image
+                </button>
+            </form>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Generating your image... This may take a few seconds.</p>
+            </div>
+            
+            <div class="result" id="result"></div>
+
+            <section class="chat-section" aria-labelledby="chatHeading">
+                <h2 id="chatHeading">Conversational image assistant</h2>
+                <p class="helper-text">
+                    Refine ideas across turns. The assistant checks intent, prior context,
+                    ambiguity, and capability limits before responding or generating.
+                </p>
+                <div
+                    class="chat-transcript"
+                    id="chatTranscript"
+                    role="log"
+                    aria-live="polite"
+                    aria-label="Conversation"
+                >
+                    <p class="chat-empty" id="chatEmpty">
+                        Try “Create a product photo of a white sneaker,” then
+                        “Make the lighting warmer.”
+                    </p>
+                </div>
+                <form id="chatForm">
+                    <label for="chatMessage">Message</label>
+                    <div class="chat-actions">
+                        <textarea
+                            id="chatMessage"
+                            name="message"
+                            maxlength="4000"
+                            placeholder="Describe an image, refine the last result, or ask a question..."
+                            required
+                        ></textarea>
+                        <button type="submit" class="btn" id="chatSendBtn">Send</button>
+                    </div>
+                    <button type="button" class="secondary-btn" id="newChatBtn">
+                        Start a new conversation
+                    </button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('generateForm');
+        const loading = document.getElementById('loading');
+        const result = document.getElementById('result');
+        const generateBtn = document.getElementById('generateBtn');
+        const modelSelect = document.getElementById('model');
+        const widthSelect = document.getElementById('width');
+        const heightSelect = document.getElementById('height');
+        const stepsInput = document.getElementById('steps');
+        const guidanceInput = document.getElementById('guidance');
+        const enhancePromptToggle = document.getElementById('enhancePrompt');
+        const promptTemplateSelect = document.getElementById('promptTemplate');
+        const promptInput = document.getElementById('prompt');
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatMessage');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+        const chatTranscript = document.getElementById('chatTranscript');
+        const newChatBtn = document.getElementById('newChatBtn');
+        const CHAT_SESSION_KEY = 'ai-image-chat-session-id';
+
+        // Layout Canvas Elements
+        const enableCustomLayout = document.getElementById('enableCustomLayout');
+        const layoutCanvasSection = document.getElementById('layoutCanvasSection');
+        const planLayoutBtn = document.getElementById('planLayoutBtn');
+        const layoutCanvas = document.getElementById('layoutCanvas');
+        const addEntityBtn = document.getElementById('addEntityBtn');
+        const removeEntityBtn = document.getElementById('removeEntityBtn');
+        const toggleHeatmapBtn = document.getElementById('toggleHeatmapBtn');
+        const entityListContainer = document.getElementById('entityListContainer');
+        const canvasCoordsDisplay = document.getElementById('canvasCoordsDisplay');
+        const adaptiveGuidanceToggle = document.getElementById('ui_adaptive_guidance');
+
+        let plannedEntities = [];
+        let selectedEntityIndex = -1;
+        let isDragging = false;
+        let isResizing = false;
+        let isRotating = false;
+        let activeHandle = null;
+        let dragOffset = { x: 0, y: 0 };
+        let initialBox = null;
+        let initialAngle = 0;
+        let showGaussianHeatmap = true;
+
+        const ENTITY_COLORS = [
+            '#3b82f6', '#10b981', '#f59e0b', '#ef4444',
+            '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'
+        ];
+
+        const PROMPT_TEMPLATES = Object.freeze({
+            portrait: 'Editorial portrait of a thoughtful traveler, natural expression, tailored neutral clothing, softly blurred studio backdrop, eye-level composition, 85mm lens, shallow depth of field',
+            landscape: 'Vast alpine valley at sunrise, winding river in the foreground, layered mountain peaks fading into mist, dramatic cloud formations, wide-angle composition, strong foreground-to-background depth',
+            'product-shot': 'Premium studio product photograph of a minimalist wristwatch on a stone pedestal, three-quarter view, seamless neutral backdrop, controlled reflections, balanced commercial composition, realistic materials',
+            anime: 'Anime hero on a neon-lit rooftop at dusk, expressive eyes, windswept jacket, dynamic three-quarter pose, detailed futuristic skyline, clean linework, vivid color palette',
+            'concept-art': 'Concept art of an ancient floating city above a vast desert, monumental architecture, suspended bridges, distant airships, atmospheric perspective, layered environmental storytelling, epic scale'
+        });
+
+        let activePromptTemplate = '';
+        let lastAppliedTemplate = '';
+        
+        const API_ORIGIN = window.location.protocol === 'file:'
+            ? 'http://localhost:8000'
+            : window.location.origin;
+        const API_BASE = `${API_ORIGIN}/api/v1`;
+
+        // -------------------------------------------------------------
+        // Interactive Layout Canvas Engine
+        // -------------------------------------------------------------
+        const getGuidanceMode = () => {
+            const checked = document.querySelector('input[name="ui_guidance_mode"]:checked');
+            return checked ? checked.value : 'gaussian';
+        };
+
+        const renderCanvas = () => {
+            if (!layoutCanvas) return;
+            const ctx = layoutCanvas.getContext('2d');
+            const W = layoutCanvas.width;
+            const H = layoutCanvas.height;
+
+            ctx.clearRect(0, 0, W, H);
+
+            // Background grid
+            ctx.strokeStyle = '#f1f5f9';
+            ctx.lineWidth = 1;
+            for (let f = 0.25; f < 1.0; f += 0.25) {
+                ctx.beginPath();
+                ctx.moveTo(f * W, 0);
+                ctx.lineTo(f * W, H);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, f * H);
+                ctx.lineTo(W, f * H);
+                ctx.stroke();
+            }
+
+            // Draw Gaussians / Entities
+            plannedEntities.forEach((ent, idx) => {
+                const color = ENTITY_COLORS[idx % ENTITY_COLORS.length];
+                const x0 = ent.xmin * W;
+                const y0 = ent.ymin * H;
+                const bw = (ent.xmax - ent.xmin) * W;
+                const bh = (ent.ymax - ent.ymin) * H;
+                const cx = x0 + bw / 2;
+                const cy = y0 + bh / 2;
+
+                // Render Gaussian Heatmap overlay with rotation theta
+                if (showGaussianHeatmap) {
+                    ctx.save();
+                    ctx.translate(cx, cy);
+                    ctx.rotate(ent.theta || 0.0);
+                    ctx.beginPath();
+                    const rx = Math.max(8, bw / 2);
+                    const ry = Math.max(8, bh / 2);
+                    const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(rx, ry));
+                    gradient.addColorStop(0, color + '99');
+                    gradient.addColorStop(0.5, color + '44');
+                    gradient.addColorStop(1, color + '00');
+                    ctx.fillStyle = gradient;
+                    ctx.ellipse(0, 0, rx, ry, 0, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.restore();
+                }
+
+                // Render Bounding Box
+                ctx.save();
+                const isSelected = idx === selectedEntityIndex;
+                ctx.fillStyle = color + (isSelected ? '44' : '22');
+                ctx.fillRect(x0, y0, bw, bh);
+
+                ctx.strokeStyle = color;
+                ctx.lineWidth = isSelected ? 3 : 2;
+                if (isSelected) {
+                    ctx.setLineDash([4, 4]);
+                }
+                ctx.strokeRect(x0, y0, bw, bh);
+                ctx.setLineDash([]);
+
+                // Label Badge
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.roundRect(x0, Math.max(0, y0 - 24), Math.min(bw, 140), 22, [4, 4, 0, 0]);
+                ctx.fill();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 12px Segoe UI, sans-serif';
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+                const zLabel = ent.mu_z !== undefined ? ` z:${ent.mu_z.toFixed(2)}` : '';
+                const rotDeg = Math.round(((ent.theta || 0) * 180) / Math.PI);
+                const labelText = `${ent.label || 'object'}${ent.count > 1 ? ' (' + ent.count + ')' : ''}${rotDeg !== 0 ? ' ' + rotDeg + '°' : ''}${zLabel}`;
+                ctx.fillText(labelText, x0 + 6, Math.max(11, y0 - 13));
+
+                // Handles for selected entity (Resize handles + Rotation handle)
+                if (isSelected) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.strokeStyle = '#0f172a';
+                    ctx.lineWidth = 1.5;
+                    const handleSize = 8;
+                    const handles = [
+                        { x: x0, y: y0 },
+                        { x: x0 + bw, y: y0 },
+                        { x: x0 + bw, y: y0 + bh },
+                        { x: x0, y: y0 + bh },
+                        { x: x0 + bw / 2, y: y0 },
+                        { x: x0 + bw, y: y0 + bh / 2 },
+                        { x: x0 + bw / 2, y: y0 + bh },
+                        { x: x0, y: y0 + bh / 2 },
+                    ];
+                    handles.forEach(h => {
+                        ctx.fillRect(h.x - handleSize / 2, h.y - handleSize / 2, handleSize, handleSize);
+                        ctx.strokeRect(h.x - handleSize / 2, h.y - handleSize / 2, handleSize, handleSize);
+                    });
+
+                    // Rotation Stem and Handle
+                    const rotHandleY = y0 - 26;
+                    ctx.beginPath();
+                    ctx.moveTo(cx, y0);
+                    ctx.lineTo(cx, rotHandleY);
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    ctx.beginPath();
+                    ctx.arc(cx, rotHandleY, 6, 0, 2 * Math.PI);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fill();
+                    ctx.strokeStyle = '#0f172a';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+                ctx.restore();
+            });
+        };
+
+        const renderEntityList = () => {
+            if (!entityListContainer) return;
+            if (plannedEntities.length === 0) {
+                entityListContainer.innerHTML = `
+                    <p style="font-size: 13px; color: #94a3b8; text-align: center; margin-top: 20px;">
+                        Click "Auto-Plan from Prompt" or "+ Add Object" to position entities.
+                    </p>
+                `;
+                return;
+            }
+
+            let html = '';
+            plannedEntities.forEach((ent, idx) => {
+                const color = ENTITY_COLORS[idx % ENTITY_COLORS.length];
+                const isSelected = idx === selectedEntityIndex;
+                const rotDeg = Math.round(((ent.theta || 0) * 180) / Math.PI);
+                const muZ = ent.mu_z !== undefined ? ent.mu_z : 0.5;
+
+                html += `
+                    <div style="display: flex; flex-direction: column; gap: 4px; padding: 6px 10px; background: ${isSelected ? '#e0e7ff' : '#ffffff'}; border: 1.5px solid ${isSelected ? color : '#e2e8f0'}; border-radius: 6px; cursor: pointer;" onclick="selectEntity(${idx})">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: ${color}; flex-shrink: 0;"></span>
+                            <input type="text" value="${escapeHtml(ent.label)}" onchange="updateEntityLabel(${idx}, this.value)" style="padding: 2px 6px; font-size: 12px; font-weight: 600; width: 100px; border: 1px solid #cbd5e1; border-radius: 4px;" onclick="event.stopPropagation()">
+                            <span style="font-size: 11px; color: #64748b; margin-left: auto; font-family: monospace;">
+                                [${ent.ymin.toFixed(2)}, ${ent.xmin.toFixed(2)}, ${ent.ymax.toFixed(2)}, ${ent.xmax.toFixed(2)}]
+                            </span>
+                            <button type="button" onclick="event.stopPropagation(); deleteEntity(${idx})" style="background: none; border: none; color: #ef4444; font-weight: bold; cursor: pointer; padding: 2px 6px;">✕</button>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px; font-size: 11px; color: #475569; padding-left: 20px;">
+                            <label style="display: flex; align-items: center; gap: 4px;" onclick="event.stopPropagation()">
+                                <span>Rot:</span>
+                                <input type="number" value="${rotDeg}" min="-180" max="180" step="5" style="width: 50px; padding: 1px 4px; font-size: 11px; border: 1px solid #cbd5e1; border-radius: 3px;" onchange="updateEntityRotation(${idx}, this.value)">°
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 4px;" onclick="event.stopPropagation()">
+                                <span>Depth (z):</span>
+                                <input type="number" value="${muZ.toFixed(2)}" min="0.0" max="1.0" step="0.05" style="width: 50px; padding: 1px 4px; font-size: 11px; border: 1px solid #cbd5e1; border-radius: 3px;" onchange="updateEntityDepth(${idx}, this.value)">
+                            </label>
+                        </div>
+                    </div>
+                `;
+            });
+            entityListContainer.innerHTML = html;
+        };
+
+        window.selectEntity = (idx) => {
+            selectedEntityIndex = idx;
+            renderCanvas();
+            renderEntityList();
+        };
+
+        window.updateEntityLabel = (idx, newLabel) => {
+            if (plannedEntities[idx]) {
+                plannedEntities[idx].label = newLabel.trim() || 'object';
+                renderCanvas();
+            }
+        };
+
+        window.updateEntityRotation = (idx, degValue) => {
+            if (plannedEntities[idx]) {
+                const deg = parseFloat(degValue) || 0;
+                plannedEntities[idx].theta = Math.round(((deg * Math.PI) / 180) * 1000) / 1000;
+                renderCanvas();
+                renderEntityList();
+            }
+        };
+
+        window.updateEntityDepth = (idx, zValue) => {
+            if (plannedEntities[idx]) {
+                const z = Math.max(0.0, Math.min(1.0, parseFloat(zValue) || 0.5));
+                plannedEntities[idx].mu_z = Math.round(z * 100) / 100;
+                renderCanvas();
+                renderEntityList();
+            }
+        };
+
+        window.deleteEntity = (idx) => {
+            plannedEntities.splice(idx, 1);
+            if (selectedEntityIndex >= plannedEntities.length) {
+                selectedEntityIndex = plannedEntities.length - 1;
+            }
+            renderCanvas();
+            renderEntityList();
+        };
+
+        const autoPlanLayout = async () => {
+            const promptText = promptInput.value.trim();
+            if (!promptText) {
+                alert('Please enter a prompt first.');
+                return;
+            }
+
+            planLayoutBtn.disabled = true;
+            planLayoutBtn.textContent = '⏳ Planning...';
+
+            try {
+                const response = await fetch(`${API_BASE}/layout/plan`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt: promptText,
+                        guidance_mode: getGuidanceMode(),
+                        adaptive_guidance: adaptiveGuidanceToggle.checked
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to plan layout');
+                }
+
+                const plan = await response.json();
+                plannedEntities = (plan.objects || []).map(obj => ({
+                    label: obj.label,
+                    count: obj.count || 1,
+                    ymin: obj.box.ymin,
+                    xmin: obj.box.xmin,
+                    ymax: obj.box.ymax,
+                    xmax: obj.box.xmax,
+                    entity_id: obj.entity_id,
+                    theta: obj.gaussian ? obj.gaussian.theta : 0.0,
+                    mu_z: obj.gaussian ? obj.gaussian.mu_z : 0.5,
+                    gaussian: obj.gaussian,
+                }));
+
+                selectedEntityIndex = plannedEntities.length > 0 ? 0 : -1;
+                enableCustomLayout.checked = true;
+                layoutCanvasSection.style.display = 'block';
+                renderCanvas();
+                renderEntityList();
+            } catch (err) {
+                console.error(err);
+                alert('Could not compute automatic layout plan.');
+            } finally {
+                planLayoutBtn.disabled = false;
+                planLayoutBtn.textContent = '⚡ Auto-Plan from Prompt';
+            }
+        };
+
+        // Canvas Interaction Handling
+        const getCanvasCoord = (e) => {
+            const rect = layoutCanvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            const px = (clientX - rect.left) * (layoutCanvas.width / rect.width);
+            const py = (clientY - rect.top) * (layoutCanvas.height / rect.height);
+            return {
+                normX: Math.max(0.0, Math.min(1.0, px / layoutCanvas.width)),
+                normY: Math.max(0.0, Math.min(1.0, py / layoutCanvas.height)),
+                px,
+                py
+            };
+        };
+
+        const getHandleUnderPoint = (px, py, ent) => {
+            const W = layoutCanvas.width;
+            const H = layoutCanvas.height;
+            const x0 = ent.xmin * W;
+            const y0 = ent.ymin * H;
+            const bw = (ent.xmax - ent.xmin) * W;
+            const bh = (ent.ymax - ent.ymin) * H;
+            const cx = x0 + bw / 2;
+            const cy = y0 + bh / 2;
+            const threshold = 12;
+
+            // Check Rotation Handle at (cx, y0 - 26)
+            if (Math.hypot(px - cx, py - (y0 - 26)) <= threshold) {
+                return 'rotation';
+            }
+
+            const handles = {
+                nw: { x: x0, y: y0 },
+                ne: { x: x0 + bw, y: y0 },
+                se: { x: x0 + bw, y: y0 + bh },
+                sw: { x: x0, y: y0 + bh },
+                n: { x: x0 + bw / 2, y: y0 },
+                e: { x: x0 + bw, y: y0 + bh / 2 },
+                s: { x: x0 + bw / 2, y: y0 + bh },
+                w: { x: x0, y: y0 + bh / 2 }
+            };
+
+            for (const [key, pos] of Object.entries(handles)) {
+                if (Math.hypot(px - pos.x, py - pos.y) <= threshold) {
+                    return key;
+                }
+            }
+            return null;
+        };
+
+        const isPointInEntity = (normX, normY, ent) => {
+            return normX >= ent.xmin && normX <= ent.xmax && normY >= ent.ymin && normY <= ent.ymax;
+        };
+
+        const handleCanvasPointerDown = (e) => {
+            const { normX, normY, px, py } = getCanvasCoord(e);
+
+            // Check if clicking handle or rotation handle of selected entity
+            if (selectedEntityIndex >= 0 && plannedEntities[selectedEntityIndex]) {
+                const ent = plannedEntities[selectedEntityIndex];
+                const handle = getHandleUnderPoint(px, py, ent);
+                if (handle === 'rotation') {
+                    isRotating = true;
+                    initialBox = { ...ent };
+                    const W = layoutCanvas.width;
+                    const H = layoutCanvas.height;
+                    const cx = ((ent.xmin + ent.xmax) / 2) * W;
+                    const cy = ((ent.ymin + ent.ymax) / 2) * H;
+                    initialAngle = Math.atan2(py - cy, px - cx);
+                    e.preventDefault();
+                    return;
+                } else if (handle) {
+                    isResizing = true;
+                    activeHandle = handle;
+                    initialBox = { ...ent };
+                    dragOffset = { x: normX, y: normY };
+                    e.preventDefault();
+                    return;
+                }
+            }
+
+            // Check if clicking inside an entity (top-most first)
+            for (let i = plannedEntities.length - 1; i >= 0; i--) {
+                if (isPointInEntity(normX, normY, plannedEntities[i])) {
+                    selectedEntityIndex = i;
+                    isDragging = true;
+                    initialBox = { ...plannedEntities[i] };
+                    dragOffset = { x: normX - plannedEntities[i].xmin, y: normY - plannedEntities[i].ymin };
+                    renderCanvas();
+                    renderEntityList();
+                    e.preventDefault();
+                    return;
+                }
+            }
+
+            selectedEntityIndex = -1;
+            renderCanvas();
+            renderEntityList();
+        };
+
+        const handleCanvasPointerMove = (e) => {
+            const { normX, normY, px, py } = getCanvasCoord(e);
+            canvasCoordsDisplay.textContent = `Pos: (${normX.toFixed(2)}, ${normY.toFixed(2)})`;
+
+            if (selectedEntityIndex < 0 || !plannedEntities[selectedEntityIndex]) return;
+            const ent = plannedEntities[selectedEntityIndex];
+
+            if (isRotating && initialBox) {
+                const W = layoutCanvas.width;
+                const H = layoutCanvas.height;
+                const cx = ((initialBox.xmin + initialBox.xmax) / 2) * W;
+                const cy = ((initialBox.ymin + initialBox.ymax) / 2) * H;
+                const curAngle = Math.atan2(py - cy, px - cx);
+                const rotDiff = curAngle - initialAngle;
+                let newTheta = (initialBox.theta || 0.0) + rotDiff;
+                // Normalize into [-PI, PI]
+                newTheta = Math.atan2(Math.sin(newTheta), Math.cos(newTheta));
+                ent.theta = Math.round(newTheta * 1000) / 1000;
+                renderCanvas();
+                renderEntityList();
+                e.preventDefault();
+            } else if (isDragging && initialBox) {
+                const bw = initialBox.xmax - initialBox.xmin;
+                const bh = initialBox.ymax - initialBox.ymin;
+                let newXmin = Math.max(0.0, Math.min(1.0 - bw, normX - dragOffset.x));
+                let newYmin = Math.max(0.0, Math.min(1.0 - bh, normY - dragOffset.y));
+
+                ent.xmin = Math.round(newXmin * 1000) / 1000;
+                ent.ymin = Math.round(newYmin * 1000) / 1000;
+                ent.xmax = Math.round((ent.xmin + bw) * 1000) / 1000;
+                ent.ymax = Math.round((ent.ymin + bh) * 1000) / 1000;
+                renderCanvas();
+                renderEntityList();
+                e.preventDefault();
+            } else if (isResizing && initialBox && activeHandle) {
+                const minSize = 0.05;
+                if (activeHandle.includes('w')) {
+                    ent.xmin = Math.max(0.0, Math.min(initialBox.xmax - minSize, normX));
+                }
+                if (activeHandle.includes('e')) {
+                    ent.xmax = Math.min(1.0, Math.max(initialBox.xmin + minSize, normX));
+                }
+                if (activeHandle.includes('n')) {
+                    ent.ymin = Math.max(0.0, Math.min(initialBox.ymax - minSize, normY));
+                }
+                if (activeHandle.includes('s')) {
+                    ent.ymax = Math.min(1.0, Math.max(initialBox.ymin + minSize, normY));
+                }
+                renderCanvas();
+                renderEntityList();
+                e.preventDefault();
+            }
+        };
+
+        const handleCanvasPointerUp = () => {
+            isDragging = false;
+            isResizing = false;
+            isRotating = false;
+            activeHandle = null;
+            initialBox = null;
+        };
+
+        if (enableCustomLayout) {
+            enableCustomLayout.addEventListener('change', () => {
+                layoutCanvasSection.style.display = enableCustomLayout.checked ? 'block' : 'none';
+                if (enableCustomLayout.checked && plannedEntities.length === 0) {
+                    autoPlanLayout();
+                }
+            });
+        }
+
+        if (planLayoutBtn) planLayoutBtn.addEventListener('click', autoPlanLayout);
+
+        if (addEntityBtn) {
+            addEntityBtn.addEventListener('click', () => {
+                const newIdx = plannedEntities.length;
+                const step = (newIdx * 0.1) % 0.4;
+                plannedEntities.push({
+                    label: `object_${newIdx + 1}`,
+                    count: 1,
+                    ymin: Math.round((0.2 + step) * 100) / 100,
+                    xmin: Math.round((0.2 + step) * 100) / 100,
+                    ymax: Math.round((0.6 + step) * 100) / 100,
+                    xmax: Math.round((0.6 + step) * 100) / 100,
+                });
+                selectedEntityIndex = plannedEntities.length - 1;
+                renderCanvas();
+                renderEntityList();
+            });
+        }
+
+        if (removeEntityBtn) {
+            removeEntityBtn.addEventListener('click', () => {
+                if (selectedEntityIndex >= 0) {
+                    deleteEntity(selectedEntityIndex);
+                }
+            });
+        }
+
+        if (toggleHeatmapBtn) {
+            toggleHeatmapBtn.addEventListener('click', () => {
+                showGaussianHeatmap = !showGaussianHeatmap;
+                renderCanvas();
+            });
+        }
+
+        if (layoutCanvas) {
+            layoutCanvas.addEventListener('mousedown', handleCanvasPointerDown);
+            window.addEventListener('mousemove', handleCanvasPointerMove);
+            window.addEventListener('mouseup', handleCanvasPointerUp);
+            layoutCanvas.addEventListener('touchstart', handleCanvasPointerDown, { passive: false });
+            window.addEventListener('touchmove', handleCanvasPointerMove, { passive: false });
+            window.addEventListener('touchend', handleCanvasPointerUp);
+        }
+
+        document.querySelectorAll('input[name="ui_guidance_mode"]').forEach(radio => {
+            radio.addEventListener('change', renderCanvas);
+        });
+
+        // -------------------------------------------------------------
+        // Chat Helper Functions
+        // -------------------------------------------------------------
+
+        const readChatSession = () => {
+            try {
+                return window.sessionStorage.getItem(CHAT_SESSION_KEY);
+            } catch (_error) {
+                return null;
+            }
+        };
+
+        const saveChatSession = (sessionId) => {
+            try {
+                window.sessionStorage.setItem(CHAT_SESSION_KEY, sessionId);
+            } catch (_error) {
+                // The conversation still works for this page when storage is unavailable.
+            }
+        };
+
+        const clearChatSession = () => {
+            try {
+                window.sessionStorage.removeItem(CHAT_SESSION_KEY);
+            } catch (_error) {
+                // Nothing else is required when storage is unavailable.
+            }
+        };
+
+        const appendChatMessage = (role, message) => {
+            document.getElementById('chatEmpty')?.remove();
+            const bubble = document.createElement('div');
+            bubble.className = `chat-message ${role}`;
+            bubble.textContent = message;
+            chatTranscript.appendChild(bubble);
+            chatTranscript.scrollTop = chatTranscript.scrollHeight;
+        };
+
+        const appendChatImages = (generation) => {
+            if (!generation || !Array.isArray(generation.images)) {
+                return;
+            }
+            const gallery = document.createElement('div');
+            gallery.className = 'chat-images';
+            generation.images.forEach((imagePath, index) => {
+                const image = document.createElement('img');
+                image.src = new URL(imagePath, API_ORIGIN).href;
+                image.alt = `Generated image ${index + 1}`;
+                gallery.appendChild(image);
+            });
+            chatTranscript.appendChild(gallery);
+            chatTranscript.scrollTop = chatTranscript.scrollHeight;
+        };
+
+        const currentGenerationOptions = () => {
+            const formData = new FormData(form);
+            const opts = {
+                model: formData.get('model'),
+                negative_prompt: formData.get('negative_prompt') || null,
+                width: parseInt(formData.get('width')),
+                height: parseInt(formData.get('height')),
+                num_inference_steps: parseInt(formData.get('num_inference_steps')),
+                guidance_scale: parseFloat(formData.get('guidance_scale')),
+                num_images: parseInt(formData.get('num_images')),
+                seed: formData.get('seed') ? parseInt(formData.get('seed')) : null,
+                enhance_prompt: enhancePromptToggle.checked
+            };
+            if (enableCustomLayout && enableCustomLayout.checked && plannedEntities.length > 0) {
+                opts.layout_override = plannedEntities.map(e => ({
+                    label: e.label,
+                    count: e.count || 1,
+                    ymin: e.ymin,
+                    xmin: e.xmin,
+                    ymax: e.ymax,
+                    xmax: e.xmax,
+                    entity_id: e.entity_id,
+                    theta: e.theta || 0.0,
+                    rotation: e.theta || 0.0,
+                    mu_z: e.mu_z !== undefined ? e.mu_z : 0.5,
+                }));
+                opts.guidance_mode = getGuidanceMode();
+                opts.adaptive_guidance = adaptiveGuidanceToggle ? adaptiveGuidanceToggle.checked : true;
+            }
+            return opts;
+        };
+
+        promptTemplateSelect.addEventListener('change', () => {
+            const nextTemplateKey = promptTemplateSelect.value;
+            if (!nextTemplateKey) {
+                activePromptTemplate = '';
+                return;
+            }
+
+            const nextPrompt = PROMPT_TEMPLATES[nextTemplateKey];
+            if (!nextPrompt) {
+                promptTemplateSelect.value = activePromptTemplate;
+                return;
+            }
+
+            const currentPrompt = promptInput.value;
+            const hasCustomEdits = currentPrompt.trim() !== ''
+                && currentPrompt !== lastAppliedTemplate;
+            if (hasCustomEdits && !window.confirm(
+                'Replace your current prompt with the selected template?'
+            )) {
+                promptTemplateSelect.value = activePromptTemplate;
+                return;
+            }
+
+            promptInput.value = nextPrompt;
+            activePromptTemplate = nextTemplateKey;
+            lastAppliedTemplate = nextPrompt;
+            promptInput.focus();
+            promptInput.setSelectionRange(nextPrompt.length, nextPrompt.length);
+        });
+
+        modelSelect.addEventListener('change', () => {
+            const pixArtSelected = modelSelect.value === 'pixart-alpha';
+            widthSelect.value = '512';
+            heightSelect.value = '512';
+            stepsInput.value = '20';
+            guidanceInput.value = pixArtSelected ? '4.5' : '7.5';
+            Array.from(widthSelect.options).forEach(option => {
+                option.disabled = pixArtSelected && option.value !== '512';
+            });
+            Array.from(heightSelect.options).forEach(option => {
+                option.disabled = pixArtSelected && option.value !== '512';
+            });
+        });
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show loading
+            loading.style.display = 'block';
+            result.innerHTML = '';
+            generateBtn.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(form);
+            const data = {
+                model: formData.get('model'),
+                prompt: formData.get('prompt'),
+                negative_prompt: formData.get('negative_prompt') || null,
+                width: parseInt(formData.get('width')),
+                height: parseInt(formData.get('height')),
+                num_inference_steps: parseInt(formData.get('num_inference_steps')),
+                guidance_scale: parseFloat(formData.get('guidance_scale')),
+                num_images: parseInt(formData.get('num_images')),
+                seed: formData.get('seed') ? parseInt(formData.get('seed')) : null,
+                enhance_prompt: enhancePromptToggle.checked
+            };
+
+            if (enableCustomLayout && enableCustomLayout.checked && plannedEntities.length > 0) {
+                data.layout_override = plannedEntities.map(ent => ({
+                    label: ent.label,
+                    count: ent.count || 1,
+                    ymin: ent.ymin,
+                    xmin: ent.xmin,
+                    ymax: ent.ymax,
+                    xmax: ent.xmax,
+                    entity_id: ent.entity_id,
+                    theta: ent.theta || 0.0,
+                    rotation: ent.theta || 0.0,
+                    mu_z: ent.mu_z !== undefined ? ent.mu_z : 0.5,
+                }));
+                data.guidance_mode = getGuidanceMode();
+                data.adaptive_guidance = adaptiveGuidanceToggle ? adaptiveGuidanceToggle.checked : true;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/generate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Generation failed');
+                }
+                
+                const resultData = await response.json();
+                const escapeHtml = (value) => String(value)
+                    .replaceAll('&', '&amp;')
+                    .replaceAll('<', '&lt;')
+                    .replaceAll('>', '&gt;')
+                    .replaceAll('"', '&quot;')
+                    .replaceAll("'", '&#039;');
+                const enhancedPrompt = resultData.prompt_enhanced
+                    ? `
+                        <div class="enhanced-prompt">
+                            <strong>Enhanced prompt:</strong>
+                            ${escapeHtml(resultData.effective_prompt)}
+                        </div>
+                    `
+                    : '';
+                
+                const paramsInfo = resultData.parameters ? `
+                    <div style="margin-top: 8px; font-size: 13px; color: #475569; background: #f1f5f9; padding: 6px 10px; border-radius: 6px;">
+                        <span><strong>Seed:</strong> ${escapeHtml(resultData.parameters.seed)}</span> • 
+                        <span><strong>Steps:</strong> ${escapeHtml(resultData.parameters.num_inference_steps)}</span> • 
+                        <span><strong>Scale:</strong> ${escapeHtml(resultData.parameters.guidance_scale)}</span> • 
+                        <span><strong>Time:</strong> ${escapeHtml(resultData.parameters.elapsed_seconds.toFixed(2))}s</span>
+                    </div>
+                ` : '';
+
+                // Display results
+                let html = `
+                    <div class="success">
+                        <strong>✅ Image generated successfully!</strong><br>
+                        ID: ${escapeHtml(resultData.id)}<br>
+                        Model: ${escapeHtml(resultData.model)}
+                        ${enhancedPrompt}
+                        ${paramsInfo}
+                    </div>
+                `;
+                
+                resultData.images.forEach((imagePath, index) => {
+                    const imageUrl = new URL(imagePath, API_ORIGIN).href;
+                    html += `
+                        <div style="margin-top: 20px;">
+                            <h3>Image ${index + 1}</h3>
+                            <img src="${escapeHtml(imageUrl)}" alt="Generated image ${index + 1}">
+                            <p><small>Path: ${escapeHtml(imagePath)}</small></p>
+                        </div>
+                    `;
+                });
+                
+                result.innerHTML = html;
+                
+            } catch (error) {
+                const errorBox = document.createElement('div');
+                errorBox.className = 'error';
+                const errorTitle = document.createElement('strong');
+                errorTitle.textContent = '❌ Error: ';
+                errorBox.append(errorTitle, document.createTextNode(error.message));
+                result.replaceChildren(errorBox);
+            } finally {
+                loading.style.display = 'none';
+                generateBtn.disabled = false;
+            }
+        });
+
+        chatForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const message = chatInput.value.trim();
+            if (!message) {
+                return;
+            }
+
+            appendChatMessage('user', message);
+            chatInput.value = '';
+            chatSendBtn.disabled = true;
+            try {
+                const response = await fetch(`${API_BASE}/chat`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        session_id: readChatSession(),
+                        message,
+                        generation: currentGenerationOptions()
+                    })
+                });
+                const body = await response.json();
+                if (!response.ok) {
+                    throw new Error(body.detail || 'Chat request failed');
+                }
+                saveChatSession(body.session_id);
+                appendChatMessage('assistant', body.message);
+                appendChatImages(body.generation);
+            } catch (error) {
+                appendChatMessage('assistant', `Unable to complete that turn: ${error.message}`);
+            } finally {
+                chatSendBtn.disabled = false;
+                chatInput.focus();
+            }
+        });
+
+        newChatBtn.addEventListener('click', async () => {
+            const sessionId = readChatSession();
+            clearChatSession();
+            chatTranscript.replaceChildren();
+            const empty = document.createElement('p');
+            empty.className = 'chat-empty';
+            empty.id = 'chatEmpty';
+            empty.textContent = 'Start with a new image idea or question.';
+            chatTranscript.appendChild(empty);
+            if (sessionId) {
+                try {
+                    await fetch(`${API_BASE}/chat/sessions/${sessionId}`, {method: 'DELETE'});
+                } catch (_error) {
+                    // Local reset succeeds even if server-side cleanup is unavailable.
+                }
+            }
+            chatInput.focus();
+        });
+    </script>
+</body>
+</html>

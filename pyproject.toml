@@ -1,0 +1,22 @@
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+exclude = ["venv", ".venv", "models", "outputs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/test_api.py" = ["E402"]
+"tests/test_app.py" = ["E402"]
+"tests/test_chat_api.py" = ["E402"]
+
+[tool.coverage.run]
+branch = true
+source = ["app", "main"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 80
+omit = ["app/core/dependencies.py"]

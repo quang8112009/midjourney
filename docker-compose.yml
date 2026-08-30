@@ -1,0 +1,45 @@
+services:
+  ai-image-gen:
+    build: .
+    container_name: ai-image-gen
+    ports:
+      - "8000:8000"
+    volumes:
+      - model-cache:/app/models/cache
+      - generated-output:/app/outputs
+    environment:
+      DEVICE: ${DEVICE:-cuda}
+      DTYPE: ${DTYPE:-auto}
+      DEBUG: "false"
+      MODEL_ID: ${MODEL_ID:-runwayml/stable-diffusion-v1-5}
+      PIXART_MODEL_ID: ${PIXART_MODEL_ID:-PixArt-alpha/PixArt-XL-2-512x512}
+      CHAT_API_BASE_URL: ${CHAT_API_BASE_URL:-https://api.openai.com/v1}
+      CHAT_API_KEY: ${CHAT_API_KEY:-}
+      CHAT_MODEL: ${CHAT_MODEL:-}
+      CHAT_REASONING_TIMEOUT_SECONDS: ${CHAT_REASONING_TIMEOUT_SECONDS:-12}
+      CHAT_MAX_OUTPUT_TOKENS: ${CHAT_MAX_OUTPUT_TOKENS:-1200}
+      CHAT_MAX_MESSAGE_LENGTH: ${CHAT_MAX_MESSAGE_LENGTH:-4000}
+      CHAT_MAX_SESSIONS: ${CHAT_MAX_SESSIONS:-1000}
+      CHAT_MAX_HISTORY_MESSAGES: ${CHAT_MAX_HISTORY_MESSAGES:-12}
+      CHAT_MAX_HISTORY_CHARS: ${CHAT_MAX_HISTORY_CHARS:-16000}
+      CHAT_SESSION_TTL_SECONDS: ${CHAT_SESSION_TTL_SECONDS:-3600}
+      CHAT_RATE_LIMIT_PER_MINUTE: ${CHAT_RATE_LIMIT_PER_MINUTE:-30}
+      CHAT_LOG_DECISION_CONTENT: ${CHAT_LOG_DECISION_CONTENT:-false}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  model-cache:
+  generated-output:

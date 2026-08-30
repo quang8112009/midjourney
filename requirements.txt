@@ -1,0 +1,21 @@
+# API
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+pydantic>=2.9,<3
+pydantic-settings>=2.5,<3
+httpx>=0.27,<1
+
+# Image generation (PixArt pipeline support included)
+torch>=2.4,<3
+torchvision>=0.19,<1
+diffusers>=0.32,<1
+transformers>=4.47,<6
+accelerate>=1.2,<2
+safetensors>=0.4,<1
+sentencepiece>=0.2,<1
+
+# Image and file handling
+Pillow>=10.4,<13
+python-dotenv>=1,<2
+python-multipart>=0.0.12,<1
+aiofiles>=24.1,<26
