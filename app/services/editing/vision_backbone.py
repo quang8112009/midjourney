@@ -145,23 +145,67 @@ class MockVisionBackbone(BaseVisionBackbone):
         )
 
 
+BACKBONE_CROSS_DIMS = {
+    "sd15": 768,
+    "stable-diffusion": 768,
+    "pixart": 1152,
+    "pixart_alpha": 1152,
+    "pixart-alpha": 1152,
+    "sd35": 2048,
+    "sd35_large": 2048,
+    "stable-diffusion-3.5": 2048,
+    "flux": 3072,
+    "flux_dev": 3072,
+    "flux-dev": 3072,
+}
+
+
+class SwiGLU(nn.Module):
+    """SwiGLU activation block for nonlinear feature projection."""
+
+    def __init__(self, in_features: int, hidden_features: int) -> None:
+        super().__init__()
+        self.w1 = nn.Linear(in_features, hidden_features, bias=False)
+        self.w2 = nn.Linear(in_features, hidden_features, bias=False)
+        self.w3 = nn.Linear(hidden_features, in_features, bias=False)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.w3(torch.nn.functional.silu(self.w1(x)) * self.w2(x))
+
+
 class VisionFeatureProjector(nn.Module):
-    """Linear projection module mapping vision features to cross-attention dimension."""
+    """Linear or SwiGLU projection module mapping vision features to cross-attention dimension."""
 
     def __init__(
         self,
         vision_dim: int,
-        cross_attention_dim: int,
+        cross_attention_dim: int | None = None,
         bias: bool = True,
+        backbone: str | None = None,
+        use_swiglu: bool = False,
     ):
         super().__init__()
         self.vision_dim = vision_dim
-        self.cross_attention_dim = cross_attention_dim
-        if vision_dim != cross_attention_dim:
-            self.projector = nn.Sequential(
-                nn.LayerNorm(vision_dim),
-                nn.Linear(vision_dim, cross_attention_dim, bias=bias),
-            )
+        if cross_attention_dim is not None:
+            self.cross_attention_dim = cross_attention_dim
+        elif backbone is not None and backbone in BACKBONE_CROSS_DIMS:
+            self.cross_attention_dim = BACKBONE_CROSS_DIMS[backbone]
+        else:
+            self.cross_attention_dim = 1152
+
+        if vision_dim != self.cross_attention_dim:
+            if use_swiglu and self.cross_attention_dim >= 1024:
+                hidden_dim = int(2 * self.cross_attention_dim / 3)
+                self.projector = nn.Sequential(
+                    nn.LayerNorm(vision_dim),
+                    nn.Linear(vision_dim, self.cross_attention_dim, bias=bias),
+                    SwiGLU(self.cross_attention_dim, hidden_dim),
+                )
+            else:
+                self.projector = nn.Sequential(
+                    nn.LayerNorm(vision_dim),
+                    nn.Linear(vision_dim, self.cross_attention_dim, bias=bias),
+                )
         else:
             self.projector = nn.Identity()
 

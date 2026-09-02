@@ -18,14 +18,21 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 from app.core.config import settings
 from app.core.dependencies import model_service
 from app.core.rate_limit import SlidingWindowRateLimiter
+from app.services.editing.edit_pipeline import (
+    TIER_PROFILES,
+    QualityTier,
+    compute_work_units,
+)
 from app.services.editing.prompt_intent import PromptIntent, analyze_prompt
 from app.services.editing.semantic_planner import (
     plan_semantic_layout,
 )
 from app.services.model_service import (
+    FLUX_DEV,
     MAX_SEED,
     PIXART_ALPHA,
     STABLE_DIFFUSION,
+    STABLE_DIFFUSION_35,
     GenerationCapacityError,
     GenerationError,
     GenerationResult,
@@ -58,7 +65,15 @@ class GenerateRequest(BaseModel):
         max_length=settings.MAX_NEGATIVE_PROMPT_LENGTH,
         description="Content to avoid",
     )
-    model: Literal["stable-diffusion", "pixart-alpha"] = Field(
+    model: Literal[
+        "stable-diffusion",
+        "pixart-alpha",
+        "stable-diffusion-3.5",
+        "sd35",
+        "sd35_large",
+        "flux-dev",
+        "flux",
+    ] = Field(
         STABLE_DIFFUSION,
         description="Generation backend",
     )
@@ -71,6 +86,36 @@ class GenerateRequest(BaseModel):
     enhance_prompt: bool = Field(
         False,
         description="Append randomized style, lighting, and quality modifiers",
+    )
+    tier: Literal["preview", "final", "ultra"] | None = Field(
+        None,
+        description="Quality tier profile (preview=14 steps, final=28 steps, ultra=36 steps+refiner)",
+    )
+    quality_tier: Literal["preview", "final", "ultra"] | None = Field(
+        None,
+        description="Alias for tier",
+    )
+    cfg_rescale: float | None = Field(
+        None,
+        ge=0.0,
+        le=1.0,
+        description="CFG rescaling factor phi to prevent contrast blowout",
+    )
+    guidance_rescale: float | None = Field(
+        None,
+        ge=0.0,
+        le=1.0,
+        description="Alias for cfg_rescale",
+    )
+    refiner_enabled: bool | None = Field(
+        None,
+        description="Optional texture and micro-detail refinement pass",
+    )
+    refiner_strength: float | None = Field(
+        None,
+        ge=0.05,
+        le=0.60,
+        description="Denoise strength for refiner pass",
     )
     layout_override: list[dict[str, Any]] | None = Field(
         None,
@@ -100,6 +145,18 @@ class GenerateRequest(BaseModel):
 
     @model_validator(mode="after")
     def resolve_and_validate_model_defaults(self):
+        active_tier = self.tier or self.quality_tier
+        if active_tier and active_tier in TIER_PROFILES:
+            profile = TIER_PROFILES[active_tier]
+            if self.num_inference_steps is None:
+                self.num_inference_steps = profile.default_steps
+            if self.guidance_scale is None:
+                self.guidance_scale = profile.default_guidance_scale
+            if self.cfg_rescale is None and self.guidance_rescale is None:
+                self.cfg_rescale = profile.cfg_rescale
+            if self.refiner_enabled is None:
+                self.refiner_enabled = profile.refiner_default
+
         resolved = resolve_generation_defaults(
             self.model,
             width=self.width,

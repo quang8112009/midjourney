@@ -27,6 +27,9 @@ class Settings(BaseSettings):
 
     MODEL_ID: str = "runwayml/stable-diffusion-v1-5"
     PIXART_MODEL_ID: str = "PixArt-alpha/PixArt-XL-2-512x512"
+    SD35_MODEL_ID: str = "stabilityai/stable-diffusion-3.5-large"
+    FLUX_MODEL_ID: str = "black-forest-labs/FLUX.1-dev"
+    DEFAULT_MODEL_BACKBONE: str = "pixart-alpha"
     MODEL_CACHE_DIR: str = "./models/cache"
     DEVICE: Literal["auto", "cpu", "cuda"] = "auto"
     DTYPE: Literal["auto", "float32", "float16", "bfloat16"] = "auto"
@@ -38,6 +41,20 @@ class Settings(BaseSettings):
     DEFAULT_GUIDANCE_SCALE: float = Field(7.5, ge=1.0, le=20.0)
     PIXART_DEFAULT_STEPS: int = Field(20, ge=1, le=100)
     PIXART_DEFAULT_GUIDANCE_SCALE: float = Field(4.5, ge=1.0, le=20.0)
+    SD35_DEFAULT_STEPS: int = Field(28, ge=1, le=100)
+    SD35_DEFAULT_GUIDANCE_SCALE: float = Field(4.5, ge=1.0, le=20.0)
+    SD35_DEFAULT_WIDTH: int = Field(1024, ge=256, le=2048, multiple_of=8)
+    SD35_DEFAULT_HEIGHT: int = Field(1024, ge=256, le=2048, multiple_of=8)
+
+    # Inference-Time Quality & Tier Management
+    DEFAULT_QUALITY_TIER: Literal["preview", "final", "ultra"] = "final"
+    CFG_RESCALE: float = Field(0.70, ge=0.0, le=1.0)
+    REFINER_ENABLED: bool = False
+    REFINER_STRENGTH: float = Field(0.25, ge=0.05, le=0.60)
+    REFINER_STEPS: int = Field(8, ge=1, le=50)
+    GUIDANCE_SWITCH_THRESHOLD: float = Field(0.55, ge=0.0, le=1.0)
+    GUIDANCE_SCHEDULE_TYPE: Literal["two_phase", "depth_aware", "cosine", "linear"] = "two_phase"
+
     MAX_BATCH_PIXELS: int = Field(1_048_576, ge=65_536)
     MAX_GENERATION_WORK_UNITS: int = Field(52_428_800, ge=65_536)
     MAX_ASPECT_RATIO: float = Field(2.0, ge=1.0, le=8.0)

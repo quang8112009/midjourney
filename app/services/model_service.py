@@ -26,6 +26,8 @@ logger = logging.getLogger(__name__)
 
 STABLE_DIFFUSION = "stable-diffusion"
 PIXART_ALPHA = "pixart-alpha"
+STABLE_DIFFUSION_35 = "stable-diffusion-3.5"
+FLUX_DEV = "flux-dev"
 TEXT_TO_IMAGE_TASK = "text-to-image"
 INPAINTING_TASK = "inpainting"
 MAX_SEED = 2**63 - 1
@@ -87,8 +89,18 @@ def resolve_generation_defaults(
     num_inference_steps: int | None = None,
     guidance_scale: float | None = None,
 ) -> ResolvedGenerationDefaults:
-    """Fill omitted generation controls from the selected backend's one policy."""
-    if model == PIXART_ALPHA:
+    """Fill omitted generation controls from the selected backend's policy."""
+    if model in (STABLE_DIFFUSION_35, "sd35", "sd35_large"):
+        default_width = getattr(settings, "SD35_DEFAULT_WIDTH", 1024)
+        default_height = getattr(settings, "SD35_DEFAULT_HEIGHT", 1024)
+        default_steps = getattr(settings, "SD35_DEFAULT_STEPS", 28)
+        default_guidance_scale = getattr(settings, "SD35_DEFAULT_GUIDANCE_SCALE", 4.5)
+    elif model in (FLUX_DEV, "flux", "flux_dev"):
+        default_width = 1024
+        default_height = 1024
+        default_steps = 28
+        default_guidance_scale = 3.5
+    elif model == PIXART_ALPHA:
         default_width = 512
         default_height = 512
         default_steps = settings.PIXART_DEFAULT_STEPS

@@ -48,6 +48,120 @@ class GuidanceSchedule(ABC):
         pass
 
 
+class MultiEncoderTokenIsolator:
+    """Enforces 0.0-bias invariant across CLIP-L, CLIP-G, and T5-XXL token sequences.
+
+    Guarantees zero spatial gradient leakage into style, lighting, camera, and mood tokens
+    across multi-stream MMDiT architectures (e.g. SD 3.5 Large).
+    """
+
+    def __init__(
+        self,
+        clip_l_len: int = 77,
+        clip_g_len: int = 77,
+        t5_len: int = 512,
+    ) -> None:
+        self.clip_l_len = clip_l_len
+        self.clip_g_len = clip_g_len
+        self.t5_len = t5_len
+        self.t5_offset = clip_l_len + clip_g_len
+        self.total_txt_len = clip_l_len + clip_g_len + t5_len
+
+    def map_entity_tokens_to_joint(
+        self,
+        t5_token_indices: list[int],
+    ) -> list[int]:
+        """Maps T5-local entity indices to absolute columns in joint attention context."""
+        joint_indices = []
+        for idx in t5_token_indices:
+            if 0 <= idx < self.t5_len:
+                joint_indices.append(self.t5_offset + idx)
+        return joint_indices
+
+    def build_bias_mask(
+        self,
+        active_joint_indices: list[int],
+        device: torch.device | str = "cpu",
+    ) -> torch.Tensor:
+        """Returns boolean mask of length total_txt_len where True = allowed for guidance.
+
+        All non-entity tokens (including 100% of CLIP-L and CLIP-G) are strictly False (0.0 bias).
+        """
+        mask = torch.zeros(self.total_txt_len, dtype=torch.bool, device=device)
+        for idx in active_joint_indices:
+            if idx >= self.t5_offset:
+                mask[idx] = True
+        return mask
+
+
+class MMDiTJointAttentionHook:
+    """Attention hook for joint self/cross-attention blocks in MMDiT (SD 3.5 Large).
+
+    Intercepts the pre-softmax joint attention logits and modifies only the off-diagonal
+    Image -> Text slice corresponding to planned spatial entities.
+    """
+
+    def __init__(
+        self,
+        block_idx: int,
+        schedule: GuidanceSchedule | None = None,
+        isolator: MultiEncoderTokenIsolator | None = None,
+        num_patches: int = 4096,
+        grid_size: tuple[int, int] = (64, 64),
+        guidance_strength: float = DEFAULT_GUIDANCE_STRENGTH,
+    ) -> None:
+        self.block_idx = block_idx
+        self.schedule = schedule or TwoPhaseSchedule()
+        self.isolator = isolator or MultiEncoderTokenIsolator()
+        self.num_patches = num_patches
+        self.grid_h, self.grid_w = grid_size
+        self.guidance_strength = guidance_strength
+        self.current_step = 0
+        self.total_steps = 28
+        self.current_progress = 0.0
+        self.plan: SemanticLayoutPlan | None = None
+        self.enabled = True
+
+    def set_step_context(self, step: int, total_steps: int, progress: float) -> None:
+        self.current_step = step
+        self.total_steps = total_steps
+        self.current_progress = progress
+
+    def set_plan(self, plan: SemanticLayoutPlan | None) -> None:
+        self.plan = plan
+
+    def modify_joint_attention_logits(
+        self,
+        attn_logits: torch.Tensor,
+        img_seq_len: int = 4096,
+        txt_seq_len: int = 666,
+    ) -> torch.Tensor:
+        """Modify off-diagonal image->text logits in-place or return biased tensor."""
+        if not self.enabled or self.plan is None or self.guidance_strength <= 0:
+            return attn_logits
+
+        sched_weight = self.schedule.weight(self.current_progress)
+        if sched_weight <= 1e-7:
+            return attn_logits
+
+        device = attn_logits.device
+        dtype = attn_logits.dtype
+
+        # Off-diagonal slice: Image queries (dim -2: :img_seq_len) to Text keys (dim -1: img_seq_len:img_seq_len+txt_seq_len)
+        bias_matrix = build_layout_guidance_bias(
+            self.plan,
+            num_image_tokens=img_seq_len,
+            num_text_tokens=txt_seq_len,
+            guidance_strength=self.guidance_strength * sched_weight,
+            device=device,
+            dtype=dtype,
+        )
+
+        cross_slice = attn_logits[..., :img_seq_len, img_seq_len : img_seq_len + txt_seq_len]
+        attn_logits[..., :img_seq_len, img_seq_len : img_seq_len + txt_seq_len] = cross_slice + bias_matrix
+        return attn_logits
+
+
 class TwoPhaseSchedule(GuidanceSchedule):
     """Standard two-phase schedule (active 0-cutoff, released cutoff-1.0)."""
 
