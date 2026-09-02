@@ -41,6 +41,7 @@ class _Conversation:
     history_chars: int
     last_generation_prompt: str | None
     touched_at: float
+    last_semantic_plan: dict | None = None
 
 
 class ConversationStore:
@@ -317,6 +318,33 @@ class ConversationStore:
                 turns=tuple(conversation.turns),
                 last_generation_prompt=conversation.last_generation_prompt,
             )
+
+    def set_session_plan(
+        self,
+        session_id: str | uuid.UUID,
+        plan: dict | None,
+    ) -> None:
+        """Record or update the active semantic plan for multi-turn conversational continuity."""
+        normalized_session_id = self._normalize_identifier(session_id, "session_id")
+        now = self._clock()
+        with self._lock:
+            self._expire_locked(now)
+            conversation = self._get_or_create_locked(normalized_session_id, now)
+            conversation.last_semantic_plan = plan
+
+    def get_session_plan(
+        self,
+        session_id: str | uuid.UUID,
+    ) -> dict | None:
+        """Retrieve the last active semantic plan for this session."""
+        normalized_session_id = self._normalize_identifier(session_id, "session_id")
+        now = self._clock()
+        with self._lock:
+            self._expire_locked(now)
+            conversation = self._existing_locked(normalized_session_id, now, touch=True)
+            if conversation is None:
+                return None
+            return conversation.last_semantic_plan
 
     def set_last_generation_prompt(
         self,

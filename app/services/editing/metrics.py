@@ -8,7 +8,7 @@ is absent - the proxy is never silently reported as the learned metric.
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from typing import Any
 
 import torch
@@ -336,3 +336,44 @@ def evaluate_aesthetic_freedom(
         "aesthetic_freedom_score": freedom_score,
         "zero_bias_verified": (zero_violations == 0),
     }
+
+
+@dataclass(frozen=True)
+class StageTrace:
+    """Detailed execution record for one stage of the pipeline."""
+
+    stage: str
+    elapsed_seconds: float
+    details: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
+class DataFlowTrace:
+    """Request-scoped observability tracking across Planner, Guidance, and Pipeline stages."""
+
+    request_id: str
+    stages: list[StageTrace] = field(default_factory=list)
+    total_elapsed_seconds: float = 0.0
+
+    def add_stage(self, stage: str, elapsed_seconds: float, **details: Any) -> None:
+        self.stages.append(
+            StageTrace(
+                stage=stage,
+                elapsed_seconds=round(elapsed_seconds, 4),
+                details=details,
+            )
+        )
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "request_id": self.request_id,
+            "total_elapsed_seconds": round(self.total_elapsed_seconds, 4),
+            "stages": [
+                {
+                    "stage": s.stage,
+                    "elapsed_seconds": s.elapsed_seconds,
+                    "details": s.details,
+                }
+                for s in self.stages
+            ],
+        }

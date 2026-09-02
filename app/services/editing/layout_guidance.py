@@ -48,6 +48,39 @@ class GuidanceSchedule(ABC):
         pass
 
 
+BACKBONE_TOKEN_BUDGETS = {
+    "sd15": 77,
+    "stable-diffusion": 77,
+    "pixart": 120,
+    "pixart_alpha": 120,
+    "pixart-alpha": 120,
+    "sd35": 666,
+    "sd35_large": 666,
+    "stable-diffusion-3.5": 666,
+    "flux": 512,
+    "flux_dev": 512,
+    "flux-dev": 512,
+}
+
+
+def resolve_token_budget(backbone: str = "sd15") -> int:
+    """Resolve the maximum token context length for the given model backbone.
+
+    Fixes F6: SD 1.5 uses 77 (CLIP-L), PixArt uses 120 (T5-XXL), SD 3.5 Large uses 666
+    (CLIP-L 77 + CLIP-G 77 + T5 512), and FLUX.1 uses 512 (T5-XXL).
+    """
+    normalized = backbone.lower().replace("_", "-")
+    if normalized in BACKBONE_TOKEN_BUDGETS:
+        return BACKBONE_TOKEN_BUDGETS[normalized]
+    if "3.5" in normalized or "sd3" in normalized:
+        return 666
+    if "flux" in normalized:
+        return 512
+    if "pixart" in normalized:
+        return 120
+    return 77
+
+
 class MultiEncoderTokenIsolator:
     """Enforces 0.0-bias invariant across CLIP-L, CLIP-G, and T5-XXL token sequences.
 
@@ -147,7 +180,7 @@ class MMDiTJointAttentionHook:
         device = attn_logits.device
         dtype = attn_logits.dtype
 
-        # Off-diagonal slice: Image queries (dim -2: :img_seq_len) to Text keys (dim -1: img_seq_len:img_seq_len+txt_seq_len)
+        # Off-diagonal slice: Image queries to Text keys
         bias_matrix = build_layout_guidance_bias(
             self.plan,
             num_image_tokens=img_seq_len,
@@ -158,7 +191,9 @@ class MMDiTJointAttentionHook:
         )
 
         cross_slice = attn_logits[..., :img_seq_len, img_seq_len : img_seq_len + txt_seq_len]
-        attn_logits[..., :img_seq_len, img_seq_len : img_seq_len + txt_seq_len] = cross_slice + bias_matrix
+        attn_logits[..., :img_seq_len, img_seq_len : img_seq_len + txt_seq_len] = (
+            cross_slice + bias_matrix
+        )
         return attn_logits
 
 
@@ -459,7 +494,9 @@ class LayoutGuidanceProcessor:
         self.depth_guidance_enabled = depth_guidance_enabled
         self.visual_cross_attn_enabled = visual_cross_attn_enabled
         self.visual_feature_strength = visual_feature_strength
-        self._bias: torch.Tensor | None = None
+        self._base_bias: torch.Tensor | None = None
+        self._cached_proj_vis: torch.Tensor | None = None
+        self._cached_vis_id: int | None = None
         self._active = True
         self._current_progress: float = 0.0
         self._projectors: dict[int, VisionFeatureProjector] = {}
@@ -472,7 +509,9 @@ class LayoutGuidanceProcessor:
 
     def set_plan(self, plan: SemanticLayoutPlan | None) -> None:
         self.plan = plan
-        self._bias = None
+        self._base_bias = None
+        self._cached_proj_vis = None
+        self._cached_vis_id = None
         if plan is not None:
             if getattr(plan, "guidance_mode", None):
                 self.guidance_mode = plan.guidance_mode
@@ -527,11 +566,24 @@ class LayoutGuidanceProcessor:
             if vis_features is not None:
                 target_dim = encoder_hidden_states.shape[-1]
                 batch_size = hidden_states.shape[0]
-                proj_vis = self._project_visual_features(
-                    vis_features, target_dim, hidden_states.device, hidden_states.dtype
-                )
-                if proj_vis.shape[0] == 1 and batch_size > 1:
-                    proj_vis = proj_vis.expand(batch_size, -1, -1)
+                vis_id = id(vis_features)
+                if (
+                    self._cached_proj_vis is None
+                    or self._cached_vis_id != vis_id
+                    or self._cached_proj_vis.shape[0] != batch_size
+                    or self._cached_proj_vis.shape[-1] != target_dim
+                    or self._cached_proj_vis.device != hidden_states.device
+                    or self._cached_proj_vis.dtype != hidden_states.dtype
+                ):
+                    proj_vis = self._project_visual_features(
+                        vis_features, target_dim, hidden_states.device, hidden_states.dtype
+                    )
+                    if proj_vis.shape[0] == 1 and batch_size > 1:
+                        proj_vis = proj_vis.expand(batch_size, -1, -1)
+                    self._cached_proj_vis = proj_vis
+                    self._cached_vis_id = vis_id
+                else:
+                    proj_vis = self._cached_proj_vis
 
                 # Concatenate visual reference tokens with text tokens
                 encoder_hidden_states = torch.cat(
@@ -562,17 +614,18 @@ class LayoutGuidanceProcessor:
             num_text_tokens = encoder_hidden_states.shape[1]
             batch_size = hidden_states.shape[0]
 
+            # Pre-compute static normalized base heatmap once; scale dynamically in O(1) per step
             if (
-                self._bias is None
-                or self._bias.shape != (num_image_tokens, num_text_tokens)
-                or self._bias.device != hidden_states.device
-                or self._bias.dtype != hidden_states.dtype
+                self._base_bias is None
+                or self._base_bias.shape != (num_image_tokens, num_text_tokens)
+                or self._base_bias.device != hidden_states.device
+                or self._base_bias.dtype != hidden_states.dtype
             ):
-                self._bias = build_layout_guidance_bias(
+                self._base_bias = build_layout_guidance_bias(
                     self.plan,
                     num_image_tokens=num_image_tokens,
                     num_text_tokens=num_text_tokens,
-                    guidance_strength=self.guidance_strength * sched_weight,
+                    guidance_strength=1.0,
                     aspect=aspect,
                     feather_radius=self.feather_radius,
                     guidance_mode=self.guidance_mode,
@@ -581,9 +634,8 @@ class LayoutGuidanceProcessor:
                     dtype=hidden_states.dtype,
                 )
 
-            bias_4d = self._bias.unsqueeze(0).unsqueeze(0).to(
-                device=hidden_states.device, dtype=hidden_states.dtype
-            )
+            effective_strength = float(self.guidance_strength * sched_weight)
+            bias_4d = (self._base_bias * effective_strength).unsqueeze(0).unsqueeze(0)
 
             if batch_size > 1:
                 bias_4d = bias_4d.expand(batch_size, 1, -1, -1)

@@ -20,19 +20,15 @@ from app.core.dependencies import model_service
 from app.core.rate_limit import SlidingWindowRateLimiter
 from app.services.editing.edit_pipeline import (
     TIER_PROFILES,
-    QualityTier,
-    compute_work_units,
 )
 from app.services.editing.prompt_intent import PromptIntent, analyze_prompt
 from app.services.editing.semantic_planner import (
     plan_semantic_layout,
 )
 from app.services.model_service import (
-    FLUX_DEV,
     MAX_SEED,
     PIXART_ALPHA,
     STABLE_DIFFUSION,
-    STABLE_DIFFUSION_35,
     GenerationCapacityError,
     GenerationError,
     GenerationResult,
@@ -89,7 +85,7 @@ class GenerateRequest(BaseModel):
     )
     tier: Literal["preview", "final", "ultra"] | None = Field(
         None,
-        description="Quality tier profile (preview=14 steps, final=28 steps, ultra=36 steps+refiner)",
+        description="Quality tier (preview=14 steps, final=28 steps, ultra=36 steps+refiner)",
     )
     quality_tier: Literal["preview", "final", "ultra"] | None = Field(
         None,
@@ -120,6 +116,10 @@ class GenerateRequest(BaseModel):
     layout_override: list[dict[str, Any]] | None = Field(
         None,
         description="Optional custom entity layout bounding boxes/Gaussians",
+    )
+    plan: dict[str, Any] | None = Field(
+        None,
+        description="Optional pre-computed semantic layout plan from /api/v1/layout/plan",
     )
     guidance_mode: Literal["gaussian", "box"] | None = Field(
         None,

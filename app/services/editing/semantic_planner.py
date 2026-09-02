@@ -610,6 +610,7 @@ class DensityField:
     seed: int | None = None
     token_indices: tuple[int, ...] = ()
     mu_z: float = 0.5
+    provenance: Literal["planner", "user_override", "llm"] = "planner"
 
     def __post_init__(self):
         mu_y_c = max(0.0, min(1.0, float(self.center[0])))
@@ -790,6 +791,8 @@ class DensityField:
             "seed": self.seed,
             "token_indices": list(self.token_indices),
             "mu_z": self.mu_z,
+            "is_density_field": True,
+            "provenance": self.provenance,
         }
 
 
@@ -939,6 +942,7 @@ class PlannedObject:
     attributes: tuple[str, ...] = ()
     gaussian: GaussianSpatialPrior | None = None
     entity_id: str | None = None
+    provenance: Literal["planner", "user_override", "llm"] = "planner"
 
     def __post_init__(self):
         if self.gaussian is None:
@@ -956,6 +960,7 @@ class PlannedObject:
             "attributes": list(self.attributes),
             "gaussian": self.gaussian.to_dict() if self.gaussian else None,
             "entity_id": self.entity_id,
+            "provenance": self.provenance,
         }
 
 
@@ -2034,9 +2039,12 @@ def plan_semantic_layout(
     if layout_override:
         for idx, item in enumerate(layout_override):
             label = str(item.get("label", f"object_{idx}"))
-            count = int(item.get("count", 1))
+            count = int(item.get("expected_count", item.get("count", 1)))
+            prov = item.get("provenance", "user_override")
             if "box" in item and isinstance(item["box"], dict):
                 box = NormalizedBox(**item["box"])
+            elif "region" in item and isinstance(item["region"], dict):
+                box = NormalizedBox(**item["region"])
             else:
                 box = NormalizedBox(
                     ymin=float(item.get("ymin", 0.2)),
@@ -2047,11 +2055,15 @@ def plan_semantic_layout(
 
             tok_indices = tuple(token_indices_by_word.get(label, []))
             if not tok_indices:
-                tok_indices = (idx,)
+                if "token_indices" in item and item["token_indices"]:
+                    tok_indices = tuple(item["token_indices"])
+                else:
+                    tok_indices = (idx,)
 
             is_df = (
                 item.get("is_density_field", False)
                 or item.get("density_field", False)
+                or item.get("distribution_type") in ("gaussian", "uniform", "radial", "elongated")
                 or count >= density_entity_threshold
             )
 
@@ -2075,6 +2087,7 @@ def plan_semantic_layout(
                     seed=seed,
                     token_indices=tok_indices,
                     mu_z=mu_z,
+                    provenance=prov,
                 )
                 planned_density_fields.append(df)
                 for tid in tok_indices:
@@ -2107,6 +2120,7 @@ def plan_semantic_layout(
                     attributes=tuple(item.get("attributes", [])),
                     gaussian=gaussian,
                     entity_id=ent_id,
+                    provenance=prov,
                 )
                 planned_objects.append(obj)
                 for tid in tok_indices:
