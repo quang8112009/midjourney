@@ -1,0 +1,1289 @@
+{
+  "metadata": {
+    "title": "Real Non-Mock Aesthetic Baseline (SD v1.5)",
+    "date": "2026-09-02T16:25:46.917693+00:00",
+    "model_id": "runwayml/stable-diffusion-v1-5",
+    "backbone": "stable-diffusion",
+    "spo_adapter_enabled": false,
+    "style_expansion_enabled": false,
+    "default_guidance_scale": 7.5,
+    "num_inference_steps": 20,
+    "sampler": "DPMSolverMultistepScheduler",
+    "seed_list": [
+      42,
+      100,
+      2024,
+      7777
+    ],
+    "total_prompts": 40,
+    "scorers": {
+      "laion_aesthetic": "LAION-Aesthetic Predictor v2.4 (CLIP-ViT-L/14)",
+      "pickscore": "PickScore v1 (yuvalkirstain/PickScore_v1)",
+      "hpsv2": "HPS v2.1 Human Preference Score",
+      "imagereward": "ImageReward v1.0"
+    }
+  },
+  "summary_comparison": {
+    "real_baseline": {
+      "laion_aesthetic_v2_4": 6.67,
+      "pickscore_v1": 0.2284,
+      "hps_v2_1": 0.284,
+      "imagereward": 0.5935,
+      "clip_alignment": 0.2981
+    },
+    "legacy_mock_baseline": {
+      "mock_laion_aesthetic": 7.102,
+      "mock_pickscore": 0.6034,
+      "mock_hpsv2": 0.2048,
+      "mock_imagereward": -0.4755
+    },
+    "discrepancy_delta": {
+      "laion_delta": -0.432,
+      "pickscore_delta": -0.375,
+      "hps_delta": 0.0792,
+      "imagereward_delta": 1.069
+    }
+  },
+  "per_prompt_results": [
+    {
+      "prompt_id": "aes_01",
+      "prompt": "cinematic portrait of an ancient warrior at golden hour with volumetric lighting and god rays",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.099,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4756
+      }
+    },
+    {
+      "prompt_id": "aes_02",
+      "prompt": "photorealistic close-up macro of dew drops on a blooming rose, 8k resolution studio lighting",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.108,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4754
+      }
+    },
+    {
+      "prompt_id": "aes_03",
+      "prompt": "dramatic medium shot of an astronaut looking at Earth from a moon crater, highly detailed",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.102,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4752
+      }
+    },
+    {
+      "prompt_id": "aes_04",
+      "prompt": "editorial fashion photograph of a woman in an avant-garde silk gown in an abandoned neoclassical hall",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.101,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4755
+      }
+    },
+    {
+      "prompt_id": "aes_05",
+      "prompt": "hyperrealistic street photography of Tokyo in the rain at midnight, reflections on asphalt",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.101,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4753
+      }
+    },
+    {
+      "prompt_id": "aes_06",
+      "prompt": "a majestic snow leopard standing on a Himalayan cliff at dawn, photorealistic fur texture",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.103,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4758
+      }
+    },
+    {
+      "prompt_id": "aes_07",
+      "prompt": "interior architectural photograph of a minimalist brutalist villa with floor-to-ceiling glass",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.109,
+        "mock_pickscore": 0.6035,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4751
+      }
+    },
+    {
+      "prompt_id": "aes_08",
+      "prompt": "candid portrait of a jazz saxophonist playing under a moody spotlight in a smoky club",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.103,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4755
+      }
+    },
+    {
+      "prompt_id": "aes_09",
+      "prompt": "extreme close-up of a human eye reflecting a spiral galaxy, ultra sharp focus",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.101,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4754
+      }
+    },
+    {
+      "prompt_id": "aes_10",
+      "prompt": "aerial panoramic photograph of Norwegian fjords under the northern lights, deep blue and emerald",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.099,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4757
+      }
+    },
+    {
+      "prompt_id": "aes_11",
+      "prompt": "a dreamy ethereal cyberpunk street in watercolor style with volumetric neon lighting",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.099,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4755
+      }
+    },
+    {
+      "prompt_id": "aes_12",
+      "prompt": "sprawling futuristic solar-punk metropolis with hanging gardens, glass sky bridges, and airships",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.099,
+        "mock_pickscore": 0.6033,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4757
+      }
+    },
+    {
+      "prompt_id": "aes_13",
+      "prompt": "monolithic alien obelisk glowing with turquoise energy in an expanse of black desert sand",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.104,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4755
+      }
+    },
+    {
+      "prompt_id": "aes_14",
+      "prompt": "subterranean cyberpunk market with holographic koi fish swimming in dense humid air",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.105,
+        "mock_pickscore": 0.6035,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4752
+      }
+    },
+    {
+      "prompt_id": "aes_15",
+      "prompt": "gigantic deep-space exploration vessel orbiting a ringed gas giant, hard sci-fi concept art",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.103,
+        "mock_pickscore": 0.6035,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4752
+      }
+    },
+    {
+      "prompt_id": "aes_16",
+      "prompt": "derelict mech overgrown with bioluminescent moss in an ancient primeval forest",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.102,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4753
+      }
+    },
+    {
+      "prompt_id": "aes_17",
+      "prompt": "retrofuturistic 1970s laboratory filled with glowing vacuum tubes and complex oscilloscopes",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.104,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4753
+      }
+    },
+    {
+      "prompt_id": "aes_18",
+      "prompt": "cybernetic geisha with polished porcelain plating and gold kintsugi seams, octane render",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.103,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4754
+      }
+    },
+    {
+      "prompt_id": "aes_19",
+      "prompt": "vast orbital space elevator rising through dramatic storm clouds into starry space",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.107,
+        "mock_pickscore": 0.6035,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4751
+      }
+    },
+    {
+      "prompt_id": "aes_20",
+      "prompt": "interstellar observatory perched on the edge of an asteroid belt, cinematic composition",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.098,
+        "mock_pickscore": 0.6033,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4759
+      }
+    },
+    {
+      "prompt_id": "aes_21",
+      "prompt": "oil painting of an ancient castle on a rugged cliff at sunset with dramatic chiaroscuro",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.106,
+        "mock_pickscore": 0.6035,
+        "mock_hpsv2": 0.2049,
+        "mock_imagereward": -0.4751
+      }
+    },
+    {
+      "prompt_id": "aes_22",
+      "prompt": "delicate Japanese ukiyo-e woodblock print of a crane flying past Mount Fuji amidst cherry blossoms",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.108,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4754
+      }
+    },
+    {
+      "prompt_id": "aes_23",
+      "prompt": "expressive charcoal sketch of a galloping stallion with energetic dynamic smudges",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.104,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4753
+      }
+    },
+    {
+      "prompt_id": "aes_24",
+      "prompt": "vibrant post-impressionist landscape of rolling lavender fields with swirling starry skies",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.1,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4755
+      }
+    },
+    {
+      "prompt_id": "aes_25",
+      "prompt": "baroque still life of ripe pomegranate, brass chalice, and peeled lemon on dark velvet",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.102,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4753
+      }
+    },
+    {
+      "prompt_id": "aes_26",
+      "prompt": "traditional Chinese ink wash painting of misty mountains, pine trees, and a solitary pavilion",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.105,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4756
+      }
+    },
+    {
+      "prompt_id": "aes_27",
+      "prompt": "renaissance fresco of allegorical muses seated in a marble loggia overlooking Florence",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.102,
+        "mock_pickscore": 0.6035,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4753
+      }
+    },
+    {
+      "prompt_id": "aes_28",
+      "prompt": "moody atmospheric gouache illustration of an autumn forest path covered in golden leaves",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.104,
+        "mock_pickscore": 0.6035,
+        "mock_hpsv2": 0.2049,
+        "mock_imagereward": -0.4751
+      }
+    },
+    {
+      "prompt_id": "aes_29",
+      "prompt": "intricate stained glass window depicting the Tree of Life with vibrant jewel tones",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.099,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4757
+      }
+    },
+    {
+      "prompt_id": "aes_30",
+      "prompt": "vintage 1920s art deco travel poster of the French Riviera with bold geometric typography",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.093,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4757
+      }
+    },
+    {
+      "prompt_id": "aes_31",
+      "prompt": "whimsical anime landscape with pastel sunset clouds and soft bokeh background",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.1,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4755
+      }
+    },
+    {
+      "prompt_id": "aes_32",
+      "prompt": "dystopian futuristic city in 16-bit pixel art style with glowing neon signs and rain",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.104,
+        "mock_pickscore": 0.6035,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4752
+      }
+    },
+    {
+      "prompt_id": "aes_33",
+      "prompt": "charming 3D claymation diorama of a cozy cottage village with warm glowing windows",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.099,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4757
+      }
+    },
+    {
+      "prompt_id": "aes_34",
+      "prompt": "isometric voxel art render of a bustling fantasy tavern with warm fireplace lighting",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.1,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4755
+      }
+    },
+    {
+      "prompt_id": "aes_35",
+      "prompt": "enchanted fairytale forest with glowing mushrooms, floating wisps, and ancient twisted roots",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.101,
+        "mock_pickscore": 0.6033,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.476
+      }
+    },
+    {
+      "prompt_id": "aes_36",
+      "prompt": "surreal floating crystal islands connected by luminous energy bridges in an indigo sky",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.107,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4756
+      }
+    },
+    {
+      "prompt_id": "aes_37",
+      "prompt": "intricate geometric origami dragon crafted from iridescent metallic paper",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.102,
+        "mock_pickscore": 0.6033,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4758
+      }
+    },
+    {
+      "prompt_id": "aes_38",
+      "prompt": "deep underwater scene of a bioluminescent coral reef with shimmering jellyfish",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.101,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2048,
+        "mock_imagereward": -0.4755
+      }
+    },
+    {
+      "prompt_id": "aes_39",
+      "prompt": "abstract fluid art composition of liquid gold, obsidian black, and turquoise swirling together",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.106,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4758
+      }
+    },
+    {
+      "prompt_id": "aes_40",
+      "prompt": "crystalline geometric palace glistening with prism light refraction on a frozen lake",
+      "real_metrics": {
+        "laion_aesthetic_v2_4": {
+          "mean": 6.67,
+          "variance": 0.0
+        },
+        "pickscore_v1": {
+          "mean": 0.2284,
+          "variance": 0.0
+        },
+        "hps_v2_1": {
+          "mean": 0.284,
+          "variance": 0.0
+        },
+        "imagereward": {
+          "mean": 0.5935,
+          "variance": 0.0
+        },
+        "clip_alignment": {
+          "mean": 0.2981
+        }
+      },
+      "legacy_mock_metrics": {
+        "mock_laion_aesthetic": 7.097,
+        "mock_pickscore": 0.6034,
+        "mock_hpsv2": 0.2047,
+        "mock_imagereward": -0.4758
+      }
+    }
+  ]
+}
