@@ -221,3 +221,38 @@ def test_resolve_token_budget_multibackbone():
     assert resolve_token_budget("sd35_large") == 666
     assert resolve_token_budget("flux-dev") == 512
     assert resolve_token_budget("flux") == 512
+
+
+def test_compound_noun_phrase_parsing_and_adjective_attachment():
+    """Verify adjective-noun attachment and compound noun phrase parsing."""
+    from app.services.editing.prompt_intent import analyze_prompt
+    from app.services.editing.semantic_planner import plan_semantic_layout
+
+    # 1. Multi-entity prompt with compound material phrase
+    prompt_smoke = "a red cube in front of a blue sphere on a marble floor"
+    plan = plan_semantic_layout(analyze_prompt(prompt_smoke))
+    labels = [obj.label for obj in plan.objects]
+    assert "marble" not in labels, "Material adjective 'marble' should not be an independent entity"
+    assert "floor" in labels
+    assert "cube" in labels
+    assert "sphere" in labels
+    assert len(plan.objects) == 3
+
+    floor_obj = next(o for o in plan.objects if o.label == "floor")
+    assert "marble" in floor_obj.attributes
+    # Verify y-axis placement: floor is at bottom surface (ymin >= 0.45)
+    assert floor_obj.box.ymin >= 0.45
+
+    # 2. Additional compound noun phrases
+    compounds = [
+        ("a wooden table in a room", "table", "wooden"),
+        ("a glass bottle on a counter", "bottle", "glass"),
+        ("a ceramic mug on a wooden desk", "mug", "ceramic"),
+    ]
+    for prompt, expected_noun, expected_attr in compounds:
+        p = plan_semantic_layout(analyze_prompt(prompt))
+        obj = next((o for o in p.objects if o.label == expected_noun), None)
+        assert obj is not None, f"Expected entity '{expected_noun}' in {prompt}"
+        assert (
+            expected_attr in obj.attributes
+        ), f"Expected attribute '{expected_attr}' for '{expected_noun}'"

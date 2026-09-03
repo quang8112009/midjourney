@@ -83,10 +83,16 @@ DEFAULT_DENSITY_ENTITY_THRESHOLD = 10
 
 _COMMON_ADJECTIVES = frozenset(
     """red green blue yellow orange purple black white gray grey brown pink gold silver
-    tall short small big large giant tiny cute cheerful happy sad rustic wooden fluffy
-    furry silky shiny dark bright vibrant deep warm cool golden snowy sunny stormy
-    majestic wild ancient modern sweet sour fresh ripe young old ceramic vintage glass
-    metallic leather stone crystal glowing shining gleaming floating blooming burning
+    cyan magenta turquoise crimson scarlet violet indigo amber beige navy teal maroon tan pastel
+    tall short small big large giant tiny huge miniature colossal massive cute cheerful happy sad
+    rustic wooden wood marble glass ceramic metallic metal leather stone crystal plastic bronze
+    copper steel iron paper concrete brick granite timber porcelain clay sandstone slate bamboo
+    plaster linen wool acrylic obsidian emerald ruby sapphire diamond coral mossy
+    fluffy furry silky shiny dark bright vibrant deep warm cool golden snowy sunny stormy
+    rough smooth glossy matte rusty weathered polished frosted
+    round square spherical cubic cylindrical circular oval triangular flat
+    majestic wild ancient modern sweet sour fresh ripe young old vintage
+    glowing shining gleaming floating blooming burning
     lush dense sparse open closed beautiful pretty peaceful quiet calm
     angry migrating cheering sparkling buzzing distant nearby translucent transparent
     opaque blurry sharp clear""".split()

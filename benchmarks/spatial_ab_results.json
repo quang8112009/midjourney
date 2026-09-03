@@ -1,0 +1,2371 @@
+{
+  "metadata": {
+    "title": "Empirical Spatial Guidance A/B Benchmark (Live Pixel Delta)",
+    "date": "2026-09-03T08:33:54.133376+00:00",
+    "model_id": "runwayml/stable-diffusion-v1-5",
+    "guidance_strength": 0.35,
+    "guidance_schedule": "TwoPhaseSchedule (cutoff=0.8)",
+    "total_prompts": 16,
+    "seeds": [
+      42,
+      100,
+      2024,
+      7777
+    ],
+    "total_image_pairs": 64,
+    "total_images_generated": 128,
+    "elapsed_seconds": 374.87
+  },
+  "aggregate_comparison": {
+    "pixel_divergence": {
+      "mean_l1_pixel_difference": 0.0223,
+      "mean_l1_scale_255": 5.69,
+      "mean_rmse": 0.0459,
+      "mean_ssim_between_off_and_on": 0.9789,
+      "mean_clip_perceptual_distance": 0.0125,
+      "is_pixel_modified": true
+    },
+    "aesthetic_and_alignment": {
+      "laion_aesthetic_off": 5.54,
+      "laion_aesthetic_on": 5.542,
+      "laion_delta": 0.001,
+      "clip_alignment_off": 0.278,
+      "clip_alignment_on": 0.2777,
+      "clip_alignment_delta": -0.0003
+    }
+  },
+  "per_prompt_results": [
+    {
+      "prompt_id": "spatial_01",
+      "prompt": "a red cube in front of a blue sphere on a marble floor",
+      "planned_entities": [
+        [
+          "cube",
+          [
+            0.625,
+            0.47
+          ],
+          [
+            "red"
+          ]
+        ],
+        [
+          "sphere",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "blue"
+          ]
+        ],
+        [
+          "floor",
+          [
+            0.685,
+            0.5
+          ],
+          [
+            "marble"
+          ]
+        ]
+      ],
+      "planned_relations": [
+        [
+          "cube",
+          "in_front_of",
+          "sphere"
+        ],
+        [
+          "sphere",
+          "on",
+          "floor"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_01_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_01_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.296,
+            "clip_alignment": 0.2842
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.042,
+            "clip_alignment": 0.2895
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0214,
+            "l1_diff_scale_255": 5.46,
+            "rmse": 0.0476,
+            "psnr_db": 26.44,
+            "ssim": 0.9759,
+            "structural_dissimilarity": 0.0241,
+            "perceptual_distance_clip": 0.0365
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_01_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_01_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 4.984,
+            "clip_alignment": 0.3103
+          },
+          "guidance_on": {
+            "laion_aesthetic": 4.835,
+            "clip_alignment": 0.3033
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0404,
+            "l1_diff_scale_255": 10.31,
+            "rmse": 0.0903,
+            "psnr_db": 20.89,
+            "ssim": 0.9428,
+            "structural_dissimilarity": 0.0572,
+            "perceptual_distance_clip": 0.0405
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_01_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_01_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 4.402,
+            "clip_alignment": 0.2456
+          },
+          "guidance_on": {
+            "laion_aesthetic": 4.372,
+            "clip_alignment": 0.2479
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0025,
+            "l1_diff_scale_255": 0.64,
+            "rmse": 0.0049,
+            "psnr_db": 46.16,
+            "ssim": 0.9994,
+            "structural_dissimilarity": 0.0006,
+            "perceptual_distance_clip": 0.0011
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_01_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_01_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.335,
+            "clip_alignment": 0.3122
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.235,
+            "clip_alignment": 0.311
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0069,
+            "l1_diff_scale_255": 1.77,
+            "rmse": 0.0135,
+            "psnr_db": 37.38,
+            "ssim": 0.9988,
+            "structural_dissimilarity": 0.0012,
+            "perceptual_distance_clip": 0.0039
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_02",
+      "prompt": "a golden statue behind a stone fountain in a courtyard",
+      "planned_entities": [
+        [
+          "statue",
+          [
+            0.35,
+            0.475
+          ],
+          [
+            "golden"
+          ]
+        ],
+        [
+          "fountain",
+          [
+            0.5,
+            0.5
+          ],
+          [
+            "stone"
+          ]
+        ],
+        [
+          "courtyard",
+          [
+            0.5,
+            0.5
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "statue",
+          "behind",
+          "fountain"
+        ],
+        [
+          "fountain",
+          "inside",
+          "courtyard"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_02_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_02_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.247,
+            "clip_alignment": 0.2749
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.551,
+            "clip_alignment": 0.2645
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0325,
+            "l1_diff_scale_255": 8.29,
+            "rmse": 0.0602,
+            "psnr_db": 24.41,
+            "ssim": 0.9747,
+            "structural_dissimilarity": 0.0253,
+            "perceptual_distance_clip": 0.0885
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_02_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_02_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.76,
+            "clip_alignment": 0.3111
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.716,
+            "clip_alignment": 0.317
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0127,
+            "l1_diff_scale_255": 3.24,
+            "rmse": 0.0303,
+            "psnr_db": 30.38,
+            "ssim": 0.9935,
+            "structural_dissimilarity": 0.0065,
+            "perceptual_distance_clip": 0.0073
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_02_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_02_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 6.026,
+            "clip_alignment": 0.3104
+          },
+          "guidance_on": {
+            "laion_aesthetic": 6.116,
+            "clip_alignment": 0.3119
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0102,
+            "l1_diff_scale_255": 2.61,
+            "rmse": 0.0196,
+            "psnr_db": 34.17,
+            "ssim": 0.9965,
+            "structural_dissimilarity": 0.0035,
+            "perceptual_distance_clip": 0.0048
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_02_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_02_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.186,
+            "clip_alignment": 0.2977
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.265,
+            "clip_alignment": 0.3014
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0124,
+            "l1_diff_scale_255": 3.17,
+            "rmse": 0.0314,
+            "psnr_db": 30.05,
+            "ssim": 0.9882,
+            "structural_dissimilarity": 0.0118,
+            "perceptual_distance_clip": 0.0099
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_03",
+      "prompt": "a green chair in front of a brick fireplace in a cozy living room",
+      "planned_entities": [
+        [
+          "chair",
+          [
+            0.625,
+            0.47
+          ],
+          [
+            "green"
+          ]
+        ],
+        [
+          "fireplace",
+          [
+            0.5,
+            0.5
+          ],
+          [
+            "brick"
+          ]
+        ],
+        [
+          "living",
+          [
+            0.5,
+            0.5
+          ],
+          [
+            "cozy"
+          ]
+        ],
+        [
+          "room",
+          [
+            0.525,
+            0.0798
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "chair",
+          "in_front_of",
+          "fireplace"
+        ],
+        [
+          "fireplace",
+          "inside",
+          "living"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_03_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_03_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.654,
+            "clip_alignment": 0.2949
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.575,
+            "clip_alignment": 0.294
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0479,
+            "l1_diff_scale_255": 12.21,
+            "rmse": 0.0838,
+            "psnr_db": 21.53,
+            "ssim": 0.954,
+            "structural_dissimilarity": 0.046,
+            "perceptual_distance_clip": 0.009
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_03_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_03_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.539,
+            "clip_alignment": 0.2943
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.482,
+            "clip_alignment": 0.3073
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0717,
+            "l1_diff_scale_255": 18.28,
+            "rmse": 0.1046,
+            "psnr_db": 19.61,
+            "ssim": 0.9329,
+            "structural_dissimilarity": 0.0671,
+            "perceptual_distance_clip": 0.0417
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_03_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_03_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.583,
+            "clip_alignment": 0.2991
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.764,
+            "clip_alignment": 0.2959
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0691,
+            "l1_diff_scale_255": 17.62,
+            "rmse": 0.11,
+            "psnr_db": 19.17,
+            "ssim": 0.9313,
+            "structural_dissimilarity": 0.0687,
+            "perceptual_distance_clip": 0.0386
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_03_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_03_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.628,
+            "clip_alignment": 0.2951
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.691,
+            "clip_alignment": 0.2865
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0383,
+            "l1_diff_scale_255": 9.76,
+            "rmse": 0.0728,
+            "psnr_db": 22.76,
+            "ssim": 0.9705,
+            "structural_dissimilarity": 0.0295,
+            "perceptual_distance_clip": 0.0138
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_04",
+      "prompt": "a tall oak tree behind a small wooden cottage in a meadow",
+      "planned_entities": [
+        [
+          "oak",
+          [
+            0.35,
+            0.3625
+          ],
+          [
+            "tall"
+          ]
+        ],
+        [
+          "tree",
+          [
+            0.35,
+            0.6125
+          ],
+          []
+        ],
+        [
+          "cottage",
+          [
+            0.5,
+            0.5
+          ],
+          [
+            "small",
+            "wooden"
+          ]
+        ],
+        [
+          "meadow",
+          [
+            0.5,
+            0.5
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "oak",
+          "behind",
+          "cottage"
+        ],
+        [
+          "tree",
+          "behind",
+          "cottage"
+        ],
+        [
+          "cottage",
+          "inside",
+          "meadow"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_04_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_04_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 6.239,
+            "clip_alignment": 0.2994
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.87,
+            "clip_alignment": 0.2779
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.033,
+            "l1_diff_scale_255": 8.41,
+            "rmse": 0.0682,
+            "psnr_db": 23.32,
+            "ssim": 0.9571,
+            "structural_dissimilarity": 0.0429,
+            "perceptual_distance_clip": 0.0375
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_04_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_04_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 6.029,
+            "clip_alignment": 0.2598
+          },
+          "guidance_on": {
+            "laion_aesthetic": 6.037,
+            "clip_alignment": 0.2598
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0106,
+            "l1_diff_scale_255": 2.71,
+            "rmse": 0.0232,
+            "psnr_db": 32.7,
+            "ssim": 0.9962,
+            "structural_dissimilarity": 0.0038,
+            "perceptual_distance_clip": 0.0014
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_04_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_04_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.994,
+            "clip_alignment": 0.2524
+          },
+          "guidance_on": {
+            "laion_aesthetic": 6.017,
+            "clip_alignment": 0.2477
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0118,
+            "l1_diff_scale_255": 3.02,
+            "rmse": 0.025,
+            "psnr_db": 32.04,
+            "ssim": 0.9936,
+            "structural_dissimilarity": 0.0064,
+            "perceptual_distance_clip": 0.0022
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_04_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_04_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.932,
+            "clip_alignment": 0.3016
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.952,
+            "clip_alignment": 0.2981
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0113,
+            "l1_diff_scale_255": 2.89,
+            "rmse": 0.0235,
+            "psnr_db": 32.56,
+            "ssim": 0.9945,
+            "structural_dissimilarity": 0.0055,
+            "perceptual_distance_clip": 0.0128
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_05",
+      "prompt": "a white coffee cup on top of a stack of vintage books",
+      "planned_entities": [
+        [
+          "coffee",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "white"
+          ]
+        ],
+        [
+          "cup",
+          [
+            0.24000000000000002,
+            0.525
+          ],
+          []
+        ],
+        [
+          "stack",
+          [
+            0.685,
+            0.5
+          ],
+          []
+        ],
+        [
+          "books",
+          [
+            0.525,
+            0.0798
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "coffee",
+          "on",
+          "stack"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_05_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_05_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.429,
+            "clip_alignment": 0.2596
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.54,
+            "clip_alignment": 0.264
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0324,
+            "l1_diff_scale_255": 8.25,
+            "rmse": 0.07,
+            "psnr_db": 23.09,
+            "ssim": 0.9736,
+            "structural_dissimilarity": 0.0264,
+            "perceptual_distance_clip": 0.017
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_05_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_05_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.433,
+            "clip_alignment": 0.2592
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.423,
+            "clip_alignment": 0.2596
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0218,
+            "l1_diff_scale_255": 5.56,
+            "rmse": 0.0414,
+            "psnr_db": 27.66,
+            "ssim": 0.989,
+            "structural_dissimilarity": 0.011,
+            "perceptual_distance_clip": 0.0033
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_05_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_05_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.455,
+            "clip_alignment": 0.2668
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.456,
+            "clip_alignment": 0.2698
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0105,
+            "l1_diff_scale_255": 2.67,
+            "rmse": 0.0201,
+            "psnr_db": 33.95,
+            "ssim": 0.997,
+            "structural_dissimilarity": 0.003,
+            "perceptual_distance_clip": 0.0004
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_05_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_05_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.352,
+            "clip_alignment": 0.2554
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.382,
+            "clip_alignment": 0.2545
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0083,
+            "l1_diff_scale_255": 2.11,
+            "rmse": 0.0156,
+            "psnr_db": 36.11,
+            "ssim": 0.9975,
+            "structural_dissimilarity": 0.0025,
+            "perceptual_distance_clip": 0.001
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_06",
+      "prompt": "a brown teddy bear resting on a leather sofa",
+      "planned_entities": [
+        [
+          "teddy",
+          [
+            0.3,
+            0.28
+          ],
+          [
+            "brown"
+          ]
+        ],
+        [
+          "bear",
+          [
+            0.3,
+            0.6799999999999999
+          ],
+          []
+        ],
+        [
+          "sofa",
+          [
+            0.685,
+            0.5
+          ],
+          [
+            "leather"
+          ]
+        ]
+      ],
+      "planned_relations": [
+        [
+          "teddy",
+          "on",
+          "sofa"
+        ],
+        [
+          "bear",
+          "on",
+          "sofa"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_06_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_06_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.468,
+            "clip_alignment": 0.2878
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.416,
+            "clip_alignment": 0.2908
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0236,
+            "l1_diff_scale_255": 6.02,
+            "rmse": 0.0513,
+            "psnr_db": 25.8,
+            "ssim": 0.9744,
+            "structural_dissimilarity": 0.0256,
+            "perceptual_distance_clip": 0.0043
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_06_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_06_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.297,
+            "clip_alignment": 0.2257
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.302,
+            "clip_alignment": 0.2315
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0187,
+            "l1_diff_scale_255": 4.77,
+            "rmse": 0.035,
+            "psnr_db": 29.13,
+            "ssim": 0.9926,
+            "structural_dissimilarity": 0.0074,
+            "perceptual_distance_clip": 0.0099
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_06_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_06_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.638,
+            "clip_alignment": 0.272
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.565,
+            "clip_alignment": 0.2698
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0473,
+            "l1_diff_scale_255": 12.05,
+            "rmse": 0.1141,
+            "psnr_db": 18.85,
+            "ssim": 0.9109,
+            "structural_dissimilarity": 0.0891,
+            "perceptual_distance_clip": 0.0082
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_06_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_06_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.285,
+            "clip_alignment": 0.2621
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.193,
+            "clip_alignment": 0.2649
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.029,
+            "l1_diff_scale_255": 7.4,
+            "rmse": 0.0548,
+            "psnr_db": 25.23,
+            "ssim": 0.9811,
+            "structural_dissimilarity": 0.0189,
+            "perceptual_distance_clip": 0.0079
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_07",
+      "prompt": "a red apple on a ceramic plate on a wooden kitchen counter",
+      "planned_entities": [
+        [
+          "apple",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "red"
+          ]
+        ],
+        [
+          "plate",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "ceramic"
+          ]
+        ],
+        [
+          "kitchen",
+          [
+            0.685,
+            0.5
+          ],
+          [
+            "wooden"
+          ]
+        ],
+        [
+          "counter",
+          [
+            0.525,
+            0.0798
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "apple",
+          "on",
+          "plate"
+        ],
+        [
+          "plate",
+          "on",
+          "kitchen"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_07_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_07_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.626,
+            "clip_alignment": 0.2519
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.622,
+            "clip_alignment": 0.2534
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0071,
+            "l1_diff_scale_255": 1.81,
+            "rmse": 0.0164,
+            "psnr_db": 35.72,
+            "ssim": 0.9981,
+            "structural_dissimilarity": 0.0019,
+            "perceptual_distance_clip": 0.0015
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_07_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_07_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.539,
+            "clip_alignment": 0.2517
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.535,
+            "clip_alignment": 0.251
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0105,
+            "l1_diff_scale_255": 2.68,
+            "rmse": 0.0186,
+            "psnr_db": 34.63,
+            "ssim": 0.9979,
+            "structural_dissimilarity": 0.0021,
+            "perceptual_distance_clip": 0.0003
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_07_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_07_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.464,
+            "clip_alignment": 0.2424
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.453,
+            "clip_alignment": 0.2416
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0062,
+            "l1_diff_scale_255": 1.57,
+            "rmse": 0.014,
+            "psnr_db": 37.08,
+            "ssim": 0.998,
+            "structural_dissimilarity": 0.002,
+            "perceptual_distance_clip": 0.0013
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_07_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_07_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.72,
+            "clip_alignment": 0.2874
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.722,
+            "clip_alignment": 0.2839
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0075,
+            "l1_diff_scale_255": 1.92,
+            "rmse": 0.0118,
+            "psnr_db": 38.55,
+            "ssim": 0.9979,
+            "structural_dissimilarity": 0.0021,
+            "perceptual_distance_clip": 0.0013
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_08",
+      "prompt": "a small sparrow perched on a rusted metal fence",
+      "planned_entities": [
+        [
+          "sparrow",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "small"
+          ]
+        ],
+        [
+          "rusted",
+          [
+            0.685,
+            0.5
+          ],
+          []
+        ],
+        [
+          "fence",
+          [
+            0.525,
+            0.0798
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "sparrow",
+          "on",
+          "rusted"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_08_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_08_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.878,
+            "clip_alignment": 0.312
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.821,
+            "clip_alignment": 0.3177
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0194,
+            "l1_diff_scale_255": 4.95,
+            "rmse": 0.0569,
+            "psnr_db": 24.89,
+            "ssim": 0.9641,
+            "structural_dissimilarity": 0.0359,
+            "perceptual_distance_clip": 0.0086
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_08_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_08_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.814,
+            "clip_alignment": 0.3094
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.845,
+            "clip_alignment": 0.3077
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0247,
+            "l1_diff_scale_255": 6.29,
+            "rmse": 0.0738,
+            "psnr_db": 22.64,
+            "ssim": 0.9524,
+            "structural_dissimilarity": 0.0476,
+            "perceptual_distance_clip": 0.0131
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_08_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_08_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.462,
+            "clip_alignment": 0.2807
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.407,
+            "clip_alignment": 0.2984
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0228,
+            "l1_diff_scale_255": 5.81,
+            "rmse": 0.0596,
+            "psnr_db": 24.49,
+            "ssim": 0.9477,
+            "structural_dissimilarity": 0.0523,
+            "perceptual_distance_clip": 0.039
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_08_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_08_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.823,
+            "clip_alignment": 0.3193
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.827,
+            "clip_alignment": 0.3094
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0113,
+            "l1_diff_scale_255": 2.87,
+            "rmse": 0.0298,
+            "psnr_db": 30.53,
+            "ssim": 0.9817,
+            "structural_dissimilarity": 0.0183,
+            "perceptual_distance_clip": 0.0086
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_09",
+      "prompt": "a black cat sitting under a wooden dining chair",
+      "planned_entities": [
+        [
+          "cat",
+          [
+            0.72,
+            0.5
+          ],
+          [
+            "black"
+          ]
+        ],
+        [
+          "dining",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "wooden"
+          ]
+        ],
+        [
+          "chair",
+          [
+            0.525,
+            0.0798
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "cat",
+          "under",
+          "dining"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_09_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_09_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.028,
+            "clip_alignment": 0.2911
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.144,
+            "clip_alignment": 0.2928
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.022,
+            "l1_diff_scale_255": 5.61,
+            "rmse": 0.0515,
+            "psnr_db": 25.76,
+            "ssim": 0.9845,
+            "structural_dissimilarity": 0.0155,
+            "perceptual_distance_clip": 0.0136
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_09_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_09_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.135,
+            "clip_alignment": 0.2971
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.124,
+            "clip_alignment": 0.2975
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0107,
+            "l1_diff_scale_255": 2.73,
+            "rmse": 0.0338,
+            "psnr_db": 29.43,
+            "ssim": 0.9953,
+            "structural_dissimilarity": 0.0047,
+            "perceptual_distance_clip": 0.0035
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_09_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_09_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.744,
+            "clip_alignment": 0.3238
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.756,
+            "clip_alignment": 0.3237
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.004,
+            "l1_diff_scale_255": 1.03,
+            "rmse": 0.0113,
+            "psnr_db": 38.95,
+            "ssim": 0.9993,
+            "structural_dissimilarity": 0.0007,
+            "perceptual_distance_clip": 0.0008
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_09_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_09_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.56,
+            "clip_alignment": 0.324
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.639,
+            "clip_alignment": 0.3263
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0084,
+            "l1_diff_scale_255": 2.15,
+            "rmse": 0.0178,
+            "psnr_db": 35.0,
+            "ssim": 0.9982,
+            "structural_dissimilarity": 0.0018,
+            "perceptual_distance_clip": 0.0089
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_10",
+      "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+      "planned_entities": [
+        [
+          "sea",
+          [
+            0.72,
+            0.22000000000000003
+          ],
+          [
+            "green"
+          ]
+        ]
+      ],
+      "planned_relations": [
+        [
+          "sea",
+          "under",
+          "jellyfish"
+        ],
+        [
+          "turtle",
+          "under",
+          "jellyfish"
+        ],
+        [
+          "swimming",
+          "under",
+          "jellyfish"
+        ],
+        [
+          "jellyfish",
+          "inside",
+          "ocean"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_10_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_10_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 6.109,
+            "clip_alignment": 0.2469
+          },
+          "guidance_on": {
+            "laion_aesthetic": 6.182,
+            "clip_alignment": 0.2465
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0157,
+            "l1_diff_scale_255": 4.0,
+            "rmse": 0.0455,
+            "psnr_db": 26.85,
+            "ssim": 0.9821,
+            "structural_dissimilarity": 0.0179,
+            "perceptual_distance_clip": 0.002
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_10_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_10_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 6.157,
+            "clip_alignment": 0.2472
+          },
+          "guidance_on": {
+            "laion_aesthetic": 6.253,
+            "clip_alignment": 0.2427
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0288,
+            "l1_diff_scale_255": 7.34,
+            "rmse": 0.0526,
+            "psnr_db": 25.58,
+            "ssim": 0.9853,
+            "structural_dissimilarity": 0.0147,
+            "perceptual_distance_clip": 0.0057
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_10_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_10_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 6.007,
+            "clip_alignment": 0.2706
+          },
+          "guidance_on": {
+            "laion_aesthetic": 6.174,
+            "clip_alignment": 0.2344
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0412,
+            "l1_diff_scale_255": 10.51,
+            "rmse": 0.0848,
+            "psnr_db": 21.44,
+            "ssim": 0.9399,
+            "structural_dissimilarity": 0.0601,
+            "perceptual_distance_clip": 0.0609
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_10_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_10_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 6.038,
+            "clip_alignment": 0.2322
+          },
+          "guidance_on": {
+            "laion_aesthetic": 6.01,
+            "clip_alignment": 0.2414
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0434,
+            "l1_diff_scale_255": 11.07,
+            "rmse": 0.0968,
+            "psnr_db": 20.29,
+            "ssim": 0.9599,
+            "structural_dissimilarity": 0.0401,
+            "perceptual_distance_clip": 0.0057
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_11",
+      "prompt": "a pair of leather boots placed under a wooden bench",
+      "planned_entities": [
+        [
+          "boots",
+          [
+            0.72,
+            0.5
+          ],
+          [
+            "leather"
+          ]
+        ],
+        [
+          "bench",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "wooden"
+          ]
+        ]
+      ],
+      "planned_relations": [
+        [
+          "boots",
+          "under",
+          "bench"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_11_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_11_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.707,
+            "clip_alignment": 0.2917
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.823,
+            "clip_alignment": 0.2877
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0137,
+            "l1_diff_scale_255": 3.48,
+            "rmse": 0.0248,
+            "psnr_db": 32.11,
+            "ssim": 0.9934,
+            "structural_dissimilarity": 0.0066,
+            "perceptual_distance_clip": 0.008
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_11_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_11_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.199,
+            "clip_alignment": 0.266
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.234,
+            "clip_alignment": 0.2684
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0196,
+            "l1_diff_scale_255": 5.0,
+            "rmse": 0.0406,
+            "psnr_db": 27.83,
+            "ssim": 0.9909,
+            "structural_dissimilarity": 0.0091,
+            "perceptual_distance_clip": 0.0079
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_11_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_11_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.518,
+            "clip_alignment": 0.2742
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.523,
+            "clip_alignment": 0.2719
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.013,
+            "l1_diff_scale_255": 3.3,
+            "rmse": 0.0251,
+            "psnr_db": 32.0,
+            "ssim": 0.9947,
+            "structural_dissimilarity": 0.0053,
+            "perceptual_distance_clip": 0.0031
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_11_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_11_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.19,
+            "clip_alignment": 0.2489
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.227,
+            "clip_alignment": 0.2513
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0162,
+            "l1_diff_scale_255": 4.12,
+            "rmse": 0.0297,
+            "psnr_db": 30.54,
+            "ssim": 0.9917,
+            "structural_dissimilarity": 0.0083,
+            "perceptual_distance_clip": 0.0056
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_12",
+      "prompt": "a colorful rug under a glass coffee table",
+      "planned_entities": [
+        [
+          "colorful",
+          [
+            0.72,
+            0.28
+          ],
+          []
+        ],
+        [
+          "rug",
+          [
+            0.72,
+            0.6799999999999999
+          ],
+          []
+        ],
+        [
+          "coffee",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "glass"
+          ]
+        ],
+        [
+          "table",
+          [
+            0.525,
+            0.9152
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "colorful",
+          "under",
+          "coffee"
+        ],
+        [
+          "rug",
+          "under",
+          "coffee"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_12_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_12_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.39,
+            "clip_alignment": 0.276
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.398,
+            "clip_alignment": 0.2753
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0163,
+            "l1_diff_scale_255": 4.15,
+            "rmse": 0.035,
+            "psnr_db": 29.12,
+            "ssim": 0.9921,
+            "structural_dissimilarity": 0.0079,
+            "perceptual_distance_clip": 0.0031
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_12_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_12_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.722,
+            "clip_alignment": 0.282
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.701,
+            "clip_alignment": 0.2799
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0095,
+            "l1_diff_scale_255": 2.42,
+            "rmse": 0.0192,
+            "psnr_db": 34.32,
+            "ssim": 0.9983,
+            "structural_dissimilarity": 0.0017,
+            "perceptual_distance_clip": 0.0014
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_12_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_12_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.83,
+            "clip_alignment": 0.2877
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.786,
+            "clip_alignment": 0.2916
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0229,
+            "l1_diff_scale_255": 5.84,
+            "rmse": 0.042,
+            "psnr_db": 27.53,
+            "ssim": 0.9888,
+            "structural_dissimilarity": 0.0112,
+            "perceptual_distance_clip": 0.0056
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_12_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_12_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.456,
+            "clip_alignment": 0.239
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.434,
+            "clip_alignment": 0.2433
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0204,
+            "l1_diff_scale_255": 5.2,
+            "rmse": 0.0507,
+            "psnr_db": 25.9,
+            "ssim": 0.985,
+            "structural_dissimilarity": 0.015,
+            "perceptual_distance_clip": 0.0044
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_13",
+      "prompt": "a yellow banana to the left of a green apple on a white table",
+      "planned_entities": [
+        [
+          "banana",
+          [
+            0.525,
+            0.24000000000000002
+          ],
+          [
+            "yellow"
+          ]
+        ],
+        [
+          "apple",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "green"
+          ]
+        ],
+        [
+          "table",
+          [
+            0.685,
+            0.5
+          ],
+          [
+            "white"
+          ]
+        ]
+      ],
+      "planned_relations": [
+        [
+          "apple",
+          "on",
+          "table"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_13_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_13_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.017,
+            "clip_alignment": 0.2497
+          },
+          "guidance_on": {
+            "laion_aesthetic": 4.987,
+            "clip_alignment": 0.2452
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0214,
+            "l1_diff_scale_255": 5.47,
+            "rmse": 0.0404,
+            "psnr_db": 27.87,
+            "ssim": 0.9829,
+            "structural_dissimilarity": 0.0171,
+            "perceptual_distance_clip": 0.0074
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_13_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_13_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.204,
+            "clip_alignment": 0.271
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.027,
+            "clip_alignment": 0.2815
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.027,
+            "l1_diff_scale_255": 6.89,
+            "rmse": 0.0697,
+            "psnr_db": 23.14,
+            "ssim": 0.9635,
+            "structural_dissimilarity": 0.0365,
+            "perceptual_distance_clip": 0.0171
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_13_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_13_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.514,
+            "clip_alignment": 0.2732
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.52,
+            "clip_alignment": 0.2755
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0237,
+            "l1_diff_scale_255": 6.04,
+            "rmse": 0.0552,
+            "psnr_db": 25.17,
+            "ssim": 0.9788,
+            "structural_dissimilarity": 0.0212,
+            "perceptual_distance_clip": 0.007
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_13_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_13_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.589,
+            "clip_alignment": 0.2643
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.562,
+            "clip_alignment": 0.2634
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0058,
+            "l1_diff_scale_255": 1.49,
+            "rmse": 0.0128,
+            "psnr_db": 37.88,
+            "ssim": 0.9976,
+            "structural_dissimilarity": 0.0024,
+            "perceptual_distance_clip": 0.0009
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_14",
+      "prompt": "a crystal vase beside an antique brass clock on a mantelpiece",
+      "planned_entities": [
+        [
+          "vase",
+          [
+            0.525,
+            0.26
+          ],
+          [
+            "crystal"
+          ]
+        ],
+        [
+          "antique",
+          [
+            0.3,
+            0.22000000000000003
+          ],
+          []
+        ],
+        [
+          "brass",
+          [
+            0.3,
+            0.4867
+          ],
+          []
+        ],
+        [
+          "clock",
+          [
+            0.3,
+            0.7533
+          ],
+          []
+        ],
+        [
+          "mantelpiece",
+          [
+            0.685,
+            0.5
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "vase",
+          "next_to",
+          "antique"
+        ],
+        [
+          "antique",
+          "on",
+          "mantelpiece"
+        ],
+        [
+          "brass",
+          "on",
+          "mantelpiece"
+        ],
+        [
+          "clock",
+          "on",
+          "mantelpiece"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_14_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_14_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.236,
+            "clip_alignment": 0.3066
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.257,
+            "clip_alignment": 0.3098
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0095,
+            "l1_diff_scale_255": 2.43,
+            "rmse": 0.0191,
+            "psnr_db": 34.37,
+            "ssim": 0.9974,
+            "structural_dissimilarity": 0.0026,
+            "perceptual_distance_clip": 0.002
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_14_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_14_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.213,
+            "clip_alignment": 0.2803
+          },
+          "guidance_on": {
+            "laion_aesthetic": 4.964,
+            "clip_alignment": 0.2864
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.019,
+            "l1_diff_scale_255": 4.85,
+            "rmse": 0.0368,
+            "psnr_db": 28.69,
+            "ssim": 0.9925,
+            "structural_dissimilarity": 0.0075,
+            "perceptual_distance_clip": 0.0233
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_14_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_14_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.487,
+            "clip_alignment": 0.2635
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.532,
+            "clip_alignment": 0.2599
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0421,
+            "l1_diff_scale_255": 10.74,
+            "rmse": 0.0792,
+            "psnr_db": 22.03,
+            "ssim": 0.962,
+            "structural_dissimilarity": 0.038,
+            "perceptual_distance_clip": 0.028
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_14_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_14_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.28,
+            "clip_alignment": 0.2761
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.366,
+            "clip_alignment": 0.2696
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0384,
+            "l1_diff_scale_255": 9.78,
+            "rmse": 0.0713,
+            "psnr_db": 22.94,
+            "ssim": 0.9621,
+            "structural_dissimilarity": 0.0379,
+            "perceptual_distance_clip": 0.0372
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_15",
+      "prompt": "a red sports car parked to the right of a blue bicycle",
+      "planned_entities": [
+        [
+          "sports",
+          [
+            0.525,
+            0.09974999999999999
+          ],
+          [
+            "red"
+          ]
+        ],
+        [
+          "car",
+          [
+            0.525,
+            0.27305
+          ],
+          []
+        ],
+        [
+          "parked",
+          [
+            0.525,
+            0.76
+          ],
+          []
+        ],
+        [
+          "bicycle",
+          [
+            0.525,
+            0.4464
+          ],
+          [
+            "blue"
+          ]
+        ]
+      ],
+      "planned_relations": [],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_15_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_15_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.819,
+            "clip_alignment": 0.2533
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.84,
+            "clip_alignment": 0.2525
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0031,
+            "l1_diff_scale_255": 0.8,
+            "rmse": 0.0081,
+            "psnr_db": 41.82,
+            "ssim": 0.9994,
+            "structural_dissimilarity": 0.0006,
+            "perceptual_distance_clip": 0.0023
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_15_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_15_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.61,
+            "clip_alignment": 0.3022
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.653,
+            "clip_alignment": 0.304
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0077,
+            "l1_diff_scale_255": 1.95,
+            "rmse": 0.023,
+            "psnr_db": 32.78,
+            "ssim": 0.9971,
+            "structural_dissimilarity": 0.0029,
+            "perceptual_distance_clip": 0.0019
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_15_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_15_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.288,
+            "clip_alignment": 0.2867
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.312,
+            "clip_alignment": 0.2878
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0042,
+            "l1_diff_scale_255": 1.08,
+            "rmse": 0.0086,
+            "psnr_db": 41.3,
+            "ssim": 0.9995,
+            "structural_dissimilarity": 0.0005,
+            "perceptual_distance_clip": 0.0011
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_15_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_15_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.477,
+            "clip_alignment": 0.3179
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.579,
+            "clip_alignment": 0.3131
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0459,
+            "l1_diff_scale_255": 11.7,
+            "rmse": 0.0954,
+            "psnr_db": 20.41,
+            "ssim": 0.9426,
+            "structural_dissimilarity": 0.0574,
+            "perceptual_distance_clip": 0.0123
+          }
+        }
+      ]
+    },
+    {
+      "prompt_id": "spatial_16",
+      "prompt": "a silver teapot beside a porcelain teacup on a tray",
+      "planned_entities": [
+        [
+          "teapot",
+          [
+            0.525,
+            0.26
+          ],
+          [
+            "silver"
+          ]
+        ],
+        [
+          "teacup",
+          [
+            0.3,
+            0.5
+          ],
+          [
+            "porcelain"
+          ]
+        ],
+        [
+          "tray",
+          [
+            0.685,
+            0.5
+          ],
+          []
+        ]
+      ],
+      "planned_relations": [
+        [
+          "teapot",
+          "next_to",
+          "teacup"
+        ],
+        [
+          "teacup",
+          "on",
+          "tray"
+        ]
+      ],
+      "pairs": [
+        {
+          "seed": 42,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_16_s42_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_16_s42_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.568,
+            "clip_alignment": 0.2602
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.578,
+            "clip_alignment": 0.2624
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0117,
+            "l1_diff_scale_255": 2.99,
+            "rmse": 0.0248,
+            "psnr_db": 32.12,
+            "ssim": 0.9944,
+            "structural_dissimilarity": 0.0056,
+            "perceptual_distance_clip": 0.0024
+          }
+        },
+        {
+          "seed": 100,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_16_s100_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_16_s100_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.732,
+            "clip_alignment": 0.2506
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.648,
+            "clip_alignment": 0.2553
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0558,
+            "l1_diff_scale_255": 14.23,
+            "rmse": 0.1085,
+            "psnr_db": 19.29,
+            "ssim": 0.9197,
+            "structural_dissimilarity": 0.0803,
+            "perceptual_distance_clip": 0.0262
+          }
+        },
+        {
+          "seed": 2024,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_16_s2024_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_16_s2024_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.681,
+            "clip_alignment": 0.2807
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.803,
+            "clip_alignment": 0.2779
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.0231,
+            "l1_diff_scale_255": 5.89,
+            "rmse": 0.0443,
+            "psnr_db": 27.08,
+            "ssim": 0.9852,
+            "structural_dissimilarity": 0.0148,
+            "perceptual_distance_clip": 0.0062
+          }
+        },
+        {
+          "seed": 7777,
+          "files": {
+            "off": "benchmarks/images/spatial_ab_test/spatial_16_s7777_off.png",
+            "on": "benchmarks/images/spatial_ab_test/spatial_16_s7777_on.png"
+          },
+          "guidance_off": {
+            "laion_aesthetic": 5.565,
+            "clip_alignment": 0.2718
+          },
+          "guidance_on": {
+            "laion_aesthetic": 5.61,
+            "clip_alignment": 0.27
+          },
+          "divergence": {
+            "l1_pixel_diff": 0.051,
+            "l1_diff_scale_255": 13.0,
+            "rmse": 0.0896,
+            "psnr_db": 20.95,
+            "ssim": 0.9425,
+            "structural_dissimilarity": 0.0575,
+            "perceptual_distance_clip": 0.0119
+          }
+        }
+      ]
+    }
+  ]
+}
