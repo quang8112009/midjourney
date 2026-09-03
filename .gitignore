@@ -2,7 +2,12 @@
 .env.*
 venv/
 .venv/
+models/
 models/cache/
+*.pth
+*.safetensors
+*.bin
+*.part*
 outputs/
 **/__pycache__/
 *.py[cod]

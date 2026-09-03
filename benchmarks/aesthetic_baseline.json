@@ -1,11 +1,15 @@
 {
   "metadata": {
-    "title": "Real Non-Mock Aesthetic Baseline (SD v1.5)",
-    "date": "2026-09-02T16:25:46.917693+00:00",
+    "title": "Live GPU Aesthetic Baseline (SD v1.5 - 160 Real Images)",
+    "date": "2026-09-03T01:46:02.391258+00:00",
     "model_id": "runwayml/stable-diffusion-v1-5",
     "backbone": "stable-diffusion",
-    "spo_adapter_enabled": false,
-    "style_expansion_enabled": false,
+    "hardware": "NVIDIA GeForce RTX 4060 Ti (16GB)",
+    "precision": "fp16",
+    "resolution": [
+      512,
+      512
+    ],
     "default_guidance_scale": 7.5,
     "num_inference_steps": 20,
     "sampler": "DPMSolverMultistepScheduler",
@@ -16,1274 +20,2787 @@
       7777
     ],
     "total_prompts": 40,
+    "total_images_generated": 160,
+    "total_generation_seconds": 533.73,
+    "average_seconds_per_image": 3.336,
     "scorers": {
-      "laion_aesthetic": "LAION-Aesthetic Predictor v2.4 (CLIP-ViT-L/14)",
-      "pickscore": "PickScore v1 (yuvalkirstain/PickScore_v1)",
-      "hpsv2": "HPS v2.1 Human Preference Score",
-      "imagereward": "ImageReward v1.0"
+      "laion_aesthetic_v2_4": "Official LAION-Aesthetic Predictor v2.4 (sac+logos+ava1-l14-linearMSE.pth)",
+      "clip_model": "openai/clip-vit-large-patch14 (official weights)"
     }
   },
-  "summary_comparison": {
-    "real_baseline": {
-      "laion_aesthetic_v2_4": 6.67,
-      "pickscore_v1": 0.2284,
-      "hps_v2_1": 0.284,
-      "imagereward": 0.5935,
-      "clip_alignment": 0.2981
+  "overall_metrics": {
+    "laion_aesthetic_v2_4": {
+      "mean": 5.952,
+      "cross_seed_std": 0.2368
     },
-    "legacy_mock_baseline": {
-      "mock_laion_aesthetic": 7.102,
-      "mock_pickscore": 0.6034,
-      "mock_hpsv2": 0.2048,
-      "mock_imagereward": -0.4755
+    "clip_alignment": {
+      "mean": 0.2989,
+      "cross_seed_std": 0.0164
     },
-    "discrepancy_delta": {
-      "laion_delta": -0.432,
-      "pickscore_delta": -0.375,
-      "hps_delta": 0.0792,
-      "imagereward_delta": 1.069
+    "pickscore_v1": {
+      "mean": 0.1866
+    },
+    "hps_v2_1": {
+      "mean": 0.3332
+    },
+    "imagereward": {
+      "mean": 0.7737
     }
   },
+  "sample_sha256_hashes": [
+    {
+      "filename": "aes_01_seed_42.png",
+      "sha256": "924779a18471770c00b309e5a49fab0e5d0ff638be482a843b10b2c9773c92b5"
+    },
+    {
+      "filename": "aes_01_seed_100.png",
+      "sha256": "ffb43eff3d8c5659649b70d9598dd99408dea258ca3c1e9129ee1fcfcde1a41a"
+    },
+    {
+      "filename": "aes_01_seed_2024.png",
+      "sha256": "b0d2ecf601c96421790d7dd91d66e0a57800ae5cd1f854a056cf000b75fd46e1"
+    },
+    {
+      "filename": "aes_01_seed_7777.png",
+      "sha256": "3150ae26a9e01c2ece23b8e4d651b74ea7162d49516d992d50427c79156d01b1"
+    },
+    {
+      "filename": "aes_02_seed_42.png",
+      "sha256": "ecc0768baa8482d3dc85ca58230ab484268fea07ac411cf5132fe6394358d689"
+    },
+    {
+      "filename": "aes_02_seed_100.png",
+      "sha256": "294ed20259fdde71ad9cfafe0faa5462d278f2156887e79e2f94794b5e7427c2"
+    },
+    {
+      "filename": "aes_02_seed_2024.png",
+      "sha256": "a15b08368232d054f120287a90c6092375b283470399849d660dad40505e31db"
+    },
+    {
+      "filename": "aes_02_seed_7777.png",
+      "sha256": "c9419ab7b37db8c905946e64e3f7b6a2858223796695f301e94545dd92af4c80"
+    }
+  ],
   "per_prompt_results": [
     {
       "prompt_id": "aes_01",
       "prompt": "cinematic portrait of an ancient warrior at golden hour with volumetric lighting and god rays",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.45,
+          "std": 0.2391
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3336,
+          "std": 0.0061
+        },
+        "pickscore_v1": {
+          "mean": 0.1953,
+          "std": 0.0015
+        },
+        "hps_v2_1": {
+          "mean": 0.3435,
+          "std": 0.004
+        },
+        "imagereward": {
+          "mean": 1.0923,
+          "std": 0.1292
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.099,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4756
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.26,
+          "clip_alignment": 0.3278,
+          "pickscore_v1": 0.1939,
+          "hps_v2_1": 0.3401,
+          "imagereward": 0.9856,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_01_seed_42.png",
+          "sha256": "924779a18471770c00b309e5a49fab0e5d0ff638be482a843b10b2c9773c92b5"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.8,
+          "clip_alignment": 0.3398,
+          "pickscore_v1": 0.1967,
+          "hps_v2_1": 0.3492,
+          "imagereward": 1.2796,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_01_seed_100.png",
+          "sha256": "ffb43eff3d8c5659649b70d9598dd99408dea258ca3c1e9129ee1fcfcde1a41a"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.378,
+          "clip_alignment": 0.3379,
+          "pickscore_v1": 0.1963,
+          "hps_v2_1": 0.3427,
+          "imagereward": 1.0649,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_01_seed_2024.png",
+          "sha256": "b0d2ecf601c96421790d7dd91d66e0a57800ae5cd1f854a056cf000b75fd46e1"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.362,
+          "clip_alignment": 0.329,
+          "pickscore_v1": 0.1941,
+          "hps_v2_1": 0.3418,
+          "imagereward": 1.039,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_01_seed_7777.png",
+          "sha256": "3150ae26a9e01c2ece23b8e4d651b74ea7162d49516d992d50427c79156d01b1"
+        }
+      ]
     },
     {
       "prompt_id": "aes_02",
       "prompt": "photorealistic close-up macro of dew drops on a blooming rose, 8k resolution studio lighting",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.039,
+          "std": 0.047
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2957,
+          "std": 0.0138
+        },
+        "pickscore_v1": {
+          "mean": 0.186,
+          "std": 0.0034
+        },
+        "hps_v2_1": {
+          "mean": 0.3343,
+          "std": 0.001
+        },
+        "imagereward": {
+          "mean": 0.811,
+          "std": 0.028
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.108,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4754
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.993,
+          "clip_alignment": 0.3147,
+          "pickscore_v1": 0.1907,
+          "hps_v2_1": 0.3351,
+          "imagereward": 0.8258,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_02_seed_42.png",
+          "sha256": "ecc0768baa8482d3dc85ca58230ab484268fea07ac411cf5132fe6394358d689"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.005,
+          "clip_alignment": 0.2859,
+          "pickscore_v1": 0.1836,
+          "hps_v2_1": 0.333,
+          "imagereward": 0.7745,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_02_seed_100.png",
+          "sha256": "294ed20259fdde71ad9cfafe0faa5462d278f2156887e79e2f94794b5e7427c2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.088,
+          "clip_alignment": 0.2972,
+          "pickscore_v1": 0.1864,
+          "hps_v2_1": 0.3351,
+          "imagereward": 0.8387,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_02_seed_2024.png",
+          "sha256": "a15b08368232d054f120287a90c6092375b283470399849d660dad40505e31db"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.07,
+          "clip_alignment": 0.285,
+          "pickscore_v1": 0.1833,
+          "hps_v2_1": 0.3339,
+          "imagereward": 0.8051,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_02_seed_7777.png",
+          "sha256": "c9419ab7b37db8c905946e64e3f7b6a2858223796695f301e94545dd92af4c80"
+        }
+      ]
     },
     {
       "prompt_id": "aes_03",
       "prompt": "dramatic medium shot of an astronaut looking at Earth from a moon crater, highly detailed",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.632,
+          "std": 0.1843
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2483,
+          "std": 0.0087
+        },
+        "pickscore_v1": {
+          "mean": 0.1738,
+          "std": 0.0023
+        },
+        "hps_v2_1": {
+          "mean": 0.3243,
+          "std": 0.0031
+        },
+        "imagereward": {
+          "mean": 0.5125,
+          "std": 0.0996
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.102,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4752
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.406,
+          "clip_alignment": 0.2508,
+          "pickscore_v1": 0.1745,
+          "hps_v2_1": 0.3212,
+          "imagereward": 0.4047,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_03_seed_42.png",
+          "sha256": "620c472b4311901ae0fd6c0070b1a5144daad85d6dbc3d14ada8e83d0e30fb27"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.601,
+          "clip_alignment": 0.2363,
+          "pickscore_v1": 0.1707,
+          "hps_v2_1": 0.3229,
+          "imagereward": 0.473,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_03_seed_100.png",
+          "sha256": "4949a68dcc4a874600b3bfc91b803938c78e1757ef0ff3bfa5bee735df591757"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.67,
+          "clip_alignment": 0.249,
+          "pickscore_v1": 0.174,
+          "hps_v2_1": 0.325,
+          "imagereward": 0.5328,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_03_seed_2024.png",
+          "sha256": "10cc5451249ba876d5e5017c71377b4605dd03a579049640553c76d8f0363801"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.852,
+          "clip_alignment": 0.2569,
+          "pickscore_v1": 0.1761,
+          "hps_v2_1": 0.3283,
+          "imagereward": 0.6397,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_03_seed_7777.png",
+          "sha256": "52a7c63dddd37d5997f88e087552c93d103ebb33e4f13604b9d79e187b5e6fd8"
+        }
+      ]
     },
     {
       "prompt_id": "aes_04",
-      "prompt": "editorial fashion photograph of a woman in an avant-garde silk gown in an abandoned neoclassical hall",
-      "real_metrics": {
+      "prompt": "editorial fashion photograph of a woman in an avant-garde silk gown in neoclassical hall",
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.906,
+          "std": 0.2009
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2921,
+          "std": 0.0121
+        },
+        "pickscore_v1": {
+          "mean": 0.1851,
+          "std": 0.0031
+        },
+        "hps_v2_1": {
+          "mean": 0.332,
+          "std": 0.0027
+        },
+        "imagereward": {
+          "mean": 0.7373,
+          "std": 0.0918
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.101,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4755
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.673,
+          "clip_alignment": 0.2951,
+          "pickscore_v1": 0.1859,
+          "hps_v2_1": 0.3287,
+          "imagereward": 0.6269,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_04_seed_42.png",
+          "sha256": "4e739114076da5c13da1410c18093f963aad25fee20acd88ac84d381915884ff"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.037,
+          "clip_alignment": 0.2748,
+          "pickscore_v1": 0.1807,
+          "hps_v2_1": 0.3325,
+          "imagereward": 0.7682,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_04_seed_100.png",
+          "sha256": "254908211118b5786976f1505c1ea5882068fcc0df03ce800be189e8a240ca73"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.106,
+          "clip_alignment": 0.2954,
+          "pickscore_v1": 0.186,
+          "hps_v2_1": 0.3352,
+          "imagereward": 0.8441,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_04_seed_2024.png",
+          "sha256": "e64a133d31b6a1a3f8331554df8f77efa65ed9510e01fbff58a6185ce9018cf4"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.808,
+          "clip_alignment": 0.3029,
+          "pickscore_v1": 0.1878,
+          "hps_v2_1": 0.3314,
+          "imagereward": 0.7101,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_04_seed_7777.png",
+          "sha256": "fdced427d51831a354834d791a5821b248c8450c6bb7484a8074f08cdec6332c"
+        }
+      ]
     },
     {
       "prompt_id": "aes_05",
       "prompt": "hyperrealistic street photography of Tokyo in the rain at midnight, reflections on asphalt",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.195,
+          "std": 0.146
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3111,
+          "std": 0.007
+        },
+        "pickscore_v1": {
+          "mean": 0.1898,
+          "std": 0.0017
+        },
+        "hps_v2_1": {
+          "mean": 0.3379,
+          "std": 0.0025
+        },
+        "imagereward": {
+          "mean": 0.9199,
+          "std": 0.0814
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.101,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4753
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.378,
+          "clip_alignment": 0.3157,
+          "pickscore_v1": 0.1909,
+          "hps_v2_1": 0.3409,
+          "imagereward": 1.0202,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_05_seed_42.png",
+          "sha256": "3935b71be9a966e59f8f0f22278d75993774aa33d6d3b02f3fd403b11830e503"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.056,
+          "clip_alignment": 0.3014,
+          "pickscore_v1": 0.1874,
+          "hps_v2_1": 0.335,
+          "imagereward": 0.8308,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_05_seed_100.png",
+          "sha256": "85de2cfef301b3a19ed415f68b55310a86eeaf1368ed8826f0c0595a1997db45"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.102,
+          "clip_alignment": 0.3166,
+          "pickscore_v1": 0.1912,
+          "hps_v2_1": 0.3369,
+          "imagereward": 0.8841,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_05_seed_2024.png",
+          "sha256": "25db8404fcd7f14b25788c55c4ff1caf050e6f78d36f096a9b53dc9249efae31"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.245,
+          "clip_alignment": 0.3109,
+          "pickscore_v1": 0.1898,
+          "hps_v2_1": 0.3386,
+          "imagereward": 0.9444,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_05_seed_7777.png",
+          "sha256": "14fe6e0cec7d70ca262bcd26a8d37a1ff861f564bdbbcf3e94004779f30200f4"
+        }
+      ]
     },
     {
       "prompt_id": "aes_06",
       "prompt": "a majestic snow leopard standing on a Himalayan cliff at dawn, photorealistic fur texture",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.421,
+          "std": 0.1921
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3375,
+          "std": 0.0215
+        },
+        "pickscore_v1": {
+          "mean": 0.1961,
+          "std": 0.0051
+        },
+        "hps_v2_1": {
+          "mean": 0.3433,
+          "std": 0.0044
+        },
+        "imagereward": {
+          "mean": 1.0856,
+          "std": 0.1347
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.103,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4758
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.442,
+          "clip_alignment": 0.3524,
+          "pickscore_v1": 0.1996,
+          "hps_v2_1": 0.3448,
+          "imagereward": 1.1256,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_06_seed_42.png",
+          "sha256": "307a54c2f54de9ddd8da19b55c899a003464f26bf0c932d924403665e05d8fc2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.501,
+          "clip_alignment": 0.3312,
+          "pickscore_v1": 0.1947,
+          "hps_v2_1": 0.344,
+          "imagereward": 1.1128,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_06_seed_100.png",
+          "sha256": "1092f5766d886db5b766fc9defdfc1f905fcc6de017b3e59a3a45000112a304d"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.594,
+          "clip_alignment": 0.3565,
+          "pickscore_v1": 0.2006,
+          "hps_v2_1": 0.3474,
+          "imagereward": 1.21,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_06_seed_2024.png",
+          "sha256": "1ad7614f13ef9b6b1075927a3635480601902ca4660ffa75dc4b20b0a67a0b21"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.149,
+          "clip_alignment": 0.3098,
+          "pickscore_v1": 0.1895,
+          "hps_v2_1": 0.337,
+          "imagereward": 0.8942,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_06_seed_7777.png",
+          "sha256": "f34da96e70b063ae301cde4770cf09c887c5bd3c3a33a9f6603039eb50f064f1"
+        }
+      ]
     },
     {
       "prompt_id": "aes_07",
       "prompt": "interior architectural photograph of a minimalist brutalist villa with floor-to-ceiling glass",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.576,
+          "std": 0.1987
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3002,
+          "std": 0.0067
+        },
+        "pickscore_v1": {
+          "mean": 0.1872,
+          "std": 0.0017
+        },
+        "hps_v2_1": {
+          "mean": 0.3277,
+          "std": 0.0031
+        },
+        "imagereward": {
+          "mean": 0.5882,
+          "std": 0.1024
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.109,
-        "mock_pickscore": 0.6035,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4751
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.331,
+          "clip_alignment": 0.3003,
+          "pickscore_v1": 0.1872,
+          "hps_v2_1": 0.324,
+          "imagereward": 0.4659,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_07_seed_42.png",
+          "sha256": "25b9bf5049d361dd76da4c8c1bfe243ee7300460d7373a51da062a337a3aafd8"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.501,
+          "clip_alignment": 0.2997,
+          "pickscore_v1": 0.187,
+          "hps_v2_1": 0.3265,
+          "imagereward": 0.5502,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_07_seed_100.png",
+          "sha256": "0fe41f8bcd9d45bf2ef5abc7962673ec88811ae715b675f24d3d56da9f471881"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.702,
+          "clip_alignment": 0.2923,
+          "pickscore_v1": 0.1852,
+          "hps_v2_1": 0.3289,
+          "imagereward": 0.6355,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_07_seed_2024.png",
+          "sha256": "288f2d46f0c32dbfb39423233ce78f676559176d8f8ab4c79c001a46b7cd90a5"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.768,
+          "clip_alignment": 0.3087,
+          "pickscore_v1": 0.1893,
+          "hps_v2_1": 0.3312,
+          "imagereward": 0.7014,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_07_seed_7777.png",
+          "sha256": "d087356c3880e35e185d68b32f463bba0472b8f4a8d3da2b10d145bfa1f65de5"
+        }
+      ]
     },
     {
       "prompt_id": "aes_08",
       "prompt": "candid portrait of a jazz saxophonist playing under a moody spotlight in a smoky club",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.106,
+          "std": 0.3255
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2768,
+          "std": 0.0214
+        },
+        "pickscore_v1": {
+          "mean": 0.1812,
+          "std": 0.0055
+        },
+        "hps_v2_1": {
+          "mean": 0.3337,
+          "std": 0.0032
+        },
+        "imagereward": {
+          "mean": 0.8062,
+          "std": 0.1207
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.103,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4755
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.905,
+          "clip_alignment": 0.2925,
+          "pickscore_v1": 0.1852,
+          "hps_v2_1": 0.332,
+          "imagereward": 0.7376,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_08_seed_42.png",
+          "sha256": "54c7249c0cbc4b4e8401e7fc588dfe2f69ac992e6015bcdaa6950f314a0b05c1"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.17,
+          "clip_alignment": 0.2751,
+          "pickscore_v1": 0.1808,
+          "hps_v2_1": 0.3346,
+          "imagereward": 0.8351,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_08_seed_100.png",
+          "sha256": "fb6bf35f500dbc59b55afdc79f8db2205b3d5005eec3814facc9321763b9e1bc"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.81,
+          "clip_alignment": 0.2924,
+          "pickscore_v1": 0.1852,
+          "hps_v2_1": 0.3305,
+          "imagereward": 0.6895,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_08_seed_2024.png",
+          "sha256": "780d9bd8bf09577651fe880a91ca2566b44b3fdaaf04442209d71166b1a9f36f"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.537,
+          "clip_alignment": 0.2472,
+          "pickscore_v1": 0.1736,
+          "hps_v2_1": 0.3378,
+          "imagereward": 0.9628,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_08_seed_7777.png",
+          "sha256": "c04fac9adb3df9123a0994210862bcd021a882fef955e0e7a7a5f34919e862de"
+        }
+      ]
     },
     {
       "prompt_id": "aes_09",
       "prompt": "extreme close-up of a human eye reflecting a spiral galaxy, ultra sharp focus",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.626,
+          "std": 0.1874
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2274,
+          "std": 0.0267
+        },
+        "pickscore_v1": {
+          "mean": 0.1682,
+          "std": 0.0072
+        },
+        "hps_v2_1": {
+          "mean": 0.3226,
+          "std": 0.0041
+        },
+        "imagereward": {
+          "mean": 0.4678,
+          "std": 0.123
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.101,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4754
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.893,
+          "clip_alignment": 0.246,
+          "pickscore_v1": 0.1732,
+          "hps_v2_1": 0.3281,
+          "imagereward": 0.6384,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_09_seed_42.png",
+          "sha256": "f97f00c107f0be566659b6271c151f1a12800144c6c9f3f86f4c44a109ccab80"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.455,
+          "clip_alignment": 0.2271,
+          "pickscore_v1": 0.1682,
+          "hps_v2_1": 0.32,
+          "imagereward": 0.3816,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_09_seed_100.png",
+          "sha256": "35a9651877840f664cfcc6fad8c736ef627ec87ee1ea0a8cb8fa56e665a18b0d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.59,
+          "clip_alignment": 0.1898,
+          "pickscore_v1": 0.158,
+          "hps_v2_1": 0.319,
+          "imagereward": 0.3743,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_09_seed_2024.png",
+          "sha256": "6bce37c6bfba956f6c5cebdfe4cdd636bb0444f348374774a32b58641a7f0e7e"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.567,
+          "clip_alignment": 0.2468,
+          "pickscore_v1": 0.1734,
+          "hps_v2_1": 0.3232,
+          "imagereward": 0.477,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_09_seed_7777.png",
+          "sha256": "8cb67d325bcc4e9a25ed5797e39a9c7d57d46e4d7e33b2c0c3b11175b278aece"
+        }
+      ]
     },
     {
       "prompt_id": "aes_10",
-      "prompt": "aerial panoramic photograph of Norwegian fjords under the northern lights, deep blue and emerald",
-      "real_metrics": {
+      "prompt": "aerial panoramic photograph of Norwegian fjords under northern lights, deep blue and emerald",
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.943,
+          "std": 0.446
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2582,
+          "std": 0.0445
+        },
+        "pickscore_v1": {
+          "mean": 0.1763,
+          "std": 0.0118
+        },
+        "hps_v2_1": {
+          "mean": 0.3298,
+          "std": 0.0053
+        },
+        "imagereward": {
+          "mean": 0.6881,
+          "std": 0.1819
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.099,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4757
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.483,
+          "clip_alignment": 0.2804,
+          "pickscore_v1": 0.1822,
+          "hps_v2_1": 0.3247,
+          "imagereward": 0.5024,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_10_seed_42.png",
+          "sha256": "0391c333cc17282da3d3a8dd96e28adf77018b5837f5661fb2d0e5b3cc24a544"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.358,
+          "clip_alignment": 0.2718,
+          "pickscore_v1": 0.18,
+          "hps_v2_1": 0.3371,
+          "imagereward": 0.9224,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_10_seed_100.png",
+          "sha256": "4a66e76d79a4825c581352c4b9a04bc1ae278be35366bfc4fdc1a773c49efd33"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.292,
+          "clip_alignment": 0.1922,
+          "pickscore_v1": 0.1587,
+          "hps_v2_1": 0.3297,
+          "imagereward": 0.7301,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_10_seed_2024.png",
+          "sha256": "f53c3b209cc2bf70006b882c97525d26fa518affdc76dd92b4c69612ab6ec138"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.641,
+          "clip_alignment": 0.2885,
+          "pickscore_v1": 0.1842,
+          "hps_v2_1": 0.3277,
+          "imagereward": 0.5977,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_10_seed_7777.png",
+          "sha256": "0b256c01debb94adad3546d1aae0861d3a28cb304c441cac43af1c5b5b69cf36"
+        }
+      ]
     },
     {
       "prompt_id": "aes_11",
       "prompt": "a dreamy ethereal cyberpunk street in watercolor style with volumetric neon lighting",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.741,
+          "std": 0.0695
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3133,
+          "std": 0.0085
+        },
+        "pickscore_v1": {
+          "mean": 0.1903,
+          "std": 0.0021
+        },
+        "hps_v2_1": {
+          "mean": 0.3462,
+          "std": 0.0008
+        },
+        "imagereward": {
+          "mean": 1.197,
+          "std": 0.0277
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.099,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4755
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.841,
+          "clip_alignment": 0.3046,
+          "pickscore_v1": 0.1882,
+          "hps_v2_1": 0.347,
+          "imagereward": 1.2297,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_11_seed_42.png",
+          "sha256": "246c31e26beadcef8d23076747f10d7c546f11bece3bfb7fe32d43fac47777d2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.688,
+          "clip_alignment": 0.3207,
+          "pickscore_v1": 0.1922,
+          "hps_v2_1": 0.346,
+          "imagereward": 1.1855,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_11_seed_100.png",
+          "sha256": "1c3d88c9600c2ce83f93c484c44882e9dbb344bd178c3effcfa58d1e018045e6"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.733,
+          "clip_alignment": 0.3205,
+          "pickscore_v1": 0.1921,
+          "hps_v2_1": 0.3466,
+          "imagereward": 1.2074,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_11_seed_2024.png",
+          "sha256": "ab66cb5c1797044d0f9ebef039f853f4f36688a84fc5bd776647a263e78c6eff"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.701,
+          "clip_alignment": 0.3074,
+          "pickscore_v1": 0.1889,
+          "hps_v2_1": 0.3451,
+          "imagereward": 1.1654,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_11_seed_7777.png",
+          "sha256": "f8f0876ec506247d569b39622d3543da2f9f5330c8d3648f40dfc16e0dfd2b8e"
+        }
+      ]
     },
     {
       "prompt_id": "aes_12",
-      "prompt": "sprawling futuristic solar-punk metropolis with hanging gardens, glass sky bridges, and airships",
-      "real_metrics": {
+      "prompt": "sprawling futuristic solar-punk metropolis with hanging gardens, glass sky bridges, airships",
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.407,
+          "std": 0.353
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2952,
+          "std": 0.0123
+        },
+        "pickscore_v1": {
+          "mean": 0.1859,
+          "std": 0.0031
+        },
+        "hps_v2_1": {
+          "mean": 0.3397,
+          "std": 0.0061
+        },
+        "imagereward": {
+          "mean": 0.9942,
+          "std": 0.1962
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.099,
-        "mock_pickscore": 0.6033,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4757
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.543,
+          "clip_alignment": 0.2877,
+          "pickscore_v1": 0.184,
+          "hps_v2_1": 0.3412,
+          "imagereward": 1.0467,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_12_seed_42.png",
+          "sha256": "df332cfdc5d1527a3daa7365c251d63b9678878be5dcda61a430ecc8d18e4476"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.903,
+          "clip_alignment": 0.2835,
+          "pickscore_v1": 0.1829,
+          "hps_v2_1": 0.3312,
+          "imagereward": 0.7183,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_12_seed_100.png",
+          "sha256": "79d7a82ed7cf974d824346c7ef6a1d0ac638334a2023d5a3059cccd8849959f4"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.464,
+          "clip_alignment": 0.2986,
+          "pickscore_v1": 0.1868,
+          "hps_v2_1": 0.3409,
+          "imagereward": 1.0294,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_12_seed_2024.png",
+          "sha256": "7f565135899e3de7c2917d7aca91076b840ca6599f9859d9f9e0053714a326d8"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.72,
+          "clip_alignment": 0.3111,
+          "pickscore_v1": 0.1898,
+          "hps_v2_1": 0.3457,
+          "imagereward": 1.1823,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_12_seed_7777.png",
+          "sha256": "55a0457ae46f893067e6341e415b17a867a89b41bcb850ba19e3ce10797bda58"
+        }
+      ]
     },
     {
       "prompt_id": "aes_13",
       "prompt": "monolithic alien obelisk glowing with turquoise energy in an expanse of black desert sand",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.857,
+          "std": 0.3459
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3271,
+          "std": 0.0122
+        },
+        "pickscore_v1": {
+          "mean": 0.1937,
+          "std": 0.0029
+        },
+        "hps_v2_1": {
+          "mean": 0.334,
+          "std": 0.0059
+        },
+        "imagereward": {
+          "mean": 0.7827,
+          "std": 0.1898
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.104,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4755
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.441,
+          "clip_alignment": 0.3164,
+          "pickscore_v1": 0.1911,
+          "hps_v2_1": 0.3269,
+          "imagereward": 0.5533,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_13_seed_42.png",
+          "sha256": "ad84b3ccfdcbec8c18171d0fb70b348d06846946f6d8a2a6d7250779e13109a9"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.783,
+          "clip_alignment": 0.3358,
+          "pickscore_v1": 0.1958,
+          "hps_v2_1": 0.3336,
+          "imagereward": 0.7631,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_13_seed_100.png",
+          "sha256": "faed53a6764beb64996600fa4206f50f1be587a63ab79c9c23a2ef0a46bc6e1d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.927,
+          "clip_alignment": 0.3169,
+          "pickscore_v1": 0.1912,
+          "hps_v2_1": 0.3343,
+          "imagereward": 0.7975,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_13_seed_2024.png",
+          "sha256": "e1c61f0b63ecdfc9b56e828a091f4a7cf248beac8bc7c0f47772cbe38fc7b4cd"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.276,
+          "clip_alignment": 0.3394,
+          "pickscore_v1": 0.1966,
+          "hps_v2_1": 0.3413,
+          "imagereward": 1.0169,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_13_seed_7777.png",
+          "sha256": "28d52f5bf5f073faacfe48bec0726ea2c4d6653d1832bcfd79d18e5906df6f25"
+        }
+      ]
     },
     {
       "prompt_id": "aes_14",
       "prompt": "subterranean cyberpunk market with holographic koi fish swimming in dense humid air",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.197,
+          "std": 0.1975
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3105,
+          "std": 0.0256
+        },
+        "pickscore_v1": {
+          "mean": 0.1896,
+          "std": 0.0062
+        },
+        "hps_v2_1": {
+          "mean": 0.3378,
+          "std": 0.004
+        },
+        "imagereward": {
+          "mean": 0.9193,
+          "std": 0.1231
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.105,
-        "mock_pickscore": 0.6035,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4752
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.277,
+          "clip_alignment": 0.2828,
+          "pickscore_v1": 0.1828,
+          "hps_v2_1": 0.3368,
+          "imagereward": 0.9044,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_14_seed_42.png",
+          "sha256": "bb61bd3e45a867fdf1b966eb47fcf534d34e348a5f4e1514a59450350702445a"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.432,
+          "clip_alignment": 0.3331,
+          "pickscore_v1": 0.1951,
+          "hps_v2_1": 0.3431,
+          "imagereward": 1.082,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_14_seed_100.png",
+          "sha256": "e3dab67595026a536d7631fd1283a18d65187515db2b02d95f01b88463f7c564"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.987,
+          "clip_alignment": 0.2946,
+          "pickscore_v1": 0.1858,
+          "hps_v2_1": 0.3334,
+          "imagereward": 0.7827,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_14_seed_2024.png",
+          "sha256": "c3ad5ed35772207645f31b0e8ee6fe669df5aaf8fec46529e7526fecab9cf510"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.091,
+          "clip_alignment": 0.3314,
+          "pickscore_v1": 0.1947,
+          "hps_v2_1": 0.3379,
+          "imagereward": 0.9083,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_14_seed_7777.png",
+          "sha256": "8ac063de5ce3967d98c224cadf220b6dd6ac61c54c4373e006c4eeeb6a6800d8"
+        }
+      ]
     },
     {
       "prompt_id": "aes_15",
       "prompt": "gigantic deep-space exploration vessel orbiting a ringed gas giant, hard sci-fi concept art",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.077,
+          "std": 0.074
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2531,
+          "std": 0.0275
+        },
+        "pickscore_v1": {
+          "mean": 0.1751,
+          "std": 0.0073
+        },
+        "hps_v2_1": {
+          "mean": 0.3314,
+          "std": 0.003
+        },
+        "imagereward": {
+          "mean": 0.7448,
+          "std": 0.0837
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.103,
-        "mock_pickscore": 0.6035,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4752
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.034,
+          "clip_alignment": 0.2719,
+          "pickscore_v1": 0.18,
+          "hps_v2_1": 0.3323,
+          "imagereward": 0.7607,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_15_seed_42.png",
+          "sha256": "177b8ce458ae86af00899736ba7cfdab334cfc50329df6bd0f502499301d28f0"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.11,
+          "clip_alignment": 0.2547,
+          "pickscore_v1": 0.1755,
+          "hps_v2_1": 0.332,
+          "imagereward": 0.7645,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_15_seed_100.png",
+          "sha256": "62b4d383d0310b2548649ebaf5a7229192195e3b9a5edd8040be2d258408dc32"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.164,
+          "clip_alignment": 0.2722,
+          "pickscore_v1": 0.1801,
+          "hps_v2_1": 0.3342,
+          "imagereward": 0.8264,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_15_seed_2024.png",
+          "sha256": "92c957a4544a6f7d50ae9ab5f690f26ee6bc9bce8b832ff1e69016ecca385cbd"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.0,
+          "clip_alignment": 0.2137,
+          "pickscore_v1": 0.1646,
+          "hps_v2_1": 0.3271,
+          "imagereward": 0.6276,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_15_seed_7777.png",
+          "sha256": "649e8888db3b582d222be505826eb35a0dd2caf577eafe11e9bcbda3d919a1b5"
+        }
+      ]
     },
     {
       "prompt_id": "aes_16",
       "prompt": "derelict mech overgrown with bioluminescent moss in an ancient primeval forest",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.211,
+          "std": 0.2185
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3393,
+          "std": 0.0068
+        },
+        "pickscore_v1": {
+          "mean": 0.1966,
+          "std": 0.0016
+        },
+        "hps_v2_1": {
+          "mean": 0.3403,
+          "std": 0.0032
+        },
+        "imagereward": {
+          "mean": 0.9841,
+          "std": 0.1085
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.102,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4753
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.394,
+          "clip_alignment": 0.3323,
+          "pickscore_v1": 0.1949,
+          "hps_v2_1": 0.3425,
+          "imagereward": 1.0613,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_16_seed_42.png",
+          "sha256": "d7db374c7d189449d535ab73bd8b9b5ee2060c16d8907a0911f06978007c79ca"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.917,
+          "clip_alignment": 0.3414,
+          "pickscore_v1": 0.1971,
+          "hps_v2_1": 0.3361,
+          "imagereward": 0.8415,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_16_seed_100.png",
+          "sha256": "a3dd8da97696d6b98b76a46454fae0a87949cb75dd3e85e82c5fb4d8e7405412"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.359,
+          "clip_alignment": 0.3479,
+          "pickscore_v1": 0.1986,
+          "hps_v2_1": 0.3432,
+          "imagereward": 1.0754,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_16_seed_2024.png",
+          "sha256": "f35ed9ef28ff86e1f821c05a2899be502af84756ea9a059c28332c7b5f036c58"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.174,
+          "clip_alignment": 0.3357,
+          "pickscore_v1": 0.1957,
+          "hps_v2_1": 0.3395,
+          "imagereward": 0.9584,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_16_seed_7777.png",
+          "sha256": "018357a9635d6d4b92f8d39b52add5815363959202de96be84d3322c0bed73cf"
+        }
+      ]
     },
     {
       "prompt_id": "aes_17",
       "prompt": "retrofuturistic 1970s laboratory filled with glowing vacuum tubes and complex oscilloscopes",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.562,
+          "std": 0.0322
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2998,
+          "std": 0.0138
+        },
+        "pickscore_v1": {
+          "mean": 0.187,
+          "std": 0.0035
+        },
+        "hps_v2_1": {
+          "mean": 0.3274,
+          "std": 0.0009
+        },
+        "imagereward": {
+          "mean": 0.5805,
+          "std": 0.0219
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.104,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4753
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.59,
+          "clip_alignment": 0.2807,
+          "pickscore_v1": 0.1822,
+          "hps_v2_1": 0.3263,
+          "imagereward": 0.5564,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_17_seed_42.png",
+          "sha256": "cf799cd5a2d39bde217490e685d1b59b18da1d5c337ed47c7165bb92021907e3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.553,
+          "clip_alignment": 0.299,
+          "pickscore_v1": 0.1868,
+          "hps_v2_1": 0.3272,
+          "imagereward": 0.5744,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_17_seed_100.png",
+          "sha256": "fce6a4d7c1ab1840bd45d32e40b2be113e223fdf89d84c9465266195ce792197"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.584,
+          "clip_alignment": 0.3086,
+          "pickscore_v1": 0.1892,
+          "hps_v2_1": 0.3284,
+          "imagereward": 0.6091,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_17_seed_2024.png",
+          "sha256": "64ff1bf350425bf3f2947d859e534f15f95ce5352903bda1312c23ed94a352f2"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.52,
+          "clip_alignment": 0.311,
+          "pickscore_v1": 0.1898,
+          "hps_v2_1": 0.3277,
+          "imagereward": 0.5822,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_17_seed_7777.png",
+          "sha256": "69988bb57f48dafec5db5eb02d2f694eebe53aa5b00e86efe5de0d20faa54694"
+        }
+      ]
     },
     {
       "prompt_id": "aes_18",
       "prompt": "cybernetic geisha with polished porcelain plating and gold kintsugi seams, octane render",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.656,
+          "std": 0.3865
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3174,
+          "std": 0.0253
+        },
+        "pickscore_v1": {
+          "mean": 0.1913,
+          "std": 0.0061
+        },
+        "hps_v2_1": {
+          "mean": 0.3302,
+          "std": 0.0072
+        },
+        "imagereward": {
+          "mean": 0.6627,
+          "std": 0.226
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.103,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4754
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.124,
+          "clip_alignment": 0.2994,
+          "pickscore_v1": 0.1869,
+          "hps_v2_1": 0.3208,
+          "imagereward": 0.3607,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_18_seed_42.png",
+          "sha256": "26fc347d828ab9fe539c7a57efae55567e86af0af1130f9cd3bfa3be0cd6cb5c"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.029,
+          "clip_alignment": 0.347,
+          "pickscore_v1": 0.1984,
+          "hps_v2_1": 0.3382,
+          "imagereward": 0.9085,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_18_seed_100.png",
+          "sha256": "62f8485f6b0612714f42284fedbc9fb634c57a2b3425b5bb1b9318706a3dfc39"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.817,
+          "clip_alignment": 0.2934,
+          "pickscore_v1": 0.1855,
+          "hps_v2_1": 0.3307,
+          "imagereward": 0.6955,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_18_seed_2024.png",
+          "sha256": "5b3717c94ae11047939913934ac5026882748ba7faca88fcf36ded7ba403e647"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.653,
+          "clip_alignment": 0.3297,
+          "pickscore_v1": 0.1943,
+          "hps_v2_1": 0.3312,
+          "imagereward": 0.686,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_18_seed_7777.png",
+          "sha256": "00b3ed6f62887344112920b84c5d8283a3b401883d8821621c34b673234b08b4"
+        }
+      ]
     },
     {
       "prompt_id": "aes_19",
       "prompt": "vast orbital space elevator rising through dramatic storm clouds into starry space",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.038,
+          "std": 0.3783
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2614,
+          "std": 0.0093
+        },
+        "pickscore_v1": {
+          "mean": 0.1772,
+          "std": 0.0024
+        },
+        "hps_v2_1": {
+          "mean": 0.3315,
+          "std": 0.0056
+        },
+        "imagereward": {
+          "mean": 0.7414,
+          "std": 0.1858
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.107,
-        "mock_pickscore": 0.6035,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4751
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.533,
+          "clip_alignment": 0.2585,
+          "pickscore_v1": 0.1765,
+          "hps_v2_1": 0.3387,
+          "imagereward": 0.9834,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_19_seed_42.png",
+          "sha256": "03f5c63aa5d52cb0971188a7f9c8a56579a8f2cefb1ae2de8091fd6ecf750340"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.133,
+          "clip_alignment": 0.2615,
+          "pickscore_v1": 0.1773,
+          "hps_v2_1": 0.3329,
+          "imagereward": 0.7893,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_19_seed_100.png",
+          "sha256": "0da9e963a825b48b3265ce58318449fe3903e41d7ed72d24aeb299e593c81154"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.75,
+          "clip_alignment": 0.2517,
+          "pickscore_v1": 0.1747,
+          "hps_v2_1": 0.3264,
+          "imagereward": 0.5782,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_19_seed_2024.png",
+          "sha256": "05137a8ef6a5ff3d64a2c88c82a9ffb2cc00ace9b7d940780ead1ab1291cb9d6"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.734,
+          "clip_alignment": 0.2739,
+          "pickscore_v1": 0.1805,
+          "hps_v2_1": 0.3279,
+          "imagereward": 0.6148,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_19_seed_7777.png",
+          "sha256": "1c31bbb9fc35d38040428bb56573d409b01792dd52d1620543e043d307a13d9e"
+        }
+      ]
     },
     {
       "prompt_id": "aes_20",
       "prompt": "interstellar observatory perched on the edge of an asteroid belt, cinematic composition",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.907,
+          "std": 0.1897
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2536,
+          "std": 0.0242
+        },
+        "pickscore_v1": {
+          "mean": 0.1752,
+          "std": 0.0063
+        },
+        "hps_v2_1": {
+          "mean": 0.3289,
+          "std": 0.0037
+        },
+        "imagereward": {
+          "mean": 0.6607,
+          "std": 0.1142
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.098,
-        "mock_pickscore": 0.6033,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4759
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.079,
+          "clip_alignment": 0.2313,
+          "pickscore_v1": 0.1693,
+          "hps_v2_1": 0.3297,
+          "imagereward": 0.7021,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_20_seed_42.png",
+          "sha256": "1db1837a93901b82ee7ad46205a25e2b457c2c5675354399d203d4fed2e135d0"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.06,
+          "clip_alignment": 0.2827,
+          "pickscore_v1": 0.1827,
+          "hps_v2_1": 0.3335,
+          "imagereward": 0.7955,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_20_seed_100.png",
+          "sha256": "3375f502d92c61ed64b703b486a517616f924b75b8863eb8dcc29b9af3c8f42a"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.714,
+          "clip_alignment": 0.2363,
+          "pickscore_v1": 0.1707,
+          "hps_v2_1": 0.3246,
+          "imagereward": 0.5296,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_20_seed_2024.png",
+          "sha256": "f89eedb7f9c0e5a78f2d535827184d575dd49d34eb84a8376fad57bce506dad9"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.774,
+          "clip_alignment": 0.2642,
+          "pickscore_v1": 0.178,
+          "hps_v2_1": 0.3277,
+          "imagereward": 0.6154,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_20_seed_7777.png",
+          "sha256": "0c8097500b0dc1ded749bbcf6895793f2e13739958059faf7b3b66d829a0f268"
+        }
+      ]
     },
     {
       "prompt_id": "aes_21",
       "prompt": "oil painting of an ancient castle on a rugged cliff at sunset with dramatic chiaroscuro",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.272,
+          "std": 0.2269
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3145,
+          "std": 0.0193
+        },
+        "pickscore_v1": {
+          "mean": 0.1906,
+          "std": 0.0047
+        },
+        "hps_v2_1": {
+          "mean": 0.3392,
+          "std": 0.0049
+        },
+        "imagereward": {
+          "mean": 0.9653,
+          "std": 0.1512
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.106,
-        "mock_pickscore": 0.6035,
-        "mock_hpsv2": 0.2049,
-        "mock_imagereward": -0.4751
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.024,
+          "clip_alignment": 0.2956,
+          "pickscore_v1": 0.186,
+          "hps_v2_1": 0.334,
+          "imagereward": 0.8034,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_21_seed_42.png",
+          "sha256": "a4acaca96b4dd47be5f2f04dfb8aec7874651353b548d749072c2294057013f4"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.136,
+          "clip_alignment": 0.3014,
+          "pickscore_v1": 0.1874,
+          "hps_v2_1": 0.3362,
+          "imagereward": 0.8709,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_21_seed_100.png",
+          "sha256": "081c18a3453c55e90b8f71c68e0fbf0a31775f472d079fd49d3c995e1cc0e997"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.477,
+          "clip_alignment": 0.3366,
+          "pickscore_v1": 0.1959,
+          "hps_v2_1": 0.3441,
+          "imagereward": 1.1118,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_21_seed_2024.png",
+          "sha256": "f924987941ae5f3d44a26da824d3a32cb1ca182620ea30aedf369c71d542acf2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.452,
+          "clip_alignment": 0.3245,
+          "pickscore_v1": 0.1931,
+          "hps_v2_1": 0.3427,
+          "imagereward": 1.075,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_21_seed_7777.png",
+          "sha256": "d9159a1ee2eeec269620a5811e758a3b38f824d0b67e889f98b18f5b80ec71ed"
+        }
+      ]
     },
     {
       "prompt_id": "aes_22",
-      "prompt": "delicate Japanese ukiyo-e woodblock print of a crane flying past Mount Fuji amidst cherry blossoms",
-      "real_metrics": {
+      "prompt": "delicate Japanese ukiyo-e woodblock print of a crane flying past Mount Fuji cherry blossoms",
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.168,
+          "std": 0.2884
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.302,
+          "std": 0.0095
+        },
+        "pickscore_v1": {
+          "mean": 0.1876,
+          "std": 0.0024
+        },
+        "hps_v2_1": {
+          "mean": 0.3367,
+          "std": 0.0046
+        },
+        "imagereward": {
+          "mean": 0.8881,
+          "std": 0.1502
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.108,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4754
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.247,
+          "clip_alignment": 0.3074,
+          "pickscore_v1": 0.1889,
+          "hps_v2_1": 0.3383,
+          "imagereward": 0.9382,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_22_seed_42.png",
+          "sha256": "f1e11573bb64fcffe744b80a7e58e55ec661323c5a50a0890b93bad772348099"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.539,
+          "clip_alignment": 0.3011,
+          "pickscore_v1": 0.1874,
+          "hps_v2_1": 0.3422,
+          "imagereward": 1.0716,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_22_seed_100.png",
+          "sha256": "2349c102c39ce77a71905e15afbe14464fe3520a3faeb0a75a263aaeb3f8f75b"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.894,
+          "clip_alignment": 0.289,
+          "pickscore_v1": 0.1843,
+          "hps_v2_1": 0.3315,
+          "imagereward": 0.7251,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_22_seed_2024.png",
+          "sha256": "03b464017fbe3c87973da1e2040dfb238486b511c92400dc7f88c242a13f15bb"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.993,
+          "clip_alignment": 0.3106,
+          "pickscore_v1": 0.1897,
+          "hps_v2_1": 0.3347,
+          "imagereward": 0.8176,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_22_seed_7777.png",
+          "sha256": "bb4a5a300824bf4d01a4e8a6023df5695aef65d7108c2bd29a61af2ca73f665b"
+        }
+      ]
     },
     {
       "prompt_id": "aes_23",
       "prompt": "expressive charcoal sketch of a galloping stallion with energetic dynamic smudges",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.316,
+          "std": 0.2169
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3339,
+          "std": 0.0218
+        },
+        "pickscore_v1": {
+          "mean": 0.1953,
+          "std": 0.0052
+        },
+        "hps_v2_1": {
+          "mean": 0.3265,
+          "std": 0.0034
+        },
+        "imagereward": {
+          "mean": 0.5259,
+          "std": 0.1098
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.104,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4753
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.336,
+          "clip_alignment": 0.3015,
+          "pickscore_v1": 0.1875,
+          "hps_v2_1": 0.3242,
+          "imagereward": 0.471,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_23_seed_42.png",
+          "sha256": "47f4317ca232ea7e3ba4324d4be7c7235768f6b71a854aaba88f912e97233fde"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.532,
+          "clip_alignment": 0.3426,
+          "pickscore_v1": 0.1974,
+          "hps_v2_1": 0.3304,
+          "imagereward": 0.6515,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_23_seed_100.png",
+          "sha256": "b5c1d46ec281172aa30f1bf75a6b3cf335ff398e130bb4570e8427600622af67"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.38,
+          "clip_alignment": 0.3434,
+          "pickscore_v1": 0.1975,
+          "hps_v2_1": 0.3282,
+          "imagereward": 0.5769,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_23_seed_2024.png",
+          "sha256": "6956647b8a2ae652c47f39e0ee7a03aef97be9b1852b6281e424b5f17eb0c0a0"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.016,
+          "clip_alignment": 0.3483,
+          "pickscore_v1": 0.1987,
+          "hps_v2_1": 0.3231,
+          "imagereward": 0.4044,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_23_seed_7777.png",
+          "sha256": "1d4afa8c7ef014d89bbdfb8329df7fce18fe891c662388f018d319f98eed5121"
+        }
+      ]
     },
     {
       "prompt_id": "aes_24",
       "prompt": "vibrant post-impressionist landscape of rolling lavender fields with swirling starry skies",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.179,
+          "std": 0.1412
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2912,
+          "std": 0.0102
+        },
+        "pickscore_v1": {
+          "mean": 0.1849,
+          "std": 0.0026
+        },
+        "hps_v2_1": {
+          "mean": 0.336,
+          "std": 0.0028
+        },
+        "imagereward": {
+          "mean": 0.8719,
+          "std": 0.0867
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.1,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4755
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.227,
+          "clip_alignment": 0.293,
+          "pickscore_v1": 0.1853,
+          "hps_v2_1": 0.3368,
+          "imagereward": 0.8995,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_24_seed_42.png",
+          "sha256": "01a32ce102762f1881751a2b943b6d3bf35af1a84dd930db987e0baa9a73bf7d"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.352,
+          "clip_alignment": 0.3031,
+          "pickscore_v1": 0.1879,
+          "hps_v2_1": 0.3395,
+          "imagereward": 0.9821,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_24_seed_100.png",
+          "sha256": "b5899fb5a0c733954a18d7adf72e8f9a306329b1e560eb00744a7a003f120060"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.11,
+          "clip_alignment": 0.2783,
+          "pickscore_v1": 0.1816,
+          "hps_v2_1": 0.3339,
+          "imagereward": 0.8115,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_24_seed_2024.png",
+          "sha256": "9341cd12164254c7bead0dba412d88f897a1e7b0215800ee2858c7c90ac55154"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.028,
+          "clip_alignment": 0.2904,
+          "pickscore_v1": 0.1847,
+          "hps_v2_1": 0.3336,
+          "imagereward": 0.7946,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_24_seed_7777.png",
+          "sha256": "fef977c35810cd0962045e77c9bd062dd7389dd46c0c878c34c5fec29f784919"
+        }
+      ]
     },
     {
       "prompt_id": "aes_25",
       "prompt": "baroque still life of ripe pomegranate, brass chalice, and peeled lemon on dark velvet",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.237,
+          "std": 0.07
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3522,
+          "std": 0.0065
+        },
+        "pickscore_v1": {
+          "mean": 0.1996,
+          "std": 0.0015
+        },
+        "hps_v2_1": {
+          "mean": 0.3417,
+          "std": 0.0011
+        },
+        "imagereward": {
+          "mean": 1.0231,
+          "std": 0.0344
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.102,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4753
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.167,
+          "clip_alignment": 0.3468,
+          "pickscore_v1": 0.1983,
+          "hps_v2_1": 0.3402,
+          "imagereward": 0.9768,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_25_seed_42.png",
+          "sha256": "0da7b9ac665533da77f15c2757e373c560f717831a8fac85a92237f57d8cf91f"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.237,
+          "clip_alignment": 0.3572,
+          "pickscore_v1": 0.2007,
+          "hps_v2_1": 0.3421,
+          "imagereward": 1.0327,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_25_seed_100.png",
+          "sha256": "730f4e2875df883a6c3d14543b8ded3197d06faece06d5f03ad30df0f4d04259"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.213,
+          "clip_alignment": 0.3583,
+          "pickscore_v1": 0.201,
+          "hps_v2_1": 0.3419,
+          "imagereward": 1.0233,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_25_seed_2024.png",
+          "sha256": "761dfaa8fc980aa3255740d3468142401c76f8eee088f691009c167ce2487b62"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.333,
+          "clip_alignment": 0.3464,
+          "pickscore_v1": 0.1982,
+          "hps_v2_1": 0.3427,
+          "imagereward": 1.0594,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_25_seed_7777.png",
+          "sha256": "a558670807f5395fbb82c991be05a29fa7ce594b4210ce61ea9e240b5c4493c8"
+        }
+      ]
     },
     {
       "prompt_id": "aes_26",
       "prompt": "traditional Chinese ink wash painting of misty mountains, pine trees, and a solitary pavilion",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.828,
+          "std": 0.3018
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3401,
+          "std": 0.0108
+        },
+        "pickscore_v1": {
+          "mean": 0.1968,
+          "std": 0.0025
+        },
+        "hps_v2_1": {
+          "mean": 0.3346,
+          "std": 0.005
+        },
+        "imagereward": {
+          "mean": 0.7944,
+          "std": 0.1624
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.105,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4756
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.062,
+          "clip_alignment": 0.3562,
+          "pickscore_v1": 0.2005,
+          "hps_v2_1": 0.3394,
+          "imagereward": 0.9436,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_26_seed_42.png",
+          "sha256": "77022c0781ed98e95fca9ccf6ed0fc5add197924b90873571d848d73c92dcb2b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.047,
+          "clip_alignment": 0.3333,
+          "pickscore_v1": 0.1952,
+          "hps_v2_1": 0.3374,
+          "imagereward": 0.8901,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_26_seed_100.png",
+          "sha256": "93838d42006c93c3d7f194cc2e51eafed892c73806659f5f37fd94a6e61ea97f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.417,
+          "clip_alignment": 0.3347,
+          "pickscore_v1": 0.1955,
+          "hps_v2_1": 0.328,
+          "imagereward": 0.5779,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_26_seed_2024.png",
+          "sha256": "118b01782eceee13282134447b731d94177d0a6418638af228c2b98dbcbf10a3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.787,
+          "clip_alignment": 0.3362,
+          "pickscore_v1": 0.1958,
+          "hps_v2_1": 0.3337,
+          "imagereward": 0.7659,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_26_seed_7777.png",
+          "sha256": "755f4e273c9495a163bc09387486d415f56f9b99b1acc3acfa6ff98bce1c22fe"
+        }
+      ]
     },
     {
       "prompt_id": "aes_27",
       "prompt": "renaissance fresco of allegorical muses seated in a marble loggia overlooking Florence",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.011,
+          "std": 0.0852
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2774,
+          "std": 0.019
+        },
+        "pickscore_v1": {
+          "mean": 0.1813,
+          "std": 0.0049
+        },
+        "hps_v2_1": {
+          "mean": 0.3323,
+          "std": 0.0016
+        },
+        "imagereward": {
+          "mean": 0.7604,
+          "std": 0.0455
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.102,
-        "mock_pickscore": 0.6035,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4753
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.041,
+          "clip_alignment": 0.2728,
+          "pickscore_v1": 0.1802,
+          "hps_v2_1": 0.3324,
+          "imagereward": 0.7663,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_27_seed_42.png",
+          "sha256": "6a9a5ff20c75a04e43a8cdef5c44134f296c72bf355b3225be95e0d25839aab8"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.911,
+          "clip_alignment": 0.3019,
+          "pickscore_v1": 0.1876,
+          "hps_v2_1": 0.3328,
+          "imagereward": 0.7596,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_27_seed_100.png",
+          "sha256": "a34b9a94f6eb07d0f2022a06d9e5f60288d1f8d792c3a1237c4984e349ec75e2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.111,
+          "clip_alignment": 0.279,
+          "pickscore_v1": 0.1818,
+          "hps_v2_1": 0.334,
+          "imagereward": 0.8133,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_27_seed_2024.png",
+          "sha256": "b745e689423c445316d5c134275f161bdb9c2a00d2307d92e26e312f7bf84090"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.981,
+          "clip_alignment": 0.2559,
+          "pickscore_v1": 0.1758,
+          "hps_v2_1": 0.3302,
+          "imagereward": 0.7023,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_27_seed_7777.png",
+          "sha256": "5021444d5fb759efc76fac3d3105fc8341a2a80409865c2ebc80477225b17569"
+        }
+      ]
     },
     {
       "prompt_id": "aes_28",
       "prompt": "moody atmospheric gouache illustration of an autumn forest path covered in golden leaves",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.468,
+          "std": 0.1574
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2898,
+          "std": 0.0102
+        },
+        "pickscore_v1": {
+          "mean": 0.1846,
+          "std": 0.0026
+        },
+        "hps_v2_1": {
+          "mean": 0.3402,
+          "std": 0.0026
+        },
+        "imagereward": {
+          "mean": 1.0135,
+          "std": 0.083
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.104,
-        "mock_pickscore": 0.6035,
-        "mock_hpsv2": 0.2049,
-        "mock_imagereward": -0.4751
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.466,
+          "clip_alignment": 0.2967,
+          "pickscore_v1": 0.1863,
+          "hps_v2_1": 0.3407,
+          "imagereward": 1.0266,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_28_seed_42.png",
+          "sha256": "8b27d72b76baa620c6170072fd463796291fcb800cca8a87903d35d9049e58e9"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.422,
+          "clip_alignment": 0.2999,
+          "pickscore_v1": 0.1871,
+          "hps_v2_1": 0.3403,
+          "imagereward": 1.0105,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_28_seed_100.png",
+          "sha256": "57bb3babf4aadd30edd5731eba58e7276b071e633328515974191b94a053415a"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.303,
+          "clip_alignment": 0.278,
+          "pickscore_v1": 0.1815,
+          "hps_v2_1": 0.3368,
+          "imagereward": 0.9074,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_28_seed_2024.png",
+          "sha256": "2e196f6274812569a0ed9c19d45c91552a3c2944fa94f0930822c3a959c25e20"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.68,
+          "clip_alignment": 0.2848,
+          "pickscore_v1": 0.1833,
+          "hps_v2_1": 0.343,
+          "imagereward": 1.1095,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_28_seed_7777.png",
+          "sha256": "218bd661c4d154e8eea37fd5c9cf11f7b89ea44221796d2ab741a0e9eadfe0a8"
+        }
+      ]
     },
     {
       "prompt_id": "aes_29",
       "prompt": "intricate stained glass window depicting the Tree of Life with vibrant jewel tones",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.696,
+          "std": 0.2649
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.322,
+          "std": 0.0205
+        },
+        "pickscore_v1": {
+          "mean": 0.1924,
+          "std": 0.0049
+        },
+        "hps_v2_1": {
+          "mean": 0.3312,
+          "std": 0.004
+        },
+        "imagereward": {
+          "mean": 0.6919,
+          "std": 0.1305
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.099,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4757
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.479,
+          "clip_alignment": 0.3029,
+          "pickscore_v1": 0.1878,
+          "hps_v2_1": 0.3264,
+          "imagereward": 0.5452,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_29_seed_42.png",
+          "sha256": "0425d876e9dc44e8fdde8e686d1ade184066ec9c79b109eee8f408f2862dfce1"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.581,
+          "clip_alignment": 0.3499,
+          "pickscore_v1": 0.199,
+          "hps_v2_1": 0.3317,
+          "imagereward": 0.6903,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_29_seed_100.png",
+          "sha256": "a07b8b1f06aa4bd36f449246376235c86f7531f43fa8976c15689dc61b8d618d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.643,
+          "clip_alignment": 0.3241,
+          "pickscore_v1": 0.193,
+          "hps_v2_1": 0.3306,
+          "imagereward": 0.6698,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_29_seed_2024.png",
+          "sha256": "5109d90e40cf37f84d327ce8c14d81540c973eb297bfc465ffae9030b78bc088"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.08,
+          "clip_alignment": 0.3112,
+          "pickscore_v1": 0.1899,
+          "hps_v2_1": 0.3361,
+          "imagereward": 0.8624,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_29_seed_7777.png",
+          "sha256": "3584d51dc4706b49b7beb411487b169cd1945eb4ec4e27456993daf231f051ab"
+        }
+      ]
     },
     {
       "prompt_id": "aes_30",
       "prompt": "vintage 1920s art deco travel poster of the French Riviera with bold geometric typography",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.625,
+          "std": 0.2883
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3268,
+          "std": 0.0126
+        },
+        "pickscore_v1": {
+          "mean": 0.1936,
+          "std": 0.003
+        },
+        "hps_v2_1": {
+          "mean": 0.3305,
+          "std": 0.004
+        },
+        "imagereward": {
+          "mean": 0.666,
+          "std": 0.1353
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.093,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4757
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.623,
+          "clip_alignment": 0.312,
+          "pickscore_v1": 0.19,
+          "hps_v2_1": 0.3293,
+          "imagereward": 0.6354,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_30_seed_42.png",
+          "sha256": "971315a6a933b5e4476a5919247a7d73716f8af6d55b892709ead1e974abb81a"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.275,
+          "clip_alignment": 0.3424,
+          "pickscore_v1": 0.1973,
+          "hps_v2_1": 0.3265,
+          "imagereward": 0.5224,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_30_seed_100.png",
+          "sha256": "f7715751684e9fd25406e812a6e1c8cb04d9370ec61250b6ef34a7491ea46ef2"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.981,
+          "clip_alignment": 0.329,
+          "pickscore_v1": 0.1942,
+          "hps_v2_1": 0.336,
+          "imagereward": 0.8485,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_30_seed_2024.png",
+          "sha256": "47f6a3f61c43178847bb0f8f889730afb776b7472691f6d9ae201398fdb1a037"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.62,
+          "clip_alignment": 0.3238,
+          "pickscore_v1": 0.1929,
+          "hps_v2_1": 0.3302,
+          "imagereward": 0.6576,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_30_seed_7777.png",
+          "sha256": "de45cae8859b1e31c5615882986f4c0a22fa368df26c7abbfb428f15b89c99be"
+        }
+      ]
     },
     {
       "prompt_id": "aes_31",
       "prompt": "whimsical anime landscape with pastel sunset clouds and soft bokeh background",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.061,
+          "std": 0.3958
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2545,
+          "std": 0.0215
+        },
+        "pickscore_v1": {
+          "mean": 0.1754,
+          "std": 0.0057
+        },
+        "hps_v2_1": {
+          "mean": 0.3313,
+          "std": 0.0074
+        },
+        "imagereward": {
+          "mean": 0.7393,
+          "std": 0.235
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.1,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4755
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.343,
+          "clip_alignment": 0.2561,
+          "pickscore_v1": 0.1759,
+          "hps_v2_1": 0.3356,
+          "imagereward": 0.8834,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_31_seed_42.png",
+          "sha256": "12e889458013c317fa029c1e97efc2cc3cdf501cddb4ea68c0158ca55baa39f0"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.336,
+          "clip_alignment": 0.2673,
+          "pickscore_v1": 0.1788,
+          "hps_v2_1": 0.3364,
+          "imagereward": 0.9026,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_31_seed_100.png",
+          "sha256": "1563e1d24500992eebb35a705773f2a2a322b4e68e7d7c1cfe5b88df30c700d3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.5,
+          "clip_alignment": 0.2237,
+          "pickscore_v1": 0.1673,
+          "hps_v2_1": 0.3204,
+          "imagereward": 0.3972,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_31_seed_2024.png",
+          "sha256": "82967a81674fdcc7262b7e3ca0746a2f483f8e4945a299ba2139aae569d6d648"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.065,
+          "clip_alignment": 0.2708,
+          "pickscore_v1": 0.1797,
+          "hps_v2_1": 0.3326,
+          "imagereward": 0.7741,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_31_seed_7777.png",
+          "sha256": "2ba3fbd3d7f97d5d5f3b296e5ea22ee0bae04228c283870e955bdb2aa17daf66"
+        }
+      ]
     },
     {
       "prompt_id": "aes_32",
       "prompt": "dystopian futuristic city in 16-bit pixel art style with glowing neon signs and rain",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.826,
+          "std": 0.457
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.306,
+          "std": 0.0104
+        },
+        "pickscore_v1": {
+          "mean": 0.1886,
+          "std": 0.0025
+        },
+        "hps_v2_1": {
+          "mean": 0.3319,
+          "std": 0.0076
+        },
+        "imagereward": {
+          "mean": 0.7249,
+          "std": 0.2475
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.104,
-        "mock_pickscore": 0.6035,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4752
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.464,
+          "clip_alignment": 0.3209,
+          "pickscore_v1": 0.1922,
+          "hps_v2_1": 0.3426,
+          "imagereward": 1.0738,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_32_seed_42.png",
+          "sha256": "4ee9a96caa331e104c85c613eba655d5d5f54d1cb8b62cddc8b32de2171d5214"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.784,
+          "clip_alignment": 0.2986,
+          "pickscore_v1": 0.1868,
+          "hps_v2_1": 0.3307,
+          "imagereward": 0.6894,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_32_seed_100.png",
+          "sha256": "2f8427fbc161454e3ade2ab777bc3383ab36271f44e0e4cbfadf040ec308663f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.668,
+          "clip_alignment": 0.3053,
+          "pickscore_v1": 0.1884,
+          "hps_v2_1": 0.3294,
+          "imagereward": 0.6446,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_32_seed_2024.png",
+          "sha256": "9e1deb271c91db015627fa6e88d1a3b298c269e94cd32ba381852ee281cd68ab"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.387,
+          "clip_alignment": 0.2993,
+          "pickscore_v1": 0.1869,
+          "hps_v2_1": 0.3247,
+          "imagereward": 0.4919,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_32_seed_7777.png",
+          "sha256": "647f2e97de59cf300fd7f3b0df06c76bf0451cc92a51abb11e62b6a55c699e62"
+        }
+      ]
     },
     {
       "prompt_id": "aes_33",
       "prompt": "charming 3D claymation diorama of a cozy cottage village with warm glowing windows",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.56,
+          "std": 0.1266
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3406,
+          "std": 0.0115
+        },
+        "pickscore_v1": {
+          "mean": 0.1969,
+          "std": 0.0027
+        },
+        "hps_v2_1": {
+          "mean": 0.3307,
+          "std": 0.0022
+        },
+        "imagereward": {
+          "mean": 0.6609,
+          "std": 0.0702
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.099,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4757
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.575,
+          "clip_alignment": 0.3572,
+          "pickscore_v1": 0.2007,
+          "hps_v2_1": 0.3322,
+          "imagereward": 0.7019,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_33_seed_42.png",
+          "sha256": "9189c6dd78c44c9bf821e564fec77e3dc6edb7468d2bd5c1d538c32b69e80f8f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.376,
+          "clip_alignment": 0.3341,
+          "pickscore_v1": 0.1954,
+          "hps_v2_1": 0.3274,
+          "imagereward": 0.556,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_33_seed_100.png",
+          "sha256": "15cd0590246e95e181d3012029a9dd17093eafb90d6179ab9c8a5513345a6705"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.637,
+          "clip_alignment": 0.3395,
+          "pickscore_v1": 0.1966,
+          "hps_v2_1": 0.3317,
+          "imagereward": 0.6975,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_33_seed_2024.png",
+          "sha256": "e9bfdde12b98035affc101d534f7fc4b83eafe78c20757be9637a23310df4b53"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.65,
+          "clip_alignment": 0.3317,
+          "pickscore_v1": 0.1948,
+          "hps_v2_1": 0.3313,
+          "imagereward": 0.6881,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_33_seed_7777.png",
+          "sha256": "f6708ec20abe7573515bac9acdc5e85456d0141315fccc7d5dc4aa83bfc730be"
+        }
+      ]
     },
     {
       "prompt_id": "aes_34",
       "prompt": "isometric voxel art render of a bustling fantasy tavern with warm fireplace lighting",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.084,
+          "std": 0.3582
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3611,
+          "std": 0.0147
+        },
+        "pickscore_v1": {
+          "mean": 0.2016,
+          "std": 0.0033
+        },
+        "hps_v2_1": {
+          "mean": 0.3401,
+          "std": 0.0054
+        },
+        "imagereward": {
+          "mean": 0.9644,
+          "std": 0.1782
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.1,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4755
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.371,
+          "clip_alignment": 0.3489,
+          "pickscore_v1": 0.1988,
+          "hps_v2_1": 0.3435,
+          "imagereward": 1.0833,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_34_seed_42.png",
+          "sha256": "e8be8323dbcb3499473e9becb93445e687e917b004357a7942969b8974fafd8a"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.107,
+          "clip_alignment": 0.3825,
+          "pickscore_v1": 0.2063,
+          "hps_v2_1": 0.3422,
+          "imagereward": 1.0183,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_34_seed_100.png",
+          "sha256": "59e2d2cde1f746a403455df0a85b3e3ee1d078e0e209d13af76a41d6349b5e28"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.286,
+          "clip_alignment": 0.3564,
+          "pickscore_v1": 0.2005,
+          "hps_v2_1": 0.3428,
+          "imagereward": 1.0559,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_34_seed_2024.png",
+          "sha256": "b4ca2b8d61ba592537856eb67c676dcd96436de797693753fe6f7338dbe175d7"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.573,
+          "clip_alignment": 0.3568,
+          "pickscore_v1": 0.2006,
+          "hps_v2_1": 0.3321,
+          "imagereward": 0.7001,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_34_seed_7777.png",
+          "sha256": "00c2471c23dd2e4cd30d8e8ba77652791edd61bae8d389ff6491b7da53fcd2c0"
+        }
+      ]
     },
     {
       "prompt_id": "aes_35",
-      "prompt": "enchanted fairytale forest with glowing mushrooms, floating wisps, and ancient twisted roots",
-      "real_metrics": {
+      "prompt": "enchanted fairytale forest with glowing mushrooms, floating wisps, ancient twisted roots",
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 6.104,
+          "std": 0.4029
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2843,
+          "std": 0.0183
+        },
+        "pickscore_v1": {
+          "mean": 0.1831,
+          "std": 0.0046
+        },
+        "hps_v2_1": {
+          "mean": 0.3343,
+          "std": 0.005
+        },
+        "imagereward": {
+          "mean": 0.8203,
+          "std": 0.1736
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.101,
-        "mock_pickscore": 0.6033,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.476
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.272,
+          "clip_alignment": 0.294,
+          "pickscore_v1": 0.1856,
+          "hps_v2_1": 0.3376,
+          "imagereward": 0.9237,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_35_seed_42.png",
+          "sha256": "a484bcbb184ab6ca835bfee2dcefeaf61b9a69d15d27cee63e56fe3b31d5251c"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.586,
+          "clip_alignment": 0.3029,
+          "pickscore_v1": 0.1878,
+          "hps_v2_1": 0.328,
+          "imagereward": 0.5988,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_35_seed_100.png",
+          "sha256": "ece962ef0e0b56cfb7b2026621f507582485f215100d86f96eda1d4e751f2aba"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.024,
+          "clip_alignment": 0.2793,
+          "pickscore_v1": 0.1819,
+          "hps_v2_1": 0.3327,
+          "imagereward": 0.7706,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_35_seed_2024.png",
+          "sha256": "a65291c0d65d4d2c6f9e6109e0257d0f20c91c24323696a3a08aa5bf64d1d356"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.533,
+          "clip_alignment": 0.261,
+          "pickscore_v1": 0.1772,
+          "hps_v2_1": 0.3389,
+          "imagereward": 0.9882,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_35_seed_7777.png",
+          "sha256": "4f9090f527df186ea143601786143c5d626b5af295273e6a5ad7669b1ea3a133"
+        }
+      ]
     },
     {
       "prompt_id": "aes_36",
       "prompt": "surreal floating crystal islands connected by luminous energy bridges in an indigo sky",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.728,
+          "std": 0.3008
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2746,
+          "std": 0.0133
+        },
+        "pickscore_v1": {
+          "mean": 0.1806,
+          "std": 0.0034
+        },
+        "hps_v2_1": {
+          "mean": 0.3279,
+          "std": 0.0046
+        },
+        "imagereward": {
+          "mean": 0.6132,
+          "std": 0.1515
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.107,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4756
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.985,
+          "clip_alignment": 0.258,
+          "pickscore_v1": 0.1764,
+          "hps_v2_1": 0.3304,
+          "imagereward": 0.7084,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_36_seed_42.png",
+          "sha256": "3f624393bfee4e1d8442d9f4dbc48c24e0a3c040d78cc5e8c4f01ee89170b056"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.302,
+          "clip_alignment": 0.2697,
+          "pickscore_v1": 0.1794,
+          "hps_v2_1": 0.3211,
+          "imagereward": 0.3906,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_36_seed_100.png",
+          "sha256": "d609eb824a524363ee075a9ebd8fd298eb28425b33387b22ee1472e091645b4c"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.882,
+          "clip_alignment": 0.2841,
+          "pickscore_v1": 0.1831,
+          "hps_v2_1": 0.331,
+          "imagereward": 0.7093,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_36_seed_2024.png",
+          "sha256": "c57049bbd92a39e09b31b01a92c53884fab4db65e86ebd49d1f5dd9bd3075f3b"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.742,
+          "clip_alignment": 0.2865,
+          "pickscore_v1": 0.1837,
+          "hps_v2_1": 0.3291,
+          "imagereward": 0.6443,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_36_seed_7777.png",
+          "sha256": "f6cab7fd1108fbee12d19133a1b33fdf36bd41f5062273a9b8e9b1c06311290b"
+        }
+      ]
     },
     {
       "prompt_id": "aes_37",
       "prompt": "intricate geometric origami dragon crafted from iridescent metallic paper",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.584,
+          "std": 0.2304
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3202,
+          "std": 0.0339
+        },
+        "pickscore_v1": {
+          "mean": 0.1919,
+          "std": 0.0081
+        },
+        "hps_v2_1": {
+          "mean": 0.3294,
+          "std": 0.0036
+        },
+        "imagereward": {
+          "mean": 0.6327,
+          "std": 0.1112
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.102,
-        "mock_pickscore": 0.6033,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4758
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.616,
+          "clip_alignment": 0.3004,
+          "pickscore_v1": 0.1872,
+          "hps_v2_1": 0.3283,
+          "imagereward": 0.609,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_37_seed_42.png",
+          "sha256": "43ca1fba092e257241fe5eec5872632fe8b47e6be24566b9fa0e27b175da38b5"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.264,
+          "clip_alignment": 0.3292,
+          "pickscore_v1": 0.1942,
+          "hps_v2_1": 0.3253,
+          "imagereward": 0.4902,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_37_seed_100.png",
+          "sha256": "64bbec79b8ca4ff070e9c20e03d886dadeb4c62142c179189deedb24252545fd"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.812,
+          "clip_alignment": 0.2875,
+          "pickscore_v1": 0.184,
+          "hps_v2_1": 0.3302,
+          "imagereward": 0.681,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_37_seed_2024.png",
+          "sha256": "ad809a85450b65c901f168153a350a266dfadc03846a509e9391c0a68459a718"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.646,
+          "clip_alignment": 0.3638,
+          "pickscore_v1": 0.2022,
+          "hps_v2_1": 0.3338,
+          "imagereward": 0.7506,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_37_seed_7777.png",
+          "sha256": "ee2fb14f2adb9556b3246836bc8561c025319d35e40be90825395932b589148d"
+        }
+      ]
     },
     {
       "prompt_id": "aes_38",
       "prompt": "deep underwater scene of a bioluminescent coral reef with shimmering jellyfish",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.956,
+          "std": 0.213
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.2624,
+          "std": 0.021
+        },
+        "pickscore_v1": {
+          "mean": 0.1775,
+          "std": 0.0054
+        },
+        "hps_v2_1": {
+          "mean": 0.3303,
+          "std": 0.0043
+        },
+        "imagereward": {
+          "mean": 0.7027,
+          "std": 0.1325
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.101,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2048,
-        "mock_imagereward": -0.4755
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 6.047,
+          "clip_alignment": 0.2518,
+          "pickscore_v1": 0.1747,
+          "hps_v2_1": 0.3308,
+          "imagereward": 0.7271,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_38_seed_42.png",
+          "sha256": "9ccd1fa78666ec5b08e164bc0a71889112d2595276de11172c64a919b331dea3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.637,
+          "clip_alignment": 0.2484,
+          "pickscore_v1": 0.1739,
+          "hps_v2_1": 0.3244,
+          "imagereward": 0.5154,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_38_seed_100.png",
+          "sha256": "c4c6407bf5eb41408733dd51537727d9a634b095bb580dd396a943e851be0d59"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.058,
+          "clip_alignment": 0.2557,
+          "pickscore_v1": 0.1758,
+          "hps_v2_1": 0.3313,
+          "imagereward": 0.7407,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_38_seed_2024.png",
+          "sha256": "93f26523d86d101292839dbf290895c9f573354e94c76e1f01bb4b93bb401731"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.081,
+          "clip_alignment": 0.2935,
+          "pickscore_v1": 0.1855,
+          "hps_v2_1": 0.3347,
+          "imagereward": 0.8274,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_38_seed_7777.png",
+          "sha256": "13aa2cb8a1a7afa858d47c69054adff7ced94d31def68d3c4d46c11abca56dcd"
+        }
+      ]
     },
     {
       "prompt_id": "aes_39",
-      "prompt": "abstract fluid art composition of liquid gold, obsidian black, and turquoise swirling together",
-      "real_metrics": {
+      "prompt": "abstract fluid art composition of liquid gold, obsidian black, turquoise swirling together",
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.362,
+          "std": 0.0511
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.3015,
+          "std": 0.008
+        },
+        "pickscore_v1": {
+          "mean": 0.1874,
+          "std": 0.002
+        },
+        "hps_v2_1": {
+          "mean": 0.3246,
+          "std": 0.001
+        },
+        "imagereward": {
+          "mean": 0.484,
+          "std": 0.0309
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.106,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4758
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.361,
+          "clip_alignment": 0.2972,
+          "pickscore_v1": 0.1864,
+          "hps_v2_1": 0.3242,
+          "imagereward": 0.4748,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_39_seed_42.png",
+          "sha256": "89cc69ee4e87a798e8c49519b3358c03125907aa997f20b9a1daa42239684177"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.406,
+          "clip_alignment": 0.2948,
+          "pickscore_v1": 0.1858,
+          "hps_v2_1": 0.3247,
+          "imagereward": 0.4928,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_39_seed_100.png",
+          "sha256": "e9e15144eb083d9d72cad9c05ce1b79e208e1581ca776a56d2d37a2cea6d609f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.391,
+          "clip_alignment": 0.3129,
+          "pickscore_v1": 0.1903,
+          "hps_v2_1": 0.3259,
+          "imagereward": 0.5211,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_39_seed_2024.png",
+          "sha256": "ea213026647e6b23a2681e1989d796cab97e2705b090e5cadfbe05651b2de43d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.291,
+          "clip_alignment": 0.301,
+          "pickscore_v1": 0.1873,
+          "hps_v2_1": 0.3234,
+          "imagereward": 0.4475,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_39_seed_7777.png",
+          "sha256": "4c087c8353ef06224bd07c63cdb964eee34697e737ade52e42fd821bf35da010"
+        }
+      ]
     },
     {
       "prompt_id": "aes_40",
       "prompt": "crystalline geometric palace glistening with prism light refraction on a frozen lake",
-      "real_metrics": {
+      "summary": {
         "laion_aesthetic_v2_4": {
-          "mean": 6.67,
-          "variance": 0.0
-        },
-        "pickscore_v1": {
-          "mean": 0.2284,
-          "variance": 0.0
-        },
-        "hps_v2_1": {
-          "mean": 0.284,
-          "variance": 0.0
-        },
-        "imagereward": {
-          "mean": 0.5935,
-          "variance": 0.0
+          "mean": 5.462,
+          "std": 0.4836
         },
         "clip_alignment": {
-          "mean": 0.2981
+          "mean": 0.249,
+          "std": 0.027
+        },
+        "pickscore_v1": {
+          "mean": 0.1739,
+          "std": 0.007
+        },
+        "hps_v2_1": {
+          "mean": 0.3219,
+          "std": 0.0059
+        },
+        "imagereward": {
+          "mean": 0.429,
+          "std": 0.2075
         }
       },
-      "legacy_mock_metrics": {
-        "mock_laion_aesthetic": 7.097,
-        "mock_pickscore": 0.6034,
-        "mock_hpsv2": 0.2047,
-        "mock_imagereward": -0.4758
-      }
+      "per_seed_runs": [
+        {
+          "laion_aesthetic_v2_4": 5.531,
+          "clip_alignment": 0.2478,
+          "pickscore_v1": 0.1737,
+          "hps_v2_1": 0.3228,
+          "imagereward": 0.461,
+          "seed": 42,
+          "image_path": "benchmarks/images/sd15_baseline/aes_40_seed_42.png",
+          "sha256": "190cdb0812961a4c65b4e534f6b3c9d01d8f0b69d63b494c1642b5f1a606009b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.117,
+          "clip_alignment": 0.2252,
+          "pickscore_v1": 0.1677,
+          "hps_v2_1": 0.3298,
+          "imagereward": 0.709,
+          "seed": 100,
+          "image_path": "benchmarks/images/sd15_baseline/aes_40_seed_100.png",
+          "sha256": "2352c4cbb9854c2a9642aee890e8ec0ade3aca333a139fa76490a85876a99776"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.154,
+          "clip_alignment": 0.2359,
+          "pickscore_v1": 0.1706,
+          "hps_v2_1": 0.3162,
+          "imagereward": 0.249,
+          "seed": 2024,
+          "image_path": "benchmarks/images/sd15_baseline/aes_40_seed_2024.png",
+          "sha256": "004d784db30503b6decc9c7a2dde27c54dcf62371ccf9fb04dcc193697618860"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.046,
+          "clip_alignment": 0.287,
+          "pickscore_v1": 0.1838,
+          "hps_v2_1": 0.3187,
+          "imagereward": 0.2972,
+          "seed": 7777,
+          "image_path": "benchmarks/images/sd15_baseline/aes_40_seed_7777.png",
+          "sha256": "6ebcce779be42172780d94012e4e6ded2193d225c2ab260ab5d04f32a6eae5c0"
+        }
+      ]
     }
   ]
 }

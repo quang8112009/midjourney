@@ -85,18 +85,18 @@ The system solves foundational diffusion failure modes—including object count 
 
 ---
 
-## 📊 Empirical Benchmark Results
+## 📊 Offline Mathematical & Structural Invariant Benchmarks
 
-Evaluated via the comprehensive offline benchmark suite (`scripts/eval_hybrid_reasoning.py`):
+> **Note on Benchmark Methodology:** The metrics below are evaluated via the offline structural invariant harness (`scripts/eval_hybrid_reasoning.py` and `scripts/eval_editing.py`). They measure mathematical and algebraic invariants (attention bias matrix isolation, 2D/3D coordinate geometry calculations, and latent blending equations on synthetic 2D latent fields with a toy 12-step Euler loop). They demonstrate theoretical bounds and architectural constraints; live perceptual image generation benchmarks are evaluated separately under `benchmarks/`.
 
-| Failure Mode / Benchmark Category | Evaluated Conditions | Baseline Model | Proposed Hybrid Framework | Delta / Improvement |
+| Failure Mode / Benchmark Category | Evaluated Conditions | Baseline Model | Proposed Hybrid Framework | Offline Verification Type |
 |---|---|---|---|---|
-| **1. Object Count Accuracy** | Single, multi-words, digit numerals, mixed quantifiers, collective nouns, numeral sequences | Common count confusion & duplicate blending | **100.0%** (15/15 entities exact match) | **+100.0% Exact Count Fidelity** |
-| **2. Spatial Relation Correctness** | `riding` (fwd/rev), `under`, `next_to`, `inside`, `in_front_of`, `behind`, unlinked partition | Spatial inversions and semantic bleeding | **100.0%** (8/8 spatial geometries correct) | **+100.0% Relational Precision** |
-| **3. Next-Gen Spatial & Depth Reasoning** | 3D Gaussians, relative depth, continuous swarms, star fields, 45° rotations, visual features | Hard box bounds / no depth reasoning | **100.0%** (12/12 complex next-gen cases) | **Smooth continuous spatial & depth support** |
-| **4. Edit Target Isolation & Anti-Leakage** | Local recoloring, small objects, background preservation, regional sky changes | Leakage: `0.561`<br>SSIM Out: `0.832`<br>IoU: `0.439` | Leakage: **`0.006`**<br>SSIM Out: **`0.998`**<br>IoU: **`0.889`** | **98.98% Leakage Reduction**<br>(SSIM: `0.832 → 0.998`) |
-| **5. Aesthetic Control Set (Zero Bias)** | Cyberpunk watercolor, cinematic portrait, macro photorealism, whimsical anime, oil sunset, pixel art | Uncontrolled style pinning and texture loss | **100.0%** (Zero spatial bias verified on all style tokens) | **100% Aesthetic Freedom Preserved** |
-| **6. Guidance Ablation & Entropy Retention** | Soft guidance ($+0.3$) vs hard masking ($-12.0$) | Hard Gradient Ret: **`0.00%`** (Total Collapse) | Soft Gradient Ret: **`100.0%`**<br>Soft Entropy Ret: **`100.0%`** | **Complete Gradient & Texture Preservation** |
+| **1. Object Count Accuracy** | Single, multi-words, digit numerals, mixed quantifiers, collective nouns, numeral sequences | Common count confusion & duplicate blending | **100.0%** (15/15 entities exact match) | **Deterministic Rule/Parser Invariant** |
+| **2. Spatial Relation Correctness** | `riding` (fwd/rev), `under`, `next_to`, `inside`, `in_front_of`, `behind`, unlinked partition | Spatial inversions and semantic bleeding | **100.0%** (8/8 spatial geometries correct) | **Geometric Coordinate Verification** |
+| **3. Next-Gen Spatial & Depth Reasoning** | 3D Gaussians, relative depth, continuous swarms, star fields, 45° rotations, visual features | Hard box bounds / no depth reasoning | **100.0%** (12/12 complex next-gen cases) | **Continuous Potential Field Invariant** |
+| **4. Edit Target Isolation & Anti-Leakage** | Local recoloring, small objects, background preservation, regional sky changes | Toy Leakage: `0.561`<br>Toy SSIM Out: `0.832`<br>IoU: `0.439` | Toy Leakage: **`0.006`**<br>Toy SSIM Out: **`0.998`**<br>IoU: **`0.889`** | **Synthetic Latent Blend Invariant**<br>(Live perceptual validation pending) |
+| **5. Aesthetic Control Set (Zero Bias)** | Cyberpunk watercolor, cinematic portrait, macro photorealism, whimsical anime, oil sunset, pixel art | Uncontrolled style pinning and texture loss | **100.0%** (Zero spatial bias verified on all style tokens) | **Attention Logit Masking Invariant** |
+| **6. Guidance Ablation & Entropy Retention** | Soft guidance ($+0.3$) vs hard masking ($-12.0$) | Hard Gradient Ret: **`0.00%`** (Total Collapse) | Soft Gradient Ret: **`100.0%`**<br>Soft Entropy Ret: **`100.0%`** | **Softmax Analytical Gradient Invariant** |
 
 ---
 
