@@ -75,11 +75,7 @@ def diagnose_depth() -> None:
 
     # 2. Inspect 15 Depth Pairs for Bounding Box Centroid Shifts vs Metric Verdict
     print("\n--- 2. DETAILED INSPECTION OF 15 DEPTH PROMPT PAIRS (OFF vs 6.00) ---")
-    depth_pairs = [
-        (spec, seed)
-        for spec in depth_specs
-        for seed in SEEDS_N96
-    ][:15]
+    depth_pairs = [(spec, seed) for spec in depth_specs for seed in SEEDS_N96][:15]
 
     for idx, (spec, seed) in enumerate(depth_pairs, 1):
         p_id = spec["id"]

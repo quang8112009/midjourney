@@ -244,12 +244,17 @@ class MonocularDepthEvaluator:
         inputs = self.processor(images=image, return_tensors="pt").to(self.device)
         outputs = self.model(**inputs)
         depth_raw = outputs.predicted_depth.unsqueeze(1)
-        depth_map = F.interpolate(
-            depth_raw,
-            size=(image.height, image.width),
-            mode="bilinear",
-            align_corners=False,
-        ).squeeze().cpu().numpy()
+        depth_map = (
+            F.interpolate(
+                depth_raw,
+                size=(image.height, image.width),
+                mode="bilinear",
+                align_corners=False,
+            )
+            .squeeze()
+            .cpu()
+            .numpy()
+        )
 
         h, w = image.height, image.width
         s_box = [
@@ -269,8 +274,8 @@ class MonocularDepthEvaluator:
         s_box = [max(0, s_box[0]), max(0, s_box[1]), min(h, s_box[2]), min(w, s_box[3])]
         o_box = [max(0, o_box[0]), max(0, o_box[1]), min(h, o_box[2]), min(w, o_box[3])]
 
-        s_crop = depth_map[s_box[0]:s_box[2], s_box[1]:s_box[3]]
-        o_crop = depth_map[o_box[0]:o_box[2], o_box[1]:o_box[3]]
+        s_crop = depth_map[s_box[0] : s_box[2], s_box[1] : s_box[3]]
+        o_crop = depth_map[o_box[0] : o_box[2], o_box[1] : o_box[3]]
 
         s_mean = float(np.mean(s_crop)) if s_crop.size > 0 else 0.0
         o_mean = float(np.mean(o_crop)) if o_crop.size > 0 else 0.0
@@ -353,7 +358,8 @@ def run_depth_benchmark() -> int:
             prompt = spec["prompt"]
 
             missing_seeds = [
-                s for s in SEEDS_192
+                s
+                for s in SEEDS_192
                 if not (images_dir / f"{p_id}_s{s}_str_{strength:.2f}.png").exists()
             ]
             if not missing_seeds:
@@ -529,9 +535,7 @@ def run_depth_benchmark() -> int:
             cur_sat = sum(1 for r in cur_recs.values() if r[metric_name])
             cur_r = (cur_sat / 192.0) * 100.0
 
-            a = sum(
-                1 for k in off_recs if off_recs[k][metric_name] and cur_recs[k][metric_name]
-            )
+            a = sum(1 for k in off_recs if off_recs[k][metric_name] and cur_recs[k][metric_name])
             b = sum(
                 1 for k in off_recs if not off_recs[k][metric_name] and cur_recs[k][metric_name]
             )
@@ -553,7 +557,7 @@ def run_depth_benchmark() -> int:
             )
             print(
                 f"    Pairs: a(both pass)={a}, b(gain)={b}, c(loss)={c}, "
-                f"d(both fail)={d} -> Net: {b-c:+d}"
+                f"d(both fail)={d} -> Net: {b - c:+d}"
             )
             print(
                 f"    McNemar Exact p-value: {exact_p:.6e} ({sig_str}) | "

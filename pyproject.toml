@@ -10,6 +10,8 @@ select = ["E", "F", "I", "B", "UP"]
 "tests/test_api.py" = ["E402"]
 "tests/test_app.py" = ["E402"]
 "tests/test_chat_api.py" = ["E402"]
+"scripts/*" = ["E402", "E501"]
+
 
 [tool.coverage.run]
 branch = true

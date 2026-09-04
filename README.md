@@ -16,7 +16,7 @@ Live GPU experiments on Stable Diffusion v1.5 (NVIDIA RTX 4060 Ti, CUDA fp16) ha
 
 1. **Validated Capability — Lateral Spatial Steering ($p = 0.000394$, $N=192$ paired):**
    * 2D cross-attention logit bias produces **statistically significant control over lateral (left/right/beside) object placement** at strength 6.0, improving satisfaction from $34.90\% \to 49.48\%$ ($+28$ net paired gains across 24 prompts $\times$ 8 seeds, McNemar exact $p = 3.94 \times 10^{-4}$).
-   * *Status:* **Validated.** Operating point 6.0 is flagged as **provisional** pending human review of structural shifts (mean SSIM 0.72).
+   * *Status:* **Validated & Promoted to Default.** Human visual review confirmed image quality at strength 6.0 is clean (no duplication, distortion, or texture breakdown; low SSIM reflects compositional reorganization rather than damage, with ON fixing baseline artifacts in several pairs). Object-presence audits across all 192 pairs show dual entity presence increases ($59.38\% \to 67.71\%$) and omissions drop ($40.6\% \to 32.3\%$). Manual ground-truth labeling on 30 ON images confirmed 100% detector precision and an underlying true success rate of $63.33\%$.
 2. **Negative Result — 3D Camera Depth Control ($p = 0.081$, $N=192$ paired):**
    * When measured with a true 3D monocular depth estimator (**Depth Anything V2**), depth guidance does **not** achieve statistical significance ($41.67\% \to 47.92\%$, McNemar exact $p = 0.0807$).
    * The apparent gain on the 2D bounding-box metric ($50.0\% \to 60.4\%$, $p = 0.0029$) is an artifact of objects moving lower in the image frame—a 2D pictorial depth cue—rather than true camera-space distance modulation.
@@ -254,7 +254,7 @@ MODEL_CPU_OFFLOAD=true
 # Spatial, Depth & Multi-Modal Guidance
 DEPTH_GUIDANCE_ENABLED=true
 DEPTH_GUIDANCE_STRENGTH=0.3  # Legacy fallback / global default
-LATERAL_GUIDANCE_STRENGTH=6.0  # Validated lateral steering (provisional)
+LATERAL_GUIDANCE_STRENGTH=6.0  # Validated lateral steering default
 DEPTH_RELATION_GUIDANCE_STRENGTH=0.0  # Disabled (unvalidated on real 3D depth)
 VERTICAL_ON_GUIDANCE_STRENGTH=0.0  # Disabled (unguided prior is stronger)
 VERTICAL_UNDER_GUIDANCE_STRENGTH=0.3  # Preserved default

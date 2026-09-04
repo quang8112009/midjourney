@@ -110,3 +110,37 @@ def test_layout_processor_respects_per_relation_strengths() -> None:
         base_processor=MockAttnProc(), plan=plan_on, adaptive_guidance=True
     )
     assert proc_on.guidance_strength == 0.0
+
+
+def test_object_presence_and_failure_decomposition() -> None:
+
+    from scripts.eval_spatial_presence_and_labeling import PresenceAndDetectorEvaluator
+
+    evaluator = PresenceAndDetectorEvaluator.__new__(PresenceAndDetectorEvaluator)
+
+    # 1. Both present, left_of satisfied
+    subj = {"score": 0.8, "box": [0.2, 0.1, 0.8, 0.4], "center": (0.5, 0.25)}
+    obj = {"score": 0.8, "box": [0.2, 0.6, 0.8, 0.9], "center": (0.5, 0.75)}
+    sat, reason, cat = evaluator.check_relation(subj, obj, "left_of")
+    assert sat is True
+    assert cat == "success"
+
+    # 2. Both present, left_of inverted
+    sat_inv, reason_inv, cat_inv = evaluator.check_relation(obj, subj, "left_of")
+    assert sat_inv is False
+    assert cat_inv == "misplacement"
+
+    # 3. Missing subject
+    sat_ms, _, cat_ms = evaluator.check_relation(None, obj, "left_of")
+    assert sat_ms is False
+    assert cat_ms == "omission_subject"
+
+    # 4. Missing object
+    sat_mo, _, cat_mo = evaluator.check_relation(subj, None, "left_of")
+    assert sat_mo is False
+    assert cat_mo == "omission_object"
+
+    # 5. Missing both
+    sat_mb, _, cat_mb = evaluator.check_relation(None, None, "left_of")
+    assert sat_mb is False
+    assert cat_mb == "omission_both"

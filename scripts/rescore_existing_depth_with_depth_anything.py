@@ -83,7 +83,7 @@ def rescore_existing() -> None:
             b = sum(1 for k in off_3d if not off_3d[k] and cur_3d[k])
             c = sum(1 for k in off_3d if off_3d[k] and not cur_3d[k])
             p_val = exact_mcnemar_p_value(b, c)
-            disc_str = f"b={b}, c={c} (net {b-c:+d})"
+            disc_str = f"b={b}, c={c} (net {b - c:+d})"
             p_str = f"p={p_val:.4f}"
 
         print(

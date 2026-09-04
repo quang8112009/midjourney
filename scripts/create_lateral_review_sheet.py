@@ -138,16 +138,18 @@ def create_contact_sheet() -> None:
         draw.text((card_x + 14, card_y + 45), "OFF (0.00)", fill=(255, 255, 255))
         draw.text((card_x + thumb_w + 24, card_y + 45), "ON (6.00)", fill=(255, 255, 100))
 
-        audit_summary.append({
-            "pair": f"{p_id}_s{seed}",
-            "prompt": prompt,
-            "relation": rel,
-            "off_satisfied": sat_off,
-            "on_satisfied": sat_on,
-            "ssim": ssim_val,
-            "subject_detected_on": s_on is not None,
-            "object_detected_on": o_on is not None,
-        })
+        audit_summary.append(
+            {
+                "pair": f"{p_id}_s{seed}",
+                "prompt": prompt,
+                "relation": rel,
+                "off_satisfied": sat_off,
+                "on_satisfied": sat_on,
+                "ssim": ssim_val,
+                "subject_detected_on": s_on is not None,
+                "object_detected_on": o_on is not None,
+            }
+        )
 
     sheet.save(out_sheet_path)
     print(f"[+] Contact sheet saved to: {out_sheet_path}")
