@@ -2,7 +2,12 @@
 .env.*
 venv/
 .venv/
+models/
 models/cache/
+*.pth
+*.safetensors
+*.bin
+*.part*
 outputs/
 **/__pycache__/
 *.py[cod]
@@ -11,3 +16,8 @@ outputs/
 htmlcov/
 .pytest_cache/
 .ruff_cache/
+benchmarks/images/depth_dedicated_n192/
+benchmarks/images/lateral_dedicated_n192/
+benchmarks/images/rigorous_spatial_n96/
+benchmarks/images/strength_sweep/
+

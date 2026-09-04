@@ -1,4 +1,4 @@
-"""Tests for modern DiT guidance, Multi-Encoder token isolation, CFG rescaling, and quality tiers."""
+"""Tests for modern DiT guidance, token isolation, CFG rescaling, and quality tiers."""
 
 from __future__ import annotations
 
@@ -7,15 +7,13 @@ from PIL import Image
 
 from app.api.routes import GenerateRequest
 from app.services.editing.edit_pipeline import (
+    TIER_PROFILES,
     CFGRescaler,
     MaskAwareRefiner,
     QualityTier,
-    TIER_PROFILES,
     compute_work_units,
-    run_hybrid_generation,
 )
 from app.services.editing.layout_guidance import (
-    DepthAwareSchedule,
     MMDiTJointAttentionHook,
     MultiEncoderTokenIsolator,
     TwoPhaseSchedule,
@@ -29,14 +27,7 @@ from app.services.editing.semantic_planner import (
 )
 from app.services.editing.vision_backbone import (
     BACKBONE_CROSS_DIMS,
-    SwiGLU,
     VisionFeatureProjector,
-)
-from app.services.model_service import (
-    PIXART_ALPHA,
-    STABLE_DIFFUSION,
-    STABLE_DIFFUSION_35,
-    resolve_generation_defaults,
 )
 
 
@@ -109,7 +100,7 @@ def test_mmdit_joint_attention_hook_modifies_only_cross_slice():
 
 
 def test_vision_feature_projector_cross_dimensions():
-    """Verify VisionFeatureProjector correctly projects across SD1.5, PixArt, SD3.5, and Flux dimensions."""
+    """Verify VisionFeatureProjector projects across SD1.5, PixArt, SD3.5, and Flux."""
     vis_tokens = torch.randn(2, 64, 1024)
 
     for backbone, expected_dim in BACKBONE_CROSS_DIMS.items():
@@ -167,8 +158,8 @@ def test_mask_aware_refiner_outside_mask_isolation():
 
 def test_quality_tiers_and_work_units():
     """Verify quality tier profiles and dynamic work-unit calculation."""
-    assert TIER_PROFILES[QualityTier.PREVIEW].num_inference_steps if hasattr(TIER_PROFILES[QualityTier.PREVIEW], "num_inference_steps") else TIER_PROFILES[QualityTier.PREVIEW].default_steps == 14
-    assert TIER_PROFILES[QualityTier.FINAL].num_inference_steps if hasattr(TIER_PROFILES[QualityTier.FINAL], "num_inference_steps") else TIER_PROFILES[QualityTier.FINAL].default_steps == 28
+    assert TIER_PROFILES[QualityTier.PREVIEW].default_steps == 14
+    assert TIER_PROFILES[QualityTier.FINAL].default_steps == 28
 
     wu_preview = compute_work_units(tier=QualityTier.PREVIEW, refiner_enabled=False)
     wu_final = compute_work_units(tier=QualityTier.FINAL, refiner_enabled=False)
@@ -216,3 +207,52 @@ def test_generate_request_supports_new_models_and_tiers():
     assert req_final.num_inference_steps == 28
     assert req_final.width == 512
     assert req_final.height == 512
+
+
+def test_resolve_token_budget_multibackbone():
+    """Verify F6 fix: resolve_token_budget correctly resolves budget for all backbones."""
+    from app.services.editing.layout_guidance import resolve_token_budget
+
+    assert resolve_token_budget("stable-diffusion") == 77
+    assert resolve_token_budget("sd15") == 77
+    assert resolve_token_budget("pixart-alpha") == 120
+    assert resolve_token_budget("pixart") == 120
+    assert resolve_token_budget("stable-diffusion-3.5") == 666
+    assert resolve_token_budget("sd35_large") == 666
+    assert resolve_token_budget("flux-dev") == 512
+    assert resolve_token_budget("flux") == 512
+
+
+def test_compound_noun_phrase_parsing_and_adjective_attachment():
+    """Verify adjective-noun attachment and compound noun phrase parsing."""
+    from app.services.editing.prompt_intent import analyze_prompt
+    from app.services.editing.semantic_planner import plan_semantic_layout
+
+    # 1. Multi-entity prompt with compound material phrase
+    prompt_smoke = "a red cube in front of a blue sphere on a marble floor"
+    plan = plan_semantic_layout(analyze_prompt(prompt_smoke))
+    labels = [obj.label for obj in plan.objects]
+    assert "marble" not in labels, "Material adjective 'marble' should not be an independent entity"
+    assert "floor" in labels
+    assert "cube" in labels
+    assert "sphere" in labels
+    assert len(plan.objects) == 3
+
+    floor_obj = next(o for o in plan.objects if o.label == "floor")
+    assert "marble" in floor_obj.attributes
+    # Verify y-axis placement: floor is at bottom surface (ymin >= 0.45)
+    assert floor_obj.box.ymin >= 0.45
+
+    # 2. Additional compound noun phrases
+    compounds = [
+        ("a wooden table in a room", "table", "wooden"),
+        ("a glass bottle on a counter", "bottle", "glass"),
+        ("a ceramic mug on a wooden desk", "mug", "ceramic"),
+    ]
+    for prompt, expected_noun, expected_attr in compounds:
+        p = plan_semantic_layout(analyze_prompt(prompt))
+        obj = next((o for o in p.objects if o.label == expected_noun), None)
+        assert obj is not None, f"Expected entity '{expected_noun}' in {prompt}"
+        assert expected_attr in obj.attributes, (
+            f"Expected attribute '{expected_attr}' for '{expected_noun}'"
+        )

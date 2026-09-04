@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "title": "Dedicated Depth Spatial Benchmark (N=192 Paired Runs per Condition)",
+    "date": "2026-09-04T05:49:51.586541+00:00",
+    "model_id": "runwayml/stable-diffusion-v1-5",
+    "depth_estimator": "depth-anything/Depth-Anything-V2-Small-hf",
+    "prompts_tested": [
+      "a red cube in front of a blue sphere on a marble floor",
+      "a golden statue behind a stone fountain in a courtyard",
+      "a green chair in front of a brick fireplace in a living room",
+      "a tall oak tree behind a wooden cottage in a meadow",
+      "a ceramic vase in front of a mirror on a dresser",
+      "a mountain peak behind a log cabin in a forest",
+      "a wooden stool in front of a bookshelf in a library",
+      "a stone wall behind a flowering rose bush in a garden",
+      "a glass bottle in front of a fruit basket on a wooden table",
+      "a brick chimney behind a steep roof on a house",
+      "a bronze sculpture in front of a red curtain in a room",
+      "a lighthouse behind a rocky cliff on a coast",
+      "a red bicycle in front of a wooden door on a house",
+      "a water tower behind an industrial warehouse on a street",
+      "a potted cactus in front of a glass window in a sunroom",
+      "a pine forest behind a rustic wooden fence in a field",
+      "a leather armchair in front of a floor lamp in a study",
+      "a clock tower behind a stone archway in a town square",
+      "a ceramic bowl in front of a coffee machine on a kitchen counter",
+      "a mountain behind a wooden windmill on a grassy hill",
+      "a wooden violin in front of a music stand on a stage",
+      "a city skyline behind a suspension bridge over a river",
+      "a telephone in front of a desk calendar on an office desk",
+      "a medieval castle behind a stone bridge over a river"
+    ],
+    "seeds_tested": [
+      42,
+      100,
+      555,
+      1024,
+      2024,
+      7777,
+      9999,
+      12345
+    ]
+  },
+  "summary": {
+    "sat_2d_str_3.00": {
+      "strength": 3.0,
+      "metric": "sat_2d",
+      "satisfied_count": "106/192",
+      "rate_pct": 55.21,
+      "discordant_gain_b": 18,
+      "discordant_loss_c": 8,
+      "net_gain": 10,
+      "mcnemar_exact_p_value": 0.07551869750022888,
+      "significant": false
+    },
+    "sat_2d_str_6.00": {
+      "strength": 6.0,
+      "metric": "sat_2d",
+      "satisfied_count": "116/192",
+      "rate_pct": 60.42,
+      "discordant_gain_b": 31,
+      "discordant_loss_c": 11,
+      "net_gain": 20,
+      "mcnemar_exact_p_value": 0.002887247974285856,
+      "significant": true
+    },
+    "sat_3d_str_3.00": {
+      "strength": 3.0,
+      "metric": "sat_3d",
+      "satisfied_count": "87/192",
+      "rate_pct": 45.31,
+      "discordant_gain_b": 18,
+      "discordant_loss_c": 11,
+      "net_gain": 7,
+      "mcnemar_exact_p_value": 0.26493089646101,
+      "significant": false
+    },
+    "sat_3d_str_6.00": {
+      "strength": 6.0,
+      "metric": "sat_3d",
+      "satisfied_count": "92/192",
+      "rate_pct": 47.92,
+      "discordant_gain_b": 26,
+      "discordant_loss_c": 14,
+      "net_gain": 12,
+      "mcnemar_exact_p_value": 0.0806904677519924,
+      "significant": false
+    }
+  }
+}

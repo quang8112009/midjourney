@@ -61,9 +61,7 @@ class SplittingTests(unittest.TestCase):
         self.assertEqual(len(parts), 1)
 
     def test_three_instructions(self):
-        parts = split_instructions(
-            "remove the logo, blur the background and brighten the face"
-        )
+        parts = split_instructions("remove the logo, blur the background and brighten the face")
         self.assertEqual(len(parts), 3)
 
     def test_then_sequences(self):
@@ -262,9 +260,7 @@ class StructuredOutputTests(unittest.TestCase):
         self.assertTrue(any("split into 2" in line for line in intent.trace))
 
     def test_multi_instruction_keeps_every_sub_edit(self):
-        intent = analyze_prompt(
-            "remove the logo, blur the background and brighten the face"
-        )
+        intent = analyze_prompt("remove the logo, blur the background and brighten the face")
         actions = [instruction.action for instruction in intent.instructions]
         self.assertEqual(len(actions), 3)
         self.assertIn("remove", actions)

@@ -27,12 +27,25 @@ AlignmentStatus = Literal["aligned", "assumed", "clarify"]
 # contradict the scene: "add a second person" to a 3-person photo is incoherent,
 # but "add a person" or "add another person" is a perfectly ordinary request.
 _CARDINALS = {
-    "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
-    "seven": 7, "eight": 8, "nine": 9, "ten": 10,
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
 }
 _ORDINALS = {
-    "second": 2, "third": 3, "fourth": 4, "fifth": 5,
-    "sixth": 6, "seventh": 7, "eighth": 8,
+    "second": 2,
+    "third": 3,
+    "fourth": 4,
+    "fifth": 5,
+    "sixth": 6,
+    "seventh": 7,
+    "eighth": 8,
 }
 _ADDITIVE = re.compile(r"\b(add|insert|place|put|include)\b", re.IGNORECASE)
 _REMOVAL = re.compile(r"\b(remove|delete|erase|take out|get rid of)\b", re.IGNORECASE)

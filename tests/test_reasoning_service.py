@@ -93,18 +93,20 @@ class ReasoningXmlParserTests(unittest.TestCase):
         self.assertEqual(parsed.action, "respond")
 
     def test_parse_json_fallback(self):
-        json_data = json.dumps({
-            "intent": "JSON test",
-            "context_notes": "from prior turn",
-            "ambiguity": {
-                "is_ambiguous": False,
-                "assumption": None,
-                "clarifying_question": None,
-            },
-            "constraints": "none",
-            "response_plan": "Answer clearly",
-            "action": "respond",
-        })
+        json_data = json.dumps(
+            {
+                "intent": "JSON test",
+                "context_notes": "from prior turn",
+                "ambiguity": {
+                    "is_ambiguous": False,
+                    "assumption": None,
+                    "clarifying_question": None,
+                },
+                "constraints": "none",
+                "response_plan": "Answer clearly",
+                "action": "respond",
+            }
+        )
         parsed = parse_reasoning_xml(json_data)
         self.assertEqual(parsed.intent, "JSON test")
         self.assertEqual(parsed.context_notes, "from prior turn")
@@ -369,9 +371,7 @@ class ClarificationAndAssumptionInvariantTests(unittest.IsolatedAsyncioTestCase)
         chatty = "Which image do you mean? Do you want it warmer? Keep the background?"
         service = ReasoningService(ScriptedProvider(reasoning_xml, chatty))
 
-        turn = await service.reason(
-            session_id="s", messages=[current_message("Make it better")]
-        )
+        turn = await service.reason(session_id="s", messages=[current_message("Make it better")])
 
         self.assertEqual(turn.action, "clarify")
         self.assertEqual(turn.public_response.count("?"), 1)
@@ -386,9 +386,7 @@ class ClarificationAndAssumptionInvariantTests(unittest.IsolatedAsyncioTestCase)
         natural = "Happy to help - which of your images should I make more dramatic?"
         service = ReasoningService(ScriptedProvider(reasoning_xml, natural))
 
-        turn = await service.reason(
-            session_id="s", messages=[current_message("Make it better")]
-        )
+        turn = await service.reason(session_id="s", messages=[current_message("Make it better")])
 
         # The reduction must not fire on a well-formed reply.
         self.assertEqual(turn.public_response, natural)
@@ -423,9 +421,7 @@ class ClarificationAndAssumptionInvariantTests(unittest.IsolatedAsyncioTestCase)
         )
         service = ReasoningService(ScriptedProvider(reasoning_xml, "Square or wide?"))
 
-        turn = await service.reason(
-            session_id="s", messages=[current_message("Launch graphic")]
-        )
+        turn = await service.reason(session_id="s", messages=[current_message("Launch graphic")])
 
         self.assertEqual(turn.action, "clarify")
         self.assertNotIn("Assumption:", turn.public_response)

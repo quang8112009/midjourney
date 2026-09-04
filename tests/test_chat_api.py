@@ -363,8 +363,10 @@ class ChatApiTests(unittest.TestCase):
         original_limit = chat_rate_limiter.limit
         chat_rate_limiter.limit = 2
         provider = ScriptedProvider(
-            analysis_xml(), "One",
-            analysis_xml(), "Two",
+            analysis_xml(),
+            "One",
+            analysis_xml(),
+            "Two",
         )
         chat_service.reasoning_service.provider = provider
         try:

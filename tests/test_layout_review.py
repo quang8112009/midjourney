@@ -29,7 +29,7 @@ def plan_semantic_layout(prompt: str, **kwargs):
 def worst_overlap(plan) -> float:
     boxes = [obj.box for obj in plan.objects]
     return max(
-        (a.iou(b) for index, a in enumerate(boxes) for b in boxes[index + 1:]),
+        (a.iou(b) for index, a in enumerate(boxes) for b in boxes[index + 1 :]),
         default=0.0,
     )
 
@@ -96,9 +96,7 @@ class SpuriousRelationTests(unittest.TestCase):
         self.assertEqual(kept, [("cat", "on", "mat")])
 
     def test_relations_between_positioned_objects_are_dropped(self):
-        kept = drop_spurious_relations(
-            [("cats", "on", "dog")], {"cats": "left", "dog": "right"}
-        )
+        kept = drop_spurious_relations([("cats", "on", "dog")], {"cats": "left", "dog": "right"})
         self.assertEqual(kept, [])
 
 
@@ -124,9 +122,7 @@ class FreeSlotAllocationTests(unittest.TestCase):
 
     def test_objects_and_relations_do_not_collide(self):
         """The case the always-true self-check used to hide."""
-        plan = plan_semantic_layout(
-            "three red apples and two green pears on a rustic wooden table"
-        )
+        plan = plan_semantic_layout("three red apples and two green pears on a rustic wooden table")
         self.assertLess(worst_overlap(plan), 0.5)
         self.assertTrue(plan.self_check.is_valid)
 

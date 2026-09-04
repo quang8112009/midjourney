@@ -492,9 +492,7 @@ class AestheticControlSetTests(unittest.TestCase):
 
         # Soft guidance retains full attention entropy and gradient flow on unconstrained positions
         warrior_box = plan.objects[0].box
-        warrior_token_idx = (
-            plan.objects[0].token_indices[0] if plan.objects[0].token_indices else 5
-        )
+        warrior_token_idx = plan.objects[0].token_indices[0] if plan.objects[0].token_indices else 5
         ablation = ablation_soft_vs_hard(
             logits,
             warrior_box,
@@ -535,7 +533,7 @@ class SoftVsHardAblationTests(unittest.TestCase):
         )
         self.assertEqual(guided_img.shape, (1, 64, 4))
         self.assertGreater(float(guided_img[0, 0, 0]), 0.25)  # inside box
-        self.assertEqual(float(guided_img[0, 63, 0]), 0.0)   # outside box
+        self.assertEqual(float(guided_img[0, 63, 0]), 0.0)  # outside box
 
         # Text-first: (1, 4, 64)
         logits_txt = torch.zeros(1, 4, 64)
@@ -544,7 +542,7 @@ class SoftVsHardAblationTests(unittest.TestCase):
         )
         self.assertEqual(guided_txt.shape, (1, 4, 64))
         self.assertGreater(float(guided_txt[0, 0, 0]), 0.25)  # inside box
-        self.assertEqual(float(guided_txt[0, 0, 63]), 0.0)   # outside box
+        self.assertEqual(float(guided_txt[0, 0, 63]), 0.0)  # outside box
 
     def test_entropy_and_gradient_flow_math(self):
         # Uniform logits
@@ -552,6 +550,7 @@ class SoftVsHardAblationTests(unittest.TestCase):
         ent = compute_attention_entropy(uniform_logits)
         # Expected entropy for 4 uniform outcomes is ln(4) ~ 1.3863
         import math
+
         self.assertAlmostEqual(float(ent.mean()), math.log(4), places=4)
 
         # Gradient flow for p = 0.25 -> 0.25 * 0.75 = 0.1875
@@ -703,9 +702,7 @@ class HybridPipelineExecutionTests(unittest.TestCase):
 
     def test_run_hybrid_generation_progress_tracking_and_cutoff_transitions(self):
         plan = plan_semantic_layout("a red car on a highway")
-        proc = LayoutGuidanceProcessor(
-            None, plan=plan, guidance_strength=0.3, schedule_cutoff=0.8
-        )
+        proc = LayoutGuidanceProcessor(None, plan=plan, guidance_strength=0.3, schedule_cutoff=0.8)
         timesteps = list(range(10))  # 10 steps -> progress values: 0.1, 0.2, ..., 1.0
         trace = EditTrace()
 
@@ -878,9 +875,11 @@ class QuantifierExtractionAndColumnPartitioningTests(unittest.TestCase):
                 for i in range(n - 1):
                     b1 = boxes[i]
                     b2 = boxes[i + 1]
-                    self.assertFalse(b1.overlaps(b2), f"Box {i} and {i+1} overlap for N={n}")
+                    self.assertFalse(b1.overlaps(b2), f"Box {i} and {i + 1} overlap for N={n}")
                     self.assertEqual(b1.iou(b2), 0.0)
-                    self.assertLess(b1.xmax, b2.xmin, f"Box {i} right >= Box {i+1} left for N={n}")
+                    self.assertLess(
+                        b1.xmax, b2.xmin, f"Box {i} right >= Box {i + 1} left for N={n}"
+                    )
                     # Positive safety margin
                     margin = b2.xmin - b1.xmax
                     self.assertGreater(margin, 0.005, f"Insufficient margin for N={n}: {margin}")
@@ -923,8 +922,18 @@ class TokenizerAlignmentAndSubwordTests(unittest.TestCase):
         prompt = "change the red car, but keep the carpet"
         # CLIP uses </w> suffix on word boundaries
         clip_pieces = [
-            "<|startoftext|>", "change</w>", "the</w>", "red</w>", "car</w>", ",</w>",
-            "but</w>", "keep</w>", "the</w>", "car", "pet</w>", "<|endoftext|>"
+            "<|startoftext|>",
+            "change</w>",
+            "the</w>",
+            "red</w>",
+            "car</w>",
+            ",</w>",
+            "but</w>",
+            "keep</w>",
+            "the</w>",
+            "car",
+            "pet</w>",
+            "<|endoftext|>",
         ]
         tok = MockTokenizer(clip_pieces)
 
@@ -939,10 +948,10 @@ class TokenizerAlignmentAndSubwordTests(unittest.TestCase):
         # align_token_roles: car is edit_target, carpet is context
         instruction = analyze_prompt(prompt, mode="edit").instructions[0]
         roles = align_token_roles(instruction, tok)
-        self.assertEqual(roles[0], "neutral")   # <|startoftext|>
-        self.assertEqual(roles[4], "edit_target") # car</w>
-        self.assertEqual(roles[5], "neutral")   # ,</w>
-        self.assertEqual(roles[9], "context")   # car (subword of carpet)
+        self.assertEqual(roles[0], "neutral")  # <|startoftext|>
+        self.assertEqual(roles[4], "edit_target")  # car</w>
+        self.assertEqual(roles[5], "neutral")  # ,</w>
+        self.assertEqual(roles[9], "context")  # car (subword of carpet)
         self.assertEqual(roles[10], "context")  # pet</w> (subword of carpet)
         self.assertEqual(roles[11], "neutral")  # <|endoftext|>
 
@@ -950,9 +959,21 @@ class TokenizerAlignmentAndSubwordTests(unittest.TestCase):
         prompt = "three red apples and two green pears on a rustic wooden table"
         # T5 uses \u2581 prefix on word starts
         t5_pieces = [
-            "\u2581three", "\u2581red", "\u2581app", "les", "\u2581and",
-            "\u2581two", "\u2581green", "\u2581pear", "s", "\u2581on",
-            "\u2581a", "\u2581rustic", "\u2581wooden", "\u2581table", "</s>"
+            "\u2581three",
+            "\u2581red",
+            "\u2581app",
+            "les",
+            "\u2581and",
+            "\u2581two",
+            "\u2581green",
+            "\u2581pear",
+            "s",
+            "\u2581on",
+            "\u2581a",
+            "\u2581rustic",
+            "\u2581wooden",
+            "\u2581table",
+            "</s>",
         ]
         tok = MockTokenizer(t5_pieces)
 
@@ -989,11 +1010,11 @@ class TokenizerAlignmentAndSubwordTests(unittest.TestCase):
         instruction = analyze_prompt(prompt, mode="edit").instructions[0]
         roles = align_token_roles(instruction, tok)
         self.assertEqual(roles[0], "neutral")
-        self.assertEqual(roles[1], "neutral")     # change (verb)
-        self.assertEqual(roles[2], "neutral")     # style cue, not the parsed target
-        self.assertEqual(roles[3], "neutral")     # ##realistic
-        self.assertEqual(roles[4], "edit_target") # jacket
-        self.assertEqual(roles[5], "edit_target") # crimson
+        self.assertEqual(roles[1], "neutral")  # change (verb)
+        self.assertEqual(roles[2], "neutral")  # style cue, not the parsed target
+        self.assertEqual(roles[3], "neutral")  # ##realistic
+        self.assertEqual(roles[4], "edit_target")  # jacket
+        self.assertEqual(roles[5], "edit_target")  # crimson
         self.assertEqual(roles[6], "neutral")
 
     def test_byte_level_bpe_gpt2_roberta(self):
@@ -1011,8 +1032,17 @@ class TokenizerAlignmentAndSubwordTests(unittest.TestCase):
     def test_single_character_words_and_punctuation_do_not_drift(self):
         prompt = "a cat, a dog, and a rabbit"
         clip_pieces = [
-            "<|startoftext|>", "a</w>", "cat", ",</w>", "a</w>", "dog", ",</w>",
-            "and</w>", "a</w>", "rabbit</w>", "<|endoftext|>"
+            "<|startoftext|>",
+            "a</w>",
+            "cat",
+            ",</w>",
+            "a</w>",
+            "dog",
+            ",</w>",
+            "and</w>",
+            "a</w>",
+            "rabbit</w>",
+            "<|endoftext|>",
         ]
         tok = MockTokenizer(clip_pieces)
 
@@ -1029,9 +1059,21 @@ class TokenizerAlignmentAndSubwordTests(unittest.TestCase):
     def test_style_hints_token_alignment_prevents_substring_false_positives(self):
         prompt = "a smart foil in digital art and oil painting style"
         pieces = [
-            "<|startoftext|>", "a</w>", "sm", "art</w>", "f", "oil</w>", "in</w>",
-            "digital</w>", "art</w>", "and</w>", "oil</w>", "paint", "ing</w>",
-            "style</w>", "<|endoftext|>"
+            "<|startoftext|>",
+            "a</w>",
+            "sm",
+            "art</w>",
+            "f",
+            "oil</w>",
+            "in</w>",
+            "digital</w>",
+            "art</w>",
+            "and</w>",
+            "oil</w>",
+            "paint",
+            "ing</w>",
+            "style</w>",
+            "<|endoftext|>",
         ]
         tok = MockTokenizer(pieces)
 
@@ -1383,7 +1425,7 @@ class InteractiveLayoutCanvasIntegrationTests(unittest.TestCase):
                 "ymax": 0.90,
                 "xmax": 0.90,
                 "entity_id": "kni_02",
-            }
+            },
         ]
 
         plan = plan_semantic_layout(

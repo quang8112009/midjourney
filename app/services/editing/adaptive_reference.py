@@ -146,7 +146,7 @@ def compute_adaptive_reference_coefficient(
     weight_sum = config.locality_weight + config.similarity_weight
     if weight_sum <= 0:
         raise ValueError("locality_weight + similarity_weight must be positive")
-    raw = (config.locality_weight * locality_score + config.similarity_weight * calibrated)
+    raw = config.locality_weight * locality_score + config.similarity_weight * calibrated
     raw /= weight_sum
     ref_weight = config.min_ref_weight + raw * (config.max_ref_weight - config.min_ref_weight)
     ref_weight = _clamp(ref_weight, config.min_ref_weight, config.max_ref_weight)

@@ -193,18 +193,20 @@ def evaluate_object_counts(verbose: bool = False) -> dict[str, Any]:
                 for j in range(i + 1, len(plan.objects)):
                     box_overlap = max(box_overlap, plan.objects[i].box.iou(plan.objects[j].box))
 
-        results.append({
-            "id": case["id"],
-            "category": case["category"],
-            "prompt": case["prompt"],
-            "expected": case["expected"],
-            "planned": eval_dict["planned_counts"],
-            "exact_match_ratio": eval_dict["exact_match_ratio"],
-            "all_matched": eval_dict["all_matched"],
-            "self_check_valid": plan.self_check.is_valid,
-            "max_box_overlap_iou": round(box_overlap, 3),
-            "assumptions": list(plan.self_check.assumptions),
-        })
+        results.append(
+            {
+                "id": case["id"],
+                "category": case["category"],
+                "prompt": case["prompt"],
+                "expected": case["expected"],
+                "planned": eval_dict["planned_counts"],
+                "exact_match_ratio": eval_dict["exact_match_ratio"],
+                "all_matched": eval_dict["all_matched"],
+                "self_check_valid": plan.self_check.is_valid,
+                "max_box_overlap_iou": round(box_overlap, 3),
+                "assumptions": list(plan.self_check.assumptions),
+            }
+        )
 
     entity_accuracy = matched_entities / max(total_entities, 1)
     case_accuracy = exact_case_matches / max(len(COUNT_CASES), 1)
@@ -331,15 +333,17 @@ def evaluate_spatial_relationships(verbose: bool = False) -> dict[str, Any]:
         if is_passed:
             passed_checks += 1
 
-        results.append({
-            "id": case["id"],
-            "relation_type": case["relation_type"],
-            "prompt": case["prompt"],
-            "objects": [obj.label for obj in plan.objects],
-            "relations": [r.to_dict() for r in plan.relations],
-            "geometry_verified": is_passed,
-            "notes": notes,
-        })
+        results.append(
+            {
+                "id": case["id"],
+                "relation_type": case["relation_type"],
+                "prompt": case["prompt"],
+                "objects": [obj.label for obj in plan.objects],
+                "relations": [r.to_dict() for r in plan.relations],
+                "geometry_verified": is_passed,
+                "notes": notes,
+            }
+        )
 
     accuracy = passed_checks / max(total_checks, 1)
 
@@ -457,9 +461,7 @@ def attention_gate(
     if not targets:
         return torch.zeros(1, 1, *latent_size)
     logits = (
-        torch.zeros(num_image_tokens, len(roles))
-        if bias is None
-        else bias.transpose(0, 1).clone()
+        torch.zeros(num_image_tokens, len(roles)) if bias is None else bias.transpose(0, 1).clone()
     )
     share = logits.softmax(dim=-1)[:, targets].sum(dim=-1)
     return share.reshape(1, 1, *latent_size)
@@ -522,9 +524,7 @@ def run_edit_case(
     direction = direction / direction.norm()
     mask = build_mask(case["mask_box"])
 
-    prompt_embedding = build_prompt_embedding(
-        source, mask, case.get("similarity", 0.30), seed
-    )
+    prompt_embedding = build_prompt_embedding(source, mask, case.get("similarity", 0.30), seed)
 
     plan = plan_edit(
         prompt=case["prompt"],
@@ -639,25 +639,29 @@ def evaluate_edit_isolation(seeds: int = 3, verbose: bool = False) -> dict[str, 
                     agg_proposed.append(metrics)
 
         if blocked:
-            case_results.append({
-                "name": case["name"],
-                "scope": plan_obj.scope if plan_obj else "unknown",
-                "blocked_before_denoise": True,
-                "reason": plan_obj.alignment.reason if plan_obj else "blocked",
-            })
+            case_results.append(
+                {
+                    "name": case["name"],
+                    "scope": plan_obj.scope if plan_obj else "unknown",
+                    "blocked_before_denoise": True,
+                    "reason": plan_obj.alignment.reason if plan_obj else "blocked",
+                }
+            )
             continue
 
         means = {arm: mean_metric_dict(rows) for arm, rows in per_arm_rows.items()}
-        case_results.append({
-            "name": case["name"],
-            "scope": plan_obj.scope,
-            "mask_source": plan_obj.mask_source,
-            "ref_weight": round(plan_obj.coefficients.ref_weight, 4),
-            "attention_strength": round(plan_obj.attention_strength, 4),
-            "means": {
-                arm: {k: round(v, 4) for k, v in vals.items()} for arm, vals in means.items()
-            },
-        })
+        case_results.append(
+            {
+                "name": case["name"],
+                "scope": plan_obj.scope,
+                "mask_source": plan_obj.mask_source,
+                "ref_weight": round(plan_obj.coefficients.ref_weight, 4),
+                "attention_strength": round(plan_obj.attention_strength, 4),
+                "means": {
+                    arm: {k: round(v, 4) for k, v in vals.items()} for arm, vals in means.items()
+                },
+            }
+        )
 
     overall_baseline = mean_metric_dict(agg_baseline)
     overall_proposed = mean_metric_dict(agg_proposed)
@@ -749,9 +753,7 @@ def evaluate_aesthetic_control_set(verbose: bool = False) -> dict[str, Any]:
         encoded = tokenizer(prompt)
         num_tokens = len(encoded["input_ids"])
 
-        plan = plan_semantic_layout(
-            analyze_prompt(prompt, mode="generate"), tokenizer=tokenizer
-        )
+        plan = plan_semantic_layout(analyze_prompt(prompt, mode="generate"), tokenizer=tokenizer)
         bias = build_layout_guidance_bias(
             plan,
             num_image_tokens=256,
@@ -770,18 +772,20 @@ def evaluate_aesthetic_control_set(verbose: bool = False) -> dict[str, Any]:
         if not freedom["zero_bias_verified"]:
             all_zero_verified = False
 
-        results.append({
-            "id": case["id"],
-            "prompt": prompt,
-            "medium": list(plan.style_hints.medium),
-            "lighting": list(plan.style_hints.lighting),
-            "mood": list(plan.style_hints.mood),
-            "composition": list(plan.style_hints.composition),
-            "style_token_count": len(style_tokens),
-            "zero_bias_verified": freedom["zero_bias_verified"],
-            "aesthetic_freedom_score": freedom["aesthetic_freedom_score"],
-            "style_token_max_bias": {str(k): round(v, 6) for k, v in max_biases.items()},
-        })
+        results.append(
+            {
+                "id": case["id"],
+                "prompt": prompt,
+                "medium": list(plan.style_hints.medium),
+                "lighting": list(plan.style_hints.lighting),
+                "mood": list(plan.style_hints.mood),
+                "composition": list(plan.style_hints.composition),
+                "style_token_count": len(style_tokens),
+                "zero_bias_verified": freedom["zero_bias_verified"],
+                "aesthetic_freedom_score": freedom["aesthetic_freedom_score"],
+                "style_token_max_bias": {str(k): round(v, 6) for k, v in max_biases.items()},
+            }
+        )
 
     freedom_score = (
         (zero_bias_tokens / max(total_style_tokens, 1)) if total_style_tokens > 0 else 1.0
@@ -800,6 +804,7 @@ def evaluate_aesthetic_control_set(verbose: bool = False) -> dict[str, Any]:
 # ===========================================================================
 # 5. SOFT VS HARD GUIDANCE ABLATION & SWEEP
 # ===========================================================================
+
 
 def evaluate_guidance_ablation(sweep: bool = False, verbose: bool = False) -> dict[str, Any]:
     """Compare soft logit guidance against hard masking across entropy and gradient flow."""
@@ -821,12 +826,14 @@ def evaluate_guidance_ablation(sweep: bool = False, verbose: bool = False) -> di
             res = ablation_soft_vs_hard(
                 logits, box, target_token_idx=target_token, soft_strength=s, hard_penalty=-12.0
             )
-            sweep_results.append({
-                "type": "soft_strength",
-                "parameter": s,
-                "outside_entropy_retention": round(res["soft_entropy_retention"], 4),
-                "outside_gradient_retention": round(res["soft_gradient_retention"], 4),
-            })
+            sweep_results.append(
+                {
+                    "type": "soft_strength",
+                    "parameter": s,
+                    "outside_entropy_retention": round(res["soft_entropy_retention"], 4),
+                    "outside_gradient_retention": round(res["soft_gradient_retention"], 4),
+                }
+            )
 
         # Hard penalty sweep
         penalties = [-2.0, -4.0, -8.0, -12.0, -20.0, -100.0]
@@ -834,12 +841,14 @@ def evaluate_guidance_ablation(sweep: bool = False, verbose: bool = False) -> di
             res = ablation_soft_vs_hard(
                 logits, box, target_token_idx=target_token, soft_strength=0.3, hard_penalty=p
             )
-            sweep_results.append({
-                "type": "hard_penalty",
-                "parameter": p,
-                "outside_entropy_retention": round(res["hard_entropy_retention"], 4),
-                "outside_gradient_retention": round(res["hard_gradient_retention"], 4),
-            })
+            sweep_results.append(
+                {
+                    "type": "hard_penalty",
+                    "parameter": p,
+                    "outside_entropy_retention": round(res["hard_entropy_retention"], 4),
+                    "outside_gradient_retention": round(res["hard_gradient_retention"], 4),
+                }
+            )
 
     return {
         "benchmark": "soft_vs_hard_guidance_ablation",
@@ -1042,17 +1051,19 @@ def evaluate_nextgen_spatial_guidance(verbose: bool = False) -> dict[str, Any]:
         if is_passed:
             passed_gaussian += 1
 
-        results.append({
-            "id": case["id"],
-            "category": case["category"],
-            "description": case["description"],
-            "prompt": case["prompt"],
-            "planned_entities": num_planned,
-            "adaptive_gamma": gamma,
-            "max_gaussian_bias": round(float(bias_gaussian.max()), 4),
-            "max_box_bias": round(float(bias_box.max()), 4),
-            "success": is_passed,
-        })
+        results.append(
+            {
+                "id": case["id"],
+                "category": case["category"],
+                "description": case["description"],
+                "prompt": case["prompt"],
+                "planned_entities": num_planned,
+                "adaptive_gamma": gamma,
+                "max_gaussian_bias": round(float(bias_gaussian.max()), 4),
+                "max_box_bias": round(float(bias_box.max()), 4),
+                "success": is_passed,
+            }
+        )
 
     elapsed_ms = (time.time() - t_start) * 1000.0
 
@@ -1069,6 +1080,7 @@ def evaluate_nextgen_spatial_guidance(verbose: bool = False) -> dict[str, Any]:
 # ===========================================================================
 # FORMATTED REPORTING & CLI HARNESS
 # ===========================================================================
+
 
 def print_divider(title: str = "", width: int = 100) -> None:
     """Print clean divider line."""
@@ -1126,7 +1138,7 @@ def run_all_benchmarks(args: argparse.Namespace) -> dict[str, Any]:
             match_str = "PASS" if c["all_matched"] else "FAIL"
             print(f"  {c['id']:<22}{c['category']:<22}{exp_str:<24}{plan_str:<20}{match_str:>7}")
         print(
-            f"\n  -> Entity Count Accuracy: {count_res['entity_count_accuracy']*100:.1f}%  "
+            f"\n  -> Entity Count Accuracy: {count_res['entity_count_accuracy'] * 100:.1f}%  "
             f"({count_res['matched_entities']}/{count_res['total_entities']} entities exact match)"
         )
 
@@ -1147,7 +1159,7 @@ def run_all_benchmarks(args: argparse.Namespace) -> dict[str, Any]:
             status = "PASS" if c["geometry_verified"] else "FAIL"
             print(f"  {c['id']:<24}{c['relation_type']:<20}{c['notes']:<40}{status:>8}")
         print(
-            f"\n  -> Spatial Relation Accuracy: {rel_res['relation_accuracy']*100:.1f}%  "
+            f"\n  -> Spatial Relation Accuracy: {rel_res['relation_accuracy'] * 100:.1f}%  "
             f"({rel_res['passed_cases']}/{rel_res['total_cases']} spatial relations correct)"
         )
 
@@ -1232,11 +1244,11 @@ def run_all_benchmarks(args: argparse.Namespace) -> dict[str, Any]:
                 cues = cues[:37] + "..."
             print(
                 f"  {c['id']:<26}{cues:<42}{c['style_token_count']:>14}"
-                f"{c['aesthetic_freedom_score']*100:>13.1f}%"
+                f"{c['aesthetic_freedom_score'] * 100:>13.1f}%"
             )
 
         print(
-            f"\n  -> Aesthetic Freedom Score: {aes_res['aesthetic_freedom_score']*100:.1f}%  "
+            f"\n  -> Aesthetic Freedom Score: {aes_res['aesthetic_freedom_score'] * 100:.1f}%  "
             f"(Zero spatial bias verified: {aes_res['zero_bias_verified_overall']})"
         )
 
@@ -1288,11 +1300,11 @@ def run_all_benchmarks(args: argparse.Namespace) -> dict[str, Any]:
 
         print(
             f"\n  -> Soft Guidance Entropy Retention:  "
-            f"{p['soft_entropy_retention']*100:.1f}% (Full stylistic entropy preserved)"
+            f"{p['soft_entropy_retention'] * 100:.1f}% (Full stylistic entropy preserved)"
         )
         print(
             f"  -> Hard Masking Gradient Collapse:   "
-            f"{p['hard_gradient_retention']*100:.2f}% (Gradients destroyed outside mask)"
+            f"{p['hard_gradient_retention'] * 100:.2f}% (Gradients destroyed outside mask)"
         )
 
     # 6. Next-Gen Spatial Reasoning & Gaussian Guidance
@@ -1319,30 +1331,35 @@ def run_all_benchmarks(args: argparse.Namespace) -> dict[str, Any]:
                 f"{c['max_gaussian_bias']:>11.3f}{c['max_box_bias']:>9.3f}{status_str:>8}"
             )
         print(
-            f"\n  -> Next-Gen Spatial Success Rate: {nxt_res['success_rate']*100:.1f}%  "
+            f"\n  -> Next-Gen Spatial Success Rate: {nxt_res['success_rate'] * 100:.1f}%  "
             f"({nxt_res['passed_cases']}/{nxt_res['total_cases']} cases passed in "
             f"{nxt_res['runtime_ms']}ms)"
         )
 
     # Compute high-level summary
-    leak_red = report["categories"].get("edit_isolation_and_anti_leakage", {}).get(
-        "leakage_reduction_pct", 0.0
+    leak_red = (
+        report["categories"]
+        .get("edit_isolation_and_anti_leakage", {})
+        .get("leakage_reduction_pct", 0.0)
     )
-    cnt_acc = report["categories"].get("object_count_accuracy", {}).get(
-        "entity_count_accuracy", 0.0
-    ) * 100.0
-    rel_acc = report["categories"].get("spatial_relation_correctness", {}).get(
-        "relation_accuracy", 0.0
-    ) * 100.0
-    aes_score = report["categories"].get("aesthetic_control_set", {}).get(
-        "aesthetic_freedom_score", 0.0
-    ) * 100.0
-    soft_ent = report["categories"].get("guidance_ablation", {}).get(
-        "soft_entropy_retention", 0.0
-    ) * 100.0
-    nxt_acc = report["categories"].get("nextgen_spatial_reasoning", {}).get(
-        "success_rate", 0.0
-    ) * 100.0
+    cnt_acc = (
+        report["categories"].get("object_count_accuracy", {}).get("entity_count_accuracy", 0.0)
+        * 100.0
+    )
+    rel_acc = (
+        report["categories"].get("spatial_relation_correctness", {}).get("relation_accuracy", 0.0)
+        * 100.0
+    )
+    aes_score = (
+        report["categories"].get("aesthetic_control_set", {}).get("aesthetic_freedom_score", 0.0)
+        * 100.0
+    )
+    soft_ent = (
+        report["categories"].get("guidance_ablation", {}).get("soft_entropy_retention", 0.0) * 100.0
+    )
+    nxt_acc = (
+        report["categories"].get("nextgen_spatial_reasoning", {}).get("success_rate", 0.0) * 100.0
+    )
 
     summary = {
         "leakage_reduction_pct": leak_red,
@@ -1390,9 +1407,7 @@ def main() -> int:
         default="all",
         help="Filter evaluation to a specific benchmark category",
     )
-    parser.add_argument(
-        "--verbose", action="store_true", help="Print verbose debugging traces"
-    )
+    parser.add_argument("--verbose", action="store_true", help="Print verbose debugging traces")
     parser.add_argument(
         "--output", type=str, default=None, help="Save JSON report to specified file path"
     )

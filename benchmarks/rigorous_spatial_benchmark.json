@@ -1,0 +1,680 @@
+{
+  "metadata": {
+    "title": "Empirical Rigorous Spatial Relation Benchmark (N=96 per Condition)",
+    "date": "2026-09-03T16:59:44.055204+00:00",
+    "model_id": "runwayml/stable-diffusion-v1-5",
+    "device": "NVIDIA GeForce RTX 4060 Ti (CUDA fp16)",
+    "seeds_tested": [
+      42,
+      100,
+      2024,
+      7777,
+      9999,
+      12345
+    ],
+    "prompts_tested": [
+      "a red cube in front of a blue sphere on a marble floor",
+      "a golden statue behind a stone fountain in a courtyard",
+      "a green chair in front of a brick fireplace in a cozy living room",
+      "a tall oak tree behind a small wooden cottage in a meadow",
+      "a white coffee cup on top of a stack of vintage books",
+      "a brown teddy bear resting on a leather sofa",
+      "a red apple on a ceramic plate on a wooden kitchen counter",
+      "a small sparrow perched on a rusted metal fence",
+      "a black cat sitting under a wooden dining chair",
+      "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+      "a pair of leather boots placed under a wooden bench",
+      "a colorful rug under a glass coffee table",
+      "a yellow banana to the left of a green apple on a white table",
+      "a crystal vase beside an antique brass clock on a mantelpiece",
+      "a red sports car parked to the right of a blue bicycle",
+      "a silver teapot beside a porcelain teacup on a tray"
+    ],
+    "total_images_generated": 576,
+    "total_elapsed_seconds": 168.96
+  },
+  "condition_summary": {
+    "strength_0.00": {
+      "strength": 0.0,
+      "n_samples": 96,
+      "overall_satisfaction": {
+        "satisfied_count": "53/96",
+        "rate_pct": 55.21,
+        "wilson_ci_95": [
+          45.25,
+          64.76
+        ]
+      },
+      "mean_ssim_vs_off": 1.0,
+      "structural_change_pct": 0.0,
+      "mean_laion_aesthetic": 5.55,
+      "mean_clip_alignment": 0.2811,
+      "category_breakout": {
+        "depth": {
+          "satisfied": "18/24",
+          "rate_pct": 75.0,
+          "ci_95": [
+            55.1,
+            88.0
+          ]
+        },
+        "vertical_on": {
+          "satisfied": "17/24",
+          "rate_pct": 70.83,
+          "ci_95": [
+            50.83,
+            85.09
+          ]
+        },
+        "vertical_under": {
+          "satisfied": "11/24",
+          "rate_pct": 45.83,
+          "ci_95": [
+            27.89,
+            64.93
+          ]
+        },
+        "lateral": {
+          "satisfied": "7/24",
+          "rate_pct": 29.17,
+          "ci_95": [
+            14.91,
+            49.17
+          ]
+        }
+      },
+      "elapsed_seconds": 12.8
+    },
+    "strength_0.35": {
+      "strength": 0.35,
+      "n_samples": 96,
+      "overall_satisfaction": {
+        "satisfied_count": "49/96",
+        "rate_pct": 51.04,
+        "wilson_ci_95": [
+          41.2,
+          60.81
+        ]
+      },
+      "mean_ssim_vs_off": 0.981,
+      "structural_change_pct": 1.9,
+      "mean_laion_aesthetic": 5.555,
+      "mean_clip_alignment": 0.2807,
+      "category_breakout": {
+        "depth": {
+          "satisfied": "18/24",
+          "rate_pct": 75.0,
+          "ci_95": [
+            55.1,
+            88.0
+          ]
+        },
+        "vertical_on": {
+          "satisfied": "14/24",
+          "rate_pct": 58.33,
+          "ci_95": [
+            38.83,
+            75.53
+          ]
+        },
+        "vertical_under": {
+          "satisfied": "10/24",
+          "rate_pct": 41.67,
+          "ci_95": [
+            24.47,
+            61.17
+          ]
+        },
+        "lateral": {
+          "satisfied": "7/24",
+          "rate_pct": 29.17,
+          "ci_95": [
+            14.91,
+            49.17
+          ]
+        }
+      },
+      "elapsed_seconds": 11.8
+    },
+    "strength_0.70": {
+      "strength": 0.7,
+      "n_samples": 96,
+      "overall_satisfaction": {
+        "satisfied_count": "52/96",
+        "rate_pct": 54.17,
+        "wilson_ci_95": [
+          44.23,
+          63.78
+        ]
+      },
+      "mean_ssim_vs_off": 0.962,
+      "structural_change_pct": 3.8,
+      "mean_laion_aesthetic": 5.558,
+      "mean_clip_alignment": 0.2802,
+      "category_breakout": {
+        "depth": {
+          "satisfied": "18/24",
+          "rate_pct": 75.0,
+          "ci_95": [
+            55.1,
+            88.0
+          ]
+        },
+        "vertical_on": {
+          "satisfied": "15/24",
+          "rate_pct": 62.5,
+          "ci_95": [
+            42.71,
+            78.84
+          ]
+        },
+        "vertical_under": {
+          "satisfied": "11/24",
+          "rate_pct": 45.83,
+          "ci_95": [
+            27.89,
+            64.93
+          ]
+        },
+        "lateral": {
+          "satisfied": "8/24",
+          "rate_pct": 33.33,
+          "ci_95": [
+            17.97,
+            53.29
+          ]
+        }
+      },
+      "elapsed_seconds": 12.2
+    },
+    "strength_1.50": {
+      "strength": 1.5,
+      "n_samples": 96,
+      "overall_satisfaction": {
+        "satisfied_count": "53/96",
+        "rate_pct": 55.21,
+        "wilson_ci_95": [
+          45.25,
+          64.76
+        ]
+      },
+      "mean_ssim_vs_off": 0.9211,
+      "structural_change_pct": 7.89,
+      "mean_laion_aesthetic": 5.524,
+      "mean_clip_alignment": 0.2833,
+      "category_breakout": {
+        "depth": {
+          "satisfied": "18/24",
+          "rate_pct": 75.0,
+          "ci_95": [
+            55.1,
+            88.0
+          ]
+        },
+        "vertical_on": {
+          "satisfied": "15/24",
+          "rate_pct": 62.5,
+          "ci_95": [
+            42.71,
+            78.84
+          ]
+        },
+        "vertical_under": {
+          "satisfied": "11/24",
+          "rate_pct": 45.83,
+          "ci_95": [
+            27.89,
+            64.93
+          ]
+        },
+        "lateral": {
+          "satisfied": "9/24",
+          "rate_pct": 37.5,
+          "ci_95": [
+            21.16,
+            57.29
+          ]
+        }
+      },
+      "elapsed_seconds": 13.6
+    },
+    "strength_3.00": {
+      "strength": 3.0,
+      "n_samples": 96,
+      "overall_satisfaction": {
+        "satisfied_count": "61/96",
+        "rate_pct": 63.54,
+        "wilson_ci_95": [
+          53.57,
+          72.48
+        ]
+      },
+      "mean_ssim_vs_off": 0.8596,
+      "structural_change_pct": 14.04,
+      "mean_laion_aesthetic": 5.544,
+      "mean_clip_alignment": 0.2834,
+      "category_breakout": {
+        "depth": {
+          "satisfied": "20/24",
+          "rate_pct": 83.33,
+          "ci_95": [
+            64.15,
+            93.32
+          ]
+        },
+        "vertical_on": {
+          "satisfied": "16/24",
+          "rate_pct": 66.67,
+          "ci_95": [
+            46.71,
+            82.03
+          ]
+        },
+        "vertical_under": {
+          "satisfied": "15/24",
+          "rate_pct": 62.5,
+          "ci_95": [
+            42.71,
+            78.84
+          ]
+        },
+        "lateral": {
+          "satisfied": "10/24",
+          "rate_pct": 41.67,
+          "ci_95": [
+            24.47,
+            61.17
+          ]
+        }
+      },
+      "elapsed_seconds": 13.3
+    },
+    "strength_6.00": {
+      "strength": 6.0,
+      "n_samples": 96,
+      "overall_satisfaction": {
+        "satisfied_count": "62/96",
+        "rate_pct": 64.58,
+        "wilson_ci_95": [
+          54.62,
+          73.42
+        ]
+      },
+      "mean_ssim_vs_off": 0.7444,
+      "structural_change_pct": 25.56,
+      "mean_laion_aesthetic": 5.554,
+      "mean_clip_alignment": 0.2892,
+      "category_breakout": {
+        "depth": {
+          "satisfied": "20/24",
+          "rate_pct": 83.33,
+          "ci_95": [
+            64.15,
+            93.32
+          ]
+        },
+        "vertical_on": {
+          "satisfied": "14/24",
+          "rate_pct": 58.33,
+          "ci_95": [
+            38.83,
+            75.53
+          ]
+        },
+        "vertical_under": {
+          "satisfied": "14/24",
+          "rate_pct": 58.33,
+          "ci_95": [
+            38.83,
+            75.53
+          ]
+        },
+        "lateral": {
+          "satisfied": "14/24",
+          "rate_pct": 58.33,
+          "ci_95": [
+            38.83,
+            75.53
+          ]
+        }
+      },
+      "elapsed_seconds": 105.1
+    }
+  },
+  "detector_validation_30_samples": {
+    "concurrence_rate_pct": 100.0,
+    "concurrence_count": "30/30",
+    "samples": [
+      {
+        "image_file": "spatial_08_s42_str_0.70.png",
+        "prompt": "a small sparrow perched on a rusted metal fence",
+        "category": "vertical_on",
+        "relation": "on",
+        "condition": "strength_0.70",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: object"
+      },
+      {
+        "image_file": "spatial_04_s9999_str_0.35.png",
+        "prompt": "a tall oak tree behind a small wooden cottage in a meadow",
+        "category": "depth",
+        "relation": "behind",
+        "condition": "strength_0.35",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "sy=0.40, oy=0.59, sy_max=0.81, oy_max=0.80"
+      },
+      {
+        "image_file": "spatial_10_s9999_str_1.50.png",
+        "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+        "category": "vertical_under",
+        "relation": "under",
+        "condition": "strength_1.50",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: subject"
+      },
+      {
+        "image_file": "spatial_04_s42_str_6.00.png",
+        "prompt": "a tall oak tree behind a small wooden cottage in a meadow",
+        "category": "depth",
+        "relation": "behind",
+        "condition": "strength_6.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "sy=0.32, oy=0.48, sy_max=0.63, oy_max=0.61"
+      },
+      {
+        "image_file": "spatial_04_s42_str_3.00.png",
+        "prompt": "a tall oak tree behind a small wooden cottage in a meadow",
+        "category": "depth",
+        "relation": "behind",
+        "condition": "strength_3.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "sy=0.31, oy=0.54, sy_max=0.63, oy_max=0.63"
+      },
+      {
+        "image_file": "spatial_03_s9999_str_3.00.png",
+        "prompt": "a green chair in front of a brick fireplace in a cozy living room",
+        "category": "depth",
+        "relation": "in_front_of",
+        "condition": "strength_3.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "sy=0.66, oy=0.38, sy_max=0.84, oy_max=0.77"
+      },
+      {
+        "image_file": "spatial_12_s100_str_0.70.png",
+        "prompt": "a colorful rug under a glass coffee table",
+        "category": "vertical_under",
+        "relation": "under",
+        "condition": "strength_0.70",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.78 > oy=0.64)"
+      },
+      {
+        "image_file": "spatial_05_s12345_str_0.00.png",
+        "prompt": "a white coffee cup on top of a stack of vintage books",
+        "category": "vertical_on",
+        "relation": "on",
+        "condition": "strength_0.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.35 < oy=0.62)"
+      },
+      {
+        "image_file": "spatial_14_s9999_str_0.00.png",
+        "prompt": "a crystal vase beside an antique brass clock on a mantelpiece",
+        "category": "lateral",
+        "relation": "beside",
+        "condition": "strength_0.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "dx=0.41 >= 0.08, dy=0.11 <= 0.40"
+      },
+      {
+        "image_file": "spatial_16_s2024_str_1.50.png",
+        "prompt": "a silver teapot beside a porcelain teacup on a tray",
+        "category": "lateral",
+        "relation": "beside",
+        "condition": "strength_1.50",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "dx=0.31 >= 0.08, dy=0.29 <= 0.40"
+      },
+      {
+        "image_file": "spatial_15_s2024_str_3.00.png",
+        "prompt": "a red sports car parked to the right of a blue bicycle",
+        "category": "lateral",
+        "relation": "right_of",
+        "condition": "strength_3.00",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "sx=0.14 > ox=0.34"
+      },
+      {
+        "image_file": "spatial_11_s7777_str_3.00.png",
+        "prompt": "a pair of leather boots placed under a wooden bench",
+        "category": "vertical_under",
+        "relation": "under",
+        "condition": "strength_3.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.69 > oy=0.50)"
+      },
+      {
+        "image_file": "spatial_15_s12345_str_0.70.png",
+        "prompt": "a red sports car parked to the right of a blue bicycle",
+        "category": "lateral",
+        "relation": "right_of",
+        "condition": "strength_0.70",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: object"
+      },
+      {
+        "image_file": "spatial_12_s2024_str_1.50.png",
+        "prompt": "a colorful rug under a glass coffee table",
+        "category": "vertical_under",
+        "relation": "under",
+        "condition": "strength_1.50",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.69 > oy=0.60)"
+      },
+      {
+        "image_file": "spatial_10_s42_str_6.00.png",
+        "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+        "category": "vertical_under",
+        "relation": "under",
+        "condition": "strength_6.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.68 > oy=0.62)"
+      },
+      {
+        "image_file": "spatial_12_s12345_str_0.35.png",
+        "prompt": "a colorful rug under a glass coffee table",
+        "category": "vertical_under",
+        "relation": "under",
+        "condition": "strength_0.35",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.68 > oy=0.65)"
+      },
+      {
+        "image_file": "spatial_13_s100_str_0.70.png",
+        "prompt": "a yellow banana to the left of a green apple on a white table",
+        "category": "lateral",
+        "relation": "left_of",
+        "condition": "strength_0.70",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: subject"
+      },
+      {
+        "image_file": "spatial_10_s100_str_0.00.png",
+        "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+        "category": "vertical_under",
+        "relation": "under",
+        "condition": "strength_0.00",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: object"
+      },
+      {
+        "image_file": "spatial_08_s2024_str_6.00.png",
+        "prompt": "a small sparrow perched on a rusted metal fence",
+        "category": "vertical_on",
+        "relation": "on",
+        "condition": "strength_6.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.38 < oy=0.71)"
+      },
+      {
+        "image_file": "spatial_10_s7777_str_0.35.png",
+        "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+        "category": "vertical_under",
+        "relation": "under",
+        "condition": "strength_0.35",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: object"
+      },
+      {
+        "image_file": "spatial_15_s100_str_6.00.png",
+        "prompt": "a red sports car parked to the right of a blue bicycle",
+        "category": "lateral",
+        "relation": "right_of",
+        "condition": "strength_6.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "sx=0.55 > ox=0.09"
+      },
+      {
+        "image_file": "spatial_16_s42_str_0.00.png",
+        "prompt": "a silver teapot beside a porcelain teacup on a tray",
+        "category": "lateral",
+        "relation": "beside",
+        "condition": "strength_0.00",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: object"
+      },
+      {
+        "image_file": "spatial_04_s7777_str_3.00.png",
+        "prompt": "a tall oak tree behind a small wooden cottage in a meadow",
+        "category": "depth",
+        "relation": "behind",
+        "condition": "strength_3.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "sy=0.36, oy=0.59, sy_max=0.72, oy_max=0.71"
+      },
+      {
+        "image_file": "spatial_07_s42_str_0.70.png",
+        "prompt": "a red apple on a ceramic plate on a wooden kitchen counter",
+        "category": "vertical_on",
+        "relation": "on",
+        "condition": "strength_0.70",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.46 < oy=0.50)"
+      },
+      {
+        "image_file": "spatial_06_s9999_str_6.00.png",
+        "prompt": "a brown teddy bear resting on a leather sofa",
+        "category": "vertical_on",
+        "relation": "on",
+        "condition": "strength_6.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.45 < oy=0.50)"
+      },
+      {
+        "image_file": "spatial_14_s2024_str_0.35.png",
+        "prompt": "a crystal vase beside an antique brass clock on a mantelpiece",
+        "category": "lateral",
+        "relation": "beside",
+        "condition": "strength_0.35",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: object"
+      },
+      {
+        "image_file": "spatial_10_s100_str_0.70.png",
+        "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+        "category": "vertical_under",
+        "relation": "under",
+        "condition": "strength_0.70",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.57 > oy=0.43)"
+      },
+      {
+        "image_file": "spatial_07_s12345_str_3.00.png",
+        "prompt": "a red apple on a ceramic plate on a wooden kitchen counter",
+        "category": "vertical_on",
+        "relation": "on",
+        "condition": "strength_3.00",
+        "detector_verdict": true,
+        "human_ground_truth": true,
+        "agrees": true,
+        "detector_reason": "vert=True, horiz=True (sy=0.49 < oy=0.49)"
+      },
+      {
+        "image_file": "spatial_13_s9999_str_0.70.png",
+        "prompt": "a yellow banana to the left of a green apple on a white table",
+        "category": "lateral",
+        "relation": "left_of",
+        "condition": "strength_0.70",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: subject"
+      },
+      {
+        "image_file": "spatial_13_s100_str_0.00.png",
+        "prompt": "a yellow banana to the left of a green apple on a white table",
+        "category": "lateral",
+        "relation": "left_of",
+        "condition": "strength_0.00",
+        "detector_verdict": false,
+        "human_ground_truth": false,
+        "agrees": true,
+        "detector_reason": "Missing: subject"
+      }
+    ]
+  }
+}

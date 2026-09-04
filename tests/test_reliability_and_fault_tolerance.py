@@ -268,6 +268,7 @@ class LayoutPlanningFallbackTests(unittest.TestCase):
 
         def slow_plan(prompt):
             import time
+
             time.sleep(0.5)
             return plan_semantic_layout(prompt)
 

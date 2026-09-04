@@ -23,20 +23,57 @@ from app.services.editing.prompt_intent import PromptIntent
 logger = logging.getLogger(__name__)
 
 _NUM_WORDS: dict[str, int] = {
-    "one": 1, "a": 1, "an": 1, "single": 1, "lone": 1,
-    "two": 2, "pair": 2, "couple": 2, "both": 2,
-    "three": 3, "trio": 3,
-    "four": 4, "quad": 4,
-    "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
-    "eleven": 11, "twelve": 12, "dozen": 12, "dozens": 24,
-    "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16,
-    "seventeen": 17, "eighteen": 18, "nineteen": 19, "twenty": 20,
-    "thirty": 30, "forty": 40, "fifty": 50, "sixty": 60,
-    "seventy": 70, "eighty": 80, "ninety": 90, "hundred": 100,
-    "hundreds": 100, "thousand": 1000, "thousands": 1000,
-    "million": 1000000, "millions": 1000000, "many": 20,
-    "countless": 100, "scores": 40, "score": 20, "myriad": 1000,
-    "multitude": 100, "numerous": 50,
+    "one": 1,
+    "a": 1,
+    "an": 1,
+    "single": 1,
+    "lone": 1,
+    "two": 2,
+    "pair": 2,
+    "couple": 2,
+    "both": 2,
+    "three": 3,
+    "trio": 3,
+    "four": 4,
+    "quad": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+    "eleven": 11,
+    "twelve": 12,
+    "dozen": 12,
+    "dozens": 24,
+    "thirteen": 13,
+    "fourteen": 14,
+    "fifteen": 15,
+    "sixteen": 16,
+    "seventeen": 17,
+    "eighteen": 18,
+    "nineteen": 19,
+    "twenty": 20,
+    "thirty": 30,
+    "forty": 40,
+    "fifty": 50,
+    "sixty": 60,
+    "seventy": 70,
+    "eighty": 80,
+    "ninety": 90,
+    "hundred": 100,
+    "hundreds": 100,
+    "thousand": 1000,
+    "thousands": 1000,
+    "million": 1000000,
+    "millions": 1000000,
+    "many": 20,
+    "countless": 100,
+    "scores": 40,
+    "score": 20,
+    "myriad": 1000,
+    "multitude": 100,
+    "numerous": 50,
 }
 
 _COLLECTIVE_CROWD_PATTERNS: dict[
@@ -83,10 +120,16 @@ DEFAULT_DENSITY_ENTITY_THRESHOLD = 10
 
 _COMMON_ADJECTIVES = frozenset(
     """red green blue yellow orange purple black white gray grey brown pink gold silver
-    tall short small big large giant tiny cute cheerful happy sad rustic wooden fluffy
-    furry silky shiny dark bright vibrant deep warm cool golden snowy sunny stormy
-    majestic wild ancient modern sweet sour fresh ripe young old ceramic vintage glass
-    metallic leather stone crystal glowing shining gleaming floating blooming burning
+    cyan magenta turquoise crimson scarlet violet indigo amber beige navy teal maroon tan pastel
+    tall short small big large giant tiny huge miniature colossal massive cute cheerful happy sad
+    rustic wooden wood marble glass ceramic metallic metal leather stone crystal plastic bronze
+    copper steel iron paper concrete brick granite timber porcelain clay sandstone slate bamboo
+    plaster linen wool acrylic obsidian emerald ruby sapphire diamond coral mossy
+    fluffy furry silky shiny dark bright vibrant deep warm cool golden snowy sunny stormy
+    rough smooth glossy matte rusty weathered polished frosted
+    round square spherical cubic cylindrical circular oval triangular flat
+    majestic wild ancient modern sweet sour fresh ripe young old vintage
+    glowing shining gleaming floating blooming burning
     lush dense sparse open closed beautiful pretty peaceful quiet calm
     angry migrating cheering sparkling buzzing distant nearby translucent transparent
     opaque blurry sharp clear""".split()
@@ -158,26 +201,85 @@ _RELATION_PHRASES: list[tuple[str, str]] = [
 
 _STYLE_KEYWORDS: dict[str, list[str]] = {
     "medium": [
-        "watercolor", "watercolour", "oil painting", "acrylic", "pencil sketch",
-        "charcoal", "anime", "manga", "digital art", "concept art", "3d render",
-        "claymation", "vector art", "photorealistic", "hyperrealistic", "film photography",
-        "pixel art", "pastel", "gouache", "line art", "ink drawing", "graffiti",
+        "watercolor",
+        "watercolour",
+        "oil painting",
+        "acrylic",
+        "pencil sketch",
+        "charcoal",
+        "anime",
+        "manga",
+        "digital art",
+        "concept art",
+        "3d render",
+        "claymation",
+        "vector art",
+        "photorealistic",
+        "hyperrealistic",
+        "film photography",
+        "pixel art",
+        "pastel",
+        "gouache",
+        "line art",
+        "ink drawing",
+        "graffiti",
     ],
     "lighting": [
-        "volumetric lighting", "cinematic lighting", "golden hour", "dramatic lighting",
-        "studio lighting", "soft lighting", "rim light", "backlit", "neon glow",
-        "chiaroscuro", "moody lighting", "sunlight", "moonlight", "candlelight",
-        "ambient light", "bokeh", "lens flare", "god rays",
+        "volumetric lighting",
+        "cinematic lighting",
+        "golden hour",
+        "dramatic lighting",
+        "studio lighting",
+        "soft lighting",
+        "rim light",
+        "backlit",
+        "neon glow",
+        "chiaroscuro",
+        "moody lighting",
+        "sunlight",
+        "moonlight",
+        "candlelight",
+        "ambient light",
+        "bokeh",
+        "lens flare",
+        "god rays",
     ],
     "mood": [
-        "dreamy", "ethereal", "mysterious", "whimsical", "serene", "gloomy",
-        "dystopian", "cyberpunk", "steampunk", "surreal", "cozy", "epic",
-        "nostalgic", "futuristic", "fantasy", "magical", "vibrant", "melancholic",
+        "dreamy",
+        "ethereal",
+        "mysterious",
+        "whimsical",
+        "serene",
+        "gloomy",
+        "dystopian",
+        "cyberpunk",
+        "steampunk",
+        "surreal",
+        "cozy",
+        "epic",
+        "nostalgic",
+        "futuristic",
+        "fantasy",
+        "magical",
+        "vibrant",
+        "melancholic",
     ],
     "composition": [
-        "close-up", "portrait", "wide angle", "panoramic", "macro", "bird's-eye view",
-        "low angle", "isometric", "cinematic composition", "symmetry", "rule of thirds",
-        "bokeh background", "shallow depth of field", "ultra detailed", "8k resolution",
+        "close-up",
+        "portrait",
+        "wide angle",
+        "panoramic",
+        "macro",
+        "bird's-eye view",
+        "low angle",
+        "isometric",
+        "cinematic composition",
+        "symmetry",
+        "rule of thirds",
+        "bokeh background",
+        "shallow depth of field",
+        "ultra detailed",
+        "8k resolution",
     ],
 }
 
@@ -185,10 +287,17 @@ _STYLE_KEYWORDS: dict[str, list[str]] = {
 # *where* or *how* objects relate. They are not renderable objects, and planning a
 # bounding box for them hands image regions to function words.
 _POSITION_WORDS: dict[str, str] = {
-    "left": "left", "right": "right", "top": "top", "upper": "top",
-    "bottom": "bottom", "lower": "bottom", "middle": "center",
-    "center": "center", "centre": "center",
-    "foreground": "foreground", "background": "background",
+    "left": "left",
+    "right": "right",
+    "top": "top",
+    "upper": "top",
+    "bottom": "bottom",
+    "lower": "bottom",
+    "middle": "center",
+    "center": "center",
+    "centre": "center",
+    "foreground": "foreground",
+    "background": "background",
 }
 _RELATION_WORDS = frozenset(
     """riding astride on top sitting standing perched resting under underneath
@@ -372,7 +481,7 @@ class GaussianSpatialPrior:
     sigma_x: float
     theta: float = 0.0  # rotation in radians (counter-clockwise) around optical z-axis
     amplitude: float = 1.0
-    mu_z: float = 0.5   # normalized depth centroid (0.0=foreground, 1.0=background)
+    mu_z: float = 0.5  # normalized depth centroid (0.0=foreground, 1.0=background)
     sigma_z: float = 0.2  # depth standard deviation / span
     depth_confidence: float = 1.0  # confidence score [0.0, 1.0]
 
@@ -557,9 +666,9 @@ class GaussianSpatialPrior:
             )
 
         z_coords = (torch.arange(depth_bins, device=device, dtype=dtype) + 0.5) / depth_bins
-        heatmap_2d = self.to_heatmap(
-            height, width, device=device, dtype=dtype
-        ).squeeze(0).squeeze(0)
+        heatmap_2d = (
+            self.to_heatmap(height, width, device=device, dtype=dtype).squeeze(0).squeeze(0)
+        )
 
         dz = z_coords - float(self.mu_z)
         var_z = max(1e-6, float(self.sigma_z) ** 2)
@@ -610,6 +719,7 @@ class DensityField:
     seed: int | None = None
     token_indices: tuple[int, ...] = ()
     mu_z: float = 0.5
+    provenance: Literal["planner", "user_override", "llm"] = "planner"
 
     def __post_init__(self):
         mu_y_c = max(0.0, min(1.0, float(self.center[0])))
@@ -768,8 +878,10 @@ class DensityField:
             p1 = torch.sin(freq1 * grid_x + phases[0] * 6.283) * torch.cos(
                 freq1 * grid_y + phases[1] * 6.283
             )
-            p2 = 0.5 * torch.sin(freq2 * grid_x + phases[2] * 6.283) * torch.cos(
-                freq2 * grid_y + phases[3] * 6.283
+            p2 = (
+                0.5
+                * torch.sin(freq2 * grid_x + phases[2] * 6.283)
+                * torch.cos(freq2 * grid_y + phases[3] * 6.283)
             )
             perturbation = 0.15 * (p1 + p2)
             heatmap = torch.clamp(heatmap * (1.0 + perturbation), min=0.0)
@@ -790,6 +902,8 @@ class DensityField:
             "seed": self.seed,
             "token_indices": list(self.token_indices),
             "mu_z": self.mu_z,
+            "is_density_field": True,
+            "provenance": self.provenance,
         }
 
 
@@ -889,7 +1003,9 @@ def compute_adaptive_guidance_strength(
     """Compute adaptive soft cross-attention guidance strength.
 
     If manual_strength is provided, it strictly overrides adaptive mode.
-    Base heuristic: gamma = clamp(0.2 + 0.05 * N_entities + 0.03 * N_relations + ..., 0.2, 0.5).
+    Resolves per-relation guidance strength (lateral=6.0, depth=0.0,
+    vertical_on=0.0, vertical_under=0.3) when spatial relations or
+    directional position cues are present in the plan.
     """
     if manual_strength is not None:
         return float(manual_strength)
@@ -897,6 +1013,30 @@ def compute_adaptive_guidance_strength(
     cfg = config or AdaptiveGuidanceConfig()
     if not cfg.enabled or plan is None:
         return cfg.base_gamma
+
+    from app.core.config import settings
+
+    rel_strengths: list[float] = []
+    for rel in plan.relations:
+        rel_strengths.append(settings.get_relation_guidance_strength(rel.relation_type))
+
+    # Also detect explicit directional phrases
+    prompt_lower = plan.prompt.lower()
+    if any(k in prompt_lower for k in (
+        "left of", "to the left", "right of", "to the right", "beside", "next to", "side by side"
+    )):
+        rel_strengths.append(settings.LATERAL_GUIDANCE_STRENGTH)
+    elif any(k in prompt_lower for k in ("in front of", "behind", "far in front", "far behind")):
+        rel_strengths.append(settings.DEPTH_RELATION_GUIDANCE_STRENGTH)
+    elif any(k in prompt_lower for k in (
+        "on top of", "resting on", "perched on", "standing on", "sitting on", " on "
+    )):
+        rel_strengths.append(settings.VERTICAL_ON_GUIDANCE_STRENGTH)
+    elif any(k in prompt_lower for k in ("under", "below", "beneath", "underneath")):
+        rel_strengths.append(settings.VERTICAL_UNDER_GUIDANCE_STRENGTH)
+
+    if rel_strengths:
+        return round(float(max(rel_strengths)), 4)
 
     all_boxes = [obj.box for obj in plan.objects] + [
         df.region for df in getattr(plan, "density_fields", ())
@@ -939,6 +1079,7 @@ class PlannedObject:
     attributes: tuple[str, ...] = ()
     gaussian: GaussianSpatialPrior | None = None
     entity_id: str | None = None
+    provenance: Literal["planner", "user_override", "llm"] = "planner"
 
     def __post_init__(self):
         if self.gaussian is None:
@@ -956,6 +1097,7 @@ class PlannedObject:
             "attributes": list(self.attributes),
             "gaussian": self.gaussian.to_dict() if self.gaussian else None,
             "entity_id": self.entity_id,
+            "provenance": self.provenance,
         }
 
 
@@ -1177,9 +1319,9 @@ class SemanticLayoutPlan:
     self_check: PlanSelfCheck
     density_fields: tuple[DensityField, ...] = ()
     overlaps: tuple[EntityOverlap, ...] = ()
-    token_to_region_map: dict[
-        int, NormalizedBox | GaussianSpatialPrior | DensityField | None
-    ] = field(default_factory=dict)
+    token_to_region_map: dict[int, NormalizedBox | GaussianSpatialPrior | DensityField | None] = (
+        field(default_factory=dict)
+    )
     raw_plan: dict[str, Any] | None = None
     visual_context: VisualContext | None = None
     guidance_mode: Literal["gaussian", "box"] = "gaussian"
@@ -1217,6 +1359,7 @@ class SemanticLayoutPlan:
 # Lexical & Semantic Parsing Engine
 # ---------------------------------------------------------------------------
 
+
 def clean_token_piece(piece: str) -> str:
     """Strip sub-word markers and formatting from a tokenizer piece."""
     return (
@@ -1241,7 +1384,7 @@ def is_special_token(piece: str) -> bool:
 
 def extract_words(prompt: str) -> list[str]:
     """Extract individual words from prompt for tokenizer subword mapping.
-    
+
     Includes alphanumeric words and digits, ensuring single-letter words
     like 'a' or numbers like '4' are preserved so token positions do not drift.
     """
@@ -1372,8 +1515,18 @@ def _detect_density_distribution(
         radial_stems = ("bee", "star", "spark", "firefl", "insect", "particle", "galaxy", "crystal")
         elongated_stems = ("bird", "fish", "duck", "swan", "car", "stream", "meteor", "drone")
         uniform_stems = (
-            "flower", "tree", "grass", "people", "crowd", "spectator",
-            "audience", "popp", "rose", "soldier", "warrior", "lantern",
+            "flower",
+            "tree",
+            "grass",
+            "people",
+            "crowd",
+            "spectator",
+            "audience",
+            "popp",
+            "rose",
+            "soldier",
+            "warrior",
+            "lantern",
         )
         if any(w in lbl for w in radial_stems):
             return True, "radial", 1.5
@@ -1447,11 +1600,7 @@ def _extract_quantified_nouns(prompt: str) -> list[tuple[str, int, list[str]]]:
                 start_j = i + 1
 
         # 2. Direct collective phrase without "a/an" (e.g. "swarm of bees", "sea of lanterns")
-        elif (
-            word in _COLLECTIVE_CROWD_PATTERNS
-            and i + 1 < len(words)
-            and words[i + 1] == "of"
-        ):
+        elif word in _COLLECTIVE_CROWD_PATTERNS and i + 1 < len(words) and words[i + 1] == "of":
             if i + 2 < len(words) and (words[i + 2] in _NUM_WORDS or words[i + 2].isdigit()):
                 is_dig = words[i + 2].isdigit()
                 count = int(words[i + 2]) if is_dig else _NUM_WORDS[words[i + 2]]
@@ -1462,11 +1611,7 @@ def _extract_quantified_nouns(prompt: str) -> list[tuple[str, int, list[str]]]:
             has_explicit_count = True
 
         # 3. "<quantifier> of <noun>" (e.g. "hundreds of stars", "pair of shoes")
-        elif (
-            word in _NUM_WORDS
-            and i + 1 < len(words)
-            and words[i + 1] == "of"
-        ):
+        elif word in _NUM_WORDS and i + 1 < len(words) and words[i + 1] == "of":
             count = _NUM_WORDS[word]
             has_explicit_count = True
             start_j = i + 2
@@ -1559,12 +1704,10 @@ def _extract_relations(prompt: str) -> list[tuple[str, str, str]]:
         prev_end = end
 
         before_words = [
-            w for w in re.findall(r"[a-zA-Z]+", before_text)
-            if w not in skip_set and len(w) >= 3
+            w for w in re.findall(r"[a-zA-Z]+", before_text) if w not in skip_set and len(w) >= 3
         ]
         after_words = [
-            w for w in re.findall(r"[a-zA-Z]+", after_text)
-            if w not in skip_set and len(w) >= 3
+            w for w in re.findall(r"[a-zA-Z]+", after_text) if w not in skip_set and len(w) >= 3
         ]
         obj = after_words[0] if after_words else "object"
         if before_words:
@@ -1588,9 +1731,7 @@ def extract_position_constraints(
     """
     lowered = prompt.lower()
     positions: dict[str, str] = {}
-    pattern = re.compile(
-        r"\b(?:on|in|at|to|toward|towards)\s+(?:the\s+)?([a-z]+)(?:\s+side)?\b"
-    )
+    pattern = re.compile(r"\b(?:on|in|at|to|toward|towards)\s+(?:the\s+)?([a-z]+)(?:\s+side)?\b")
     for match in pattern.finditer(lowered):
         canonical = _POSITION_WORDS.get(match.group(1))
         if canonical is None:
@@ -1803,9 +1944,7 @@ def _allocate_free_slots(
             column = 0.85 / count
             xmin = 0.08 + index * column
             xmax = min(0.95, xmin + column * 0.90)
-            allocated.append(
-                (label, NormalizedBox(ymin=0.20, xmin=xmin, ymax=0.85, xmax=xmax))
-            )
+            allocated.append((label, NormalizedBox(ymin=0.20, xmin=xmin, ymax=0.85, xmax=xmax)))
         return allocated
 
     intervals = _free_x_intervals(placed)
@@ -1820,9 +1959,7 @@ def _allocate_free_slots(
             width = (end - start) / slots
             xmin = start + slot * width
             xmax = min(end, xmin + width * 0.92)
-            allocated.append(
-                (label, NormalizedBox(ymin=0.20, xmin=xmin, ymax=0.85, xmax=xmax))
-            )
+            allocated.append((label, NormalizedBox(ymin=0.20, xmin=xmin, ymax=0.85, xmax=xmax)))
         return allocated
 
     # Fully occupied horizontally: stack the rest in a shallow band at the top.
@@ -1996,21 +2133,15 @@ def plan_semantic_layout(
     # 2. Extract objects, counts, and spatial relations
     quantified = _extract_quantified_nouns(prompt_clean)
     relations_raw = _extract_relations(prompt_clean)
-    positions = extract_position_constraints(
-        prompt_clean, {label for label, _, _ in quantified}
-    )
+    positions = extract_position_constraints(prompt_clean, {label for label, _, _ in quantified})
     relations_raw = drop_spurious_relations(relations_raw, positions)
 
     # 3. Compute layout boxes and relative depth priors
-    layout_boxes = _compute_layout_boxes(
-        quantified, relations_raw, positions, is_edit=is_edit
-    )
+    layout_boxes = _compute_layout_boxes(quantified, relations_raw, positions, is_edit=is_edit)
     depth_priors = _compute_relative_depth_priors(quantified, relations_raw, positions)
 
     # 4. Map tokens to objects & relations if tokenizer is supplied
-    token_to_region_map: dict[
-        int, NormalizedBox | GaussianSpatialPrior | DensityField | None
-    ] = {}
+    token_to_region_map: dict[int, NormalizedBox | GaussianSpatialPrior | DensityField | None] = {}
     planned_objects: list[PlannedObject] = []
     planned_density_fields: list[DensityField] = []
 
@@ -2034,9 +2165,12 @@ def plan_semantic_layout(
     if layout_override:
         for idx, item in enumerate(layout_override):
             label = str(item.get("label", f"object_{idx}"))
-            count = int(item.get("count", 1))
+            count = int(item.get("expected_count", item.get("count", 1)))
+            prov = item.get("provenance", "user_override")
             if "box" in item and isinstance(item["box"], dict):
                 box = NormalizedBox(**item["box"])
+            elif "region" in item and isinstance(item["region"], dict):
+                box = NormalizedBox(**item["region"])
             else:
                 box = NormalizedBox(
                     ymin=float(item.get("ymin", 0.2)),
@@ -2047,11 +2181,15 @@ def plan_semantic_layout(
 
             tok_indices = tuple(token_indices_by_word.get(label, []))
             if not tok_indices:
-                tok_indices = (idx,)
+                if "token_indices" in item and item["token_indices"]:
+                    tok_indices = tuple(item["token_indices"])
+                else:
+                    tok_indices = (idx,)
 
             is_df = (
                 item.get("is_density_field", False)
                 or item.get("density_field", False)
+                or item.get("distribution_type") in ("gaussian", "uniform", "radial", "elongated")
                 or count >= density_entity_threshold
             )
 
@@ -2075,6 +2213,7 @@ def plan_semantic_layout(
                     seed=seed,
                     token_indices=tok_indices,
                     mu_z=mu_z,
+                    provenance=prov,
                 )
                 planned_density_fields.append(df)
                 for tid in tok_indices:
@@ -2107,6 +2246,7 @@ def plan_semantic_layout(
                     attributes=tuple(item.get("attributes", [])),
                     gaussian=gaussian,
                     entity_id=ent_id,
+                    provenance=prov,
                 )
                 planned_objects.append(obj)
                 for tid in tok_indices:
@@ -2114,9 +2254,7 @@ def plan_semantic_layout(
         assumptions.append("Applied custom interactive layout overrides from user.")
     else:
         for label, count, attrs in quantified:
-            box = layout_boxes.get(
-                label, NormalizedBox(ymin=0.2, xmin=0.2, ymax=0.8, xmax=0.8)
-            )
+            box = layout_boxes.get(label, NormalizedBox(ymin=0.2, xmin=0.2, ymax=0.8, xmax=0.8))
             tok_indices = tuple(token_indices_by_word.get(label, []))
             d_prior = depth_priors.get(
                 label, EntityDepthPrior(mu_z=0.5, sigma_z=0.2, depth_confidence=0.5)
@@ -2133,19 +2271,20 @@ def plan_semantic_layout(
             if norm_visual_context and norm_visual_context.entities:
                 matched_ent = norm_visual_context.find_entity_by_label(label)
                 coref_types = (
-                    "character", "object", "item", "entity",
-                    "one", "subject", "thing", "vehicle",
+                    "character",
+                    "object",
+                    "item",
+                    "entity",
+                    "one",
+                    "subject",
+                    "thing",
+                    "vehicle",
                 )
-                is_label_coref = (
-                    label in coref_types
-                    or any(
-                        f"{p} {label}" in prompt_clean.lower()
-                        for p in ("this", "that", "the same", "same", "the previous", "previous")
-                    )
+                is_label_coref = label in coref_types or any(
+                    f"{p} {label}" in prompt_clean.lower()
+                    for p in ("this", "that", "the same", "same", "the previous", "previous")
                 )
-                has_explicit_relation = any(
-                    r[0] == label or r[2] == label for r in relations_raw
-                )
+                has_explicit_relation = any(r[0] == label or r[2] == label for r in relations_raw)
 
                 if matched_ent is not None:
                     ent_id = matched_ent.entity_id
@@ -2246,26 +2385,20 @@ def plan_semantic_layout(
 
     problems: list[str] = []
     phantom = [
-        e.label
-        for e in all_entities
-        if e.label in _SPATIAL_WORDS or e.label in _RELATION_WORDS
+        e.label for e in all_entities if e.label in _SPATIAL_WORDS or e.label in _RELATION_WORDS
     ]
     if phantom:
         problems.append(f"non-object labels planned: {phantom}")
 
     worst_overlap = 0.0
-    all_boxes = [obj.box for obj in planned_objects] + [
-        df.region for df in planned_density_fields
-    ]
+    all_boxes = [obj.box for obj in planned_objects] + [df.region for df in planned_density_fields]
     for first in range(len(all_boxes)):
         for second in range(first + 1, len(all_boxes)):
             overlap = all_boxes[first].iou(all_boxes[second])
             if overlap > worst_overlap:
                 worst_overlap = overlap
     if worst_overlap >= _MAX_ALLOWED_BOX_IOU:
-        problems.append(
-            f"distinct objects occupy the same region (IoU={worst_overlap:.2f})"
-        )
+        problems.append(f"distinct objects occupy the same region (IoU={worst_overlap:.2f})")
 
     if any(count < 1 for _, count, _ in quantified):
         count_match = False
