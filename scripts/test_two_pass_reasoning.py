@@ -80,7 +80,7 @@ async def run_scenario_1_ambiguous():
     print(f"• Action: {analysis.action}")
 
     subheader("PASS 2: User-Facing Response (Never leaks internal XML/reasoning)")
-    print(f"Assistant: \"{turn.public_response}\"")
+    print(f'Assistant: "{turn.public_response}"')
 
     subheader("Timing & Observability Metadata")
     print(f"• Reasoning Latency: {turn.timing.reasoning_ms} ms")
@@ -144,11 +144,11 @@ async def run_scenario_2_context_dependent():
     print(f"• Context Notes: {analysis.context_notes}")
     print(f"• Stated Assumption: {analysis.ambiguity.assumption}")
     print(f"• Response Plan: {analysis.response_plan}")
-    print(f"• Resolved Generation Prompt: \"{analysis.generation_prompt}\"")
+    print(f'• Resolved Generation Prompt: "{analysis.generation_prompt}"')
     print(f"• Action: {analysis.action}")
 
     subheader("PASS 2: User-Facing Response")
-    print(f"Assistant: \"{turn.public_response}\"")
+    print(f'Assistant: "{turn.public_response}"')
 
     subheader("Timing & Observability Metadata")
     print(f"• Reasoning Latency: {turn.timing.reasoning_ms} ms")
@@ -203,7 +203,7 @@ async def run_scenario_3_clear():
     print(f"• Action: {analysis.action}")
 
     subheader("PASS 2: User-Facing Response")
-    print(f"Assistant: \"{turn.public_response}\"")
+    print(f'Assistant: "{turn.public_response}"')
 
     subheader("Timing & Observability Metadata")
     print(f"• Reasoning Latency: {turn.timing.reasoning_ms} ms")
@@ -230,7 +230,7 @@ async def run_scenario_4_fallback():
     print(f"• Fallback Used:   {turn.fallback_used}")
     print(f"• Fallback Reason: {turn.fallback_reason}")
     print(f"• Reasoning State: {turn.reasoning_analysis}")
-    print(f"• Assistant Reply: \"{turn.public_response}\"")
+    print(f'• Assistant Reply: "{turn.public_response}"')
     print(f"• Reasoning Latency: {turn.timing.reasoning_ms} ms")
     print(f"• Response Latency:  {turn.timing.response_ms} ms")
     print(f"• Total Latency:     {turn.timing.total_ms} ms")

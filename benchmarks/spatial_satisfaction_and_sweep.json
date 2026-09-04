@@ -1,0 +1,4530 @@
+{
+  "metadata": {
+    "title": "Live Spatial Relation Satisfaction & Strength Sweep",
+    "date": "2026-09-03T09:53:02.491206+00:00",
+    "detector": "google/owlvit-base-patch32 (official weights on CUDA)",
+    "aesthetic_model": "Official LAION Aesthetic Predictor v2.4 + CLIP-L/14",
+    "model_id": "runwayml/stable-diffusion-v1-5"
+  },
+  "stage1_satisfaction_verdict": {
+    "total_pairs_tested": 64,
+    "guidance_off_satisfaction_rate_pct": 51.56,
+    "guidance_on_satisfaction_rate_pct": 46.88,
+    "net_satisfaction_delta_pct": -4.69,
+    "pair_records": [
+      {
+        "prompt_id": "spatial_01",
+        "prompt": "a red cube in front of a blue sphere on a marble floor",
+        "seed": 42,
+        "relation": "in_front_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.387,
+            "box": [
+              0.5003,
+              0.3665,
+              0.8064,
+              0.6183
+            ],
+            "center": [
+              0.6534,
+              0.4924
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.236,
+            "box": [
+              0.5031,
+              0.3534,
+              0.807,
+              0.6714
+            ],
+            "center": [
+              0.6551,
+              0.5124
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9759
+      },
+      {
+        "prompt_id": "spatial_01",
+        "prompt": "a red cube in front of a blue sphere on a marble floor",
+        "seed": 100,
+        "relation": "in_front_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.39,
+            "box": [
+              0.4862,
+              0.2409,
+              0.9157,
+              0.6176
+            ],
+            "center": [
+              0.701,
+              0.4293
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.406,
+            "box": [
+              0.4824,
+              0.24,
+              0.8944,
+              0.6147
+            ],
+            "center": [
+              0.6884,
+              0.4274
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9428
+      },
+      {
+        "prompt_id": "spatial_01",
+        "prompt": "a red cube in front of a blue sphere on a marble floor",
+        "seed": 2024,
+        "relation": "in_front_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.454,
+            "box": [
+              0.411,
+              0.6992,
+              0.9275,
+              1.002
+            ],
+            "center": [
+              0.6692,
+              0.8506
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.436,
+            "box": [
+              0.4102,
+              0.699,
+              0.9277,
+              1.0019
+            ],
+            "center": [
+              0.669,
+              0.8504
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9994
+      },
+      {
+        "prompt_id": "spatial_01",
+        "prompt": "a red cube in front of a blue sphere on a marble floor",
+        "seed": 7777,
+        "relation": "in_front_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.329,
+            "box": [
+              0.1237,
+              0.0046,
+              0.9594,
+              0.7243
+            ],
+            "center": [
+              0.5416,
+              0.3644
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.35,
+            "box": [
+              0.124,
+              0.005,
+              0.959,
+              0.7253
+            ],
+            "center": [
+              0.5415,
+              0.3652
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9988
+      },
+      {
+        "prompt_id": "spatial_02",
+        "prompt": "a golden statue behind a stone fountain in a courtyard",
+        "seed": 42,
+        "relation": "behind",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.32 <= Object y=0.45",
+          "subject_detection": {
+            "score": 0.386,
+            "box": [
+              -0.0032,
+              0.2499,
+              0.6402,
+              0.7386
+            ],
+            "center": [
+              0.3185,
+              0.4942
+            ]
+          },
+          "object_detection": {
+            "score": 0.423,
+            "box": [
+              -0.0046,
+              0.0105,
+              0.9022,
+              1.0074
+            ],
+            "center": [
+              0.4488,
+              0.5089
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.30 <= Object y=0.45",
+          "subject_detection": {
+            "score": 0.342,
+            "box": [
+              0.0017,
+              0.2893,
+              0.6031,
+              0.7283
+            ],
+            "center": [
+              0.3024,
+              0.5088
+            ]
+          },
+          "object_detection": {
+            "score": 0.433,
+            "box": [
+              0.0018,
+              0.0097,
+              0.908,
+              1.0072
+            ],
+            "center": [
+              0.4549,
+              0.5085
+            ]
+          }
+        },
+        "ssim": 0.9747
+      },
+      {
+        "prompt_id": "spatial_02",
+        "prompt": "a golden statue behind a stone fountain in a courtyard",
+        "seed": 100,
+        "relation": "behind",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Subject y=0.61 > Object y=0.50",
+          "subject_detection": {
+            "score": 0.491,
+            "box": [
+              0.221,
+              0.3048,
+              1.0038,
+              0.7106
+            ],
+            "center": [
+              0.6124,
+              0.5077
+            ]
+          },
+          "object_detection": {
+            "score": 0.124,
+            "box": [
+              0.0038,
+              0.0126,
+              1.0,
+              0.717
+            ],
+            "center": [
+              0.5019,
+              0.3648
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Subject y=0.61 > Object y=0.50",
+          "subject_detection": {
+            "score": 0.547,
+            "box": [
+              0.218,
+              0.3039,
+              1.0013,
+              0.7102
+            ],
+            "center": [
+              0.6097,
+              0.507
+            ]
+          },
+          "object_detection": {
+            "score": 0.116,
+            "box": [
+              0.0037,
+              0.013,
+              0.9998,
+              0.7142
+            ],
+            "center": [
+              0.5018,
+              0.3636
+            ]
+          }
+        },
+        "ssim": 0.9935
+      },
+      {
+        "prompt_id": "spatial_02",
+        "prompt": "a golden statue behind a stone fountain in a courtyard",
+        "seed": 2024,
+        "relation": "behind",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.19 <= Object y=0.57",
+          "subject_detection": {
+            "score": 0.574,
+            "box": [
+              -0.0002,
+              0.4157,
+              0.389,
+              0.7055
+            ],
+            "center": [
+              0.1944,
+              0.5606
+            ]
+          },
+          "object_detection": {
+            "score": 0.373,
+            "box": [
+              0.1302,
+              0.0823,
+              1.0035,
+              0.995
+            ],
+            "center": [
+              0.5669,
+              0.5386
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.19 <= Object y=0.51",
+          "subject_detection": {
+            "score": 0.551,
+            "box": [
+              -0.0001,
+              0.4157,
+              0.3874,
+              0.7087
+            ],
+            "center": [
+              0.1937,
+              0.5622
+            ]
+          },
+          "object_detection": {
+            "score": 0.414,
+            "box": [
+              0.0147,
+              0.0711,
+              0.9992,
+              0.9938
+            ],
+            "center": [
+              0.507,
+              0.5325
+            ]
+          }
+        },
+        "ssim": 0.9965
+      },
+      {
+        "prompt_id": "spatial_02",
+        "prompt": "a golden statue behind a stone fountain in a courtyard",
+        "seed": 7777,
+        "relation": "behind",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.45 <= Object y=0.50",
+          "subject_detection": {
+            "score": 0.598,
+            "box": [
+              0.093,
+              0.3471,
+              0.8119,
+              0.6788
+            ],
+            "center": [
+              0.4525,
+              0.513
+            ]
+          },
+          "object_detection": {
+            "score": 0.148,
+            "box": [
+              0.002,
+              -0.0024,
+              0.9992,
+              0.9232
+            ],
+            "center": [
+              0.5006,
+              0.4604
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.45 <= Object y=0.55",
+          "subject_detection": {
+            "score": 0.584,
+            "box": [
+              0.0907,
+              0.3455,
+              0.8125,
+              0.678
+            ],
+            "center": [
+              0.4516,
+              0.5118
+            ]
+          },
+          "object_detection": {
+            "score": 0.12,
+            "box": [
+              0.0882,
+              0.2383,
+              1.002,
+              0.8057
+            ],
+            "center": [
+              0.5451,
+              0.522
+            ]
+          }
+        },
+        "ssim": 0.9882
+      },
+      {
+        "prompt_id": "spatial_03",
+        "prompt": "a green chair in front of a brick fireplace in a cozy living room",
+        "seed": 42,
+        "relation": "in_front_of",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.71 >= Object y=0.65",
+          "subject_detection": {
+            "score": 0.761,
+            "box": [
+              0.5075,
+              0.1432,
+              0.9031,
+              0.5308
+            ],
+            "center": [
+              0.7053,
+              0.337
+            ]
+          },
+          "object_detection": {
+            "score": 0.279,
+            "box": [
+              0.5154,
+              0.7293,
+              0.7928,
+              1.0009
+            ],
+            "center": [
+              0.6541,
+              0.8651
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.70 >= Object y=0.41",
+          "subject_detection": {
+            "score": 0.755,
+            "box": [
+              0.5054,
+              0.1365,
+              0.8945,
+              0.525
+            ],
+            "center": [
+              0.6999,
+              0.3308
+            ]
+          },
+          "object_detection": {
+            "score": 0.283,
+            "box": [
+              0.0018,
+              0.4784,
+              0.8143,
+              0.998
+            ],
+            "center": [
+              0.408,
+              0.7382
+            ]
+          }
+        },
+        "ssim": 0.954
+      },
+      {
+        "prompt_id": "spatial_03",
+        "prompt": "a green chair in front of a brick fireplace in a cozy living room",
+        "seed": 100,
+        "relation": "in_front_of",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.80 >= Object y=0.70",
+          "subject_detection": {
+            "score": 0.579,
+            "box": [
+              0.6008,
+              0.4014,
+              1.0045,
+              0.9668
+            ],
+            "center": [
+              0.8026,
+              0.6841
+            ]
+          },
+          "object_detection": {
+            "score": 0.365,
+            "box": [
+              0.3996,
+              -0.0,
+              1.004,
+              0.5709
+            ],
+            "center": [
+              0.7018,
+              0.2854
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.80 >= Object y=0.71",
+          "subject_detection": {
+            "score": 0.582,
+            "box": [
+              0.605,
+              0.3786,
+              1.0048,
+              0.9462
+            ],
+            "center": [
+              0.8049,
+              0.6624
+            ]
+          },
+          "object_detection": {
+            "score": 0.402,
+            "box": [
+              0.4087,
+              -0.0026,
+              1.0053,
+              0.5691
+            ],
+            "center": [
+              0.707,
+              0.2832
+            ]
+          }
+        },
+        "ssim": 0.9329
+      },
+      {
+        "prompt_id": "spatial_03",
+        "prompt": "a green chair in front of a brick fireplace in a cozy living room",
+        "seed": 2024,
+        "relation": "in_front_of",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.73 >= Object y=0.52",
+          "subject_detection": {
+            "score": 0.648,
+            "box": [
+              0.467,
+              -0.0005,
+              1.0015,
+              0.4833
+            ],
+            "center": [
+              0.7343,
+              0.2414
+            ]
+          },
+          "object_detection": {
+            "score": 0.293,
+            "box": [
+              0.425,
+              0.4563,
+              0.6198,
+              0.6711
+            ],
+            "center": [
+              0.5224,
+              0.5637
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.74 >= Object y=0.49",
+          "subject_detection": {
+            "score": 0.629,
+            "box": [
+              0.4757,
+              -0.0013,
+              0.9981,
+              0.4812
+            ],
+            "center": [
+              0.7369,
+              0.24
+            ]
+          },
+          "object_detection": {
+            "score": 0.282,
+            "box": [
+              0.2992,
+              0.365,
+              0.6714,
+              0.7757
+            ],
+            "center": [
+              0.4853,
+              0.5704
+            ]
+          }
+        },
+        "ssim": 0.9313
+      },
+      {
+        "prompt_id": "spatial_03",
+        "prompt": "a green chair in front of a brick fireplace in a cozy living room",
+        "seed": 7777,
+        "relation": "in_front_of",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.74 >= Object y=0.33",
+          "subject_detection": {
+            "score": 0.676,
+            "box": [
+              0.486,
+              0.0074,
+              0.9938,
+              0.5527
+            ],
+            "center": [
+              0.7399,
+              0.28
+            ]
+          },
+          "object_detection": {
+            "score": 0.433,
+            "box": [
+              -0.0055,
+              0.2742,
+              0.6684,
+              0.9207
+            ],
+            "center": [
+              0.3314,
+              0.5974
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.74 >= Object y=0.33",
+          "subject_detection": {
+            "score": 0.661,
+            "box": [
+              0.4835,
+              0.007,
+              0.9973,
+              0.5495
+            ],
+            "center": [
+              0.7404,
+              0.2783
+            ]
+          },
+          "object_detection": {
+            "score": 0.461,
+            "box": [
+              -0.0021,
+              0.2765,
+              0.6699,
+              0.9199
+            ],
+            "center": [
+              0.3339,
+              0.5982
+            ]
+          }
+        },
+        "ssim": 0.9705
+      },
+      {
+        "prompt_id": "spatial_04",
+        "prompt": "a tall oak tree behind a small wooden cottage in a meadow",
+        "seed": 42,
+        "relation": "behind",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.36 <= Object y=0.59",
+          "subject_detection": {
+            "score": 0.294,
+            "box": [
+              0.0061,
+              0.0068,
+              0.7163,
+              0.7427
+            ],
+            "center": [
+              0.3612,
+              0.3747
+            ]
+          },
+          "object_detection": {
+            "score": 0.652,
+            "box": [
+              0.498,
+              0.4247,
+              0.6852,
+              0.7617
+            ],
+            "center": [
+              0.5916,
+              0.5932
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.34 <= Object y=0.57",
+          "subject_detection": {
+            "score": 0.44,
+            "box": [
+              -0.0002,
+              0.0105,
+              0.6883,
+              0.7765
+            ],
+            "center": [
+              0.344,
+              0.3935
+            ]
+          },
+          "object_detection": {
+            "score": 0.605,
+            "box": [
+              0.4701,
+              0.4252,
+              0.6797,
+              0.7633
+            ],
+            "center": [
+              0.5749,
+              0.5943
+            ]
+          }
+        },
+        "ssim": 0.9571
+      },
+      {
+        "prompt_id": "spatial_04",
+        "prompt": "a tall oak tree behind a small wooden cottage in a meadow",
+        "seed": 100,
+        "relation": "behind",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.47 <= Object y=0.68",
+          "subject_detection": {
+            "score": 0.302,
+            "box": [
+              0.0093,
+              0.0054,
+              0.9395,
+              0.8142
+            ],
+            "center": [
+              0.4744,
+              0.4098
+            ]
+          },
+          "object_detection": {
+            "score": 0.636,
+            "box": [
+              0.5267,
+              0.5116,
+              0.8389,
+              0.9394
+            ],
+            "center": [
+              0.6828,
+              0.7255
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.48 <= Object y=0.69",
+          "subject_detection": {
+            "score": 0.306,
+            "box": [
+              0.0105,
+              0.0061,
+              0.9523,
+              0.8172
+            ],
+            "center": [
+              0.4814,
+              0.4116
+            ]
+          },
+          "object_detection": {
+            "score": 0.268,
+            "box": [
+              0.5412,
+              0.5162,
+              0.8471,
+              0.9442
+            ],
+            "center": [
+              0.6941,
+              0.7302
+            ]
+          }
+        },
+        "ssim": 0.9962
+      },
+      {
+        "prompt_id": "spatial_04",
+        "prompt": "a tall oak tree behind a small wooden cottage in a meadow",
+        "seed": 2024,
+        "relation": "behind",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.38 <= Object y=0.52",
+          "subject_detection": {
+            "score": 0.375,
+            "box": [
+              0.0058,
+              -0.0021,
+              0.7488,
+              0.9945
+            ],
+            "center": [
+              0.3773,
+              0.4962
+            ]
+          },
+          "object_detection": {
+            "score": 0.499,
+            "box": [
+              0.2998,
+              0.3915,
+              0.7443,
+              1.0003
+            ],
+            "center": [
+              0.522,
+              0.6959
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.38 <= Object y=0.52",
+          "subject_detection": {
+            "score": 0.364,
+            "box": [
+              0.0073,
+              -0.0026,
+              0.7496,
+              0.9941
+            ],
+            "center": [
+              0.3785,
+              0.4958
+            ]
+          },
+          "object_detection": {
+            "score": 0.536,
+            "box": [
+              0.3027,
+              0.394,
+              0.7443,
+              0.9974
+            ],
+            "center": [
+              0.5235,
+              0.6957
+            ]
+          }
+        },
+        "ssim": 0.9936
+      },
+      {
+        "prompt_id": "spatial_04",
+        "prompt": "a tall oak tree behind a small wooden cottage in a meadow",
+        "seed": 7777,
+        "relation": "behind",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject y=0.36 <= Object y=0.60",
+          "subject_detection": {
+            "score": 0.188,
+            "box": [
+              -0.0025,
+              0.0057,
+              0.7263,
+              0.9992
+            ],
+            "center": [
+              0.3619,
+              0.5024
+            ]
+          },
+          "object_detection": {
+            "score": 0.25,
+            "box": [
+              0.468,
+              0.2102,
+              0.7267,
+              0.5401
+            ],
+            "center": [
+              0.5974,
+              0.3751
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject y=0.36 <= Object y=0.59",
+          "subject_detection": {
+            "score": 0.172,
+            "box": [
+              0.0007,
+              0.0008,
+              0.7236,
+              0.9954
+            ],
+            "center": [
+              0.3621,
+              0.4981
+            ]
+          },
+          "object_detection": {
+            "score": 0.219,
+            "box": [
+              0.4543,
+              0.1988,
+              0.7254,
+              0.536
+            ],
+            "center": [
+              0.5899,
+              0.3674
+            ]
+          }
+        },
+        "ssim": 0.9945
+      },
+      {
+        "prompt_id": "spatial_05",
+        "prompt": "a white coffee cup on top of a stack of vintage books",
+        "seed": 42,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.41 < oy=0.74, overlap=True)",
+          "subject_detection": {
+            "score": 0.678,
+            "box": [
+              0.2034,
+              0.2425,
+              0.6084,
+              0.8281
+            ],
+            "center": [
+              0.4059,
+              0.5353
+            ]
+          },
+          "object_detection": {
+            "score": 0.137,
+            "box": [
+              0.5485,
+              -0.0031,
+              0.9341,
+              0.9947
+            ],
+            "center": [
+              0.7413,
+              0.4958
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.41 < oy=0.64, overlap=True)",
+          "subject_detection": {
+            "score": 0.727,
+            "box": [
+              0.2075,
+              0.1947,
+              0.605,
+              0.793
+            ],
+            "center": [
+              0.4062,
+              0.4938
+            ]
+          },
+          "object_detection": {
+            "score": 0.089,
+            "box": [
+              0.5724,
+              0.0066,
+              0.7106,
+              0.9992
+            ],
+            "center": [
+              0.6415,
+              0.5029
+            ]
+          }
+        },
+        "ssim": 0.9736
+      },
+      {
+        "prompt_id": "spatial_05",
+        "prompt": "a white coffee cup on top of a stack of vintage books",
+        "seed": 100,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.41 < oy=0.84, overlap=True)",
+          "subject_detection": {
+            "score": 0.679,
+            "box": [
+              0.1845,
+              0.3658,
+              0.63,
+              0.9843
+            ],
+            "center": [
+              0.4072,
+              0.6751
+            ]
+          },
+          "object_detection": {
+            "score": 0.153,
+            "box": [
+              0.6708,
+              0.2983,
+              1.0014,
+              1.0008
+            ],
+            "center": [
+              0.8361,
+              0.6496
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.40 < oy=0.84, overlap=True)",
+          "subject_detection": {
+            "score": 0.641,
+            "box": [
+              0.1852,
+              0.3691,
+              0.6167,
+              1.0001
+            ],
+            "center": [
+              0.401,
+              0.6846
+            ]
+          },
+          "object_detection": {
+            "score": 0.166,
+            "box": [
+              0.6819,
+              0.3044,
+              1.0013,
+              1.0034
+            ],
+            "center": [
+              0.8416,
+              0.6539
+            ]
+          }
+        },
+        "ssim": 0.989
+      },
+      {
+        "prompt_id": "spatial_05",
+        "prompt": "a white coffee cup on top of a stack of vintage books",
+        "seed": 2024,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.26 < oy=0.86, overlap=True)",
+          "subject_detection": {
+            "score": 0.625,
+            "box": [
+              0.0911,
+              0.1699,
+              0.4301,
+              0.6491
+            ],
+            "center": [
+              0.2606,
+              0.4095
+            ]
+          },
+          "object_detection": {
+            "score": 0.158,
+            "box": [
+              0.7691,
+              -0.002,
+              0.9446,
+              0.8009
+            ],
+            "center": [
+              0.8568,
+              0.3994
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.26 < oy=0.49, overlap=True)",
+          "subject_detection": {
+            "score": 0.678,
+            "box": [
+              0.0912,
+              0.1634,
+              0.431,
+              0.65
+            ],
+            "center": [
+              0.2611,
+              0.4067
+            ]
+          },
+          "object_detection": {
+            "score": 0.158,
+            "box": [
+              0.4248,
+              -0.0112,
+              0.5466,
+              0.7014
+            ],
+            "center": [
+              0.4857,
+              0.3451
+            ]
+          }
+        },
+        "ssim": 0.997
+      },
+      {
+        "prompt_id": "spatial_05",
+        "prompt": "a white coffee cup on top of a stack of vintage books",
+        "seed": 7777,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Subject on top (sy=0.84 < oy=0.86, overlap=False)",
+          "subject_detection": {
+            "score": 0.448,
+            "box": [
+              0.6722,
+              0.0113,
+              1.0028,
+              0.3787
+            ],
+            "center": [
+              0.8375,
+              0.195
+            ]
+          },
+          "object_detection": {
+            "score": 0.12,
+            "box": [
+              0.7244,
+              0.3912,
+              0.9938,
+              0.9962
+            ],
+            "center": [
+              0.8591,
+              0.6937
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Subject on top (sy=0.83 < oy=0.63, overlap=False)",
+          "subject_detection": {
+            "score": 0.555,
+            "box": [
+              0.667,
+              0.0014,
+              0.9996,
+              0.3657
+            ],
+            "center": [
+              0.8333,
+              0.1835
+            ]
+          },
+          "object_detection": {
+            "score": 0.189,
+            "box": [
+              0.3377,
+              0.4576,
+              0.9139,
+              0.9946
+            ],
+            "center": [
+              0.6258,
+              0.7261
+            ]
+          }
+        },
+        "ssim": 0.9975
+      },
+      {
+        "prompt_id": "spatial_06",
+        "prompt": "a brown teddy bear resting on a leather sofa",
+        "seed": 42,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.50 < oy=0.61, overlap=True)",
+          "subject_detection": {
+            "score": 0.712,
+            "box": [
+              0.1543,
+              0.3038,
+              0.8525,
+              0.9919
+            ],
+            "center": [
+              0.5034,
+              0.6478
+            ]
+          },
+          "object_detection": {
+            "score": 0.455,
+            "box": [
+              0.228,
+              0.0171,
+              0.9981,
+              1.0008
+            ],
+            "center": [
+              0.613,
+              0.509
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.50 < oy=0.62, overlap=True)",
+          "subject_detection": {
+            "score": 0.704,
+            "box": [
+              0.1555,
+              0.2971,
+              0.8431,
+              1.0022
+            ],
+            "center": [
+              0.4993,
+              0.6497
+            ]
+          },
+          "object_detection": {
+            "score": 0.497,
+            "box": [
+              0.2474,
+              0.0163,
+              0.9993,
+              0.995
+            ],
+            "center": [
+              0.6234,
+              0.5057
+            ]
+          }
+        },
+        "ssim": 0.9744
+      },
+      {
+        "prompt_id": "spatial_06",
+        "prompt": "a brown teddy bear resting on a leather sofa",
+        "seed": 100,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.317,
+            "box": [
+              0.0315,
+              -0.0053,
+              1.0046,
+              0.6053
+            ],
+            "center": [
+              0.518,
+              0.3
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.248,
+            "box": [
+              0.0251,
+              -0.0107,
+              0.9991,
+              0.5843
+            ],
+            "center": [
+              0.5121,
+              0.2868
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9926
+      },
+      {
+        "prompt_id": "spatial_06",
+        "prompt": "a brown teddy bear resting on a leather sofa",
+        "seed": 2024,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.36 < oy=0.51, overlap=True)",
+          "subject_detection": {
+            "score": 0.742,
+            "box": [
+              0.0861,
+              0.2652,
+              0.6407,
+              0.8433
+            ],
+            "center": [
+              0.3634,
+              0.5542
+            ]
+          },
+          "object_detection": {
+            "score": 0.307,
+            "box": [
+              0.0111,
+              0.0039,
+              1.0065,
+              1.0009
+            ],
+            "center": [
+              0.5088,
+              0.5024
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.36 < oy=0.51, overlap=True)",
+          "subject_detection": {
+            "score": 0.703,
+            "box": [
+              0.0803,
+              0.287,
+              0.6343,
+              0.8291
+            ],
+            "center": [
+              0.3573,
+              0.5581
+            ]
+          },
+          "object_detection": {
+            "score": 0.303,
+            "box": [
+              0.0095,
+              0.0022,
+              1.0052,
+              0.9991
+            ],
+            "center": [
+              0.5073,
+              0.5007
+            ]
+          }
+        },
+        "ssim": 0.9109
+      },
+      {
+        "prompt_id": "spatial_06",
+        "prompt": "a brown teddy bear resting on a leather sofa",
+        "seed": 7777,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.54 < oy=0.65, overlap=True)",
+          "subject_detection": {
+            "score": 0.628,
+            "box": [
+              0.0786,
+              0.0015,
+              0.9981,
+              0.9963
+            ],
+            "center": [
+              0.5383,
+              0.4989
+            ]
+          },
+          "object_detection": {
+            "score": 0.089,
+            "box": [
+              0.2973,
+              -0.0009,
+              1.0015,
+              0.9859
+            ],
+            "center": [
+              0.6494,
+              0.4925
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.64,
+            "box": [
+              0.0839,
+              0.0024,
+              1.0017,
+              0.9949
+            ],
+            "center": [
+              0.5428,
+              0.4987
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9811
+      },
+      {
+        "prompt_id": "spatial_07",
+        "prompt": "a red apple on a ceramic plate on a wooden kitchen counter",
+        "seed": 42,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.46 < oy=0.50, overlap=True)",
+          "subject_detection": {
+            "score": 0.765,
+            "box": [
+              0.1992,
+              0.269,
+              0.7255,
+              0.7897
+            ],
+            "center": [
+              0.4623,
+              0.5293
+            ]
+          },
+          "object_detection": {
+            "score": 0.233,
+            "box": [
+              0.1393,
+              0.1617,
+              0.8587,
+              0.8511
+            ],
+            "center": [
+              0.499,
+              0.5064
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.46 < oy=0.50, overlap=True)",
+          "subject_detection": {
+            "score": 0.771,
+            "box": [
+              0.1992,
+              0.2702,
+              0.7258,
+              0.7905
+            ],
+            "center": [
+              0.4625,
+              0.5304
+            ]
+          },
+          "object_detection": {
+            "score": 0.22,
+            "box": [
+              0.1394,
+              0.161,
+              0.8585,
+              0.8498
+            ],
+            "center": [
+              0.4989,
+              0.5054
+            ]
+          }
+        },
+        "ssim": 0.9981
+      },
+      {
+        "prompt_id": "spatial_07",
+        "prompt": "a red apple on a ceramic plate on a wooden kitchen counter",
+        "seed": 100,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.63 < oy=0.63, overlap=True)",
+          "subject_detection": {
+            "score": 0.777,
+            "box": [
+              0.4084,
+              0.2745,
+              0.8537,
+              0.7196
+            ],
+            "center": [
+              0.631,
+              0.497
+            ]
+          },
+          "object_detection": {
+            "score": 0.248,
+            "box": [
+              0.311,
+              0.2169,
+              0.9483,
+              0.8728
+            ],
+            "center": [
+              0.6297,
+              0.5448
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.63 < oy=0.63, overlap=True)",
+          "subject_detection": {
+            "score": 0.787,
+            "box": [
+              0.4066,
+              0.274,
+              0.8521,
+              0.7191
+            ],
+            "center": [
+              0.6293,
+              0.4965
+            ]
+          },
+          "object_detection": {
+            "score": 0.272,
+            "box": [
+              0.311,
+              0.2161,
+              0.9493,
+              0.8734
+            ],
+            "center": [
+              0.6301,
+              0.5447
+            ]
+          }
+        },
+        "ssim": 0.9979
+      },
+      {
+        "prompt_id": "spatial_07",
+        "prompt": "a red apple on a ceramic plate on a wooden kitchen counter",
+        "seed": 2024,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.774,
+            "box": [
+              0.0154,
+              0.4498,
+              0.793,
+              0.9938
+            ],
+            "center": [
+              0.4042,
+              0.7218
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.788,
+            "box": [
+              0.0158,
+              0.4509,
+              0.7921,
+              0.9946
+            ],
+            "center": [
+              0.404,
+              0.7228
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.998
+      },
+      {
+        "prompt_id": "spatial_07",
+        "prompt": "a red apple on a ceramic plate on a wooden kitchen counter",
+        "seed": 7777,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.49 < oy=0.54, overlap=True)",
+          "subject_detection": {
+            "score": 0.9,
+            "box": [
+              0.3388,
+              0.1898,
+              0.6361,
+              0.4871
+            ],
+            "center": [
+              0.4875,
+              0.3384
+            ]
+          },
+          "object_detection": {
+            "score": 0.327,
+            "box": [
+              0.212,
+              0.0108,
+              0.8661,
+              0.6883
+            ],
+            "center": [
+              0.539,
+              0.3495
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.49 < oy=0.54, overlap=True)",
+          "subject_detection": {
+            "score": 0.895,
+            "box": [
+              0.3387,
+              0.1898,
+              0.636,
+              0.4875
+            ],
+            "center": [
+              0.4874,
+              0.3387
+            ]
+          },
+          "object_detection": {
+            "score": 0.319,
+            "box": [
+              0.2123,
+              0.0114,
+              0.8665,
+              0.689
+            ],
+            "center": [
+              0.5394,
+              0.3502
+            ]
+          }
+        },
+        "ssim": 0.9979
+      },
+      {
+        "prompt_id": "spatial_08",
+        "prompt": "a small sparrow perched on a rusted metal fence",
+        "seed": 42,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.49 < oy=0.82, overlap=True)",
+          "subject_detection": {
+            "score": 0.791,
+            "box": [
+              0.1843,
+              0.1786,
+              0.8027,
+              0.7316
+            ],
+            "center": [
+              0.4935,
+              0.4551
+            ]
+          },
+          "object_detection": {
+            "score": 0.101,
+            "box": [
+              0.6449,
+              0.0043,
+              0.9963,
+              0.9991
+            ],
+            "center": [
+              0.8206,
+              0.5017
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.50 < oy=0.83, overlap=True)",
+          "subject_detection": {
+            "score": 0.8,
+            "box": [
+              0.1824,
+              0.1823,
+              0.8104,
+              0.7318
+            ],
+            "center": [
+              0.4964,
+              0.4571
+            ]
+          },
+          "object_detection": {
+            "score": 0.094,
+            "box": [
+              0.6576,
+              0.0005,
+              0.9932,
+              0.9963
+            ],
+            "center": [
+              0.8254,
+              0.4984
+            ]
+          }
+        },
+        "ssim": 0.9641
+      },
+      {
+        "prompt_id": "spatial_08",
+        "prompt": "a small sparrow perched on a rusted metal fence",
+        "seed": 100,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.715,
+            "box": [
+              0.0965,
+              0.3301,
+              0.8685,
+              0.7577
+            ],
+            "center": [
+              0.4825,
+              0.5439
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.703,
+            "box": [
+              0.0929,
+              0.3261,
+              0.8558,
+              0.7525
+            ],
+            "center": [
+              0.4743,
+              0.5393
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9524
+      },
+      {
+        "prompt_id": "spatial_08",
+        "prompt": "a small sparrow perched on a rusted metal fence",
+        "seed": 2024,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.809,
+            "box": [
+              0.0979,
+              0.2331,
+              0.6758,
+              0.6931
+            ],
+            "center": [
+              0.3868,
+              0.4631
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.818,
+            "box": [
+              0.1061,
+              0.25,
+              0.6772,
+              0.6918
+            ],
+            "center": [
+              0.3917,
+              0.4709
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9477
+      },
+      {
+        "prompt_id": "spatial_08",
+        "prompt": "a small sparrow perched on a rusted metal fence",
+        "seed": 7777,
+        "relation": "on",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.739,
+            "box": [
+              0.2916,
+              0.1961,
+              0.731,
+              0.5227
+            ],
+            "center": [
+              0.5113,
+              0.3594
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.742,
+            "box": [
+              0.2901,
+              0.197,
+              0.7528,
+              0.5205
+            ],
+            "center": [
+              0.5214,
+              0.3587
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9817
+      },
+      {
+        "prompt_id": "spatial_09",
+        "prompt": "a black cat sitting under a wooden dining chair",
+        "seed": 42,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.855,
+            "box": [
+              -0.0017,
+              0.3213,
+              0.9526,
+              1.0009
+            ],
+            "center": [
+              0.4754,
+              0.6611
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.895,
+            "box": [
+              -0.0004,
+              0.2959,
+              0.9614,
+              0.9963
+            ],
+            "center": [
+              0.4805,
+              0.6461
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9845
+      },
+      {
+        "prompt_id": "spatial_09",
+        "prompt": "a black cat sitting under a wooden dining chair",
+        "seed": 100,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Subject below (sy=0.50 > oy=0.23, overlap=False)",
+          "subject_detection": {
+            "score": 0.828,
+            "box": [
+              0.0049,
+              0.0025,
+              1.0002,
+              0.6693
+            ],
+            "center": [
+              0.5025,
+              0.3359
+            ]
+          },
+          "object_detection": {
+            "score": 0.159,
+            "box": [
+              -0.0046,
+              0.8449,
+              0.4696,
+              1.001
+            ],
+            "center": [
+              0.2325,
+              0.9229
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Subject below (sy=0.50 > oy=0.23, overlap=False)",
+          "subject_detection": {
+            "score": 0.825,
+            "box": [
+              0.0037,
+              0.0026,
+              0.9983,
+              0.6685
+            ],
+            "center": [
+              0.501,
+              0.3356
+            ]
+          },
+          "object_detection": {
+            "score": 0.156,
+            "box": [
+              -0.004,
+              0.8473,
+              0.4697,
+              1.001
+            ],
+            "center": [
+              0.2328,
+              0.9242
+            ]
+          }
+        },
+        "ssim": 0.9953
+      },
+      {
+        "prompt_id": "spatial_09",
+        "prompt": "a black cat sitting under a wooden dining chair",
+        "seed": 2024,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Subject below (sy=0.38 > oy=0.63, overlap=True)",
+          "subject_detection": {
+            "score": 0.883,
+            "box": [
+              0.0689,
+              0.0446,
+              0.6853,
+              0.6527
+            ],
+            "center": [
+              0.3771,
+              0.3487
+            ]
+          },
+          "object_detection": {
+            "score": 0.409,
+            "box": [
+              0.2512,
+              0.0862,
+              1.0055,
+              0.9961
+            ],
+            "center": [
+              0.6284,
+              0.5412
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Subject below (sy=0.38 > oy=0.65, overlap=True)",
+          "subject_detection": {
+            "score": 0.885,
+            "box": [
+              0.0698,
+              0.0433,
+              0.6859,
+              0.6546
+            ],
+            "center": [
+              0.3779,
+              0.349
+            ]
+          },
+          "object_detection": {
+            "score": 0.45,
+            "box": [
+              0.2984,
+              0.0567,
+              1.0085,
+              0.7606
+            ],
+            "center": [
+              0.6535,
+              0.4087
+            ]
+          }
+        },
+        "ssim": 0.9993
+      },
+      {
+        "prompt_id": "spatial_09",
+        "prompt": "a black cat sitting under a wooden dining chair",
+        "seed": 7777,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Subject below (sy=0.52 > oy=0.67, overlap=True)",
+          "subject_detection": {
+            "score": 0.899,
+            "box": [
+              0.2267,
+              0.4987,
+              0.8228,
+              1.0022
+            ],
+            "center": [
+              0.5248,
+              0.7504
+            ]
+          },
+          "object_detection": {
+            "score": 0.513,
+            "box": [
+              0.338,
+              0.2266,
+              0.9947,
+              1.0031
+            ],
+            "center": [
+              0.6664,
+              0.6149
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Subject below (sy=0.53 > oy=0.67, overlap=True)",
+          "subject_detection": {
+            "score": 0.896,
+            "box": [
+              0.2269,
+              0.498,
+              0.8234,
+              1.0027
+            ],
+            "center": [
+              0.5251,
+              0.7504
+            ]
+          },
+          "object_detection": {
+            "score": 0.549,
+            "box": [
+              0.3366,
+              0.2243,
+              0.9979,
+              1.0013
+            ],
+            "center": [
+              0.6672,
+              0.6128
+            ]
+          }
+        },
+        "ssim": 0.9982
+      },
+      {
+        "prompt_id": "spatial_10",
+        "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+        "seed": 42,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.619,
+            "box": [
+              0.3345,
+              0.1889,
+              0.6897,
+              0.9372
+            ],
+            "center": [
+              0.5121,
+              0.563
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.67,
+            "box": [
+              0.3351,
+              0.1782,
+              0.6901,
+              0.9248
+            ],
+            "center": [
+              0.5126,
+              0.5515
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9821
+      },
+      {
+        "prompt_id": "spatial_10",
+        "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+        "seed": 100,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.565,
+            "box": [
+              0.4254,
+              0.1318,
+              0.9379,
+              0.9523
+            ],
+            "center": [
+              0.6817,
+              0.5421
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.691,
+            "box": [
+              0.4403,
+              0.1483,
+              0.9687,
+              0.9703
+            ],
+            "center": [
+              0.7045,
+              0.5593
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9853
+      },
+      {
+        "prompt_id": "spatial_10",
+        "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+        "seed": 2024,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.67 > oy=0.21, overlap=True)",
+          "subject_detection": {
+            "score": 0.496,
+            "box": [
+              0.4057,
+              -0.0034,
+              0.9363,
+              0.5984
+            ],
+            "center": [
+              0.671,
+              0.2975
+            ]
+          },
+          "object_detection": {
+            "score": 0.437,
+            "box": [
+              -0.0027,
+              0.4478,
+              0.4141,
+              0.8534
+            ],
+            "center": [
+              0.2057,
+              0.6506
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.69 > oy=0.21, overlap=True)",
+          "subject_detection": {
+            "score": 0.647,
+            "box": [
+              0.4026,
+              0.0029,
+              0.9735,
+              0.6053
+            ],
+            "center": [
+              0.688,
+              0.3041
+            ]
+          },
+          "object_detection": {
+            "score": 0.234,
+            "box": [
+              0.0035,
+              0.4572,
+              0.4229,
+              0.8518
+            ],
+            "center": [
+              0.2132,
+              0.6545
+            ]
+          }
+        },
+        "ssim": 0.9399
+      },
+      {
+        "prompt_id": "spatial_10",
+        "prompt": "a green sea turtle swimming below a translucent jellyfish in clear ocean",
+        "seed": 7777,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.657,
+            "box": [
+              0.0882,
+              0.006,
+              0.7659,
+              1.0009
+            ],
+            "center": [
+              0.4271,
+              0.5034
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.561,
+            "box": [
+              0.0973,
+              0.0101,
+              0.7578,
+              1.009
+            ],
+            "center": [
+              0.4275,
+              0.5096
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9599
+      },
+      {
+        "prompt_id": "spatial_11",
+        "prompt": "a pair of leather boots placed under a wooden bench",
+        "seed": 42,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.82 > oy=0.75, overlap=True)",
+          "subject_detection": {
+            "score": 0.675,
+            "box": [
+              0.7193,
+              0.6639,
+              0.9261,
+              0.7725
+            ],
+            "center": [
+              0.8227,
+              0.7182
+            ]
+          },
+          "object_detection": {
+            "score": 0.463,
+            "box": [
+              0.5925,
+              0.0286,
+              0.9006,
+              0.9615
+            ],
+            "center": [
+              0.7465,
+              0.495
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.82 > oy=0.75, overlap=True)",
+          "subject_detection": {
+            "score": 0.678,
+            "box": [
+              0.7184,
+              0.6643,
+              0.9252,
+              0.7748
+            ],
+            "center": [
+              0.8218,
+              0.7196
+            ]
+          },
+          "object_detection": {
+            "score": 0.448,
+            "box": [
+              0.5923,
+              0.0302,
+              0.8987,
+              0.9595
+            ],
+            "center": [
+              0.7455,
+              0.4948
+            ]
+          }
+        },
+        "ssim": 0.9934
+      },
+      {
+        "prompt_id": "spatial_11",
+        "prompt": "a pair of leather boots placed under a wooden bench",
+        "seed": 100,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.67 > oy=0.50, overlap=True)",
+          "subject_detection": {
+            "score": 0.423,
+            "box": [
+              0.4562,
+              0.2384,
+              0.8922,
+              0.7568
+            ],
+            "center": [
+              0.6742,
+              0.4976
+            ]
+          },
+          "object_detection": {
+            "score": 0.152,
+            "box": [
+              0.0047,
+              0.0018,
+              1.0016,
+              0.9986
+            ],
+            "center": [
+              0.5031,
+              0.5002
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.64 > oy=0.50, overlap=True)",
+          "subject_detection": {
+            "score": 0.426,
+            "box": [
+              0.4074,
+              0.2246,
+              0.8822,
+              0.7454
+            ],
+            "center": [
+              0.6448,
+              0.485
+            ]
+          },
+          "object_detection": {
+            "score": 0.14,
+            "box": [
+              0.0016,
+              0.0035,
+              0.9972,
+              1.0004
+            ],
+            "center": [
+              0.4994,
+              0.502
+            ]
+          }
+        },
+        "ssim": 0.9909
+      },
+      {
+        "prompt_id": "spatial_11",
+        "prompt": "a pair of leather boots placed under a wooden bench",
+        "seed": 2024,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Subject below (sy=0.30 > oy=0.70, overlap=True)",
+          "subject_detection": {
+            "score": 0.522,
+            "box": [
+              0.1247,
+              0.0255,
+              0.4767,
+              0.5685
+            ],
+            "center": [
+              0.3007,
+              0.297
+            ]
+          },
+          "object_detection": {
+            "score": 0.215,
+            "box": [
+              0.4056,
+              -0.0033,
+              0.9934,
+              0.9942
+            ],
+            "center": [
+              0.6995,
+              0.4954
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Subject below (sy=0.30 > oy=0.77, overlap=True)",
+          "subject_detection": {
+            "score": 0.523,
+            "box": [
+              0.1208,
+              0.025,
+              0.4797,
+              0.5871
+            ],
+            "center": [
+              0.3003,
+              0.3061
+            ]
+          },
+          "object_detection": {
+            "score": 0.242,
+            "box": [
+              0.5471,
+              0.1709,
+              0.984,
+              0.9913
+            ],
+            "center": [
+              0.7656,
+              0.5811
+            ]
+          }
+        },
+        "ssim": 0.9947
+      },
+      {
+        "prompt_id": "spatial_11",
+        "prompt": "a pair of leather boots placed under a wooden bench",
+        "seed": 7777,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for subject",
+          "subject_detection": null,
+          "object_detection": {
+            "score": 0.667,
+            "box": [
+              0.0047,
+              0.0065,
+              0.9939,
+              0.9345
+            ],
+            "center": [
+              0.4993,
+              0.4705
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for subject",
+          "subject_detection": null,
+          "object_detection": {
+            "score": 0.669,
+            "box": [
+              0.003,
+              0.0045,
+              0.9929,
+              0.9318
+            ],
+            "center": [
+              0.498,
+              0.4681
+            ]
+          }
+        },
+        "ssim": 0.9917
+      },
+      {
+        "prompt_id": "spatial_12",
+        "prompt": "a colorful rug under a glass coffee table",
+        "seed": 42,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.78 > oy=0.72, overlap=True)",
+          "subject_detection": {
+            "score": 0.38,
+            "box": [
+              0.558,
+              0.0043,
+              0.9971,
+              0.9986
+            ],
+            "center": [
+              0.7776,
+              0.5014
+            ]
+          },
+          "object_detection": {
+            "score": 0.712,
+            "box": [
+              0.5465,
+              0.2162,
+              0.8866,
+              0.8595
+            ],
+            "center": [
+              0.7166,
+              0.5378
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.78 > oy=0.72, overlap=True)",
+          "subject_detection": {
+            "score": 0.354,
+            "box": [
+              0.5562,
+              0.0048,
+              0.9974,
+              0.9991
+            ],
+            "center": [
+              0.7768,
+              0.502
+            ]
+          },
+          "object_detection": {
+            "score": 0.707,
+            "box": [
+              0.5458,
+              0.2124,
+              0.8926,
+              0.8573
+            ],
+            "center": [
+              0.7192,
+              0.5349
+            ]
+          }
+        },
+        "ssim": 0.9921
+      },
+      {
+        "prompt_id": "spatial_12",
+        "prompt": "a colorful rug under a glass coffee table",
+        "seed": 100,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.69 > oy=0.64, overlap=True)",
+          "subject_detection": {
+            "score": 0.356,
+            "box": [
+              0.3803,
+              -0.0011,
+              0.9916,
+              0.9955
+            ],
+            "center": [
+              0.686,
+              0.4972
+            ]
+          },
+          "object_detection": {
+            "score": 0.634,
+            "box": [
+              0.2884,
+              0.0437,
+              0.9888,
+              0.9394
+            ],
+            "center": [
+              0.6386,
+              0.4916
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.78 > oy=0.64, overlap=True)",
+          "subject_detection": {
+            "score": 0.311,
+            "box": [
+              0.5465,
+              -0.0061,
+              1.0067,
+              0.9882
+            ],
+            "center": [
+              0.7766,
+              0.4911
+            ]
+          },
+          "object_detection": {
+            "score": 0.657,
+            "box": [
+              0.2858,
+              0.0424,
+              0.9893,
+              0.9439
+            ],
+            "center": [
+              0.6376,
+              0.4931
+            ]
+          }
+        },
+        "ssim": 0.9983
+      },
+      {
+        "prompt_id": "spatial_12",
+        "prompt": "a colorful rug under a glass coffee table",
+        "seed": 2024,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.69 > oy=0.59, overlap=True)",
+          "subject_detection": {
+            "score": 0.371,
+            "box": [
+              0.385,
+              0.105,
+              1.0026,
+              0.9895
+            ],
+            "center": [
+              0.6938,
+              0.5473
+            ]
+          },
+          "object_detection": {
+            "score": 0.695,
+            "box": [
+              0.3621,
+              0.1951,
+              0.81,
+              0.8952
+            ],
+            "center": [
+              0.586,
+              0.5452
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.69 > oy=0.60, overlap=True)",
+          "subject_detection": {
+            "score": 0.278,
+            "box": [
+              0.3697,
+              0.1087,
+              1.001,
+              0.9901
+            ],
+            "center": [
+              0.6853,
+              0.5494
+            ]
+          },
+          "object_detection": {
+            "score": 0.71,
+            "box": [
+              0.3625,
+              0.2019,
+              0.8335,
+              0.8994
+            ],
+            "center": [
+              0.598,
+              0.5507
+            ]
+          }
+        },
+        "ssim": 0.9888
+      },
+      {
+        "prompt_id": "spatial_12",
+        "prompt": "a colorful rug under a glass coffee table",
+        "seed": 7777,
+        "relation": "under",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject below (sy=0.67 > oy=0.29, overlap=True)",
+          "subject_detection": {
+            "score": 0.402,
+            "box": [
+              0.3384,
+              0.1453,
+              1.0025,
+              0.9929
+            ],
+            "center": [
+              0.6704,
+              0.5691
+            ]
+          },
+          "object_detection": {
+            "score": 0.142,
+            "box": [
+              0.2245,
+              0.5864,
+              0.364,
+              0.8274
+            ],
+            "center": [
+              0.2942,
+              0.7069
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.458,
+            "box": [
+              0.3255,
+              0.1417,
+              1.0024,
+              0.9913
+            ],
+            "center": [
+              0.664,
+              0.5665
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.985
+      },
+      {
+        "prompt_id": "spatial_13",
+        "prompt": "a yellow banana to the left of a green apple on a white table",
+        "seed": 42,
+        "relation": "left_of",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject x=0.53 < Object x=0.95",
+          "subject_detection": {
+            "score": 0.521,
+            "box": [
+              0.2604,
+              0.0599,
+              0.8173,
+              0.9976
+            ],
+            "center": [
+              0.5388,
+              0.5288
+            ]
+          },
+          "object_detection": {
+            "score": 0.094,
+            "box": [
+              0.4957,
+              0.9055,
+              0.5746,
+              0.9994
+            ],
+            "center": [
+              0.5351,
+              0.9525
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.438,
+            "box": [
+              0.2626,
+              0.0197,
+              0.8078,
+              1.0006
+            ],
+            "center": [
+              0.5352,
+              0.5102
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9829
+      },
+      {
+        "prompt_id": "spatial_13",
+        "prompt": "a yellow banana to the left of a green apple on a white table",
+        "seed": 100,
+        "relation": "left_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for subject",
+          "subject_detection": null,
+          "object_detection": {
+            "score": 0.627,
+            "box": [
+              0.3018,
+              0.3388,
+              0.7893,
+              0.7115
+            ],
+            "center": [
+              0.5455,
+              0.5252
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for subject",
+          "subject_detection": null,
+          "object_detection": {
+            "score": 0.585,
+            "box": [
+              0.2933,
+              0.3215,
+              0.7687,
+              0.7116
+            ],
+            "center": [
+              0.531,
+              0.5165
+            ]
+          }
+        },
+        "ssim": 0.9635
+      },
+      {
+        "prompt_id": "spatial_13",
+        "prompt": "a yellow banana to the left of a green apple on a white table",
+        "seed": 2024,
+        "relation": "left_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Subject x=0.60 >= Object x=0.21",
+          "subject_detection": {
+            "score": 0.33,
+            "box": [
+              0.0126,
+              0.4234,
+              0.5055,
+              0.7762
+            ],
+            "center": [
+              0.2591,
+              0.5998
+            ]
+          },
+          "object_detection": {
+            "score": 0.714,
+            "box": [
+              0.0472,
+              0.0382,
+              0.3896,
+              0.3721
+            ],
+            "center": [
+              0.2184,
+              0.2051
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Subject x=0.57 >= Object x=0.20",
+          "subject_detection": {
+            "score": 0.285,
+            "box": [
+              0.0536,
+              0.4139,
+              0.5063,
+              0.72
+            ],
+            "center": [
+              0.28,
+              0.567
+            ]
+          },
+          "object_detection": {
+            "score": 0.711,
+            "box": [
+              0.0485,
+              0.0383,
+              0.3918,
+              0.3713
+            ],
+            "center": [
+              0.2202,
+              0.2048
+            ]
+          }
+        },
+        "ssim": 0.9788
+      },
+      {
+        "prompt_id": "spatial_13",
+        "prompt": "a yellow banana to the left of a green apple on a white table",
+        "seed": 7777,
+        "relation": "left_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for subject",
+          "subject_detection": null,
+          "object_detection": {
+            "score": 0.694,
+            "box": [
+              0.3248,
+              0.0141,
+              0.6353,
+              0.3341
+            ],
+            "center": [
+              0.4801,
+              0.1741
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for subject",
+          "subject_detection": null,
+          "object_detection": {
+            "score": 0.681,
+            "box": [
+              0.325,
+              0.0133,
+              0.636,
+              0.3344
+            ],
+            "center": [
+              0.4805,
+              0.1738
+            ]
+          }
+        },
+        "ssim": 0.9976
+      },
+      {
+        "prompt_id": "spatial_14",
+        "prompt": "a crystal vase beside an antique brass clock on a mantelpiece",
+        "seed": 42,
+        "relation": "beside",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.531,
+            "box": [
+              0.0006,
+              0.0739,
+              0.8247,
+              0.3471
+            ],
+            "center": [
+              0.4126,
+              0.2105
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.536,
+            "box": [
+              0.0002,
+              0.0716,
+              0.8262,
+              0.3474
+            ],
+            "center": [
+              0.4132,
+              0.2095
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9974
+      },
+      {
+        "prompt_id": "spatial_14",
+        "prompt": "a crystal vase beside an antique brass clock on a mantelpiece",
+        "seed": 100,
+        "relation": "beside",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.215,
+            "box": [
+              0.3422,
+              0.2905,
+              1.0024,
+              0.7174
+            ],
+            "center": [
+              0.6723,
+              0.5039
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.465,
+            "box": [
+              0.3582,
+              0.2975,
+              1.007,
+              0.7175
+            ],
+            "center": [
+              0.6826,
+              0.5075
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9925
+      },
+      {
+        "prompt_id": "spatial_14",
+        "prompt": "a crystal vase beside an antique brass clock on a mantelpiece",
+        "seed": 2024,
+        "relation": "beside",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.288,
+            "box": [
+              0.3991,
+              0.0722,
+              0.8781,
+              0.405
+            ],
+            "center": [
+              0.6386,
+              0.2386
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.361,
+            "box": [
+              0.4138,
+              0.017,
+              0.8839,
+              0.3991
+            ],
+            "center": [
+              0.6488,
+              0.208
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.962
+      },
+      {
+        "prompt_id": "spatial_14",
+        "prompt": "a crystal vase beside an antique brass clock on a mantelpiece",
+        "seed": 7777,
+        "relation": "beside",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Lateral separation dx=0.43, dy=0.11",
+          "subject_detection": {
+            "score": 0.443,
+            "box": [
+              0.09,
+              0.632,
+              0.7834,
+              0.8999
+            ],
+            "center": [
+              0.4367,
+              0.766
+            ]
+          },
+          "object_detection": {
+            "score": 0.429,
+            "box": [
+              -0.0049,
+              0.0052,
+              0.6551,
+              0.6642
+            ],
+            "center": [
+              0.3251,
+              0.3347
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Lateral separation dx=0.46, dy=0.11",
+          "subject_detection": {
+            "score": 0.232,
+            "box": [
+              0.0952,
+              0.6314,
+              0.7764,
+              0.9589
+            ],
+            "center": [
+              0.4358,
+              0.7952
+            ]
+          },
+          "object_detection": {
+            "score": 0.492,
+            "box": [
+              -0.005,
+              0.0052,
+              0.6613,
+              0.6647
+            ],
+            "center": [
+              0.3282,
+              0.3349
+            ]
+          }
+        },
+        "ssim": 0.9621
+      },
+      {
+        "prompt_id": "spatial_15",
+        "prompt": "a red sports car parked to the right of a blue bicycle",
+        "seed": 42,
+        "relation": "right_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.655,
+            "box": [
+              0.6452,
+              -0.0024,
+              0.9276,
+              0.5819
+            ],
+            "center": [
+              0.7864,
+              0.2898
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.657,
+            "box": [
+              0.6449,
+              -0.0024,
+              0.9276,
+              0.5818
+            ],
+            "center": [
+              0.7863,
+              0.2897
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9994
+      },
+      {
+        "prompt_id": "spatial_15",
+        "prompt": "a red sports car parked to the right of a blue bicycle",
+        "seed": 100,
+        "relation": "right_of",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Subject x=0.55 > Object x=0.10",
+          "subject_detection": {
+            "score": 0.823,
+            "box": [
+              0.4348,
+              0.234,
+              0.8643,
+              0.8606
+            ],
+            "center": [
+              0.6495,
+              0.5473
+            ]
+          },
+          "object_detection": {
+            "score": 0.311,
+            "box": [
+              0.4974,
+              0.0008,
+              0.8287,
+              0.1954
+            ],
+            "center": [
+              0.6631,
+              0.0981
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Subject x=0.55 > Object x=0.10",
+          "subject_detection": {
+            "score": 0.814,
+            "box": [
+              0.4329,
+              0.237,
+              0.8643,
+              0.8602
+            ],
+            "center": [
+              0.6486,
+              0.5486
+            ]
+          },
+          "object_detection": {
+            "score": 0.32,
+            "box": [
+              0.5135,
+              -0.0014,
+              0.8297,
+              0.1987
+            ],
+            "center": [
+              0.6716,
+              0.0987
+            ]
+          }
+        },
+        "ssim": 0.9971
+      },
+      {
+        "prompt_id": "spatial_15",
+        "prompt": "a red sports car parked to the right of a blue bicycle",
+        "seed": 2024,
+        "relation": "right_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Subject x=0.14 <= Object x=0.33",
+          "subject_detection": {
+            "score": 0.479,
+            "box": [
+              0.4034,
+              -0.0002,
+              0.6807,
+              0.2804
+            ],
+            "center": [
+              0.542,
+              0.1401
+            ]
+          },
+          "object_detection": {
+            "score": 0.219,
+            "box": [
+              0.4724,
+              0.2586,
+              0.6645,
+              0.3948
+            ],
+            "center": [
+              0.5684,
+              0.3267
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Subject x=0.14 <= Object x=0.33",
+          "subject_detection": {
+            "score": 0.47,
+            "box": [
+              0.4046,
+              0.0003,
+              0.6818,
+              0.2802
+            ],
+            "center": [
+              0.5432,
+              0.1402
+            ]
+          },
+          "object_detection": {
+            "score": 0.219,
+            "box": [
+              0.4727,
+              0.2594,
+              0.6645,
+              0.3942
+            ],
+            "center": [
+              0.5686,
+              0.3268
+            ]
+          }
+        },
+        "ssim": 0.9995
+      },
+      {
+        "prompt_id": "spatial_15",
+        "prompt": "a red sports car parked to the right of a blue bicycle",
+        "seed": 7777,
+        "relation": "right_of",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Subject x=0.26 <= Object x=0.82",
+          "subject_detection": {
+            "score": 0.737,
+            "box": [
+              0.1923,
+              -0.0012,
+              0.6714,
+              0.5275
+            ],
+            "center": [
+              0.4318,
+              0.2632
+            ]
+          },
+          "object_detection": {
+            "score": 0.662,
+            "box": [
+              0.2931,
+              0.6416,
+              0.926,
+              1.0012
+            ],
+            "center": [
+              0.6095,
+              0.8214
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Subject x=0.26 <= Object x=0.82",
+          "subject_detection": {
+            "score": 0.724,
+            "box": [
+              0.1937,
+              -0.0011,
+              0.6734,
+              0.5291
+            ],
+            "center": [
+              0.4335,
+              0.264
+            ]
+          },
+          "object_detection": {
+            "score": 0.576,
+            "box": [
+              0.2339,
+              0.637,
+              0.9153,
+              0.9962
+            ],
+            "center": [
+              0.5746,
+              0.8166
+            ]
+          }
+        },
+        "ssim": 0.9426
+      },
+      {
+        "prompt_id": "spatial_16",
+        "prompt": "a silver teapot beside a porcelain teacup on a tray",
+        "seed": 42,
+        "relation": "beside",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.73,
+            "box": [
+              0.1557,
+              0.0967,
+              0.8346,
+              1.0032
+            ],
+            "center": [
+              0.4951,
+              0.5499
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.734,
+            "box": [
+              0.1565,
+              0.0932,
+              0.8273,
+              1.0022
+            ],
+            "center": [
+              0.4919,
+              0.5477
+            ]
+          },
+          "object_detection": null
+        },
+        "ssim": 0.9944
+      },
+      {
+        "prompt_id": "spatial_16",
+        "prompt": "a silver teapot beside a porcelain teacup on a tray",
+        "seed": 100,
+        "relation": "beside",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Lateral separation dx=0.41, dy=0.21",
+          "subject_detection": {
+            "score": 0.65,
+            "box": [
+              0.0675,
+              0.285,
+              0.7085,
+              0.963
+            ],
+            "center": [
+              0.388,
+              0.624
+            ]
+          },
+          "object_detection": {
+            "score": 0.462,
+            "box": [
+              0.4566,
+              0.0717,
+              0.7392,
+              0.3472
+            ],
+            "center": [
+              0.5979,
+              0.2094
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Lateral separation dx=0.18, dy=0.23",
+          "subject_detection": {
+            "score": 0.647,
+            "box": [
+              0.0702,
+              0.2903,
+              0.7101,
+              0.9621
+            ],
+            "center": [
+              0.3902,
+              0.6262
+            ]
+          },
+          "object_detection": {
+            "score": 0.389,
+            "box": [
+              0.5243,
+              0.3184,
+              0.7109,
+              0.578
+            ],
+            "center": [
+              0.6176,
+              0.4482
+            ]
+          }
+        },
+        "ssim": 0.9197
+      },
+      {
+        "prompt_id": "spatial_16",
+        "prompt": "a silver teapot beside a porcelain teacup on a tray",
+        "seed": 2024,
+        "relation": "beside",
+        "guidance_off": {
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "subject_detection": {
+            "score": 0.588,
+            "box": [
+              0.4429,
+              -0.0026,
+              0.8954,
+              0.5528
+            ],
+            "center": [
+              0.6692,
+              0.2751
+            ]
+          },
+          "object_detection": null
+        },
+        "guidance_on": {
+          "satisfied": false,
+          "reason": "Lateral separation dx=0.04, dy=0.02",
+          "subject_detection": {
+            "score": 0.507,
+            "box": [
+              0.0264,
+              -0.0019,
+              0.919,
+              0.9924
+            ],
+            "center": [
+              0.4727,
+              0.4953
+            ]
+          },
+          "object_detection": {
+            "score": 0.083,
+            "box": [
+              0.1167,
+              0.0141,
+              0.8748,
+              0.8969
+            ],
+            "center": [
+              0.4958,
+              0.4555
+            ]
+          }
+        },
+        "ssim": 0.9852
+      },
+      {
+        "prompt_id": "spatial_16",
+        "prompt": "a silver teapot beside a porcelain teacup on a tray",
+        "seed": 7777,
+        "relation": "beside",
+        "guidance_off": {
+          "satisfied": true,
+          "reason": "Lateral separation dx=0.49, dy=0.19",
+          "subject_detection": {
+            "score": 0.41,
+            "box": [
+              0.2587,
+              0.3692,
+              0.9557,
+              1.0005
+            ],
+            "center": [
+              0.6072,
+              0.6848
+            ]
+          },
+          "object_detection": {
+            "score": 0.397,
+            "box": [
+              0.2224,
+              -0.0008,
+              0.602,
+              0.3821
+            ],
+            "center": [
+              0.4122,
+              0.1907
+            ]
+          }
+        },
+        "guidance_on": {
+          "satisfied": true,
+          "reason": "Lateral separation dx=0.26, dy=0.26",
+          "subject_detection": {
+            "score": 0.448,
+            "box": [
+              0.2599,
+              0.3903,
+              0.7763,
+              0.9939
+            ],
+            "center": [
+              0.5181,
+              0.6921
+            ]
+          },
+          "object_detection": {
+            "score": 0.364,
+            "box": [
+              0.0852,
+              0.2273,
+              0.4275,
+              0.6437
+            ],
+            "center": [
+              0.2564,
+              0.4355
+            ]
+          }
+        },
+        "ssim": 0.9425
+      }
+    ]
+  },
+  "stage2_strength_sweep": {
+    "0.35": {
+      "strength": 0.35,
+      "mean_ssim_vs_off": 0.9768,
+      "structural_change_pct": 2.32,
+      "spatial_satisfaction_rate_pct": 62.5,
+      "satisfied_count": "10/16",
+      "mean_laion_aesthetic": 5.549,
+      "mean_clip_alignment": 0.2821,
+      "runs": [
+        {
+          "prompt_id": "spatial_01",
+          "seed": 42,
+          "ssim_vs_off": 0.9778,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 4.981,
+          "clip_alignment": 0.3077
+        },
+        {
+          "prompt_id": "spatial_01",
+          "seed": 100,
+          "ssim_vs_off": 0.9469,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 4.907,
+          "clip_alignment": 0.3012
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 42,
+          "ssim_vs_off": 0.982,
+          "satisfied": true,
+          "reason": "Subject y=0.31 <= Object y=0.45",
+          "laion_aesthetic": 5.517,
+          "clip_alignment": 0.2626
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 100,
+          "ssim_vs_off": 0.9949,
+          "satisfied": false,
+          "reason": "Subject y=0.61 > Object y=0.50",
+          "laion_aesthetic": 5.7,
+          "clip_alignment": 0.3167
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 42,
+          "ssim_vs_off": 0.9563,
+          "satisfied": true,
+          "reason": "Subject y=0.70 >= Object y=0.41",
+          "laion_aesthetic": 5.615,
+          "clip_alignment": 0.296
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 100,
+          "ssim_vs_off": 0.9388,
+          "satisfied": true,
+          "reason": "Subject y=0.81 >= Object y=0.70",
+          "laion_aesthetic": 5.419,
+          "clip_alignment": 0.3129
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 42,
+          "ssim_vs_off": 0.9815,
+          "satisfied": true,
+          "reason": "Subject y=0.34 <= Object y=0.59",
+          "laion_aesthetic": 5.963,
+          "clip_alignment": 0.2904
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 100,
+          "ssim_vs_off": 0.9988,
+          "satisfied": true,
+          "reason": "Subject y=0.47 <= Object y=0.68",
+          "laion_aesthetic": 6.026,
+          "clip_alignment": 0.259
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 42,
+          "ssim_vs_off": 0.9757,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.588,
+          "clip_alignment": 0.2583
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 100,
+          "ssim_vs_off": 0.9931,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.40 < oy=0.84, overlap=True)",
+          "laion_aesthetic": 5.457,
+          "clip_alignment": 0.2591
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 42,
+          "ssim_vs_off": 0.9769,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.51 < oy=0.63, overlap=True)",
+          "laion_aesthetic": 5.438,
+          "clip_alignment": 0.2879
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 100,
+          "ssim_vs_off": 0.9936,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.33,
+          "clip_alignment": 0.2315
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 42,
+          "ssim_vs_off": 0.9988,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.46 < oy=0.50, overlap=True)",
+          "laion_aesthetic": 5.626,
+          "clip_alignment": 0.252
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 100,
+          "ssim_vs_off": 0.9965,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.63 < oy=0.63, overlap=True)",
+          "laion_aesthetic": 5.535,
+          "clip_alignment": 0.2511
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 42,
+          "ssim_vs_off": 0.9635,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.50 < oy=0.83, overlap=True)",
+          "laion_aesthetic": 5.811,
+          "clip_alignment": 0.3189
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 100,
+          "ssim_vs_off": 0.9529,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.875,
+          "clip_alignment": 0.308
+        }
+      ]
+    },
+    "0.7": {
+      "strength": 0.7,
+      "mean_ssim_vs_off": 0.9622,
+      "structural_change_pct": 3.78,
+      "spatial_satisfaction_rate_pct": 62.5,
+      "satisfied_count": "10/16",
+      "mean_laion_aesthetic": 5.511,
+      "mean_clip_alignment": 0.279,
+      "runs": [
+        {
+          "prompt_id": "spatial_01",
+          "seed": 42,
+          "ssim_vs_off": 0.9653,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.028,
+          "clip_alignment": 0.2856
+        },
+        {
+          "prompt_id": "spatial_01",
+          "seed": 100,
+          "ssim_vs_off": 0.9234,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 4.821,
+          "clip_alignment": 0.2691
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 42,
+          "ssim_vs_off": 0.9664,
+          "satisfied": true,
+          "reason": "Subject y=0.31 <= Object y=0.45",
+          "laion_aesthetic": 5.369,
+          "clip_alignment": 0.2751
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 100,
+          "ssim_vs_off": 0.9915,
+          "satisfied": false,
+          "reason": "Subject y=0.61 > Object y=0.50",
+          "laion_aesthetic": 5.699,
+          "clip_alignment": 0.3228
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 42,
+          "ssim_vs_off": 0.9523,
+          "satisfied": true,
+          "reason": "Subject y=0.70 >= Object y=0.41",
+          "laion_aesthetic": 5.551,
+          "clip_alignment": 0.292
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 100,
+          "ssim_vs_off": 0.912,
+          "satisfied": true,
+          "reason": "Subject y=0.80 >= Object y=0.71",
+          "laion_aesthetic": 5.295,
+          "clip_alignment": 0.2906
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 42,
+          "ssim_vs_off": 0.951,
+          "satisfied": true,
+          "reason": "Subject y=0.35 <= Object y=0.57",
+          "laion_aesthetic": 5.901,
+          "clip_alignment": 0.2784
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 100,
+          "ssim_vs_off": 0.9905,
+          "satisfied": true,
+          "reason": "Subject y=0.49 <= Object y=0.69",
+          "laion_aesthetic": 6.035,
+          "clip_alignment": 0.2651
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 42,
+          "ssim_vs_off": 0.968,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.41 < oy=0.64, overlap=True)",
+          "laion_aesthetic": 5.53,
+          "clip_alignment": 0.2643
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 100,
+          "ssim_vs_off": 0.9825,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.41 < oy=0.83, overlap=True)",
+          "laion_aesthetic": 5.422,
+          "clip_alignment": 0.2642
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 42,
+          "ssim_vs_off": 0.9627,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.50 < oy=0.62, overlap=True)",
+          "laion_aesthetic": 5.444,
+          "clip_alignment": 0.2977
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 100,
+          "ssim_vs_off": 0.9812,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.247,
+          "clip_alignment": 0.2221
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 42,
+          "ssim_vs_off": 0.9968,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.46 < oy=0.49, overlap=True)",
+          "laion_aesthetic": 5.62,
+          "clip_alignment": 0.2543
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 100,
+          "ssim_vs_off": 0.9813,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.62 < oy=0.63, overlap=True)",
+          "laion_aesthetic": 5.518,
+          "clip_alignment": 0.2527
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 42,
+          "ssim_vs_off": 0.9332,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.867,
+          "clip_alignment": 0.3208
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 100,
+          "ssim_vs_off": 0.9371,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.825,
+          "clip_alignment": 0.31
+        }
+      ]
+    },
+    "1.5": {
+      "strength": 1.5,
+      "mean_ssim_vs_off": 0.9115,
+      "structural_change_pct": 8.85,
+      "spatial_satisfaction_rate_pct": 68.75,
+      "satisfied_count": "11/16",
+      "mean_laion_aesthetic": 5.524,
+      "mean_clip_alignment": 0.2848,
+      "runs": [
+        {
+          "prompt_id": "spatial_01",
+          "seed": 42,
+          "ssim_vs_off": 0.8769,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 4.917,
+          "clip_alignment": 0.2933
+        },
+        {
+          "prompt_id": "spatial_01",
+          "seed": 100,
+          "ssim_vs_off": 0.9135,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 4.962,
+          "clip_alignment": 0.3088
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 42,
+          "ssim_vs_off": 0.9346,
+          "satisfied": true,
+          "reason": "Subject y=0.31 <= Object y=0.46",
+          "laion_aesthetic": 5.354,
+          "clip_alignment": 0.2738
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 100,
+          "ssim_vs_off": 0.9833,
+          "satisfied": false,
+          "reason": "Subject y=0.61 > Object y=0.50",
+          "laion_aesthetic": 5.654,
+          "clip_alignment": 0.3187
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 42,
+          "ssim_vs_off": 0.9361,
+          "satisfied": true,
+          "reason": "Subject y=0.70 >= Object y=0.40",
+          "laion_aesthetic": 5.556,
+          "clip_alignment": 0.2885
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 100,
+          "ssim_vs_off": 0.8271,
+          "satisfied": true,
+          "reason": "Subject y=0.76 >= Object y=0.46",
+          "laion_aesthetic": 5.498,
+          "clip_alignment": 0.3208
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 42,
+          "ssim_vs_off": 0.9159,
+          "satisfied": true,
+          "reason": "Subject y=0.33 <= Object y=0.56",
+          "laion_aesthetic": 5.916,
+          "clip_alignment": 0.2905
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 100,
+          "ssim_vs_off": 0.9781,
+          "satisfied": true,
+          "reason": "Subject y=0.48 <= Object y=0.69",
+          "laion_aesthetic": 6.078,
+          "clip_alignment": 0.2676
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 42,
+          "ssim_vs_off": 0.955,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.40 < oy=0.75, overlap=True)",
+          "laion_aesthetic": 5.55,
+          "clip_alignment": 0.2685
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 100,
+          "ssim_vs_off": 0.971,
+          "satisfied": false,
+          "reason": "Subject on top (sy=0.41 < oy=0.41, overlap=False)",
+          "laion_aesthetic": 5.411,
+          "clip_alignment": 0.2632
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 42,
+          "ssim_vs_off": 0.7781,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.50 < oy=0.50, overlap=True)",
+          "laion_aesthetic": 5.494,
+          "clip_alignment": 0.3058
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 100,
+          "ssim_vs_off": 0.7742,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.43 < oy=0.51, overlap=True)",
+          "laion_aesthetic": 5.134,
+          "clip_alignment": 0.225
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 42,
+          "ssim_vs_off": 0.9944,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.46 < oy=0.50, overlap=True)",
+          "laion_aesthetic": 5.644,
+          "clip_alignment": 0.2553
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 100,
+          "ssim_vs_off": 0.9693,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.62 < oy=0.63, overlap=True)",
+          "laion_aesthetic": 5.556,
+          "clip_alignment": 0.2532
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 42,
+          "ssim_vs_off": 0.8601,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.50 < oy=0.76, overlap=True)",
+          "laion_aesthetic": 5.81,
+          "clip_alignment": 0.3134
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 100,
+          "ssim_vs_off": 0.9169,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.846,
+          "clip_alignment": 0.311
+        }
+      ]
+    },
+    "3.0": {
+      "strength": 3.0,
+      "mean_ssim_vs_off": 0.8464,
+      "structural_change_pct": 15.36,
+      "spatial_satisfaction_rate_pct": 62.5,
+      "satisfied_count": "10/16",
+      "mean_laion_aesthetic": 5.579,
+      "mean_clip_alignment": 0.2904,
+      "runs": [
+        {
+          "prompt_id": "spatial_01",
+          "seed": 42,
+          "ssim_vs_off": 0.7934,
+          "satisfied": true,
+          "reason": "Subject y=0.64 >= Object y=0.62",
+          "laion_aesthetic": 5.176,
+          "clip_alignment": 0.3308
+        },
+        {
+          "prompt_id": "spatial_01",
+          "seed": 100,
+          "ssim_vs_off": 0.8622,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.055,
+          "clip_alignment": 0.3194
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 42,
+          "ssim_vs_off": 0.8841,
+          "satisfied": true,
+          "reason": "Subject y=0.32 <= Object y=0.51",
+          "laion_aesthetic": 5.49,
+          "clip_alignment": 0.2993
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 100,
+          "ssim_vs_off": 0.9673,
+          "satisfied": false,
+          "reason": "Subject y=0.61 > Object y=0.50",
+          "laion_aesthetic": 5.456,
+          "clip_alignment": 0.3148
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 42,
+          "ssim_vs_off": 0.9216,
+          "satisfied": true,
+          "reason": "Subject y=0.70 >= Object y=0.39",
+          "laion_aesthetic": 5.553,
+          "clip_alignment": 0.294
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 100,
+          "ssim_vs_off": 0.7428,
+          "satisfied": true,
+          "reason": "Subject y=0.74 >= Object y=0.76",
+          "laion_aesthetic": 5.563,
+          "clip_alignment": 0.3275
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 42,
+          "ssim_vs_off": 0.7558,
+          "satisfied": true,
+          "reason": "Subject y=0.31 <= Object y=0.54",
+          "laion_aesthetic": 5.672,
+          "clip_alignment": 0.2822
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 100,
+          "ssim_vs_off": 0.838,
+          "satisfied": true,
+          "reason": "Subject y=0.47 <= Object y=0.72",
+          "laion_aesthetic": 6.343,
+          "clip_alignment": 0.2635
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 42,
+          "ssim_vs_off": 0.9097,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.649,
+          "clip_alignment": 0.2733
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 100,
+          "ssim_vs_off": 0.9534,
+          "satisfied": false,
+          "reason": "Subject on top (sy=0.40 < oy=0.42, overlap=False)",
+          "laion_aesthetic": 5.513,
+          "clip_alignment": 0.2656
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 42,
+          "ssim_vs_off": 0.7288,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.39 < oy=0.59, overlap=True)",
+          "laion_aesthetic": 5.504,
+          "clip_alignment": 0.3125
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 100,
+          "ssim_vs_off": 0.9633,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.407,
+          "clip_alignment": 0.2249
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 42,
+          "ssim_vs_off": 0.9919,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.46 < oy=0.50, overlap=True)",
+          "laion_aesthetic": 5.647,
+          "clip_alignment": 0.2535
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 100,
+          "ssim_vs_off": 0.5594,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.57 < oy=0.56, overlap=True)",
+          "laion_aesthetic": 5.582,
+          "clip_alignment": 0.272
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 42,
+          "ssim_vs_off": 0.7692,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.51 < oy=0.79, overlap=True)",
+          "laion_aesthetic": 5.848,
+          "clip_alignment": 0.3147
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 100,
+          "ssim_vs_off": 0.9019,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.81,
+          "clip_alignment": 0.2985
+        }
+      ]
+    },
+    "6.0": {
+      "strength": 6.0,
+      "mean_ssim_vs_off": 0.7412,
+      "structural_change_pct": 25.88,
+      "spatial_satisfaction_rate_pct": 56.25,
+      "satisfied_count": "9/16",
+      "mean_laion_aesthetic": 5.589,
+      "mean_clip_alignment": 0.2932,
+      "runs": [
+        {
+          "prompt_id": "spatial_01",
+          "seed": 42,
+          "ssim_vs_off": 0.5126,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.296,
+          "clip_alignment": 0.3248
+        },
+        {
+          "prompt_id": "spatial_01",
+          "seed": 100,
+          "ssim_vs_off": 0.7889,
+          "satisfied": true,
+          "reason": "Subject y=0.68 >= Object y=0.22",
+          "laion_aesthetic": 5.207,
+          "clip_alignment": 0.3506
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 42,
+          "ssim_vs_off": 0.8461,
+          "satisfied": true,
+          "reason": "Subject y=0.33 <= Object y=0.44",
+          "laion_aesthetic": 5.678,
+          "clip_alignment": 0.3004
+        },
+        {
+          "prompt_id": "spatial_02",
+          "seed": 100,
+          "ssim_vs_off": 0.8108,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.357,
+          "clip_alignment": 0.2857
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 42,
+          "ssim_vs_off": 0.772,
+          "satisfied": true,
+          "reason": "Subject y=0.70 >= Object y=0.39",
+          "laion_aesthetic": 5.574,
+          "clip_alignment": 0.2964
+        },
+        {
+          "prompt_id": "spatial_03",
+          "seed": 100,
+          "ssim_vs_off": 0.636,
+          "satisfied": true,
+          "reason": "Subject y=0.72 >= Object y=0.40",
+          "laion_aesthetic": 5.397,
+          "clip_alignment": 0.308
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 42,
+          "ssim_vs_off": 0.7033,
+          "satisfied": true,
+          "reason": "Subject y=0.32 <= Object y=0.48",
+          "laion_aesthetic": 6.191,
+          "clip_alignment": 0.2955
+        },
+        {
+          "prompt_id": "spatial_04",
+          "seed": 100,
+          "ssim_vs_off": 0.7216,
+          "satisfied": true,
+          "reason": "Subject y=0.47 <= Object y=0.46",
+          "laion_aesthetic": 6.071,
+          "clip_alignment": 0.2779
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 42,
+          "ssim_vs_off": 0.8834,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.462,
+          "clip_alignment": 0.2928
+        },
+        {
+          "prompt_id": "spatial_05",
+          "seed": 100,
+          "ssim_vs_off": 0.8974,
+          "satisfied": false,
+          "reason": "Subject on top (sy=0.40 < oy=0.39, overlap=False)",
+          "laion_aesthetic": 5.231,
+          "clip_alignment": 0.2599
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 42,
+          "ssim_vs_off": 0.698,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.38 < oy=0.57, overlap=True)",
+          "laion_aesthetic": 5.665,
+          "clip_alignment": 0.3287
+        },
+        {
+          "prompt_id": "spatial_06",
+          "seed": 100,
+          "ssim_vs_off": 0.8154,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.493,
+          "clip_alignment": 0.2321
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 42,
+          "ssim_vs_off": 0.9294,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.48 < oy=0.49, overlap=True)",
+          "laion_aesthetic": 5.612,
+          "clip_alignment": 0.2609
+        },
+        {
+          "prompt_id": "spatial_07",
+          "seed": 100,
+          "ssim_vs_off": 0.4915,
+          "satisfied": true,
+          "reason": "Subject on top (sy=0.56 < oy=0.57, overlap=True)",
+          "laion_aesthetic": 5.604,
+          "clip_alignment": 0.2835
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 42,
+          "ssim_vs_off": 0.5743,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.815,
+          "clip_alignment": 0.2889
+        },
+        {
+          "prompt_id": "spatial_08",
+          "seed": 100,
+          "ssim_vs_off": 0.7781,
+          "satisfied": false,
+          "reason": "Missing detection for object",
+          "laion_aesthetic": 5.768,
+          "clip_alignment": 0.3045
+        }
+      ]
+    }
+  }
+}

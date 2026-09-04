@@ -38,19 +38,16 @@ SPATIAL_16_PROMPTS = [
     "a golden statue behind a stone fountain in a courtyard",
     "a green chair in front of a brick fireplace in a cozy living room",
     "a tall oak tree behind a small wooden cottage in a meadow",
-
     # 2. on / riding
     "a white coffee cup on top of a stack of vintage books",
     "a brown teddy bear resting on a leather sofa",
     "a red apple on a ceramic plate on a wooden kitchen counter",
     "a small sparrow perched on a rusted metal fence",
-
     # 3. under / below
     "a black cat sitting under a wooden dining chair",
     "a green sea turtle swimming below a translucent jellyfish in clear ocean",
     "a pair of leather boots placed under a wooden bench",
     "a colorful rug under a glass coffee table",
-
     # 4. next to / beside / lateral relations
     "a yellow banana to the left of a green apple on a white table",
     "a crystal vase beside an antique brass clock on a mantelpiece",
@@ -101,9 +98,9 @@ class MetricEvaluator:
     def evaluate_aesthetic_and_clip(
         self, image: Image.Image, prompt: str
     ) -> tuple[float, float, torch.Tensor]:
-        inputs = self.processor(
-            text=[prompt], images=image, return_tensors="pt", padding=True
-        ).to(self.device)
+        inputs = self.processor(text=[prompt], images=image, return_tensors="pt", padding=True).to(
+            self.device
+        )
         img_out = self.clip_model.get_image_features(pixel_values=inputs.pixel_values)
         txt_out = self.clip_model.get_text_features(
             input_ids=inputs.input_ids, attention_mask=inputs.attention_mask
@@ -144,7 +141,7 @@ def compute_pixel_and_perceptual_metrics(
     sigma_x = arr_off.std()
     sigma_y = arr_on.std()
     sigma_xy = np.mean((arr_off - mu_x) * (arr_on - mu_y))
-    c1, c2 = 0.01 ** 2, 0.03 ** 2
+    c1, c2 = 0.01**2, 0.03**2
     num = (2 * mu_x * mu_y + c1) * (2 * sigma_xy + c2)
     den = (mu_x**2 + mu_y**2 + c1) * (sigma_x**2 + sigma_y**2 + c2)
     ssim = float(num / den)
@@ -286,9 +283,7 @@ def main() -> int:
             laion_off, clip_off, feat_off = evaluator.evaluate_aesthetic_and_clip(img_off, prompt)
             laion_on, clip_on, feat_on = evaluator.evaluate_aesthetic_and_clip(img_on, prompt)
 
-            pixel_metrics = compute_pixel_and_perceptual_metrics(
-                img_off, img_on, feat_off, feat_on
-            )
+            pixel_metrics = compute_pixel_and_perceptual_metrics(img_off, img_on, feat_off, feat_on)
 
             pair_res = {
                 "seed": seed,
@@ -330,13 +325,17 @@ def main() -> int:
             )
             print(f"  {msg}")
 
-        results_per_prompt.append({
-            "prompt_id": prompt_id,
-            "prompt": prompt,
-            "planned_entities": [(o.label, o.box.center, o.attributes) for o in plan.objects],
-            "planned_relations": [(r.subject, r.relation_type, r.object) for r in plan.relations],
-            "pairs": prompt_pairs,
-        })
+        results_per_prompt.append(
+            {
+                "prompt_id": prompt_id,
+                "prompt": prompt,
+                "planned_entities": [(o.label, o.box.center, o.attributes) for o in plan.objects],
+                "planned_relations": [
+                    (r.subject, r.relation_type, r.object) for r in plan.relations
+                ],
+                "pairs": prompt_pairs,
+            }
+        )
 
     elapsed = time.time() - t0_all
     mean_l1 = float(np.mean(all_l1_diffs))

@@ -186,6 +186,7 @@ class MaskAwareRefiner:
         mask_pil = Image.fromarray(mask_np, mode="L")
         return Image.composite(refined, base_image, mask_pil)
 
+
 # (latents, timestep, conditional) -> noise prediction. Two calls per step.
 DenoiseFn = Callable[[torch.Tensor, int, bool], torch.Tensor]
 # (latents, timestep) -> (uncond, cond). One call per step: the transformer sees
@@ -313,12 +314,10 @@ def run_region_aware_edit(
         raise ValueError("plan.mask is required")
     latents = initial_latents
     height, width = latents.shape[-2:]
-    mask = resize_mask(plan.mask, height, width).to(
+    mask = resize_mask(plan.mask, height, width).to(device=latents.device, dtype=latents.dtype)
+    scale_map = apply_region_guidance(mask, plan.coefficients, height=height, width=width).to(
         device=latents.device, dtype=latents.dtype
     )
-    scale_map = apply_region_guidance(
-        mask, plan.coefficients, height=height, width=width
-    ).to(device=latents.device, dtype=latents.dtype)
 
     total = max(len(timesteps), 1)
     for index, timestep in enumerate(timesteps):
@@ -436,12 +435,10 @@ def run_hybrid_edit(
         raise ValueError("plan.mask is required")
     latents = initial_latents
     height, width = latents.shape[-2:]
-    mask = resize_mask(plan.mask, height, width).to(
+    mask = resize_mask(plan.mask, height, width).to(device=latents.device, dtype=latents.dtype)
+    scale_map = apply_region_guidance(mask, plan.coefficients, height=height, width=width).to(
         device=latents.device, dtype=latents.dtype
     )
-    scale_map = apply_region_guidance(
-        mask, plan.coefficients, height=height, width=width
-    ).to(device=latents.device, dtype=latents.dtype)
 
     total = max(len(timesteps), 1)
     for index, timestep in enumerate(timesteps):

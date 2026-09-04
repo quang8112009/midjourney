@@ -677,6 +677,7 @@ async def plan_layout(payload: PlanLayoutRequest, request: Request):
     """Compute structured semantic layout plan with bounding boxes and Gaussian spatial priors."""
     _enforce_generation_rate_limit(request)
     from app.services.editing.prompt_intent import analyze_prompt
+
     intent = analyze_prompt(payload.prompt, mode="edit" if payload.is_edit else "generate")
     plan = plan_semantic_layout(
         intent,

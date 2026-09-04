@@ -38,7 +38,6 @@ AESTHETIC_40_PROMPTS = [
     "candid portrait of a jazz saxophonist playing under a moody spotlight in a smoky club",
     "extreme close-up of a human eye reflecting a spiral galaxy, ultra sharp focus",
     "aerial panoramic photograph of Norwegian fjords under northern lights, deep blue and emerald",
-
     # 11-20: Sci-Fi, Cyberpunk & Concept Art
     "a dreamy ethereal cyberpunk street in watercolor style with volumetric neon lighting",
     "sprawling futuristic solar-punk metropolis with hanging gardens, glass sky bridges, airships",
@@ -50,7 +49,6 @@ AESTHETIC_40_PROMPTS = [
     "cybernetic geisha with polished porcelain plating and gold kintsugi seams, octane render",
     "vast orbital space elevator rising through dramatic storm clouds into starry space",
     "interstellar observatory perched on the edge of an asteroid belt, cinematic composition",
-
     # 21-30: Traditional Media & Classical Art
     "oil painting of an ancient castle on a rugged cliff at sunset with dramatic chiaroscuro",
     "delicate Japanese ukiyo-e woodblock print of a crane flying past Mount Fuji cherry blossoms",
@@ -62,7 +60,6 @@ AESTHETIC_40_PROMPTS = [
     "moody atmospheric gouache illustration of an autumn forest path covered in golden leaves",
     "intricate stained glass window depicting the Tree of Life with vibrant jewel tones",
     "vintage 1920s art deco travel poster of the French Riviera with bold geometric typography",
-
     # 31-40: Stylized, Fantasy & Abstract Textures
     "whimsical anime landscape with pastel sunset clouds and soft bokeh background",
     "dystopian futuristic city in 16-bit pixel art style with glowing neon signs and rain",
@@ -293,18 +290,20 @@ def main() -> int:
         all_laion_stds.append(s_laion)
         all_clip_stds.append(s_clip)
 
-        results_per_prompt.append({
-            "prompt_id": prompt_id,
-            "prompt": prompt,
-            "summary": {
-                "laion_aesthetic_v2_4": {"mean": round(m_laion, 3), "std": round(s_laion, 4)},
-                "clip_alignment": {"mean": round(m_clip, 4), "std": round(s_clip, 4)},
-                "pickscore_v1": {"mean": round(m_pick, 4), "std": round(s_pick, 4)},
-                "hps_v2_1": {"mean": round(m_hps, 4), "std": round(s_hps, 4)},
-                "imagereward": {"mean": round(m_reward, 4), "std": round(s_reward, 4)},
-            },
-            "per_seed_runs": seed_results,
-        })
+        results_per_prompt.append(
+            {
+                "prompt_id": prompt_id,
+                "prompt": prompt,
+                "summary": {
+                    "laion_aesthetic_v2_4": {"mean": round(m_laion, 3), "std": round(s_laion, 4)},
+                    "clip_alignment": {"mean": round(m_clip, 4), "std": round(s_clip, 4)},
+                    "pickscore_v1": {"mean": round(m_pick, 4), "std": round(s_pick, 4)},
+                    "hps_v2_1": {"mean": round(m_hps, 4), "std": round(s_hps, 4)},
+                    "imagereward": {"mean": round(m_reward, 4), "std": round(s_reward, 4)},
+                },
+                "per_seed_runs": seed_results,
+            }
+        )
 
     elapsed_total = time.time() - t_start
     overall_laion_mean = float(torch.tensor(all_laion_means).mean().item())
@@ -350,9 +349,7 @@ def main() -> int:
             "hps_v2_1": {"mean": round(overall_hps_mean, 4)},
             "imagereward": {"mean": round(overall_reward_mean, 4)},
         },
-        "sample_sha256_hashes": [
-            {"filename": fn, "sha256": h} for fn, h in sample_hashes
-        ],
+        "sample_sha256_hashes": [{"filename": fn, "sha256": h} for fn, h in sample_hashes],
         "per_prompt_results": results_per_prompt,
     }
 

@@ -227,6 +227,7 @@ def align_token_roles(
     if isinstance(instruction, str):
         prompt = instruction
         from app.services.editing.region_attention import classify_token_roles
+
         word_roles = classify_token_roles(prompt)
     else:
         prompt = instruction.raw_text
@@ -298,9 +299,7 @@ def _semantic_target_labels(instruction: EditInstruction) -> tuple[str, ...]:
     """Ordered labels that may ground an instruction in a layout object."""
     values: list[str | None] = [instruction.target]
     if instruction.resolution is not None:
-        values.extend(
-            (instruction.resolution.label, instruction.resolution.matched_on)
-        )
+        values.extend((instruction.resolution.label, instruction.resolution.matched_on))
     values.extend(instruction.nouns)
     constraint_words = {
         word for clause in instruction.constraints for word in extract_words(clause)
@@ -389,6 +388,7 @@ def plan_edit(
         if prompt is None:
             raise ValueError("Pass either intent= or prompt=")
         from app.services.editing.prompt_intent import analyze_prompt
+
         intent = analyze_prompt(prompt, mode="edit")
 
     if not isinstance(intent, PromptIntent):
@@ -436,13 +436,12 @@ def plan_edit(
         resolved_user_mask = None
 
     semantic_box = (
-        _semantic_target_box(semantic_plan, instruction)
-        if semantic_plan is not None
-        else None
+        _semantic_target_box(semantic_plan, instruction) if semantic_plan is not None else None
     )
 
     if resolved_user_mask is not None:
         from app.services.editing.masks import resize_mask
+
         mask = resize_mask(resolved_user_mask, *latent_size)
         mask_source = "user"
     elif semantic_box is not None:

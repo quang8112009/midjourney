@@ -10,8 +10,12 @@ Standard Diffusion Transformers (such as PixArt-$\alpha$, PixArt-$\Sigma$, or St
 
 Traditional approaches enforce layout constraints via **hard negative masking** (e.g., setting attention logits outside the target region to $-\infty$ or $-12.0$). While effective at spatial containment, hard masking severely degrades generative realism, creates harsh boundary artifacts, destroys gradient flow, and flattens artistic texture.
 
-**Soft Cross-Attention Layout Guidance** resolves this dilemma through a selective, additive formulation:
-1. **Gentle Positive Logit Bias ($+0.3$):** Directs entity and object tokens toward planned bounding regions without destroying probability mass outside.
+**Soft Cross-Attention Layout Guidance** resolves this dilemma through a selective, additive, per-relation formulation:
+1. **Per-Relation Guidance Strength Dispatch:** 
+   - **Lateral Relations (`left_of`, `right_of`, `beside`):** High strength ($+6.0$, validated $p = 0.000394$, $n=192$ paired).
+   - **Depth Relations (`in_front_of`, `behind`):** Disabled by default ($0.0$, unvalidated on real 3D camera depth).
+   - **Vertical-On (`on`, `resting_on`):** Disabled by default ($0.0$, unguided prior is stronger at 70.8%).
+   - **Vertical-Under (`under`, `below`):** Preserved default ($+0.3$).
 2. **Unconstrained Aesthetic Freedom ($0.0$ Bias):** Leaves style, mood, medium, lighting, and composition tokens entirely unguided, allowing the DiT's learned aesthetic priors to synthesize textures, global illumination, and artistic nuance.
 3. **Two-Phase Denoising Schedule:** Guides layout during early structural steps ($0\% - 80\%$) and releases guidance during late aesthetic detailing steps ($80\% - 100\%$).
 
@@ -261,9 +265,11 @@ When performing localized image editing (inpainting or prompt-driven modificatio
 
 ---
 
-## 5. Next-Generation Spatial Reasoning Modules
+## 5. Next-Generation Spatial Reasoning Modules (Unvalidated Architectural Subsystems)
 
-### 5.1 Learned 3D Depth-Aware Gaussian Spatial Guidance
+> **Important Empirical Status:** The 3D Gaussian depth priors ($\mu_z$, depth DAG, soft occlusion) and continuous density field representations described below are fully implemented, unit-tested, and mathematically verified in software. However, empirical testing with monocular depth estimation on live generations demonstrates **no statistically significant effect on real camera-space depth ($p = 0.081$, $N=192$)**. They remain in the codebase as structural abstractions, marked as **unvalidated on real generated imagery**. See [docs/experiments.md](experiments.md) for full statistical analysis.
+
+### 5.1 Experimental 3D Depth-Aware Gaussian Spatial Guidance
 
 The framework parameterizes spatial entity priors as **3D anisotropic Gaussians** with normalized coordinates:
 
@@ -411,8 +417,8 @@ processor = LayoutGuidanceProcessor(
     base_processor=base_proc,
     plan=plan,
     guidance_mode="gaussian",  # Smooth anisotropic Gaussian spatial prior
-    adaptive_guidance=True,    # Dynamic gamma calculation based on complexity
-    schedule_cutoff=0.8,       # Fade out at 80% progress for aesthetic detailing
+    adaptive_guidance=True,  # Dynamic gamma calculation based on complexity
+    schedule_cutoff=0.8,  # Fade out at 80% progress for aesthetic detailing
     feather_radius=1,
 )
 

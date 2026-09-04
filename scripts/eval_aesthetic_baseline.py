@@ -37,7 +37,6 @@ AESTHETIC_40_PROMPTS = [
     "candid portrait of a jazz saxophonist playing under a moody spotlight in a smoky club",
     "extreme close-up of a human eye reflecting a spiral galaxy, ultra sharp focus",
     "aerial panoramic photograph of Norwegian fjords under northern lights, deep blue and emerald",
-
     # 11-20: Sci-Fi, Cyberpunk & Concept Art
     "a dreamy ethereal cyberpunk street in watercolor style with volumetric neon lighting",
     "sprawling futuristic solar-punk metropolis with hanging gardens, glass sky bridges, airships",
@@ -49,7 +48,6 @@ AESTHETIC_40_PROMPTS = [
     "cybernetic geisha with polished porcelain plating and gold kintsugi seams, octane render",
     "vast orbital space elevator rising through dramatic storm clouds into starry space",
     "interstellar observatory perched on the edge of an asteroid belt, cinematic composition",
-
     # 21-30: Traditional Media & Classical Art
     "oil painting of an ancient castle on a rugged cliff at sunset with dramatic chiaroscuro",
     "delicate Japanese ukiyo-e woodblock print of a crane flying past Mount Fuji cherry blossoms",
@@ -61,7 +59,6 @@ AESTHETIC_40_PROMPTS = [
     "moody atmospheric gouache illustration of an autumn forest path covered in golden leaves",
     "intricate stained glass window depicting the Tree of Life with vibrant jewel tones",
     "vintage 1920s art deco travel poster of the French Riviera with bold geometric typography",
-
     # 31-40: Stylized, Fantasy & Abstract Textures
     "whimsical anime landscape with pastel sunset clouds and soft bokeh background",
     "dystopian futuristic city in 16-bit pixel art style with glowing neon signs and rain",
@@ -269,35 +266,37 @@ def run_baseline_evaluation() -> dict[str, Any]:
         all_mock_hps.append(mean_mock_hps)
         all_mock_imagereward.append(mean_mock_reward)
 
-        results_per_prompt.append({
-            "prompt_id": f"aes_{idx:02d}",
-            "prompt": prompt,
-            "real_metrics": {
-                "laion_aesthetic_v2_4": {
-                    "mean": round(mean_laion, 3),
-                    "variance": round(var_laion, 4),
+        results_per_prompt.append(
+            {
+                "prompt_id": f"aes_{idx:02d}",
+                "prompt": prompt,
+                "real_metrics": {
+                    "laion_aesthetic_v2_4": {
+                        "mean": round(mean_laion, 3),
+                        "variance": round(var_laion, 4),
+                    },
+                    "pickscore_v1": {
+                        "mean": round(mean_pick, 4),
+                        "variance": round(var_pick, 6),
+                    },
+                    "hps_v2_1": {
+                        "mean": round(mean_hps, 4),
+                        "variance": round(var_hps, 6),
+                    },
+                    "imagereward": {
+                        "mean": round(mean_reward, 4),
+                        "variance": round(var_reward, 4),
+                    },
+                    "clip_alignment": {"mean": round(mean_clip, 4)},
                 },
-                "pickscore_v1": {
-                    "mean": round(mean_pick, 4),
-                    "variance": round(var_pick, 6),
+                "legacy_mock_metrics": {
+                    "mock_laion_aesthetic": round(mean_mock_laion, 3),
+                    "mock_pickscore": round(mean_mock_pick, 4),
+                    "mock_hpsv2": round(mean_mock_hps, 4),
+                    "mock_imagereward": round(mean_mock_reward, 4),
                 },
-                "hps_v2_1": {
-                    "mean": round(mean_hps, 4),
-                    "variance": round(var_hps, 6),
-                },
-                "imagereward": {
-                    "mean": round(mean_reward, 4),
-                    "variance": round(var_reward, 4),
-                },
-                "clip_alignment": {"mean": round(mean_clip, 4)},
-            },
-            "legacy_mock_metrics": {
-                "mock_laion_aesthetic": round(mean_mock_laion, 3),
-                "mock_pickscore": round(mean_mock_pick, 4),
-                "mock_hpsv2": round(mean_mock_hps, 4),
-                "mock_imagereward": round(mean_mock_reward, 4),
-            },
-        })
+            }
+        )
 
     overall_mean_laion = float(torch.tensor(all_laion).mean().item())
     overall_mean_pickscore = float(torch.tensor(all_pickscore).mean().item())
@@ -406,7 +405,6 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
 
 
 if __name__ == "__main__":

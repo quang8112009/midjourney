@@ -253,6 +253,6 @@ def test_compound_noun_phrase_parsing_and_adjective_attachment():
         p = plan_semantic_layout(analyze_prompt(prompt))
         obj = next((o for o in p.objects if o.label == expected_noun), None)
         assert obj is not None, f"Expected entity '{expected_noun}' in {prompt}"
-        assert (
-            expected_attr in obj.attributes
-        ), f"Expected attribute '{expected_attr}' for '{expected_noun}'"
+        assert expected_attr in obj.attributes, (
+            f"Expected attribute '{expected_attr}' for '{expected_noun}'"
+        )

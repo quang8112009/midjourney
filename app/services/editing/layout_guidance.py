@@ -440,9 +440,7 @@ def apply_layout_guidance(
             elif isinstance(region, NormalizedBox):
                 raw_mask = region.to_mask(grid_h, grid_w, device=device, dtype=dtype)
                 soft_mask = (
-                    feather(raw_mask, radius=feather_radius)
-                    if feather_radius > 0
-                    else raw_mask
+                    feather(raw_mask, radius=feather_radius) if feather_radius > 0 else raw_mask
                 )
                 weights = soft_mask.reshape(-1)[:num_image_tokens]
             elif isinstance(region, torch.Tensor):
@@ -680,9 +678,7 @@ def compute_gradient_flow(
 ) -> torch.Tensor:
     """Compute analytical gradient magnitude dp_j / dz_j = p_j * (1 - p_j)."""
     if target_token_idx < 0 or target_token_idx >= logits.shape[dim]:
-        raise IndexError(
-            f"target_token_idx {target_token_idx} out of bounds for dim {dim}"
-        )
+        raise IndexError(f"target_token_idx {target_token_idx} out of bounds for dim {dim}")
     probs = logits.softmax(dim=dim)
     p_target = probs.select(dim=dim, index=target_token_idx)
     return p_target * (1.0 - p_target)
@@ -716,9 +712,7 @@ def ablation_soft_vs_hard(
     # 1. Unconstrained Baseline
     token_dim = -1 if is_image_first else -2
     base_entropy = safe_outside_mean(compute_attention_entropy(logits, dim=token_dim))
-    base_grad = safe_outside_mean(
-        compute_gradient_flow(logits, target_token_idx, dim=token_dim)
-    )
+    base_grad = safe_outside_mean(compute_gradient_flow(logits, target_token_idx, dim=token_dim))
 
     # 2. Soft Guidance (+0.3 inside box, 0 outside)
     soft_logits = logits.clone()

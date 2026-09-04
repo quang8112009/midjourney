@@ -158,9 +158,7 @@ def show(label, value, indent="      "):
     """Print one analysis field, skipping the ones the model left empty."""
     if value in (None, "", "none"):
         return
-    wrapped = textwrap.fill(
-        str(value), width=88, subsequent_indent=indent + " " * 18
-    ).strip()
+    wrapped = textwrap.fill(str(value), width=88, subsequent_indent=indent + " " * 18).strip()
     print(f"{indent}{label:<16} {wrapped}")
 
 
@@ -193,8 +191,11 @@ async def main():
             show("gen_prompt:", analysis.generation_prompt)
 
         print("\n  --- PASS 2: public reply ---")
-        print(textwrap.fill(turn.public_response, width=88, initial_indent="      ",
-                            subsequent_indent="      "))
+        print(
+            textwrap.fill(
+                turn.public_response, width=88, initial_indent="      ", subsequent_indent="      "
+            )
+        )
 
         t = turn.timing
         reasoning = "n/a" if t.reasoning_ms is None else f"{t.reasoning_ms:.1f}ms"

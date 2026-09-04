@@ -133,7 +133,7 @@ def inside_alignment(
     weights = resize_mask(mask, *source.shape[-2:]) >= threshold
     if not bool(weights.any()):
         return float("nan")
-    change = (edited - source)
+    change = edited - source
     selected = change.permute(0, 2, 3, 1)[weights[:, 0]]
     if selected.numel() == 0:
         return float("nan")
@@ -209,7 +209,7 @@ def evaluate_count_accuracy(
         planned_counts[df.label] = df.expected_count
     matches: dict[str, bool] = {}
     for entity, exp_count in expected_counts.items():
-        matches[entity] = (planned_counts.get(entity, 0) == exp_count)
+        matches[entity] = planned_counts.get(entity, 0) == exp_count
 
     total = len(expected_counts)
     correct = sum(1 for m in matches.values() if m)
@@ -244,35 +244,35 @@ def evaluate_spatial_relations(
             is_valid_geom = False
             notes = f"Missing box for subject '{rel.subject}' or object '{rel.object}'"
         elif rel.relation_type in ("riding", "on", "above"):
-            is_valid_geom = (subj_box.ymin < obj_box.ymin)
+            is_valid_geom = subj_box.ymin < obj_box.ymin
             notes = (
                 "Rider/top entity is strictly above mount/bottom entity"
                 if is_valid_geom
                 else "Vertical order inverted"
             )
         elif rel.relation_type in ("under", "below"):
-            is_valid_geom = (subj_box.ymin > obj_box.ymin)
+            is_valid_geom = subj_box.ymin > obj_box.ymin
             notes = (
                 "Under entity is strictly below base entity"
                 if is_valid_geom
                 else "Vertical order inverted"
             )
         elif rel.relation_type in ("next_to", "beside", "holding"):
-            is_valid_geom = (subj_box.xmin != obj_box.xmin)
+            is_valid_geom = subj_box.xmin != obj_box.xmin
             notes = (
                 "Entities have horizontal separation"
                 if is_valid_geom
                 else "Entities collide horizontally"
             )
         elif rel.relation_type in ("in_front_of", "ahead_of"):
-            is_valid_geom = (subj_box.ymin >= obj_box.ymin)
+            is_valid_geom = subj_box.ymin >= obj_box.ymin
             notes = (
                 "Foreground entity positioned in front"
                 if is_valid_geom
                 else "Foreground order inverted"
             )
         elif rel.relation_type == "behind":
-            is_valid_geom = (subj_box.ymin <= obj_box.ymin)
+            is_valid_geom = subj_box.ymin <= obj_box.ymin
             notes = (
                 "Background entity positioned behind"
                 if is_valid_geom
@@ -289,13 +289,15 @@ def evaluate_spatial_relations(
             is_valid_geom = True
             notes = f"Generic relation '{rel.relation_type}'"
 
-        relation_results.append({
-            "subject": rel.subject,
-            "relation_type": rel.relation_type,
-            "object": rel.object,
-            "is_valid_geometry": is_valid_geom,
-            "notes": notes,
-        })
+        relation_results.append(
+            {
+                "subject": rel.subject,
+                "relation_type": rel.relation_type,
+                "object": rel.object,
+                "is_valid_geometry": is_valid_geom,
+                "notes": notes,
+            }
+        )
 
     total_rels = len(relation_results)
     valid_rels = sum(1 for r in relation_results if r["is_valid_geometry"])
@@ -324,9 +326,7 @@ def evaluate_aesthetic_freedom(
 
     zero_violations = sum(1 for b in max_biases.values() if b > 1e-6)
     freedom_score = (
-        1.0
-        if zero_violations == 0
-        else (1.0 - zero_violations / max(len(max_biases), 1))
+        1.0 if zero_violations == 0 else (1.0 - zero_violations / max(len(max_biases), 1))
     )
 
     return {

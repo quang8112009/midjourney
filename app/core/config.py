@@ -72,7 +72,49 @@ class Settings(BaseSettings):
 
     # Spatial, Depth & Multi-Modal Guidance Configuration
     DEPTH_GUIDANCE_ENABLED: bool = True
-    DEPTH_GUIDANCE_STRENGTH: float = Field(0.3, ge=0.0, le=2.0)
+    DEPTH_GUIDANCE_STRENGTH: float = Field(0.3, ge=0.0, le=20.0)  # Legacy fallback & global default
+
+    # Per-relation guidance strengths
+    LATERAL_GUIDANCE_STRENGTH: float = Field(6.0, ge=0.0, le=20.0)
+    DEPTH_RELATION_GUIDANCE_STRENGTH: float = Field(0.0, ge=0.0, le=20.0)  # Disabled by default
+    VERTICAL_ON_GUIDANCE_STRENGTH: float = Field(0.0, ge=0.0, le=20.0)     # Disabled by default
+    VERTICAL_UNDER_GUIDANCE_STRENGTH: float = Field(0.3, ge=0.0, le=20.0)  # Preserved default
+
+    RELATION_GUIDANCE_STRENGTHS: dict[str, float] = Field(
+        default_factory=lambda: {
+            "lateral": 6.0,
+            "depth": 0.0,
+            "vertical_on": 0.0,
+            "vertical_under": 0.3,
+            "default": 0.3,
+        }
+    )
+
+    def get_relation_guidance_strength(self, relation_type: str | None) -> float:
+        """Resolve guidance strength for a specific relation type with legacy fallback."""
+        if not relation_type:
+            return self.DEPTH_GUIDANCE_STRENGTH
+        rel = relation_type.lower().strip().replace(" ", "_").replace("-", "_")
+        if rel in {
+            "left_of", "right_of", "beside", "next_to", "side_by_side", "adjacent_to", "lateral"
+        }:
+            return self.LATERAL_GUIDANCE_STRENGTH
+        elif rel in {
+            "in_front_of", "behind", "far_in_front_of", "far_behind", "front", "back", "depth"
+        }:
+            return self.DEPTH_RELATION_GUIDANCE_STRENGTH
+        elif rel in {
+            "on", "on_top_of", "resting_on", "perched_on", "standing_on",
+            "sitting_on", "atop", "riding", "above", "over", "vertical_on"
+        }:
+            return self.VERTICAL_ON_GUIDANCE_STRENGTH
+        elif rel in {"under", "below", "underneath", "beneath", "vertical_under"}:
+            return self.VERTICAL_UNDER_GUIDANCE_STRENGTH
+        return self.RELATION_GUIDANCE_STRENGTHS.get(
+            rel,
+            self.RELATION_GUIDANCE_STRENGTHS.get("default", self.DEPTH_GUIDANCE_STRENGTH),
+        )
+
     SELF_ATTENTION_DEPTH_BIAS_ENABLED: bool = True
     DENSITY_FIELD_ENABLED: bool = True
     DENSITY_ENTITY_THRESHOLD: int = Field(10, ge=2, le=500)

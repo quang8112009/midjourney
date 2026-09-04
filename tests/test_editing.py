@@ -191,8 +191,11 @@ class RegionAttentionTests(unittest.TestCase):
     def test_bias_suppresses_edit_tokens_only_outside_the_region(self):
         mask = box_mask(4, 4, 8, 8, size=16)
         bias = region_attention_bias(
-            mask, num_image_tokens=256, num_text_tokens=8,
-            edit_token_indices=[3], strength=1.0,
+            mask,
+            num_image_tokens=256,
+            num_text_tokens=8,
+            edit_token_indices=[3],
+            strength=1.0,
         )
         weights = mask_to_token_weights(mask, 256)
         inside = weights >= 0.5
@@ -206,8 +209,11 @@ class RegionAttentionTests(unittest.TestCase):
         magnitudes = []
         for strength in (0.25, 0.5, 1.0):
             bias = region_attention_bias(
-                mask, num_image_tokens=256, num_text_tokens=4,
-                edit_token_indices=[1], strength=strength,
+                mask,
+                num_image_tokens=256,
+                num_text_tokens=4,
+                edit_token_indices=[1],
+                strength=strength,
             )
             magnitudes.append(abs(float(bias.min())))
         self.assertLess(magnitudes[0], magnitudes[1])
@@ -215,8 +221,11 @@ class RegionAttentionTests(unittest.TestCase):
 
     def test_zero_strength_is_a_no_op(self):
         bias = region_attention_bias(
-            box_mask(0, 0, 4, 4, size=16), num_image_tokens=256,
-            num_text_tokens=4, edit_token_indices=[1], strength=0.0,
+            box_mask(0, 0, 4, 4, size=16),
+            num_image_tokens=256,
+            num_text_tokens=4,
+            edit_token_indices=[1],
+            strength=0.0,
         )
         self.assertAlmostEqual(float(bias.abs().max()), 0.0, places=6)
 
@@ -296,9 +305,7 @@ class TokenSegmentationTests(unittest.TestCase):
 
     def test_wordpiece_continuation_inherits_its_parent_role(self):
         pieces = ["<s>", "change", "photo", "##realistic", "jacket", "red", "</s>"]
-        roles = align_token_roles(
-            "change photorealistic jacket red", tokenizer=self.Tok(pieces)
-        )
+        roles = align_token_roles("change photorealistic jacket red", tokenizer=self.Tok(pieces))
         self.assertEqual(roles[2], "edit_target")
         self.assertEqual(roles[3], "edit_target")  # the ## continuation
         self.assertEqual(roles[0], "neutral")
@@ -333,9 +340,7 @@ class TokenSegmentationTests(unittest.TestCase):
         pieces = ["<s>", "change", "the", "red", "car", "reduce", "carpet", "</s>"]
         prompt = "change the red car"
         roles = align_token_roles(prompt, tokenizer=self.Tok(pieces))
-        located = locate_edit_tokens(
-            prompt, select_edit_terms(prompt), self.Tok(pieces)
-        )
+        located = locate_edit_tokens(prompt, select_edit_terms(prompt), self.Tok(pieces))
         by_role = tuple(i for i, r in enumerate(roles) if r == "edit_target")
         self.assertEqual(located, by_role)
 
@@ -363,14 +368,14 @@ class DiffusersProcessorTests(unittest.TestCase):
             self.skipTest("diffusers not installed")
         self.q, self.k, self.dim, self.heads = 64, 6, 32, 4
         self.attn = Attention(
-            query_dim=self.dim, cross_attention_dim=self.dim,
-            heads=self.heads, dim_head=self.dim // self.heads,
+            query_dim=self.dim,
+            cross_attention_dim=self.dim,
+            heads=self.heads,
+            dim_head=self.dim // self.heads,
         )
         mask = box_mask(2, 2, 6, 6, size=8)
         roles = ["edit_target", "context", "neutral", "neutral", "edit_target", "neutral"]
-        self.bias = build_attention_bias(
-            mask, roles, num_image_tokens=self.q
-        ).transpose(0, 1)
+        self.bias = build_attention_bias(mask, roles, num_image_tokens=self.q).transpose(0, 1)
         self.processor = RegionAwareAttnProcessor(AttnProcessor2_0())
         self.attn.set_processor(self.processor)
 
@@ -409,7 +414,10 @@ class RoleAwareBiasTests(unittest.TestCase):
         self.mask = box_mask(4, 8, 8, 12, size=16)
         self.roles = ["edit_target", "context", "neutral"]
         self.bias = build_attention_bias(
-            self.mask, self.roles, leak_penalty=-12.0, context_boost=0.5,
+            self.mask,
+            self.roles,
+            leak_penalty=-12.0,
+            context_boost=0.5,
             num_image_tokens=256,
         )
         self.inside = mask_to_token_weights(self.mask, 256) >= 0.5
@@ -453,14 +461,10 @@ class RoleAwareBiasTests(unittest.TestCase):
         key = torch.randn(1, 3, 8, generator=generator)
         value = torch.randn(1, 3, 8, generator=generator)
         bias = torch.randn(3, 4, generator=generator)
-        expected = (
-            ((query @ key.transpose(-1, -2)) * (8**-0.5) + bias.transpose(-1, -2))
-            .softmax(dim=-1)
-            @ value
-        )
-        torch.testing.assert_close(
-            masked_cross_attention(query, key, value, bias), expected
-        )
+        expected = ((query @ key.transpose(-1, -2)) * (8**-0.5) + bias.transpose(-1, -2)).softmax(
+            dim=-1
+        ) @ value
+        torch.testing.assert_close(masked_cross_attention(query, key, value, bias), expected)
 
 
 class ExtractEditMaskTests(unittest.TestCase):
@@ -514,7 +518,9 @@ class SharedMaskTests(unittest.TestCase):
         prompt_embedding = torch.randn(DIM, generator=torch.Generator().manual_seed(6))
         image = (
             embedding_at(0.20, prompt_embedding)
-            .view(1, DIM, 1, 1).expand(1, DIM, 64, 64).contiguous()
+            .view(1, DIM, 1, 1)
+            .expand(1, DIM, 64, 64)
+            .contiguous()
         )
         plan = plan_edit(
             prompt="change the jacket to red but keep the background neutral",
@@ -599,11 +605,12 @@ class ReviewRegressionTests(unittest.TestCase):
 
     def test_adding_an_object_is_not_a_conflict(self):
         """'add a person' to a 3-person photo is ordinary, not a contradiction."""
-        for prompt in ("add a person on the left", "add another person to the photo",
-                       "add a dog next to them"):
-            self.assertIsNone(
-                check_scene_conflict(prompt, {"person": 3, "dog": 0}), prompt
-            )
+        for prompt in (
+            "add a person on the left",
+            "add another person to the photo",
+            "add a dog next to them",
+        ):
+            self.assertIsNone(check_scene_conflict(prompt, {"person": 3, "dog": 0}), prompt)
 
     def test_ordinal_conflict_is_still_caught(self):
         self.assertIsNotNone(
@@ -620,14 +627,11 @@ class ReviewRegressionTests(unittest.TestCase):
         """A keyword must not silently widen a user's region to a global edit."""
         small = box_mask(20, 28, 28, 36)
         self.assertEqual(
-            classify_scope("change the jacket to a watercolor style", small,
-                           mask_is_explicit=True),
+            classify_scope("change the jacket to a watercolor style", small, mask_is_explicit=True),
             "local",
         )
         # Without an explicit mask the hint still applies.
-        self.assertEqual(
-            classify_scope("change the jacket to a watercolor style", small), "global"
-        )
+        self.assertEqual(classify_scope("change the jacket to a watercolor style", small), "global")
 
     def test_large_explicit_mask_is_still_promoted_to_global(self):
         """Coverage-based promotion must survive the override fix."""
@@ -640,7 +644,9 @@ class ReviewRegressionTests(unittest.TestCase):
         prompt_embedding = torch.randn(DIM, generator=torch.Generator().manual_seed(8))
         image = (
             embedding_at(0.25, prompt_embedding)
-            .view(1, DIM, 1, 1).expand(1, DIM, 64, 64).contiguous()
+            .view(1, DIM, 1, 1)
+            .expand(1, DIM, 64, 64)
+            .contiguous()
         )
         plan = plan_edit(
             prompt="change the jacket to a watercolor style",
@@ -656,7 +662,9 @@ class ReviewRegressionTests(unittest.TestCase):
         prompt_embedding = torch.randn(DIM, generator=torch.Generator().manual_seed(12))
         image = (
             embedding_at(0.25, prompt_embedding)
-            .view(1, DIM, 1, 1).expand(1, DIM, 64, 64).contiguous()
+            .view(1, DIM, 1, 1)
+            .expand(1, DIM, 64, 64)
+            .contiguous()
         )
         with self.assertLogs("app.services.editing.edit_planner", level="WARNING"):
             plan = plan_edit(
@@ -679,13 +687,9 @@ class ReviewRegressionTests(unittest.TestCase):
             def convert_ids_to_tokens(self, ids):
                 return ["make", "the", "carpet", "blue"]
 
-        self.assertEqual(
-            locate_edit_tokens("make the carpet blue", ("car",), Tokenizer()), ()
-        )
+        self.assertEqual(locate_edit_tokens("make the carpet blue", ("car",), Tokenizer()), ())
         # ...but it does select the token for 'car' itself.
-        self.assertEqual(
-            locate_edit_tokens("make the car blue", ("car",), Tokenizer2()), (2,)
-        )
+        self.assertEqual(locate_edit_tokens("make the car blue", ("car",), Tokenizer2()), (2,))
 
     def test_degenerate_latent_grid_warns(self):
         with self.assertLogs("app.services.editing.region_attention", level="WARNING"):
@@ -697,15 +701,13 @@ class ReviewRegressionTests(unittest.TestCase):
         class Attn:
             pass
 
-        def base(attn, hidden_states, encoder_hidden_states=None,
-                 attention_mask=None, **kwargs):
+        def base(attn, hidden_states, encoder_hidden_states=None, attention_mask=None, **kwargs):
             return hidden_states
 
         processor = RegionAwareAttnProcessor(base)
         processor.set_bias(torch.zeros(999, 7))  # wrong shape for the block below
         with self.assertLogs("app.services.editing.region_attention", level="WARNING"):
-            processor(Attn(), torch.zeros(1, 64, 8),
-                      encoder_hidden_states=torch.zeros(1, 4, 8))
+            processor(Attn(), torch.zeros(1, 64, 8), encoder_hidden_states=torch.zeros(1, 4, 8))
 
 
 class PlannerTests(unittest.TestCase):
@@ -719,8 +721,9 @@ class PlannerTests(unittest.TestCase):
         )
 
     def test_edit_terms_drop_stopwords(self):
-        self.assertEqual(select_edit_terms("change the shirt color to red"),
-                         ("shirt", "color", "red"))
+        self.assertEqual(
+            select_edit_terms("change the shirt color to red"), ("shirt", "color", "red")
+        )
 
     def test_scope_classification(self):
         self.assertEqual(classify_scope("recolor the mug", box_mask(0, 0, 8, 8)), "local")
@@ -823,13 +826,20 @@ class EditPipelineTests(unittest.TestCase):
     def test_region_aware_loop_reduces_leakage_versus_baseline(self):
         plan = self._plan()
         baseline = run_baseline_edit(
-            source_latents=self.source, initial_latents=self.source.clone(),
-            timesteps=self.timesteps, denoise=self.denoise,
-            guidance_scale=1.0, step=self.step,
+            source_latents=self.source,
+            initial_latents=self.source.clone(),
+            timesteps=self.timesteps,
+            denoise=self.denoise,
+            guidance_scale=1.0,
+            step=self.step,
         )
         proposed = run_region_aware_edit(
-            plan=plan, source_latents=self.source, initial_latents=self.source.clone(),
-            timesteps=self.timesteps, denoise=self.denoise, step=self.step,
+            plan=plan,
+            source_latents=self.source,
+            initial_latents=self.source.clone(),
+            timesteps=self.timesteps,
+            denoise=self.denoise,
+            step=self.step,
         )
         baseline_leak = unintended_change_ratio(self.source, baseline, plan.mask)
         proposed_leak = unintended_change_ratio(self.source, proposed, plan.mask)
@@ -839,8 +849,12 @@ class EditPipelineTests(unittest.TestCase):
         """A clean edit that never happened is not an improvement."""
         plan = self._plan()
         proposed = run_region_aware_edit(
-            plan=plan, source_latents=self.source, initial_latents=self.source.clone(),
-            timesteps=self.timesteps, denoise=self.denoise, step=self.step,
+            plan=plan,
+            source_latents=self.source,
+            initial_latents=self.source.clone(),
+            timesteps=self.timesteps,
+            denoise=self.denoise,
+            step=self.step,
         )
         inside_change = float(
             ((proposed - self.source).abs() * resize_mask(plan.mask, 32, 32)).sum()
@@ -852,13 +866,20 @@ class EditPipelineTests(unittest.TestCase):
         plan = self._plan()
         outside = 1.0 - resize_mask(plan.mask, 32, 32)
         baseline = run_baseline_edit(
-            source_latents=self.source, initial_latents=self.source.clone(),
-            timesteps=self.timesteps, denoise=self.denoise,
-            guidance_scale=1.0, step=self.step,
+            source_latents=self.source,
+            initial_latents=self.source.clone(),
+            timesteps=self.timesteps,
+            denoise=self.denoise,
+            guidance_scale=1.0,
+            step=self.step,
         )
         proposed = run_region_aware_edit(
-            plan=plan, source_latents=self.source, initial_latents=self.source.clone(),
-            timesteps=self.timesteps, denoise=self.denoise, step=self.step,
+            plan=plan,
+            source_latents=self.source,
+            initial_latents=self.source.clone(),
+            timesteps=self.timesteps,
+            denoise=self.denoise,
+            step=self.step,
         )
         self.assertGreater(
             ssim(self.source, proposed, outside), ssim(self.source, baseline, outside)
@@ -867,12 +888,22 @@ class EditPipelineTests(unittest.TestCase):
     def test_disabling_blending_is_a_supported_ablation(self):
         plan = self._plan()
         without = run_region_aware_edit(
-            plan=plan, source_latents=self.source, initial_latents=self.source.clone(),
-            timesteps=self.timesteps, denoise=self.denoise, step=self.step, blend=False,
+            plan=plan,
+            source_latents=self.source,
+            initial_latents=self.source.clone(),
+            timesteps=self.timesteps,
+            denoise=self.denoise,
+            step=self.step,
+            blend=False,
         )
         with_blend = run_region_aware_edit(
-            plan=plan, source_latents=self.source, initial_latents=self.source.clone(),
-            timesteps=self.timesteps, denoise=self.denoise, step=self.step, blend=True,
+            plan=plan,
+            source_latents=self.source,
+            initial_latents=self.source.clone(),
+            timesteps=self.timesteps,
+            denoise=self.denoise,
+            step=self.step,
+            blend=True,
         )
         self.assertLess(
             unintended_change_ratio(self.source, with_blend, plan.mask),
@@ -951,21 +982,17 @@ class BatchedGuidanceTests(unittest.TestCase):
         def model_call(batched, timestep, embeddings):
             calls["batched"] += 1
             half = batched.shape[0] // 2
-            return torch.cat(
-                [batched[:half] - self.source, batched[half:] - self.target], dim=0
-            )
+            return torch.cat([batched[:half] - self.source, batched[half:] - self.target], dim=0)
 
         pair = batched_cfg_denoiser(model_call, torch.zeros(1, 2, 4), torch.ones(1, 2, 4))
         kwargs = dict(
-            plan=self.plan, source_latents=self.source,
-            timesteps=self.timesteps, step=self._step,
+            plan=self.plan,
+            source_latents=self.source,
+            timesteps=self.timesteps,
+            step=self._step,
         )
-        a = run_region_aware_edit(
-            initial_latents=self.source.clone(), denoise=two_call, **kwargs
-        )
-        b = run_region_aware_edit(
-            initial_latents=self.source.clone(), denoise_pair=pair, **kwargs
-        )
+        a = run_region_aware_edit(initial_latents=self.source.clone(), denoise=two_call, **kwargs)
+        b = run_region_aware_edit(initial_latents=self.source.clone(), denoise_pair=pair, **kwargs)
         torch.testing.assert_close(a, b)
         # Halved forward passes is the entire point.
         self.assertEqual(calls["two"], 2 * len(self.timesteps))
@@ -974,23 +1001,26 @@ class BatchedGuidanceTests(unittest.TestCase):
     def test_baseline_loop_also_accepts_the_batched_convention(self):
         def model_call(batched, timestep, embeddings):
             half = batched.shape[0] // 2
-            return torch.cat(
-                [batched[:half] - self.source, batched[half:] - self.target], dim=0
-            )
+            return torch.cat([batched[:half] - self.source, batched[half:] - self.target], dim=0)
 
         pair = batched_cfg_denoiser(model_call, torch.zeros(1, 2, 4), torch.ones(1, 2, 4))
         out = run_baseline_edit(
-            source_latents=self.source, initial_latents=self.source.clone(),
-            timesteps=self.timesteps, guidance_scale=1.0,
-            denoise_pair=pair, step=self._step,
+            source_latents=self.source,
+            initial_latents=self.source.clone(),
+            timesteps=self.timesteps,
+            guidance_scale=1.0,
+            denoise_pair=pair,
+            step=self._step,
         )
         self.assertEqual(tuple(out.shape), tuple(self.source.shape))
 
     def test_missing_both_conventions_is_an_error(self):
         with self.assertRaises(ValueError):
             run_region_aware_edit(
-                plan=self.plan, source_latents=self.source,
-                initial_latents=self.source.clone(), timesteps=self.timesteps,
+                plan=self.plan,
+                source_latents=self.source,
+                initial_latents=self.source.clone(),
+                timesteps=self.timesteps,
             )
 
 
@@ -1017,8 +1047,10 @@ class MetricTests(unittest.TestCase):
         """Undefined, not zero - a global edit has no outside region to preserve."""
         source = torch.rand(1, 3, 16, 16)
         metrics = evaluate_edit(
-            source=source, edited=torch.rand(1, 3, 16, 16),
-            edit_mask=torch.ones(1, 1, 16, 16), alignment=1.0,
+            source=source,
+            edited=torch.rand(1, 3, 16, 16),
+            edit_mask=torch.ones(1, 1, 16, 16),
+            alignment=1.0,
         )
         self.assertNotEqual(metrics.preservation_ssim, metrics.preservation_ssim)
 

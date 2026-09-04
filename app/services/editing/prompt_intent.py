@@ -17,8 +17,18 @@ from dataclasses import asdict, dataclass, field, replace
 from typing import Literal
 
 Action = Literal[
-    "recolor", "remove", "add", "blur", "sharpen", "restyle",
-    "lighten", "darken", "replace", "enhance", "resize", "unknown",
+    "recolor",
+    "remove",
+    "add",
+    "blur",
+    "sharpen",
+    "restyle",
+    "lighten",
+    "darken",
+    "replace",
+    "enhance",
+    "resize",
+    "unknown",
 ]
 Scope = Literal["local", "global"]
 IntentStatus = Literal["ok", "assumed", "clarify"]
@@ -28,16 +38,28 @@ PromptMode = Literal["generate", "edit"]
 # matching is longest-phrase-first so "take out" beats "take".
 _ACTION_VERBS: dict[Action, tuple[str, ...]] = {
     "recolor": (
-        "recolor", "recolour", "change the color", "change the colour",
-        "make", "turn", "paint", "dye", "tint",
+        "recolor",
+        "recolour",
+        "change the color",
+        "change the colour",
+        "make",
+        "turn",
+        "paint",
+        "dye",
+        "tint",
     ),
     "remove": ("remove", "delete", "erase", "get rid of", "take out", "clean up"),
     "add": ("add", "insert", "place", "put", "include"),
     "blur": ("blur", "defocus", "soften", "bokeh"),
     "sharpen": ("sharpen", "crisp", "focus"),
     "restyle": (
-        "restyle", "convert", "render", "stylize", "stylise",
-        "turn into", "make it look like",
+        "restyle",
+        "convert",
+        "render",
+        "stylize",
+        "stylise",
+        "turn into",
+        "make it look like",
     ),
     "lighten": ("lighten", "brighten", "light up"),
     "darken": ("darken", "dim"),
@@ -57,23 +79,38 @@ _STYLES = frozenset(
     """watercolor watercolour oil sketch anime cartoon photorealistic realistic
     monochrome sepia grayscale greyscale vintage retro cyberpunk impressionist""".split()
 )
-_INTENSITIES = frozenset(
-    "slightly subtly somewhat very much heavily strongly extremely".split()
-)
+_INTENSITIES = frozenset("slightly subtly somewhat very much heavily strongly extremely".split())
 
 # Targets that mean "the entire frame", not a region inside it.
 _GLOBAL_TARGETS = frozenset(
     "image picture photo photograph everything all scene whole frame it this".split()
 )
 _POSITIONS = {
-    "left": "left", "right": "right", "top": "top", "upper": "top",
-    "bottom": "bottom", "lower": "bottom", "middle": "center", "center": "center",
-    "centre": "center", "foreground": "foreground", "background": "background",
-    "front": "foreground", "back": "background",
+    "left": "left",
+    "right": "right",
+    "top": "top",
+    "upper": "top",
+    "bottom": "bottom",
+    "lower": "bottom",
+    "middle": "center",
+    "center": "center",
+    "centre": "center",
+    "foreground": "foreground",
+    "background": "background",
+    "front": "foreground",
+    "back": "background",
 }
 _ORDINALS = {
-    "first": 1, "second": 2, "third": 3, "fourth": 4, "fifth": 5,
-    "1st": 1, "2nd": 2, "3rd": 3, "4th": 4, "5th": 5,
+    "first": 1,
+    "second": 2,
+    "third": 3,
+    "fourth": 4,
+    "fifth": 5,
+    "1st": 1,
+    "2nd": 2,
+    "3rd": 3,
+    "4th": 4,
+    "5th": 5,
 }
 # Clauses that constrain an edit rather than requesting a new one.
 _CONSTRAINT_CUES = re.compile(
@@ -246,7 +283,7 @@ def _extract_target(text: str, verb: str | None) -> str | None:
     if verb:
         position = lowered.find(verb)
         if position >= 0:
-            lowered = lowered[position + len(verb):]
+            lowered = lowered[position + len(verb) :]
     words = [_normalise_word(word) for word in re.findall(r"[a-z][a-z'-]+", lowered)]
 
     def candidates(allow_positions: bool):
@@ -440,12 +477,17 @@ def resolve_target(
     margin = top[1].effective_salience - runner_up[1].effective_salience
     if margin >= salience_margin:
         return TargetResolution(
-            label=top[1].label, method="salience", index=top[0],
-            confidence=min(1.0, 0.5 + margin), matched_on=matched_on,
+            label=top[1].label,
+            method="salience",
+            index=top[0],
+            confidence=min(1.0, 0.5 + margin),
+            matched_on=matched_on,
             alternatives=tuple(candidate.label for _, candidate in ranked[1:]),
         )
     return TargetResolution(
-        label=instruction.target, method="unresolved", confidence=0.0,
+        label=instruction.target,
+        method="unresolved",
+        confidence=0.0,
         alternatives=tuple(candidate.label for _, candidate in ranked),
         matched_on=matched_on,
     )
@@ -490,7 +532,10 @@ def analyze_prompt(
 
     if not cleaned:
         return PromptIntent(
-            prompt=prompt, mode=mode, instructions=(), status="clarify",
+            prompt=prompt,
+            mode=mode,
+            instructions=(),
+            status="clarify",
             clarifying_question="What would you like me to change?",
             trace=("empty prompt",),
         )
@@ -515,7 +560,8 @@ def analyze_prompt(
 
     # Several equally-plausible objects: ask rather than pick one at random.
     ambiguous = [
-        item for item in instructions_tuple
+        item
+        for item in instructions_tuple
         if item.resolution and item.resolution.method == "unresolved"
     ]
     if ambiguous and candidates:
@@ -525,18 +571,21 @@ def analyze_prompt(
         options = resolution.alternatives
         if allow_clarification:
             return PromptIntent(
-                prompt=prompt, mode=mode, instructions=instructions_tuple, status="clarify",
+                prompt=prompt,
+                mode=mode,
+                instructions=instructions_tuple,
+                status="clarify",
                 clarifying_question=(
-                    f"There are {len(options)} matches for '{target}' - "
-                    "which one should I edit?"
+                    f"There are {len(options)} matches for '{target}' - which one should I edit?"
                 ),
                 trace=tuple(trace + [f"ambiguous target {target!r} among {list(options)}"]),
             )
         return PromptIntent(
-            prompt=prompt, mode=mode, instructions=instructions_tuple, status="assumed",
-            assumption=(
-                f"Editing the {ambiguous[0].target} of the most prominent '{target}'."
-            ),
+            prompt=prompt,
+            mode=mode,
+            instructions=instructions_tuple,
+            status="assumed",
+            assumption=(f"Editing the {ambiguous[0].target} of the most prominent '{target}'."),
             trace=tuple(trace + ["ambiguous target; defaulted to most salient"]),
         )
 
@@ -552,14 +601,18 @@ def analyze_prompt(
         trace.append(f"no operation specified for target {first.target!r}")
         if allow_clarification:
             return PromptIntent(
-                prompt=prompt, mode=mode, instructions=instructions_tuple, status="clarify",
-                clarifying_question=(
-                    f"What should I change about the {first.target}?"
-                ),
+                prompt=prompt,
+                mode=mode,
+                instructions=instructions_tuple,
+                status="clarify",
+                clarifying_question=(f"What should I change about the {first.target}?"),
                 trace=tuple(trace),
             )
         return PromptIntent(
-            prompt=prompt, mode=mode, instructions=instructions_tuple, status="assumed",
+            prompt=prompt,
+            mode=mode,
+            instructions=instructions_tuple,
+            status="assumed",
             assumption=(
                 f"No specific change was given for the {first.target}; "
                 "applying a general enhancement to it."
@@ -581,15 +634,22 @@ def analyze_prompt(
         trace.append(f"vague prompt; assumption from image context ({kind}, {subject})")
         if image_type is None and main_subject is None and allow_clarification:
             return PromptIntent(
-                prompt=prompt, mode=mode, instructions=instructions_tuple, status="clarify",
+                prompt=prompt,
+                mode=mode,
+                instructions=instructions_tuple,
+                status="clarify",
                 clarifying_question=(
                     "What would you like improved - lighting, colour, or sharpness?"
                 ),
                 trace=tuple(trace + ["no image context available to ground an assumption"]),
             )
         return PromptIntent(
-            prompt=prompt, mode=mode, instructions=instructions_tuple, status="assumed",
-            assumption=assumption, trace=tuple(trace),
+            prompt=prompt,
+            mode=mode,
+            instructions=instructions_tuple,
+            status="assumed",
+            assumption=assumption,
+            trace=tuple(trace),
         )
 
     return PromptIntent(

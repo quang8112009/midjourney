@@ -114,12 +114,8 @@ def resolve_generation_defaults(
     return ResolvedGenerationDefaults(
         width=default_width if width is None else width,
         height=default_height if height is None else height,
-        num_inference_steps=(
-            default_steps if num_inference_steps is None else num_inference_steps
-        ),
-        guidance_scale=(
-            default_guidance_scale if guidance_scale is None else guidance_scale
-        ),
+        num_inference_steps=(default_steps if num_inference_steps is None else num_inference_steps),
+        guidance_scale=(default_guidance_scale if guidance_scale is None else guidance_scale),
     )
 
 
@@ -154,9 +150,7 @@ class ModelService:
     @property
     def is_loaded(self) -> bool:
         return (
-            self.pipe is not None
-            and self.active_model is not None
-            and self.active_task is not None
+            self.pipe is not None and self.active_model is not None and self.active_task is not None
         )
 
     @property
@@ -226,11 +220,7 @@ class ModelService:
                 raise ValueError(f"Unsupported pipeline task '{task}'")
             if task == INPAINTING_TASK and model != STABLE_DIFFUSION:
                 raise ValueError("Image editing supports only stable-diffusion")
-            if (
-                self.active_model == model
-                and self.active_task == task
-                and self.pipe is not None
-            ):
+            if self.active_model == model and self.active_task == task and self.pipe is not None:
                 return
 
             model_id = self._model_id(model)

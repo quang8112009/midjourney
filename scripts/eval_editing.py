@@ -99,9 +99,7 @@ def attention_gate(
     if not targets:
         return torch.zeros(1, 1, *latent_size)
     logits = (
-        torch.zeros(num_image_tokens, len(roles))
-        if bias is None
-        else bias.transpose(0, 1).clone()
+        torch.zeros(num_image_tokens, len(roles)) if bias is None else bias.transpose(0, 1).clone()
     )
     share = logits.softmax(dim=-1)[:, targets].sum(dim=-1)
     return share.reshape(1, 1, *latent_size)
@@ -201,8 +199,12 @@ CASES = [
 
 
 METRIC_FIELDS = (
-    "alignment", "edit_magnitude", "leakage", "region_iou",
-    "preservation_ssim", "preservation_l1",
+    "alignment",
+    "edit_magnitude",
+    "leakage",
+    "region_iou",
+    "preservation_ssim",
+    "preservation_l1",
 )
 
 
@@ -253,9 +255,7 @@ def run_case(
     # random vectors the similarity term is meaningless and the alignment gate
     # fires at random across seeds.
     image_embedding = source
-    prompt_embedding = build_prompt_embedding(
-        source, mask, case.get("similarity", 0.30), seed
-    )
+    prompt_embedding = build_prompt_embedding(source, mask, case.get("similarity", 0.30), seed)
 
     plan = plan_edit(
         prompt=case["prompt"],
@@ -285,7 +285,8 @@ def run_case(
     # Proposed: the role-aware bias built from the SAME mask the coefficients used.
     proposed_bias = (
         build_attention_bias(
-            plan.mask, roles,
+            plan.mask,
+            roles,
             leak_penalty=leak_penalty * plan.attention_strength,
             context_boost=context_boost * plan.attention_strength,
             num_image_tokens=num_tokens,
@@ -326,16 +327,26 @@ def run_case(
     )
     legacy_plan = dataclasses.replace(plan, coefficients=legacy_coefficients)
     legacy = run_region_aware_edit(
-        plan=legacy_plan, source_latents=source, initial_latents=initial.clone(),
-        timesteps=timesteps, denoise=denoise, step=step, blend=False,
+        plan=legacy_plan,
+        source_latents=source,
+        initial_latents=initial.clone(),
+        timesteps=timesteps,
+        denoise=denoise,
+        step=step,
+        blend=False,
     )
 
     proposed_plan = dataclasses.replace(
         plan, coefficients=normalized_coefficients(plan.coefficients)
     )
     proposed = run_region_aware_edit(
-        plan=proposed_plan, source_latents=source, initial_latents=initial.clone(),
-        timesteps=timesteps, denoise=proposed_denoise, step=step, blend=True,
+        plan=proposed_plan,
+        source_latents=source,
+        initial_latents=initial.clone(),
+        timesteps=timesteps,
+        denoise=proposed_denoise,
+        step=step,
+        blend=True,
     )
 
     results = {}
@@ -357,8 +368,11 @@ def sweep_score(config, leak_penalty, context_boost, seeds=3):
             continue  # global cases cannot leak; they carry no tuning signal
         for seed in range(seeds):
             _, results = run_case(
-                case, seed * 17 + 3, config,
-                leak_penalty=leak_penalty, context_boost=context_boost,
+                case,
+                seed * 17 + 3,
+                config,
+                leak_penalty=leak_penalty,
+                context_boost=context_boost,
             )
             if results is not None:
                 rows.append(results["proposed"])
@@ -389,10 +403,14 @@ def run_sweep(args) -> int:
     strongest = max(row[1] for row in rows)
     viable = [row for row in rows if row[1] >= 0.95 * strongest]
     best = min(viable, key=lambda row: row[0])
-    print(f"\n  strongest edit observed: {strongest:.4f}; "
-          f"{len(viable)}/{len(rows)} settings keep >=95% of it")
-    print(f"  best viable: leak_penalty={best[2]}, context_boost={best[3]} "
-          f"(leakage={best[0]:.4f}, edit={best[1]:.4f})")
+    print(
+        f"\n  strongest edit observed: {strongest:.4f}; "
+        f"{len(viable)}/{len(rows)} settings keep >=95% of it"
+    )
+    print(
+        f"  best viable: leak_penalty={best[2]}, context_boost={best[3]} "
+        f"(leakage={best[0]:.4f}, edit={best[1]:.4f})"
+    )
 
     print("\n" + "=" * 78)
     print("SWEEP 2: locality / similarity split in the reference coefficient")
@@ -416,7 +434,8 @@ def main() -> int:
     parser.add_argument("--leak-penalty", type=float, default=-12.0)
     parser.add_argument("--context-boost", type=float, default=0.5)
     parser.add_argument(
-        "--sweep", action="store_true",
+        "--sweep",
+        action="store_true",
         help="grid-search leak_penalty x context_boost and the locality/similarity split",
     )
     args = parser.parse_args()
@@ -429,8 +448,13 @@ def main() -> int:
         similarity_weight=args.similarity_weight,
     )
 
-    payload = {"cases": [], "config": {"locality_weight": args.locality_weight,
-                                       "similarity_weight": args.similarity_weight}}
+    payload = {
+        "cases": [],
+        "config": {
+            "locality_weight": args.locality_weight,
+            "similarity_weight": args.similarity_weight,
+        },
+    }
     aggregate: dict[str, list] = {"baseline": [], "legacy": [], "proposed": []}
 
     if not args.json:
@@ -444,8 +468,11 @@ def main() -> int:
         blocked = False
         for seed in range(args.seeds):
             plan, results = run_case(
-                case, seed * 17 + 3, config,
-                leak_penalty=args.leak_penalty, context_boost=args.context_boost,
+                case,
+                seed * 17 + 3,
+                config,
+                leak_penalty=args.leak_penalty,
+                context_boost=args.context_boost,
             )
             if results is None:
                 blocked = True
@@ -455,10 +482,14 @@ def main() -> int:
                 aggregate[arm].append(metrics)
 
         if blocked:
-            payload["cases"].append({
-                "name": case["name"], "scope": plan.scope,
-                "blocked_before_denoise": True, "plan": plan.as_log_dict(),
-            })
+            payload["cases"].append(
+                {
+                    "name": case["name"],
+                    "scope": plan.scope,
+                    "blocked_before_denoise": True,
+                    "plan": plan.as_log_dict(),
+                }
+            )
             if not args.json:
                 print(f"\n{case['name']}")
                 print(f"  BLOCKED before denoising - {plan.alignment.reason}")
@@ -467,53 +498,72 @@ def main() -> int:
             continue
 
         means = {arm: mean_metrics(rows) for arm, rows in per_arm.items()}
-        payload["cases"].append({
-            "name": case["name"],
-            "scope": plan.scope,
-            "plan": plan.as_log_dict(),
-            "means": {arm: {k: round(v, 4) for k, v in vals.items()}
-                      for arm, vals in means.items()},
-        })
+        payload["cases"].append(
+            {
+                "name": case["name"],
+                "scope": plan.scope,
+                "plan": plan.as_log_dict(),
+                "means": {
+                    arm: {k: round(v, 4) for k, v in vals.items()} for arm, vals in means.items()
+                },
+            }
+        )
 
         if not args.json:
             print(f"\n{case['name']}")
-            print(f"  scope={plan.scope}  mask_source={plan.mask_source}  "
-                  f"ref_weight={plan.coefficients.ref_weight:.3f}  "
-                  f"attn_strength={plan.attention_strength:.2f}  "
-                  f"alignment_status={plan.alignment.status}")
-            print(f"  {'arm':<10}{'align↑':>9}{'edit↑':>9}{'leakage↓':>10}"
-                  f"{'IoU↑':>8}{'SSIM_out↑':>11}{'L1_out↓':>10}")
+            print(
+                f"  scope={plan.scope}  mask_source={plan.mask_source}  "
+                f"ref_weight={plan.coefficients.ref_weight:.3f}  "
+                f"attn_strength={plan.attention_strength:.2f}  "
+                f"alignment_status={plan.alignment.status}"
+            )
+            print(
+                f"  {'arm':<10}{'align↑':>9}{'edit↑':>9}{'leakage↓':>10}"
+                f"{'IoU↑':>8}{'SSIM_out↑':>11}{'L1_out↓':>10}"
+            )
             for arm in ("baseline", "legacy", "proposed"):
                 m = means[arm]
-                print(f"  {arm:<10}{fmt(m['alignment'])}{fmt(m['edit_magnitude'])}"
-                      f"{fmt(m['leakage'], 10)}{fmt(m['region_iou'], 8)}"
-                      f"{fmt(m['preservation_ssim'], 11)}{fmt(m['preservation_l1'], 10, 4)}")
+                print(
+                    f"  {arm:<10}{fmt(m['alignment'])}{fmt(m['edit_magnitude'])}"
+                    f"{fmt(m['leakage'], 10)}{fmt(m['region_iou'], 8)}"
+                    f"{fmt(m['preservation_ssim'], 11)}{fmt(m['preservation_l1'], 10, 4)}"
+                )
 
     overall = {arm: mean_metrics(rows) for arm, rows in aggregate.items()}
-    payload["overall"] = {arm: {k: round(v, 4) for k, v in vals.items()}
-                          for arm, vals in overall.items()}
+    payload["overall"] = {
+        arm: {k: round(v, 4) for k, v in vals.items()} for arm, vals in overall.items()
+    }
 
     if args.json:
         print(json.dumps(payload, indent=2))
     else:
         print("\n" + "=" * 100)
         print("OVERALL (mean across all cases and seeds)")
-        print(f"  {'arm':<10}{'align↑':>9}{'edit↑':>9}{'leakage↓':>10}"
-              f"{'IoU↑':>8}{'SSIM_out↑':>11}{'L1_out↓':>10}")
+        print(
+            f"  {'arm':<10}{'align↑':>9}{'edit↑':>9}{'leakage↓':>10}"
+            f"{'IoU↑':>8}{'SSIM_out↑':>11}{'L1_out↓':>10}"
+        )
         for arm in ("baseline", "legacy", "proposed"):
             m = overall[arm]
-            print(f"  {arm:<10}{fmt(m['alignment'])}{fmt(m['edit_magnitude'])}"
-                  f"{fmt(m['leakage'], 10)}{fmt(m['region_iou'], 8)}"
-                  f"{fmt(m['preservation_ssim'], 11)}{fmt(m['preservation_l1'], 10, 4)}")
+            print(
+                f"  {arm:<10}{fmt(m['alignment'])}{fmt(m['edit_magnitude'])}"
+                f"{fmt(m['leakage'], 10)}{fmt(m['region_iou'], 8)}"
+                f"{fmt(m['preservation_ssim'], 11)}{fmt(m['preservation_l1'], 10, 4)}"
+            )
         b, p = overall["baseline"], overall["proposed"]
         reduction = (b["leakage"] - p["leakage"]) / max(b["leakage"], 1e-9) * 100
-        print(f"\n  leakage       {b['leakage']:.3f} -> {p['leakage']:.3f}  "
-              f"({reduction:.1f}% reduction)")
-        print(f"  SSIM outside  {fmt(b['preservation_ssim'], 5)} ->"
-              f"{fmt(p['preservation_ssim'], 6)}")
+        print(
+            f"\n  leakage       {b['leakage']:.3f} -> {p['leakage']:.3f}  "
+            f"({reduction:.1f}% reduction)"
+        )
+        print(
+            f"  SSIM outside  {fmt(b['preservation_ssim'], 5)} ->{fmt(p['preservation_ssim'], 6)}"
+        )
         print(f"  region IoU    {b['region_iou']:.3f} -> {p['region_iou']:.3f}")
-        print(f"  edit inside   {b['edit_magnitude']:.3f} -> {p['edit_magnitude']:.3f}"
-              "   (must stay comparable - a 'clean' edit that never happened is not a win)")
+        print(
+            f"  edit inside   {b['edit_magnitude']:.3f} -> {p['edit_magnitude']:.3f}"
+            "   (must stay comparable - a 'clean' edit that never happened is not a win)"
+        )
         print("=" * 100)
     return 0
 

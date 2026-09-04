@@ -1,0 +1,139 @@
+{
+  "metadata": {
+    "title": "Dedicated Lateral Spatial Benchmark (24 Prompts x 8 Seeds = 192 Pairs)",
+    "date": "2026-09-04T00:50:31.804630+00:00",
+    "model_id": "runwayml/stable-diffusion-v1-5",
+    "device": "NVIDIA GeForce RTX 4060 Ti (CUDA fp16)",
+    "seeds_tested": [
+      42,
+      100,
+      555,
+      1024,
+      2024,
+      7777,
+      9999,
+      12345
+    ],
+    "prompts_tested": [
+      "a yellow banana to the left of a green apple on a wooden table",
+      "a red car to the right of a blue bicycle on a street",
+      "a crystal vase beside an antique brass clock on a shelf",
+      "a silver teapot beside a porcelain teacup on a tray",
+      "a white coffee mug to the left of a black laptop on a wooden desk",
+      "a glass bottle to the right of a ceramic bowl on a marble counter",
+      "a brown guitar beside a black amplifier in a studio",
+      "a green plant to the left of a tall floor lamp in a living room",
+      "a golden trophy to the right of a framed photo on a wooden shelf",
+      "a red apple beside a yellow lemon on a cutting board",
+      "a blue backpack to the left of a yellow skateboard on a sidewalk",
+      "a silver fork to the left of a white plate on a dining table",
+      "a metal knife to the right of a white plate on a dining table",
+      "a plush teddy bear to the left of a toy robot on a carpet",
+      "a microscope to the right of a glass beaker on a laboratory bench",
+      "a tennis racket beside a yellow tennis ball on a court",
+      "a leather wallet to the left of a smartphone on a glass table",
+      "a pair of sunglasses to the right of a straw hat on a beach towel",
+      "a vintage typewriter beside a desk lamp on a mahogany table",
+      "a blue bird to the left of a brown squirrel on a wooden bench",
+      "a white sneaker to the right of an orange basketball on a gym floor",
+      "a small desk fan beside a computer monitor on an office desk",
+      "a black cat to the left of a golden dog on a green lawn",
+      "a glass candle holder to the right of a stack of books on a nightstand"
+    ],
+    "total_images_generated": 768,
+    "total_elapsed_seconds": 942.67
+  },
+  "condition_summary": {
+    "strength_0.00": {
+      "strength": 0.0,
+      "n_samples": 192,
+      "satisfied_count": "67/192",
+      "satisfaction_rate_pct": 34.9,
+      "wilson_ci_95": [
+        28.51,
+        41.87
+      ],
+      "mean_ssim_vs_off": 1.0,
+      "mean_laion_aesthetic": 5.373,
+      "mean_clip_alignment": 0.2736
+    },
+    "strength_1.50": {
+      "strength": 1.5,
+      "n_samples": 192,
+      "satisfied_count": "73/192",
+      "satisfaction_rate_pct": 38.02,
+      "wilson_ci_95": [
+        31.45,
+        45.06
+      ],
+      "contingency_table": {
+        "both_pass_a": 61,
+        "off_fail_on_pass_b": 12,
+        "off_pass_on_fail_c": 6,
+        "both_fail_d": 113,
+        "total_discordant_b_plus_c": 18,
+        "net_gain_b_minus_c": 6
+      },
+      "mcnemar_exact_p_value": 0.237884521484375,
+      "mcnemar_chi2_statistic": 1.3889,
+      "mcnemar_chi2_p_value": 0.238593,
+      "statistically_significant_alpha_0_05": false,
+      "statistically_significant_alpha_0_01": false,
+      "mean_ssim_vs_off": 0.9055,
+      "mean_laion_aesthetic": 5.377,
+      "mean_clip_alignment": 0.2735
+    },
+    "strength_3.00": {
+      "strength": 3.0,
+      "n_samples": 192,
+      "satisfied_count": "77/192",
+      "satisfaction_rate_pct": 40.1,
+      "wilson_ci_95": [
+        33.43,
+        47.17
+      ],
+      "contingency_table": {
+        "both_pass_a": 50,
+        "off_fail_on_pass_b": 27,
+        "off_pass_on_fail_c": 17,
+        "both_fail_d": 98,
+        "total_discordant_b_plus_c": 44,
+        "net_gain_b_minus_c": 10
+      },
+      "mcnemar_exact_p_value": 0.17417114727072658,
+      "mcnemar_chi2_statistic": 1.8409,
+      "mcnemar_chi2_p_value": 0.174844,
+      "statistically_significant_alpha_0_05": false,
+      "statistically_significant_alpha_0_01": false,
+      "mean_ssim_vs_off": 0.8368,
+      "mean_laion_aesthetic": 5.385,
+      "mean_clip_alignment": 0.2743
+    },
+    "strength_6.00": {
+      "strength": 6.0,
+      "n_samples": 192,
+      "satisfied_count": "95/192",
+      "satisfaction_rate_pct": 49.48,
+      "wilson_ci_95": [
+        42.49,
+        56.49
+      ],
+      "contingency_table": {
+        "both_pass_a": 51,
+        "off_fail_on_pass_b": 44,
+        "off_pass_on_fail_c": 16,
+        "both_fail_d": 81,
+        "total_discordant_b_plus_c": 60,
+        "net_gain_b_minus_c": 28
+      },
+      "mcnemar_exact_p_value": 0.00039404324272610154,
+      "mcnemar_chi2_statistic": 12.15,
+      "mcnemar_chi2_p_value": 0.000491,
+      "statistically_significant_alpha_0_05": true,
+      "statistically_significant_alpha_0_01": true,
+      "mean_ssim_vs_off": 0.7215,
+      "mean_laion_aesthetic": 5.37,
+      "mean_clip_alignment": 0.2761
+    }
+  }
+}

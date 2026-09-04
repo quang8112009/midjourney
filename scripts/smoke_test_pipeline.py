@@ -143,6 +143,7 @@ def run_smoke_test():
     except Exception as exc:
         print(f"[-] ERROR during guided inference: {exc}")
         import traceback
+
         traceback.print_exc()
         return False
 
