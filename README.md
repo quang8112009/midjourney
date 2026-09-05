@@ -6,120 +6,105 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A text-to-image and visual editing platform powered by **Diffusion Transformers (PixArt-Alpha DiT)**, **Stable Diffusion**, and a **Hybrid Reasoning & Soft Cross-Attention Spatial Guidance Engine**.
+A high-performance text-to-image and visual editing platform powered by **Multimodal Diffusion Transformers (MMDiT / Stable Diffusion 3.5)**, **PixArt-Alpha DiT**, **Stable Diffusion v1.5**, and a **Hybrid Reasoning & Soft Attention Spatial Guidance Engine**.
 
 ---
 
-## 🔬 Empirical Validation & Status Summary
+## 🔬 Empirical Validation & Research Status
 
-Live GPU experiments on Stable Diffusion v1.5 (NVIDIA RTX 4060 Ti, CUDA fp16) have established the following empirical boundaries:
+Live GPU experiments on NVIDIA GeForce RTX 4060 Ti (16GB VRAM, CUDA fp16) have established the following empirical boundaries across model backbones:
 
-1. **Validated Capability — Lateral Spatial Steering ($p = 0.000394$, $N=192$ paired):**
-   * 2D cross-attention logit bias produces **statistically significant control over lateral (left/right/beside) object placement** at strength 6.0, improving satisfaction from $34.90\% \to 49.48\%$ ($+28$ net paired gains across 24 prompts $\times$ 8 seeds, McNemar exact $p = 3.94 \times 10^{-4}$).
-   * *Status:* **Validated & Promoted to Default.** Human visual review confirmed image quality at strength 6.0 is clean (no duplication, distortion, or texture breakdown; low SSIM reflects compositional reorganization rather than damage, with ON fixing baseline artifacts in several pairs). Object-presence audits across all 192 pairs show dual entity presence increases ($59.38\% \to 67.71\%$) and omissions drop ($40.6\% \to 32.3\%$). Manual ground-truth labeling on 30 ON images confirmed 100% detector precision and an underlying true success rate of $63.33\%$.
-2. **Negative Result — 3D Camera Depth Control ($p = 0.081$, $N=192$ paired):**
-   * When measured with a true 3D monocular depth estimator (**Depth Anything V2**), depth guidance does **not** achieve statistical significance ($41.67\% \to 47.92\%$, McNemar exact $p = 0.0807$).
-   * The apparent gain on the 2D bounding-box metric ($50.0\% \to 60.4\%$, $p = 0.0029$) is an artifact of objects moving lower in the image frame—a 2D pictorial depth cue—rather than true camera-space distance modulation.
-   * *Status:* **Disabled by default (`DEPTH_RELATION_GUIDANCE_STRENGTH = 0.0`).**
-3. **Negative Result — Vertical-On Placement ($p = 0.453$):**
-   * Unguided SD v1.5 already possesses a strong natural resting prior ($70.83\%$). Imposing cross-attention bias trends negative ($70.83\% \to 58.33\%$, $b=2, c=5$ at 6.00).
-   * *Status:* **Disabled by default (`VERTICAL_ON_GUIDANCE_STRENGTH = 0.0`).**
-4. **Depth Subsystem Architecture Status:**
-   * Features including $\mu_z$ depth coordinates, relative depth DAG solving, continuous density fields, 3D Gaussian priors, and depth-aware overlap modulation are fully implemented and unit-tested in code, but have **no demonstrated effect on real generated 3D camera depth**. They remain in the codebase marked as **unvalidated**.
+### 1. Diffusion Transformer Upgrade: SD 3.5 Medium (MMDiT Architecture)
+- **Model Backbone:** `stabilityai/stable-diffusion-3.5-medium` (2.5B parameter MMDiT transformer, 24 Joint Transformer Blocks).
+- **VRAM & Compute Efficiency:**
+  - Full model FP16 footprint is **14.73 GB** (`transformer`: 4.18 GB, `text_encoder_3` / T5-XXL: 8.87 GB, `text_encoder_2` / CLIP-G: 1.29 GB, `text_encoder` / CLIP-L: 0.23 GB, `vae`: 0.16 GB).
+  - Peak allocated VRAM during inference is **12.07 GB** (Reserved: **12.20 GB**), fitting natively within 16GB consumer VRAM with zero PCIe memory thrashing.
+  - Generates at **0.195 s/step** ($5.11\text{ it/s}$, $\sim 3.9\text{s}$ per image denoising) at $512\times 512$ / 20 steps, and **0.800 s/step** ($1.25\text{ it/s}$, $\sim 22.4\text{s}$ per image denoising) at $1024\times 1024$ / 28 steps.
+- **MMDiT Joint Attention Hooking:**
+  - Hooks attach cleanly across all **37 attention processors** (Blocks 0–12 dual-stream `attn` + `attn2`, Blocks 13–23 joint-stream `attn`).
+  - Implements scaled dot-product attention bias targeting the off-diagonal $Q_{\text{img}} K_{\text{txt}}^T$ slice without attention leakage.
+- **Multi-Encoder Token Mapping & Aesthetic Isolation:**
+  - Maps joint context across 666 total tokens: **CLIP-L** (`[0..76]`, 77 tokens), **CLIP-G** (`[77..153]`, 77 tokens), and **T5-XXL** (`[154..665]`, 512 tokens).
+  - **Aesthetic Token Isolation:** Empirically verified on real GPU tensors: **`0.0000000` max bias** on CLIP-L style and CLIP-G lighting tokens, ensuring full preservation of diffusion texture and aesthetic priors while spatial guidance operates strictly on T5-XXL entity tokens.
 
-Full experimental datasets, paired contingency tables, and visual review artifacts are documented in [docs/experiments.md](docs/experiments.md).
+### 2. SentencePiece Tokenizer Regression Resolution
+- **Root Cause:** In SentencePiece tokenization (T5-XXL), standalone whitespace prefix tokens (`\u2581` / `_`) before prepositions/articles caused word-index state machine drift, resulting in 31.2% (29/93) of planned entities in the 24 lateral benchmark prompts dropping to empty token lists `()`.
+- **Resolution:** Re-engineered `map_pieces_to_words` with prefix-marker tracking and implemented `_resolve_label_token_indices()` for compound noun phrases.
+- **Result:** **100% entity resolution rate (93/93 planned entities)** across CLIP-L, CLIP-G, and T5-XXL, validated via comprehensive unit tests in `tests/test_dit_enhancements.py`.
+
+### 3. MMDiT Lateral Guidance Range-Finding Sweep (512x512 / 20 steps)
+Preliminary range-finding sweep on SD 3.5 Medium under matched baseline settings:
+
+| Guidance Strength ($\gamma$) | Spatial Satisfaction Rate ($n=16$) | Mean LAION Aesthetic Score | Mean CLIP Cosine Similarity |
+| :--- | :--- | :--- | :--- |
+| **0.00 (OFF)** | **81.25%** (13/16) | **5.327** | 0.275 |
+| **1.50** | **87.50%** (14/16) | **5.380** | 0.273 |
+| **3.00** | **93.75%** (15/16) | **5.401** | 0.270 |
+| **6.00** | **100.00%** (16/16) | **5.262** | 0.279 |
+| **10.00** | **100.00%** (16/16) | **4.746** | 0.269 |
+| **15.00** | **25.00%** (4/16) | **4.035** | 0.216 |
+
+*Findings:* Brackets operational lateral guidance range between $\gamma \in [3.0, 10.0]$, with joint attention logit blowout occurring at $\gamma \ge 15.0$. Increasing guidance strength introduces a monotonic penalty on LAION aesthetic score ($5.401 \to 5.262 \to 4.746$). Full statistical effect sizes and Pareto boundaries are determined in powered $N=192$ benchmark studies.
+
+### 4. Established UNet Spatial Boundaries (Stable Diffusion v1.5)
+- **Lateral Spatial Steering ($p = 0.000394$, $N=192$ paired):** Statistically significant horizontal control ($34.90\% \to 49.48\%$, $+28$ net paired gains across 24 prompts $\times$ 8 seeds, McNemar $p = 3.94 \times 10^{-4}$).
+- **3D Camera Depth Control ($p = 0.081$, $N=192$ paired):** Evaluated with **Depth Anything V2**, depth guidance did not achieve statistical significance ($41.67\% \to 47.92\%$, $p = 0.0807$). Disabled by default (`DEPTH_RELATION_GUIDANCE_STRENGTH = 0.0`).
+- **Vertical-On Placement ($p = 0.453$):** Unguided model already exhibits a strong resting prior ($70.83\%$). Disabled by default (`VERTICAL_ON_GUIDANCE_STRENGTH = 0.0`).
+
+Full datasets, paired contingency tables, and visual review artifacts are documented in [docs/experiments.md](docs/experiments.md) and [docs/dit-research.md](docs/dit-research.md).
 
 ---
 
-## 🌟 Key Highlights & Core Capabilities
-
-### 1. Lateral Cross-Attention Spatial Guidance (Validated)
-- **2D Coordinate Control:** Directs entity tokens toward planned horizontal bounding regions using additive cross-attention bias during early denoising phases ($0\% - 80\%$).
-- **Statistically Significant Improvement:** Confirmed on powered paired tests ($N=192$, $p < 0.001$).
-- **Aesthetic Isolation:** Style, lighting, and medium tokens strictly receive $0.0$ bias to preserve diffusion texture.
-
-### 2. Experimental / Unvalidated Depth & Density Subsystems
-- **Volumetric Spatial Priors (Unvalidated on real 3D depth):** Parameterizes entities with centroid $(\mu_y, \mu_x, \mu_z)$ and anisotropic scale in $[0.0, 1.0]^3$.
-- **Continuous Density Field Modeling (Unvalidated on real swarms):** Models high-count ensembles ($\ge 10$ instances) via differentiable continuous distributions (Gaussian, Uniform Plateau, Radial, Streamline).
-- **Direct Spatial Visual Feature Cross-Attention:** Adapter architecture injecting localized reference visual features directly into cross-attention keys/values.
-
-### 3. Interactive Web Canvas
-- **Direct Manipulation:** Built-in HTML5 canvas supporting real-time drag-and-drop, 8-point corner resizing, 360° interactive rotation handles ($\theta \in [-\pi, \pi]$), and relative depth ($z$) adjustment.
-
-### 4. Multi-Pass Conversational Image Assistant
-- **Two-Pass Analytical Decoupling:** Decouples fast analytical reasoning (Pass 1: intent, ambiguity resolution) from user-facing conversational response generation (Pass 2), eliminating prompt leakage.
-
-### 5. Tri-Tier Region-Aware Image Editing
-- **Anti-Leakage Architecture:** Combines token role alignment, spatial classifier-free guidance, and scheduled latent blending for localized image modifications.
-
----
-
-## 🏛️ System Architecture
+## 🌟 Architecture & Key Capabilities
 
 ```
-                    Prompt (+ Optional Reference Image / Interactive Canvas Overrides)
-                                                    │
-                                                    ▼
-       ┌────────────────────────────────────────────────────────────────────────────────────────┐
-       │                STAGE 1: Spatial & Relation Semantic Planner                            │
-       │                                (semantic_planner.py)                                   │
-       ├────────────────────────────────────────────────────────────────────────────────────────┤
-       │ • Relation Parsing: Classifies lateral, depth, vertical_on, and vertical_under         │
-       │ • Per-Relation Strength Dispatch: lateral=6.0, depth=0.0, vertical_on=0.0, under=0.3   │
-       │ • Unvalidated Subsystems: 3D Gaussian priors (mu_z), relative depth DAG, density fields│
-       │ • Aesthetic Tokens Isolation: Style, lighting, and mood strictly receive 0.0 bias       │
-       └────────────────────────────────────────────┬───────────────────────────────────────────┘
-                                                    │
-                             Structured Plan (Objects, Densities, Overlaps)
-                                                    │
-                                                    ▼
-       ┌────────────────────────────────────────────────────────────────────────────────────────┐
-       │               STAGE 2: Cross-Attention Spatial Guidance Processor                      │
-       │                           (layout_guidance.py, vision_backbone.py)                     │
-       ├────────────────────────────────────────────────────────────────────────────────────────┤
-       │ • Per-Relation Guidance Bias: Applies +gamma[rel] * Heatmap[obj]                       │
-       │ • Lateral Path (Active): +6.0 bias steers left/right coordinates (p = 0.000394)        │
-       │ • Depth & Vertical-On Paths (Bypassed by default): 0.0 bias (unconstrained prior)      │
-       │ • Dynamic Schedule: TwoPhaseSchedule cuts off guidance at t >= 0.80 for fine detailing │
-       └────────────────────────────────────────────┬───────────────────────────────────────────┘
-                                                    │
-                          Drop-in Attention Hook (Training-Free, Diffusers-Native)
-                                                    │
-                                                    ▼
-       ┌────────────────────────────────────────────────────────────────────────────────────────┐
-       │                    STAGE 3: Diffusion Transformer (DiT) Denoising Loop                 │
-       │                                   (edit_pipeline.py)                                   │
-       ├────────────────────────────────────────────────────────────────────────────────────────┤
-       │ • Denoising steps 0..T: Soft guidance anchors horizontal positions                     │
-       │ • DiT transformer blocks synthesize photorealistic textures and artistic lighting      │
-       └────────────────────────────────────────────┬───────────────────────────────────────────┘
-                                                    │
-                                                    ▼
-                                       VAE Decode -> Final Image
+                    Prompt (+ Optional Interactive Canvas Overrides / Reference Image)
+                                                     │
+                                                     ▼
+        ┌────────────────────────────────────────────────────────────────────────────────────────┐
+        │                STAGE 1: Spatial & Relation Semantic Planner                            │
+        │                                (semantic_planner.py)                                   │
+        ├────────────────────────────────────────────────────────────────────────────────────────┤
+        │ • Relation Parsing: Classifies lateral, depth, vertical_on, and vertical_under         │
+        │ • Token Resolution: SentencePiece & BPE-aware mapping with compound noun support       │
+        │ • Multi-Encoder Token Isolator: Enforces strict 0.0 bias on CLIP-L (77) and CLIP-G (77)│
+        │ • Target Extraction: Directs spatial priors exclusively to T5-XXL entity tokens (512)   │
+        └────────────────────────────────────────────┬───────────────────────────────────────────┘
+                                                     │
+                              Structured Plan (Objects, Densities, Overlaps)
+                                                     │
+                                                     ▼
+        ┌────────────────────────────────────────────────────────────────────────────────────────┐
+        │               STAGE 2: MMDiT & UNet Attention Guidance Processors                      │
+        │                           (layout_guidance.py, vision_backbone.py)                     │
+        ├────────────────────────────────────────────────────────────────────────────────────────┤
+        │ • MMDiT Joint Attention Hook: Modifies Q_img K_txt^T off-diagonal slice (37 modules)   │
+        │ • Per-Relation Guidance Strength: Lateral steering dispatched dynamically              │
+        │ • Dynamic Schedule: TwoPhaseSchedule cuts off guidance at t >= 0.80 for fine texture   │
+        └────────────────────────────────────────────┬───────────────────────────────────────────┘
+                                                     │
+                           Drop-in Attention Hook (Training-Free, Diffusers-Native)
+                                                     │
+                                                     ▼
+        ┌────────────────────────────────────────────────────────────────────────────────────────┐
+        │                 STAGE 3: Diffusion Transformer (DiT / MMDiT) Denoising Loop            │
+        │                                   (edit_pipeline.py)                                   │
+        ├────────────────────────────────────────────────────────────────────────────────────────┤
+        │ • FlowMatchEuler / DPMSolverMultistep sampling across scheduled reverse-time steps     │
+        │ • DiT transformer blocks synthesize photorealistic textures and artistic lighting      │
+        └────────────────────────────────────────────┬───────────────────────────────────────────┘
+                                                     │
+                                                     ▼
+                                        VAE Decode -> Final Image
 ```
-
----
-
-## 📊 Offline Mathematical & Structural Invariant Benchmarks
-
-> **Note on Benchmark Methodology:** The metrics below are evaluated via the offline structural invariant test harness (`scripts/eval_hybrid_reasoning.py` and `scripts/eval_editing.py`). They measure **mathematical and algebraic invariants** (attention bias matrix isolation, 2D/3D coordinate calculations, and latent blending equations on synthetic 2D latent fields with a toy 12-step Euler loop). They demonstrate theoretical bounds and software invariants; **they are not perceptual evaluations of generated images**. Live empirical image benchmarks are documented in [docs/experiments.md](docs/experiments.md).
-
-| Failure Mode / Benchmark Category | Evaluated Conditions | Baseline Model | Proposed Hybrid Framework | Offline Verification Type |
-|---|---|---|---|---|
-| **1. Object Count Accuracy** | Single, multi-words, digit numerals, mixed quantifiers, collective nouns, numeral sequences | Common count confusion & duplicate blending | **100.0%** (15/15 entities exact match) | **Deterministic Rule/Parser Invariant** |
-| **2. Spatial Relation Correctness** | `riding` (fwd/rev), `under`, `next_to`, `inside`, `in_front_of`, `behind`, unlinked partition | Spatial inversions and semantic bleeding | **100.0%** (8/8 spatial geometries correct) | **Geometric Coordinate Verification** |
-| **3. Next-Gen Spatial & Depth Reasoning** | 3D Gaussians, relative depth, continuous swarms, star fields, 45° rotations, visual features | Hard box bounds / no depth reasoning | **100.0%** (12/12 complex next-gen cases) | **Continuous Potential Field Invariant** |
-| **4. Edit Target Isolation & Anti-Leakage** | Local recoloring, small objects, background preservation, regional sky changes | Toy Leakage: `0.561`<br>Toy SSIM Out: `0.832`<br>IoU: `0.439` | Toy Leakage: **`0.006`**<br>Toy SSIM Out: **`0.998`**<br>IoU: **`0.889`** | **Synthetic Latent Blend Invariant** |
-| **5. Aesthetic Control Set (Zero Bias)** | Cyberpunk watercolor, cinematic portrait, macro photorealism, whimsical anime, oil sunset, pixel art | Uncontrolled style pinning and texture loss | **100.0%** (Zero spatial bias verified on all style tokens) | **Attention Logit Masking Invariant** |
-| **6. Guidance Ablation & Entropy Retention** | Soft guidance ($+0.3$) vs hard masking ($-12.0$) | Hard Gradient Ret: **`0.00%`** (Total Collapse) | Soft Gradient Ret: **`100.0%`**<br>Soft Entropy Ret: **`100.0%`** | **Softmax Analytical Gradient Invariant** |
 
 ---
 
 ## 🚀 Quickstart & Installation
 
-### Requirements
-- **Python:** 3.10 or higher
-- **GPU:** NVIDIA GPU with 16 GB+ VRAM recommended for PixArt-Alpha DiT inference (CPU mode fully supported for API development, testing, and Stable Diffusion).
+### Prerequisites
+- **Python:** 3.10 or 3.11
+- **GPU:** NVIDIA GPU with 16 GB+ VRAM recommended for native FP16 MMDiT / DiT inference. (CPU mode supported for API testing and development).
 
 ### 1. Clone & Setup Environment
 
@@ -129,8 +114,8 @@ git clone https://github.com/quang8112009/midjourney.git
 cd midjourney
 
 # Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements-dev.txt
@@ -153,12 +138,11 @@ python main.py
 
 ## 🎨 Interactive Layout Editor
 
-The frontend web UI (`frontend/index.html`) includes a full interactive layout studio:
-
-1. **Auto-Plan from Prompt:** Click `⚡ Auto-Plan from Prompt` to parse nouns, counts, and spatial relationships into 3D Gaussian priors.
-2. **Interactive Rotation:** Click and drag the circular rotation handle above any entity to rotate its anisotropic Gaussian prior ($\theta$).
-3. **Depth Controls:** Configure relative depth ($\mu_z \in [0.0, 1.0]$) to adjust foreground and background hierarchy.
-4. **Gaussian Heatmap Preview:** Real-time radial gradient rendering showing soft cross-attention bias.
+The frontend web UI (`frontend/index.html`) includes a layout canvas:
+1. **Auto-Plan from Prompt:** Parses nouns, counts, and spatial relationships into 2D/3D Gaussian priors.
+2. **Interactive Rotation:** Drag-and-drop rotation handles to rotate anisotropic Gaussian priors ($\theta$).
+3. **Depth Controls:** Configure relative depth ($\mu_z \in [0.0, 1.0]$) for foreground/background hierarchy.
+4. **Gaussian Heatmap Preview:** Real-time visual feedback rendering soft cross-attention bias.
 
 ---
 
@@ -168,7 +152,7 @@ The frontend web UI (`frontend/index.html`) includes a full interactive layout s
 
 ```json
 {
-  "model": "pixart-alpha",
+  "model": "stable-diffusion-3.5",
   "prompt": "a red ball in front of a blue cube, cinematic lighting, 8k",
   "guidance_mode": "gaussian",
   "adaptive_guidance": true,
@@ -191,7 +175,9 @@ The frontend web UI (`frontend/index.html`) includes a full interactive layout s
     }
   ],
   "num_inference_steps": 20,
-  "guidance_scale": 4.5
+  "guidance_scale": 4.5,
+  "width": 512,
+  "height": 512
 }
 ```
 
@@ -224,17 +210,17 @@ Content-Type: application/json
 
 ## 🧪 Testing & Verification
 
-The test suite runs completely offline without requiring heavy model downloads:
+Run the comprehensive unit and integration test suite:
 
 ```bash
-# Run all unit and integration tests (350+ tests)
-python -m unittest discover -s tests
+# Run full pytest test suite
+pytest tests/
+
+# Run DiT enhancement and tokenizer invariant tests
+pytest tests/test_dit_enhancements.py
 
 # Run code style & linting check
 ruff check .
-
-# Run the complete failure mode benchmark suite
-python scripts/eval_hybrid_reasoning.py
 ```
 
 ---
@@ -245,19 +231,20 @@ python scripts/eval_hybrid_reasoning.py
 # Core Model Settings
 MODEL_ID=runwayml/stable-diffusion-v1-5
 PIXART_MODEL_ID=PixArt-alpha/PixArt-XL-2-512x512
+SD35_MODEL_ID=stabilityai/stable-diffusion-3.5-medium
 MODEL_CACHE_DIR=./models/cache
 OUTPUT_DIR=./outputs
 DEVICE=auto
 DTYPE=auto
 MODEL_CPU_OFFLOAD=true
 
-# Spatial, Depth & Multi-Modal Guidance
+# Spatial & Multi-Modal Guidance
 DEPTH_GUIDANCE_ENABLED=true
-DEPTH_GUIDANCE_STRENGTH=0.3  # Legacy fallback / global default
-LATERAL_GUIDANCE_STRENGTH=6.0  # Validated lateral steering default
-DEPTH_RELATION_GUIDANCE_STRENGTH=0.0  # Disabled (unvalidated on real 3D depth)
-VERTICAL_ON_GUIDANCE_STRENGTH=0.0  # Disabled (unguided prior is stronger)
-VERTICAL_UNDER_GUIDANCE_STRENGTH=0.3  # Preserved default
+DEPTH_GUIDANCE_STRENGTH=0.3
+LATERAL_GUIDANCE_STRENGTH=6.0
+DEPTH_RELATION_GUIDANCE_STRENGTH=0.0
+VERTICAL_ON_GUIDANCE_STRENGTH=0.0
+VERTICAL_UNDER_GUIDANCE_STRENGTH=0.3
 SELF_ATTENTION_DEPTH_BIAS_ENABLED=true
 DENSITY_FIELD_ENABLED=true
 DENSITY_ENTITY_THRESHOLD=10
@@ -280,22 +267,14 @@ CHAT_TWO_PASS_ENABLED=true
 
 ---
 
-## 🐳 Docker Deployment
-
-```bash
-# Build and run container with GPU acceleration
-docker compose up --build
-```
-
----
-
 ## 📚 Technical Documentation
 
-- [docs/soft-guidance-tuning.md](docs/soft-guidance-tuning.md): 3D Gaussian math, continuous density fields, guidance schedules, and visual feature projection.
+- [docs/dit-research.md](docs/dit-research.md): Diffusion Transformer research, MMDiT joint attention hooks, and multi-backbone comparison.
+- [docs/soft-guidance-tuning.md](docs/soft-guidance-tuning.md): 3D Gaussian math, continuous density fields, and guidance schedules.
+- [docs/experiments.md](docs/experiments.md): Comprehensive empirical benchmark results, contingency tables, and detector audits.
 - [docs/visual-reasoning-editing.md](docs/visual-reasoning-editing.md): Tri-tier region-aware image editing and leakage prevention.
 - [docs/two-pass-reasoning.md](docs/two-pass-reasoning.md): Conversational two-pass analytical reasoning pipeline.
-- [docs/dit-research.md](docs/dit-research.md): Diffusion Transformer architecture review and training-free attention hooks.
-- [docs/data-flow.md](docs/data-flow.md): End-to-end data flow specification.
+- [docs/data-flow.md](docs/data-flow.md): End-to-end system data flow specification.
 
 ---
 

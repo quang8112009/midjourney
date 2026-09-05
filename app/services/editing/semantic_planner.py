@@ -1410,20 +1410,27 @@ def map_pieces_to_words(pieces: list[str]) -> list[int | None]:
 
     word_index: list[int | None] = []
     current = -1
-    starts_word = True
+    next_is_new = True
+
     for piece in pieces:
         cleaned = clean_token_piece(piece)
         if is_special_token(piece) or not cleaned or not any(c.isalnum() for c in cleaned):
             word_index.append(None)
-            if uses_end_of_word and piece.endswith("</w>"):
-                starts_word = True
+            has_pfx = any(piece.startswith(m) for m in prefix_markers)
+            has_eow = uses_end_of_word and piece.endswith("</w>")
+            if has_pfx or has_eow:
+                next_is_new = True
             continue
-        if piece.startswith("##"):
+
+        if next_is_new:
+            is_new = True
+            next_is_new = False
+        elif piece.startswith("##"):
             is_new = False
         elif uses_prefix:
-            is_new = current < 0 or piece.startswith(prefix_markers)
+            is_new = current < 0 or any(piece.startswith(m) for m in prefix_markers)
         elif uses_end_of_word:
-            is_new = starts_word
+            is_new = next_is_new or current < 0
         elif uses_wordpiece:
             is_new = not piece.startswith("##")
         else:
@@ -1433,8 +1440,31 @@ def map_pieces_to_words(pieces: list[str]) -> list[int | None]:
             current += 1
         word_index.append(current)
         if uses_end_of_word:
-            starts_word = piece.endswith("</w>")
+            next_is_new = piece.endswith("</w>")
+
     return word_index
+
+
+def _resolve_label_token_indices(
+    label: str,
+    token_indices_by_word: dict[str, list[int]],
+) -> tuple[int, ...]:
+    """Robustly resolve token indices for single-word, compound, or attribute-qualified labels."""
+    if not label:
+        return ()
+    if label in token_indices_by_word:
+        return tuple(token_indices_by_word[label])
+    words = extract_words(label)
+    matched: list[int] = []
+    for w in words:
+        if w in token_indices_by_word:
+            matched.extend(token_indices_by_word[w])
+    if matched:
+        return tuple(sorted(set(matched)))
+    for k, v in token_indices_by_word.items():
+        if k in label or label in k:
+            matched.extend(v)
+    return tuple(sorted(set(matched)))
 
 
 def _matches_style_word(cleaned: str, word: str) -> bool:
@@ -2255,7 +2285,7 @@ def plan_semantic_layout(
     else:
         for label, count, attrs in quantified:
             box = layout_boxes.get(label, NormalizedBox(ymin=0.2, xmin=0.2, ymax=0.8, xmax=0.8))
-            tok_indices = tuple(token_indices_by_word.get(label, []))
+            tok_indices = _resolve_label_token_indices(label, token_indices_by_word)
             d_prior = depth_priors.get(
                 label, EntityDepthPrior(mu_z=0.5, sigma_z=0.2, depth_confidence=0.5)
             )
