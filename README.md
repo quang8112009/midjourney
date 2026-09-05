@@ -32,26 +32,38 @@ Live GPU experiments on NVIDIA GeForce RTX 4060 Ti (16GB VRAM, CUDA fp16) have e
 - **Resolution:** Re-engineered `map_pieces_to_words` with prefix-marker tracking and implemented `_resolve_label_token_indices()` for compound noun phrases.
 - **Result:** **100% entity resolution rate (93/93 planned entities)** across CLIP-L, CLIP-G, and T5-XXL, validated via comprehensive unit tests in `tests/test_dit_enhancements.py`.
 
-### 3. MMDiT Lateral Guidance Range-Finding Sweep (512x512 / 20 steps)
-Preliminary range-finding sweep on SD 3.5 Medium under matched baseline settings:
+### 3. MMDiT Powered Spatial Guidance Benchmark (SD 3.5 Medium, $N=192$ Paired Runs)
 
-| Guidance Strength ($\gamma$) | Spatial Satisfaction Rate ($n=16$) | Mean LAION Aesthetic Score | Mean CLIP Cosine Similarity |
-| :--- | :--- | :--- | :--- |
-| **0.00 (OFF)** | **81.25%** (13/16) | **5.327** | 0.275 |
-| **1.50** | **87.50%** (14/16) | **5.380** | 0.273 |
-| **3.00** | **93.75%** (15/16) | **5.401** | 0.270 |
-| **6.00** | **100.00%** (16/16) | **5.262** | 0.279 |
-| **10.00** | **100.00%** (16/16) | **4.746** | 0.269 |
-| **15.00** | **25.00%** (4/16) | **4.035** | 0.216 |
+Cross-architecture transfer of soft spatial cross-attention guidance was established across two $N=192$ benchmark suites ($512\times 512$ / 20 Euler steps, 8 seeds):
 
-*Findings:* Brackets operational lateral guidance range between $\gamma \in [3.0, 10.0]$, with joint attention logit blowout occurring at $\gamma \ge 15.0$. Increasing guidance strength introduces a monotonic penalty on LAION aesthetic score ($5.401 \to 5.262 \to 4.746$). Full statistical effect sizes and Pareto boundaries are determined in powered $N=192$ benchmark studies.
+#### Benchmark Suite Results ($N=192$ Paired Runs per Condition)
+
+| Benchmark Suite | Condition | Overall Satisfaction | Wilson 95% CI | Directional Rate | Dual Presence | Misplaced / Omitted | McNemar $p$-value vs OFF |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Standard 24** | **OFF (0.00)** | $83.85\%$ ($161/192$) | $[78.0\%, 88.4\%]$ | $80.88\%$ ($110/136$) | $94.79\%$ | $21$ / $10$ | — (Baseline Ref) |
+| **Standard 24** | **ON (3.00)** | **$91.15\%$** ($175/192$) | $[86.3\%, 94.4\%]$ | **$90.44\%$** ($123/136$) | **$96.35\%$** | **$10$** / **$7$** | **$p = 0.002577$ (Signif.)** |
+| **Standard 24** | **ON (6.00)** | $89.58\%$ ($172/192$) | $[84.5\%, 93.2\%]$ | $87.50\%$ ($119/136$) | $94.27\%$ | $9$ / $11$ | $p = 0.098872$ |
+| **Hard 24** | **OFF (0.00)** | $52.08\%$ ($100/192$) | $[45.1\%, 59.0\%]$ | $52.08\%$ ($100/192$) | $77.60\%$ | $49$ / $43$ | — (Baseline Ref) |
+| **Hard 24** | **ON (3.00)** | $59.38\%$ ($114/192$) | $[52.3\%, 66.1\%]$ | $59.38\%$ ($114/192$) | **$80.21\%$** | $40$ / $38$ | **$p = 0.028817$ (Signif.)** |
+| **Hard 24** | **ON (6.00)** | **$61.46\%$** ($118/192$) | $[54.4\%, 68.1\%]$ | **$61.46\%$** ($118/192$) | **$80.21\%$** | **$36$** / $38$ | **$p = 0.022241$ (Signif.)** |
+
+#### Backbone Evolution: Unaided Directional Spatial Baseline
+* **SD v1.5 Directional Baseline (OFF, $N=136$):** $27.94\%$ ($38/136$)
+* **SD 3.5 Medium Directional Baseline (OFF, $N=136$):** **$80.88\%$** ($110/136$)
+* **Unaided Evolution:** $+52.94\%$ absolute improvement from modern multimodal text encoding (T5-XXL) and 2.5B MMDiT transformer capacity.
+
+#### Operating Strength Recommendation
+* **Statistical Separability:** Wilson 95% confidence intervals for strength 3.0 and 6.0 overlap heavily across both suites ($[86.3\%, 94.4\%]$ vs $[84.5\%, 93.2\%]$ on Standard; $[52.3\%, 66.1\%]$ vs $[54.4\%, 68.1\%]$ on Hard). Neither strength is statistically separable as a universal default at this sample size.
+* **Task Distribution Selection:**
+  - **Strength 3.00:** Well-suited for standard scenes where the base model already exhibits strong spatial comprehension ($80.88\% \to 90.44\%$, $p=0.00258$), minimizing over-steering.
+  - **Strength 6.00:** Provides stronger spatial steering on complex, cluttered, or counter-prior compositions.
 
 ### 4. Established UNet Spatial Boundaries (Stable Diffusion v1.5)
 - **Lateral Spatial Steering ($p = 0.000394$, $N=192$ paired):** Statistically significant horizontal control ($34.90\% \to 49.48\%$, $+28$ net paired gains across 24 prompts $\times$ 8 seeds, McNemar $p = 3.94 \times 10^{-4}$).
 - **3D Camera Depth Control ($p = 0.081$, $N=192$ paired):** Evaluated with **Depth Anything V2**, depth guidance did not achieve statistical significance ($41.67\% \to 47.92\%$, $p = 0.0807$). Disabled by default (`DEPTH_RELATION_GUIDANCE_STRENGTH = 0.0`).
 - **Vertical-On Placement ($p = 0.453$):** Unguided model already exhibits a strong resting prior ($70.83\%$). Disabled by default (`VERTICAL_ON_GUIDANCE_STRENGTH = 0.0`).
 
-Full datasets, paired contingency tables, and visual review artifacts are documented in [docs/experiments.md](docs/experiments.md) and [docs/dit-research.md](docs/dit-research.md).
+Full datasets, paired contingency tables, forensic sub-group breakdowns, and visual review artifacts are documented in [docs/experiments.md](docs/experiments.md) and [docs/dit-research.md](docs/dit-research.md).
 
 ---
 
