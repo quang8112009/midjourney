@@ -8,7 +8,7 @@ This document maintains the complete empirical record, statistical tests, and ev
 
 | Capability / Relation Category | Baseline (OFF) | Optimal Tested Strength | Statistical Verdict (Paired McNemar) | Architectural Action | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Lateral (`left_of`, `right_of`, `beside`)** | $34.90\%$ ($67/192$) | **$49.48\%$** ($95/192$) @ str 6.0 | **$p = 0.000394$** (Net $+28$ pairs) | `LATERAL_GUIDANCE_STRENGTH = 6.0` | **Validated (Promoted to Default)** |
+| **Lateral (`left_of`, `right_of`, `beside`)** | $34.90\%$ ($67/192$) | **$55.21\%$** ($106/192$) @ str 6.0 | **$p = 5.0 \times 10^{-6}$** (Net $+39$ pairs) | `LATERAL_GUIDANCE_STRENGTH = 6.0` | **Validated (Promoted to Default)** |
 | **Depth (`in_front_of`, `behind`) [True 3D]** | $41.67\%$ ($80/192$) | $47.92\%$ ($92/192$) @ str 6.0 | **$p = 0.080690$** (Net $+12$ pairs) | `DEPTH_RELATION_GUIDANCE_STRENGTH = 0.0` | **Negative / Unvalidated** (Not significant) |
 | **Depth (`in_front_of`, `behind`) [2D Proxy]** | $50.00\%$ ($96/192$) | $60.42\%$ ($116/192$) @ str 6.0 | $p = 0.002887$ (Net $+20$ pairs) | — | *Artifact of 2D vertical framing shift* |
 | **Vertical-On (`on`, `on_top_of`, `resting_on`)** | **$70.83\%$** ($17/24$) | $58.33\%$ ($14/24$) @ str 6.0 | $p = 0.453100$ (Net $-3$ pairs) | `VERTICAL_ON_GUIDANCE_STRENGTH = 0.0` | **Disabled** (Base prior is stronger) |
@@ -22,12 +22,12 @@ To test the hypothesis that 2D attention bias acts along horizontal coordinates,
 
 ### Paired Contingency Table vs. OFF Baseline ($67/192$, $34.90\%$)
 
-| Condition | Satisfaction ($N=192$) | Wilson 95% CI | Both Pass ($a$) | Gain ($b$) | Loss ($c$) | Both Fail ($d$) | Net Gain ($b-c$) | McNemar Exact $p$-value | Edwards Corrected $\chi^2$ | Significant ($\alpha=0.05$)? |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **OFF (0.00)** | **$34.90\%$** ($67/192$) | $[28.5\%, 41.9\%]$ | — | — | — | — | — | *Baseline Reference* | — | — |
-| **1.50** | **$38.02\%$** ($73/192$) | $[31.4\%, 45.1\%]$ | $61$ | $12$ | $6$ | $113$ | $+6$ | $p = 0.2379$ | $\chi^2 = 1.3889$ ($p=0.2386$) | **NO** |
-| **3.00** | **$40.10\%$** ($77/192$) | $[33.4\%, 47.2\%]$ | $50$ | $27$ | $17$ | $98$ | $+10$ | $p = 0.1742$ | $\chi^2 = 1.8409$ ($p=0.1748$) | **NO** |
-| **6.00** | **$49.48\%$** ($95/192$) | $[42.5\%, 56.5\%]$ | $51$ | $44$ | $16$ | $81$ | **$+28$** | **$p = 0.000394$** | $\mathbf{\chi^2 = 12.1500}$ ($p=0.000491$) | **YES ($p < 0.001$)** |
+| Condition | Satisfaction ($N=192$) | Wilson 95% CI | Directional ($N=136$) | Symmetric ($N=56$) | Dual Presence | Net Gain ($b-c$) | McNemar Exact $p$-value | Significant ($\alpha=0.05$)? |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **OFF (0.00)** | **$34.90\%$** ($67/192$) | $[28.5\%, 41.9\%]$ | $25.00\%$ ($34/136$) | $58.93\%$ ($33/56$) | $59.38\%$ | — | *Baseline Reference* | — |
+| **1.50** | **$38.02\%$** ($73/192$) | $[31.4\%, 45.1\%]$ | $29.41\%$ ($40/136$) | $58.93\%$ ($33/56$) | $66.15\%$ | $+6$ | $p = 0.2379$ | **NO** |
+| **3.00** | **$40.10\%$** ($77/192$) | $[33.4\%, 47.2\%]$ | $32.35\%$ ($44/136$) | $58.93\%$ ($33/56$) | $62.50\%$ | $+10$ | $p = 0.1742$ | **NO** |
+| **6.00** | **$55.21\%$** ($106/192$) | $[48.1\%, 62.1\%]$ | **$53.68\%$** ($73/136$) | $58.93\%$ ($33/56$) | **$70.31\%$** | **$+39$** | **$p = 5.0 \times 10^{-6}$** | **YES ($p < 0.0001$)** |
 
 ### Perceptual & Aesthetic Metrics
 * **Strength 0.00:** $\text{SSIM} = 1.0000$, $\text{LAION} = 5.370$, $\text{CLIP} = 0.2741$
@@ -35,7 +35,7 @@ To test the hypothesis that 2D attention bias acts along horizontal coordinates,
 * **Strength 3.00:** $\text{SSIM} = 0.8368$, $\text{LAION} = 5.385$, $\text{CLIP} = 0.2743$
 * **Strength 6.00:** $\text{SSIM} = 0.7215$, $\text{LAION} = 5.370$, $\text{CLIP} = 0.2761$
 
-**Key Takeaway:** Lateral spatial steering is the one proven capability of 2D cross-attention guidance ($p = 0.000394$). Strength 3.00 does not reach statistical significance ($p = 0.1742$).
+**Key Takeaway:** Lateral spatial steering is the one proven capability of 2D cross-attention guidance on SD v1.5 ($p = 5.0 \times 10^{-6}$), more than doubling directional accuracy from $25.00\% \to 53.68\%$.
 
 ---
 
@@ -198,18 +198,18 @@ Two complementary benchmark suites were tested:
 
 ### 10.1 Backbone Evolution: Unaided Directional Spatial Baseline Comparison
 
-Comparing the unguided (strength 0.00 / OFF) performance of the 2022 UNet backbone (Stable Diffusion v1.5) against the 2024 Multimodal Diffusion Transformer (SD 3.5 Medium) across the exact same 136 directional pairs ($512\times 512$, 20 steps, 8 seeds):
+Comparing the unguided (strength 0.00 / OFF) performance of the 2022 UNet backbone (Stable Diffusion v1.5) against the 2024 Multimodal Diffusion Transformer (SD 3.5 Medium) across the exact same 136 directional pairs ($512\times 512$, 20 steps, 8 seeds) under the same post-fix planner:
 
 | Metric / Category | SD v1.5 Baseline (OFF) | SD 3.5 Medium Baseline (OFF) | Absolute Gain |
 | :--- | :---: | :---: | :---: |
-| **Directional Satisfaction (`left_of` / `right_of`, $N=136$)** | **$27.94\%$** ($38/136$) | **$80.88\%$** ($110/136$) | **$+52.94\%$** |
-| `left_of` Prompts ($N=72$) | $27.78\%$ ($20/72$) | $86.11\%$ ($62/72$) | $+58.33\%$ |
-| `right_of` Prompts ($N=64$) | $28.12\%$ ($18/64$) | $75.00\%$ ($48/64$) | $+46.88\%$ |
-| Symmetric Prompts (`beside`, $N=56$) | $44.64\%$ ($25/56$) | $91.07\%$ ($51/56$) | $+46.43\%$ |
-| **Overall Standard 24 Satisfaction ($N=192$)** | **$32.81\%$** ($63/192$) | **$83.85\%$** ($161/192$) | **$+51.04\%$** |
+| **Directional Satisfaction (`left_of` / `right_of`, $N=136$)** | **$25.00\%$** ($34/136$) | **$80.88\%$** ($110/136$) | **$+55.88\%$** |
+| `left_of` Prompts ($N=72$) | $25.00\%$ ($18/72$) | $86.11\%$ ($62/72$) | $+61.11\%$ |
+| `right_of` Prompts ($N=64$) | $25.00\%$ ($16/64$) | $75.00\%$ ($48/64$) | $+50.00\%$ |
+| Symmetric Prompts (`beside`, $N=56$) | $58.93\%$ ($33/56$) | $91.07\%$ ($51/56$) | $+32.14\%$ |
+| **Overall Standard 24 Satisfaction ($N=192$)** | **$34.90\%$** ($67/192$) | **$83.85\%$** ($161/192$) | **$+48.95\%$** |
 | Dual-Entity Presence Rate ($N=192$) | $59.38\%$ ($114/192$) | $94.79\%$ ($182/192$) | $+35.41\%$ |
 
-**Key Takeaway:** SD 3.5 Medium exhibits a dramatic $+52.94\%$ jump in unaided directional spatial reasoning over SD v1.5. This reflects the superior semantic grounding of the $4.7\text{B}$ parameter T5-XXL text encoder and the multimodal cross-attention dynamics of the $2.5\text{B}$ parameter MMDiT backbone.
+**Key Takeaway:** SD 3.5 Medium exhibits a massive $+55.88\%$ absolute jump in unaided directional spatial reasoning over SD v1.5 (jumping from 1 in 4 to > 4 in 5 images correctly positioned unaided). This reflects the superior semantic grounding of the $4.7\text{B}$ parameter T5-XXL text encoder and the multimodal cross-attention dynamics of the $2.5\text{B}$ parameter MMDiT backbone.
 
 ---
 

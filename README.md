@@ -49,18 +49,18 @@ Cross-architecture transfer of soft spatial cross-attention guidance was establi
 
 
 #### Backbone Evolution: Unaided Directional Spatial Baseline
-* **SD v1.5 Directional Baseline (OFF, $N=136$):** $27.94\%$ ($38/136$)
+* **SD v1.5 Directional Baseline (OFF, $N=136$):** $25.00\%$ ($34/136$)
 * **SD 3.5 Medium Directional Baseline (OFF, $N=136$):** **$80.88\%$** ($110/136$)
-* **Unaided Evolution:** $+52.94\%$ absolute improvement from modern multimodal text encoding (T5-XXL) and 2.5B MMDiT transformer capacity.
+* **Unaided Evolution:** **$+55.88\%$ absolute improvement** (jumping from 1 in 4 to > 4 in 5 unaided) from modern multimodal text encoding (T5-XXL) and 2.5B MMDiT transformer capacity.
 
 #### Operating Strength Recommendation
-* **Statistical Separability:** Wilson 95% confidence intervals for strength 3.0 and 6.0 overlap heavily across both suites ($[86.3\%, 94.4\%]$ vs $[84.5\%, 93.2\%]$ on Standard; $[52.3\%, 66.1\%]$ vs $[54.4\%, 68.1\%]$ on Hard). Neither strength is statistically separable as a universal default at this sample size.
+* **Statistical Separability:** Wilson 95% confidence intervals for strength 3.0 and 6.0 overlap heavily across both suites ($[86.3\%, 94.4\%]$ vs $[84.5\%, 93.2\%]$ on Standard; $[58.7\%, 72.0\%]$ vs $[70.1\%, 82.0\%]$ on Hard). Neither strength is statistically separable as a universal default at this sample size.
 * **Task Distribution Selection:**
   - **Strength 3.00:** Well-suited for standard scenes where the base model already exhibits strong spatial comprehension ($80.88\% \to 90.44\%$, $p=0.00258$), minimizing over-steering.
-  - **Strength 6.00:** Provides stronger spatial steering on complex, cluttered, or counter-prior compositions.
+  - **Strength 6.00:** Provides stronger spatial steering on complex, cluttered, or counter-prior compositions ($52.08\% \to 76.56\%$, $p=4.25\times 10^{-11}$).
 
 ### 4. Established UNet Spatial Boundaries (Stable Diffusion v1.5)
-- **Lateral Spatial Steering ($p = 0.000394$, $N=192$ paired):** Statistically significant horizontal control ($34.90\% \to 49.48\%$, $+28$ net paired gains across 24 prompts $\times$ 8 seeds, McNemar $p = 3.94 \times 10^{-4}$).
+- **Lateral Spatial Steering ($p = 5.0 \times 10^{-6}$, $N=192$ paired):** Statistically significant horizontal control ($34.90\% \to 55.21\%$, $+39$ net paired gains across 24 prompts $\times$ 8 seeds, McNemar $p = 5.0 \times 10^{-6}$), more than doubling directional accuracy ($25.00\% \to 53.68\%$).
 - **3D Camera Depth Control ($p = 0.081$, $N=192$ paired):** Evaluated with **Depth Anything V2**, depth guidance did not achieve statistical significance ($41.67\% \to 47.92\%$, $p = 0.0807$). Disabled by default (`DEPTH_RELATION_GUIDANCE_STRENGTH = 0.0`).
 - **Vertical-On Placement ($p = 0.453$):** Unguided model already exhibits a strong resting prior ($70.83\%$). Disabled by default (`VERTICAL_ON_GUIDANCE_STRENGTH = 0.0`).
 
