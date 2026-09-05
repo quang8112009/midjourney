@@ -186,3 +186,53 @@ To audit potential detector false negatives (cases where the generated image is 
 ### 9.3 Statistical Significance Implication
 Because the detector has **$100\%$ precision** and a **$15.8\%$ false negative rate**, the automated benchmark under-reports true spatial steering successes. The true underlying effect size of cross-attention lateral guidance is strictly larger than the measured $p = 0.000394$.
 
+---
+
+## 10. Diffusion Transformer (MMDiT) Architecture Study: SD 3.5 Medium ($N=192$ Paired Runs, 1,152 Images)
+
+To measure the cross-architecture transfer of soft spatial cross-attention guidance from UNet architectures (SD v1.5) to multimodal diffusion transformers (MMDiT), a powered benchmark was executed on `stabilityai/stable-diffusion-3.5-medium` ($2.5\text{B}$ parameter transformer, 24 joint blocks, 37 hooked attention processors) at matched baseline settings ($512\times 512$, 20 Euler steps).
+
+Two complementary benchmark suites were tested:
+1. **Standard 24 Suite ($N=192$ pairs per condition, 576 images):** The exact 24 lateral prompt specifications evaluated on SD v1.5 (136 directional pairs, 56 symmetric pairs across 8 seeds).
+2. **Hard 24 Suite ($N=192$ pairs per condition, 576 images):** A stress-test suite of 24 strictly directional prompts (12 `left_of`, 12 `right_of`, 0 symmetric) featuring same-class attribute binding, shared color palettes, and visual clutter to eliminate baseline ceiling effects.
+
+### 10.1 Standard 24 Benchmark Results (Matched SD v1.5 Suite, $N=192$)
+
+| Condition | Overall Satisfaction | Wilson 95% CI | Directional ($N=136$) | `left_of` ($N=72$) | `right_of` ($N=64$) | Symmetric ($N=56$) | Dual Presence | Misplaced / Omitted | Net Gain ($b-c$) | McNemar $p$-value | Significant? |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **OFF (0.00)** | **$83.85\%$** ($161/192$) | $[78.0\%, 88.4\%]$ | $80.88\%$ ($110/136$) | $86.11\%$ ($62/72$) | $75.00\%$ ($48/64$) | $91.07\%$ ($51/56$) | $94.79\%$ ($182/192$) | $21$ / $10$ | — | *Baseline Ref* | — |
+| **3.00** | **$91.15\%$** ($175/192$) | $[86.3\%, 94.4\%]$ | **$90.44\%$** ($123/136$) | $94.44\%$ ($68/72$) | $85.94\%$ ($55/64$) | **$92.86\%$** ($52/56$) | **$96.35\%$** ($185/192$) | **$10$** / **$7$** | **$+14$** ($17-3$) | **$p = 0.002577$** | **YES ($p < 0.01$)** |
+| **6.00** | **$89.58\%$** ($172/192$) | $[84.5\%, 93.2\%]$ | $87.50\%$ ($119/136$) | $87.50\%$ ($63/72$) | $87.50\%$ ($56/64$) | $94.64\%$ ($53/56$) | $94.27\%$ ($181/192$) | $9$ / $11$ | $+11$ ($24-13$) | $p = 0.098872$ | Inconclusive |
+
+### 10.2 Hard 24 Benchmark Results (Directional Stress-Test Suite, $N=192$)
+
+| Condition | Overall Satisfaction | Wilson 95% CI | `left_of` ($N=96$) | `right_of` ($N=96$) | Dual Presence | Misplaced / Omitted | Net Gain ($b-c$) | McNemar $p$-value | Significant? |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **OFF (0.00)** | **$52.08\%$** ($100/192$) | $[45.1\%, 59.0\%]$ | $50.00\%$ ($48/96$) | $54.17\%$ ($52/96$) | $77.60\%$ ($149/192$) | $49$ / $43$ | — | *Baseline Ref* | — |
+| **3.00** | **$59.38\%$** ($114/192$) | $[52.3\%, 66.1\%]$ | $64.58\%$ ($62/96$) | $54.17\%$ ($52/96$) | **$80.21\%$** ($154/192$) | $40$ / $38$ | **$+14$** ($25-11$) | **$p = 0.028817$** | **YES ($p < 0.05$)** |
+| **6.00** | **$61.46\%$** ($118/192$) | $[54.4\%, 68.1\%]$ | **$67.71\%$** ($65/96$) | **$55.21\%$** ($53/96$) | **$80.21\%$** ($154/192$) | **$36$** / $38$ | **$+18$** ($37-19$) | **$p = 0.022241$** | **YES ($p < 0.05$)** |
+
+### 10.3 Perceptual Quality & Aesthetic Preservation (SD 3.5 Medium)
+
+| Benchmark | Condition | LAION-5B Aesthetic Score | CLIP-ViT-L/14 Cosine Sim | Mean Denoising Time / Step |
+| :--- | :---: | :---: | :---: | :---: |
+| **Standard 24** | **OFF (0.00)** | $5.318$ | $0.2843$ | $0.198\text{ s}$ |
+| **Standard 24** | **3.00** | **$5.346$** | **$0.2827$** | $0.252\text{ s}$ |
+| **Standard 24** | **6.00** | $5.350$ | $0.2835$ | $0.261\text{ s}$ |
+| **Hard 24** | **OFF (0.00)** | $5.447$ | $0.2867$ | $0.195\text{ s}$ |
+| **Hard 24** | **3.00** | **$5.454$** | **$0.2863$** | $0.254\text{ s}$ |
+| **Hard 24** | **6.00** | $5.427$ | $0.2833$ | $0.258\text{ s}$ |
+
+### 10.4 Key Architectural Insights for MMDiT
+
+1. **Robust Cross-Architecture Transfer:** Soft spatial guidance successfully transfers from UNet cross-attention to MMDiT dual-stream joint attention. Spatial conditioning via Gaussian attention biases operates directly on the text-to-image cross-attention tokens within transformer blocks.
+2. **Statistically Significant Steering with No Aesthetic Degradation:**
+   - On Standard 24, strength 3.0 boosts overall satisfaction from $83.85\% \to 91.15\%$ ($p = 0.00258$, net $+14$ seeds fixed) with directional accuracy reaching $90.44\%$.
+   - On Hard 24 (challenging directional prompts), strength 6.0 achieves a $+9.38\%$ absolute gain ($52.08\% \to 61.46\%$, $p = 0.0222$, net $+18$ seeds fixed).
+3. **Misplacement Reduction vs. Entity Preservation:**
+   - On Standard 24, spatial misplacements were cut by more than half ($21 \to 10$).
+   - On Hard 24, spatial misplacements dropped from $49 \to 36$, while dual-entity presence simultaneously improved from $77.60\% \to 80.21\%$.
+4. **Optimal Operating Recommendation:**
+   - For standard general generation in SD 3.5 Medium, **strength 3.0** is optimal ($85.0\%$ win rate on discordant seeds, $p=0.00258$).
+   - For complex, heavily cluttered scenes with high spatial ambiguity, **strength 6.0** is recommended.
+
