@@ -129,7 +129,7 @@ _COMMON_ADJECTIVES = frozenset(
     rough smooth glossy matte rusty weathered polished frosted
     round square spherical cubic cylindrical circular oval triangular flat
     majestic wild ancient modern sweet sour fresh ripe young old vintage
-    glowing shining gleaming floating blooming burning
+    glowing shining gleaming floating blooming burning lit hardcover sports rolled clear
     lush dense sparse open closed beautiful pretty peaceful quiet calm
     angry migrating cheering sparkling buzzing distant nearby translucent transparent
     opaque blurry sharp clear""".split()
@@ -154,6 +154,10 @@ _METADATA_WORDS = frozenset(
 )
 
 _RELATION_PHRASES: list[tuple[str, str]] = [
+    ("to the left of", "left_of"),
+    ("to the right of", "right_of"),
+    ("left of", "left_of"),
+    ("right of", "right_of"),
     ("partially hidden behind", "behind"),
     ("partially behind", "behind"),
     ("hidden behind", "behind"),
@@ -198,6 +202,7 @@ _RELATION_PHRASES: list[tuple[str, str]] = [
     ("on", "on"),
     ("in", "inside"),
 ]
+
 
 _STYLE_KEYWORDS: dict[str, list[str]] = {
     "medium": [
@@ -1448,15 +1453,34 @@ def map_pieces_to_words(pieces: list[str]) -> list[int | None]:
 def _resolve_label_token_indices(
     label: str,
     token_indices_by_word: dict[str, list[int]],
+    token_indices_by_word_pos: dict[int, list[int]] | None = None,
+    prompt_words: list[str] | None = None,
 ) -> tuple[int, ...]:
     """Robustly resolve token indices for single-word, compound, or attribute-qualified labels."""
     if not label:
         return ()
+    lbl_words = extract_words(label)
+    if not lbl_words:
+        return ()
+
+    # 1. Exact contiguous word span match in prompt_words
+    if prompt_words is not None and token_indices_by_word_pos is not None:
+        n = len(lbl_words)
+        for i in range(len(prompt_words) - n + 1):
+            if prompt_words[i : i + n] == lbl_words:
+                matched_span: list[int] = []
+                for pos in range(i, i + n):
+                    matched_span.extend(token_indices_by_word_pos.get(pos, []))
+                if matched_span:
+                    return tuple(sorted(set(matched_span)))
+
+    # 2. Direct exact label match in token_indices_by_word
     if label in token_indices_by_word:
         return tuple(token_indices_by_word[label])
-    words = extract_words(label)
+
+    # 3. Individual word matches in token_indices_by_word
     matched: list[int] = []
-    for w in words:
+    for w in lbl_words:
         if w in token_indices_by_word:
             matched.extend(token_indices_by_word[w])
     if matched:
@@ -1573,7 +1597,6 @@ def _detect_density_distribution(
 def _extract_quantified_nouns(prompt: str) -> list[tuple[str, int, list[str]]]:
     """Extract nouns and their explicit or inferred count from the prompt."""
     words = re.findall(r"[a-zA-Z0-9][a-zA-Z0-9'-]*", prompt.lower())
-    quantified: list[tuple[str, int, list[str]]] = []
     style_set = {item for sublist in _STYLE_KEYWORDS.values() for item in sublist}
     style_words = {w for s in style_set for w in s.split() if w not in _STOPWORDS and len(w) > 2}
 
@@ -1587,6 +1610,8 @@ def _extract_quantified_nouns(prompt: str) -> list[tuple[str, int, list[str]]]:
         | _RELATION_WORDS
         | set(_NUM_WORDS.keys())
     )
+
+    raw_entries: list[tuple[str, int, list[str], int]] = []
 
     i = 0
     while i < len(words):
@@ -1672,8 +1697,7 @@ def _extract_quantified_nouns(prompt: str) -> list[tuple[str, int, list[str]]]:
                 j += 1
             if j < len(words) and words[j] not in skip_words and len(words[j]) >= 3:
                 target_noun = words[j]
-                if not any(target_noun == q[0] for q in quantified):
-                    quantified.append((target_noun, count, attrs))
+                raw_entries.append((target_noun, count, attrs, j))
                 i = j + 1
                 continue
             i += 1
@@ -1686,21 +1710,49 @@ def _extract_quantified_nouns(prompt: str) -> list[tuple[str, int, list[str]]]:
             and not word.isdigit()
             and len(word) >= 3
         ):
-            if not any(word == q[0] for q in quantified):
-                quantified.append((word, 1, []))
+            raw_entries.append((word, 1, [], i))
         i += 1
+
+    # Disambiguate duplicate nouns only when distinct attributes exist
+    quantified: list[tuple[str, int, list[str]]] = []
+    
+    # Group raw entries by head noun
+    from collections import defaultdict
+    noun_groups: dict[str, list[tuple[str, int, list[str], int]]] = defaultdict(list)
+    for entry in raw_entries:
+        noun_groups[entry[0]].append(entry)
+
+    for noun, entries in noun_groups.items():
+        if len(entries) == 1:
+            quantified.append((noun, entries[0][1], entries[0][2]))
+        else:
+            # Check if entries have distinct attributes
+            attr_sets = [tuple(sorted(e[2])) for e in entries]
+            if len(set(attr_sets)) > 1 and any(len(a) > 0 for a in attr_sets):
+                for idx, (_, count, attrs, _) in enumerate(entries, 1):
+                    if attrs:
+                        label = f"{' '.join(attrs)} {noun}"
+                    else:
+                        label = f"{noun}_{idx}"
+                    quantified.append((label, count, attrs))
+            else:
+                # Same or empty attributes (e.g. "a cat and a cat"): merge/keep single entry
+                quantified.append((noun, entries[0][1], entries[0][2]))
 
     return quantified
 
 
-def _extract_relations(prompt: str) -> list[tuple[str, str, str]]:
+
+def _extract_relations(
+    prompt: str,
+    known_labels: list[str] | None = None,
+) -> list[tuple[str, str, str]]:
     """Extract explicit spatial relationships (e.g. ('monkey', 'riding', 'giraffe'))."""
     lowered = prompt.lower()
     style_set = {item for sublist in _STYLE_KEYWORDS.values() for item in sublist}
     style_words = {w for s in style_set for w in s.split()}
     skip_set = (
         _STOPWORDS
-        # _NUM_WORDS is a dict (word -> value); union with a set needs its keys.
         | set(_NUM_WORDS)
         | _COMMON_ADJECTIVES
         | _ACTION_VERBS
@@ -1712,7 +1764,6 @@ def _extract_relations(prompt: str) -> list[tuple[str, str, str]]:
     matched_spans: list[tuple[int, int]] = []
     raw_matches: list[tuple[int, int, str]] = []
 
-    # Match longest phrases first to prevent 'in'/'on' from creating overlapping duplicate relations
     for phrase, rel_type in _RELATION_PHRASES:
         pattern = rf"\b{re.escape(phrase)}\b"
         for m in re.finditer(pattern, lowered):
@@ -1722,7 +1773,6 @@ def _extract_relations(prompt: str) -> list[tuple[str, str, str]]:
             matched_spans.append((start, end))
             raw_matches.append((start, end, rel_type))
 
-    # Sort matches chronologically by their position in the prompt
     raw_matches.sort(key=lambda x: x[0])
 
     relations: list[tuple[str, str, str]] = []
@@ -1733,18 +1783,35 @@ def _extract_relations(prompt: str) -> list[tuple[str, str, str]]:
         after_text = lowered[end:next_start].strip()
         prev_end = end
 
-        before_words = [
-            w for w in re.findall(r"[a-zA-Z]+", before_text) if w not in skip_set and len(w) >= 3
-        ]
-        after_words = [
-            w for w in re.findall(r"[a-zA-Z]+", after_text) if w not in skip_set and len(w) >= 3
-        ]
-        obj = after_words[0] if after_words else "object"
-        if before_words:
-            for subj in before_words:
-                relations.append((subj, rel_type, obj))
-        else:
-            relations.append(("subject", rel_type, obj))
+        subj = None
+        if known_labels:
+            for lbl in sorted(known_labels, key=len, reverse=True):
+                if re.search(rf"\b{re.escape(lbl)}\b", before_text):
+                    subj = lbl
+                    break
+        if not subj:
+            before_words = [
+                w
+                for w in re.findall(r"[a-zA-Z]+", before_text)
+                if w not in skip_set and len(w) >= 3
+            ]
+            subj = before_words[0] if before_words else "subject"
+
+        obj = None
+        if known_labels:
+            for lbl in sorted(known_labels, key=len, reverse=True):
+                if re.search(rf"\b{re.escape(lbl)}\b", after_text):
+                    obj = lbl
+                    break
+        if not obj:
+            after_words = [
+                w
+                for w in re.findall(r"[a-zA-Z]+", after_text)
+                if w not in skip_set and len(w) >= 3
+            ]
+            obj = after_words[0] if after_words else "object"
+
+        relations.append((subj, rel_type, obj))
 
     return relations
 
@@ -1761,17 +1828,40 @@ def extract_position_constraints(
     """
     lowered = prompt.lower()
     positions: dict[str, str] = {}
-    pattern = re.compile(r"\b(?:on|in|at|to|toward|towards)\s+(?:the\s+)?([a-z]+)(?:\s+side)?\b")
+    pattern = re.compile(
+        r"\b(?:on|in|at|to|toward|towards)\s+(?:the\s+)?([a-z]+)(?:\s+side)?\b(?!\s+of\b)"
+    )
     for match in pattern.finditer(lowered):
         canonical = _POSITION_WORDS.get(match.group(1))
         if canonical is None:
             continue
-        preceding = re.findall(r"[a-z][a-z'-]+", lowered[: match.start()])
-        for word in reversed(preceding):
-            if word in known_labels:
-                positions.setdefault(word, canonical)
-                break
+        preceding_text = lowered[: match.start()]
+        best_label = None
+        best_pos = -1
+        for lbl in known_labels:
+            for m_lbl in re.finditer(rf"\b{re.escape(lbl)}\b", preceding_text):
+                if m_lbl.end() > best_pos:
+                    best_pos = m_lbl.end()
+                    best_label = lbl
+            if best_label is None:
+                lbl_words = extract_words(lbl)
+                if lbl_words and all(
+                    re.search(rf"\b{re.escape(w)}\b", preceding_text) for w in lbl_words
+                ):
+                    best_label = lbl
+
+        if best_label is not None:
+            positions.setdefault(best_label, canonical)
+        else:
+            preceding = re.findall(r"[a-z][a-z'-]+", preceding_text)
+            for word in reversed(preceding):
+                if word in known_labels:
+                    positions.setdefault(word, canonical)
+                    break
     return positions
+
+
+
 
 
 def drop_spurious_relations(
@@ -1838,90 +1928,115 @@ def _compute_layout_boxes(
         return boxes
 
     handled: set[str] = set()
-    # A stated position is the strongest signal available, so it is applied first
-    # and never overwritten by the generic relation slots below.
+
+    # 1. A stated absolute position is applied first
     for label, position in positions.items():
         ymin, xmin, ymax, xmax = _POSITION_BOXES[position]
         boxes[label] = NormalizedBox(ymin=ymin, xmin=xmin, ymax=ymax, xmax=xmax)
         handled.add(label)
-    # Group relations by (rel_type, obj) to handle co-subjects on a surface or relation
+
+    # 2. Directional lateral relations (left_of / right_of) take top priority for horizontal layout
+    for subj, rel_type, obj in relations_data:
+        if subj in positions or obj in positions:
+            continue
+        if rel_type == "left_of":
+            if subj not in handled:
+                boxes[subj] = NormalizedBox(ymin=0.15, xmin=0.02, ymax=0.90, xmax=0.46)
+                handled.add(subj)
+            if obj not in handled:
+                boxes[obj] = NormalizedBox(ymin=0.15, xmin=0.54, ymax=0.90, xmax=0.98)
+                handled.add(obj)
+        elif rel_type == "right_of":
+            if subj not in handled:
+                boxes[subj] = NormalizedBox(ymin=0.15, xmin=0.54, ymax=0.90, xmax=0.98)
+                handled.add(subj)
+            if obj not in handled:
+                boxes[obj] = NormalizedBox(ymin=0.15, xmin=0.02, ymax=0.90, xmax=0.46)
+                handled.add(obj)
+
+    # 3. Group remaining relations by (rel_type, obj) to handle surfaces and containment
     rel_groups: dict[tuple[str, str], list[str]] = {}
     for subj, rel_type, obj in relations_data:
         if subj in positions or obj in positions:
-            # At least one side is pinned by an explicit position; the generic
-            # relation slots would move it back to the default centre.
+            continue
+        if rel_type in ("left_of", "right_of"):
             continue
         rel_groups.setdefault((rel_type, obj), []).append(subj)
 
     for (rel_type, obj), subjs in rel_groups.items():
         if rel_type in ("riding", "on", "above"):
-            boxes[obj] = NormalizedBox(ymin=0.45, xmin=0.15, ymax=0.92, xmax=0.85)
-            handled.add(obj)
-            if len(subjs) == 1:
-                boxes[subjs[0]] = NormalizedBox(ymin=0.10, xmin=0.25, ymax=0.50, xmax=0.75)
-                handled.add(subjs[0])
-            else:
-                n_subjs = len(subjs)
-                for idx, subj in enumerate(subjs):
+            if obj not in handled:
+                boxes[obj] = NormalizedBox(ymin=0.45, xmin=0.15, ymax=0.92, xmax=0.85)
+                handled.add(obj)
+            unhandled_subjs = [s for s in subjs if s not in handled]
+            if unhandled_subjs:
+                n_subjs = len(unhandled_subjs)
+                for idx, subj in enumerate(unhandled_subjs):
                     col_w = 0.80 / max(n_subjs, 1)
                     xmin = 0.10 + idx * col_w
                     xmax = min(0.90, xmin + col_w * 0.90)
                     boxes[subj] = NormalizedBox(ymin=0.10, xmin=xmin, ymax=0.50, xmax=xmax)
                     handled.add(subj)
         elif rel_type in ("under", "below"):
-            boxes[obj] = NormalizedBox(ymin=0.10, xmin=0.15, ymax=0.50, xmax=0.85)
-            handled.add(obj)
-            if len(subjs) == 1:
-                boxes[subjs[0]] = NormalizedBox(ymin=0.52, xmin=0.20, ymax=0.92, xmax=0.80)
-                handled.add(subjs[0])
-            else:
-                n_subjs = len(subjs)
-                for idx, subj in enumerate(subjs):
+            if obj not in handled:
+                boxes[obj] = NormalizedBox(ymin=0.10, xmin=0.15, ymax=0.50, xmax=0.85)
+                handled.add(obj)
+            unhandled_subjs = [s for s in subjs if s not in handled]
+            if unhandled_subjs:
+                n_subjs = len(unhandled_subjs)
+                for idx, subj in enumerate(unhandled_subjs):
                     col_w = 0.80 / max(n_subjs, 1)
                     xmin = 0.10 + idx * col_w
                     xmax = min(0.90, xmin + col_w * 0.90)
                     boxes[subj] = NormalizedBox(ymin=0.52, xmin=xmin, ymax=0.92, xmax=xmax)
                     handled.add(subj)
         elif rel_type in ("next_to", "beside", "holding"):
-            boxes[obj] = NormalizedBox(ymin=0.20, xmin=0.52, ymax=0.85, xmax=0.92)
-            handled.add(obj)
-            n_subjs = len(subjs)
-            for idx, subj in enumerate(subjs):
-                col_w = 0.40 / max(n_subjs, 1)
-                xmin = 0.08 + idx * col_w
-                xmax = min(0.48, xmin + col_w * 0.90)
-                boxes[subj] = NormalizedBox(ymin=0.20, xmin=xmin, ymax=0.85, xmax=xmax)
-                handled.add(subj)
+            if obj not in handled:
+                boxes[obj] = NormalizedBox(ymin=0.20, xmin=0.52, ymax=0.85, xmax=0.92)
+                handled.add(obj)
+            unhandled_subjs = [s for s in subjs if s not in handled]
+            if unhandled_subjs:
+                n_subjs = len(unhandled_subjs)
+                for idx, subj in enumerate(unhandled_subjs):
+                    col_w = 0.40 / max(n_subjs, 1)
+                    xmin = 0.08 + idx * col_w
+                    xmax = min(0.48, xmin + col_w * 0.90)
+                    boxes[subj] = NormalizedBox(ymin=0.20, xmin=xmin, ymax=0.85, xmax=xmax)
+                    handled.add(subj)
         elif rel_type in ("in_front_of", "ahead_of", "far_in_front_of"):
-            boxes[obj] = NormalizedBox(ymin=0.10, xmin=0.25, ymax=0.60, xmax=0.75)
-            handled.add(obj)
-            n_subjs = len(subjs)
-            for idx, subj in enumerate(subjs):
-                col_w = 0.60 / max(n_subjs, 1)
-                xmin = 0.20 + idx * col_w
-                xmax = min(0.80, xmin + col_w * 0.90)
-                boxes[subj] = NormalizedBox(ymin=0.35, xmin=xmin, ymax=0.90, xmax=xmax)
-                handled.add(subj)
+            if obj not in handled:
+                boxes[obj] = NormalizedBox(ymin=0.10, xmin=0.25, ymax=0.60, xmax=0.75)
+                handled.add(obj)
+            unhandled_subjs = [s for s in subjs if s not in handled]
+            if unhandled_subjs:
+                n_subjs = len(unhandled_subjs)
+                for idx, subj in enumerate(unhandled_subjs):
+                    col_w = 0.60 / max(n_subjs, 1)
+                    xmin = 0.20 + idx * col_w
+                    xmax = min(0.80, xmin + col_w * 0.90)
+                    boxes[subj] = NormalizedBox(ymin=0.35, xmin=xmin, ymax=0.90, xmax=xmax)
+                    handled.add(subj)
         elif rel_type in ("behind", "far_behind", "behind_translucent"):
-            boxes[obj] = NormalizedBox(ymin=0.35, xmin=0.20, ymax=0.90, xmax=0.80)
-            handled.add(obj)
-            n_subjs = len(subjs)
-            for idx, subj in enumerate(subjs):
-                col_w = 0.50 / max(n_subjs, 1)
-                xmin = 0.25 + idx * col_w
-                xmax = min(0.75, xmin + col_w * 0.90)
-                boxes[subj] = NormalizedBox(ymin=0.10, xmin=xmin, ymax=0.60, xmax=xmax)
-                handled.add(subj)
+            if obj not in handled:
+                boxes[obj] = NormalizedBox(ymin=0.35, xmin=0.20, ymax=0.90, xmax=0.80)
+                handled.add(obj)
+            unhandled_subjs = [s for s in subjs if s not in handled]
+            if unhandled_subjs:
+                n_subjs = len(unhandled_subjs)
+                for idx, subj in enumerate(unhandled_subjs):
+                    col_w = 0.50 / max(n_subjs, 1)
+                    xmin = 0.25 + idx * col_w
+                    xmax = min(0.75, xmin + col_w * 0.90)
+                    boxes[subj] = NormalizedBox(ymin=0.10, xmin=xmin, ymax=0.60, xmax=xmax)
+                    handled.add(subj)
         elif rel_type == "inside":
-            # Nested geometry: subject is strictly nested inside object
-            boxes[obj] = NormalizedBox(ymin=0.15, xmin=0.15, ymax=0.85, xmax=0.85)
-            handled.add(obj)
-            n_subjs = len(subjs)
-            if n_subjs == 1:
-                boxes[subjs[0]] = NormalizedBox(ymin=0.30, xmin=0.30, ymax=0.70, xmax=0.70)
-                handled.add(subjs[0])
-            else:
-                for idx, subj in enumerate(subjs):
+            if obj not in handled:
+                boxes[obj] = NormalizedBox(ymin=0.15, xmin=0.15, ymax=0.85, xmax=0.85)
+                handled.add(obj)
+            unhandled_subjs = [s for s in subjs if s not in handled]
+            if unhandled_subjs:
+                n_subjs = len(unhandled_subjs)
+                for idx, subj in enumerate(unhandled_subjs):
                     col_w = 0.50 / max(n_subjs, 1)
                     xmin = 0.25 + idx * col_w
                     xmax = min(0.75, xmin + col_w * 0.90)
@@ -1935,6 +2050,7 @@ def _compute_layout_boxes(
             boxes[label] = box
 
     return boxes
+
 
 
 def _free_x_intervals(
@@ -2162,7 +2278,8 @@ def plan_semantic_layout(
 
     # 2. Extract objects, counts, and spatial relations
     quantified = _extract_quantified_nouns(prompt_clean)
-    relations_raw = _extract_relations(prompt_clean)
+    known_labels = [q[0] for q in quantified]
+    relations_raw = _extract_relations(prompt_clean, known_labels=known_labels)
     positions = extract_position_constraints(prompt_clean, {label for label, _, _ in quantified})
     relations_raw = drop_spurious_relations(relations_raw, positions)
 
@@ -2177,6 +2294,7 @@ def plan_semantic_layout(
 
     prompt_words = extract_words(prompt_clean)
     token_indices_by_word: dict[str, list[int]] = {}
+    token_indices_by_word_pos: dict[int, list[int]] = {}
 
     if tokenizer is not None:
         encoded = tokenizer(prompt_clean, add_special_tokens=True)
@@ -2188,6 +2306,7 @@ def plan_semantic_layout(
             if index is not None and 0 <= index < len(prompt_words):
                 w = prompt_words[index]
                 token_indices_by_word.setdefault(w, []).append(position)
+                token_indices_by_word_pos.setdefault(index, []).append(position)
 
     assumptions: list[str] = []
 
@@ -2285,7 +2404,12 @@ def plan_semantic_layout(
     else:
         for label, count, attrs in quantified:
             box = layout_boxes.get(label, NormalizedBox(ymin=0.2, xmin=0.2, ymax=0.8, xmax=0.8))
-            tok_indices = _resolve_label_token_indices(label, token_indices_by_word)
+            tok_indices = _resolve_label_token_indices(
+                label,
+                token_indices_by_word,
+                token_indices_by_word_pos=token_indices_by_word_pos,
+                prompt_words=prompt_words,
+            )
             d_prior = depth_priors.get(
                 label, EntityDepthPrior(mu_z=0.5, sigma_z=0.2, depth_confidence=0.5)
             )
@@ -2296,6 +2420,7 @@ def plan_semantic_layout(
                 depth_confidence=d_prior.depth_confidence,
             )
             ent_id = None
+
 
             # Multi-Modal Visual Co-Reference Grounding
             if norm_visual_context and norm_visual_context.entities:
