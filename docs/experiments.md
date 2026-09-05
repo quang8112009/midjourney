@@ -186,3 +186,103 @@ To audit potential detector false negatives (cases where the generated image is 
 ### 9.3 Statistical Significance Implication
 Because the detector has **$100\%$ precision** and a **$15.8\%$ false negative rate**, the automated benchmark under-reports true spatial steering successes. The true underlying effect size of cross-attention lateral guidance is strictly larger than the measured $p = 0.000394$.
 
+---
+
+## 10. Diffusion Transformer (MMDiT) Architecture Study: SD 3.5 Medium ($N=192$ Paired Runs, 1,152 Images)
+
+To measure the cross-architecture transfer of soft spatial cross-attention guidance from UNet architectures (SD v1.5) to multimodal diffusion transformers (MMDiT), a powered benchmark was executed on `stabilityai/stable-diffusion-3.5-medium` ($2.5\text{B}$ parameter transformer, 24 joint blocks, 37 hooked attention processors) at matched baseline settings ($512\times 512$, 20 Euler steps).
+
+Two complementary benchmark suites were tested:
+1. **Standard 24 Suite ($N=192$ pairs per condition, 576 images):** The exact 24 lateral prompt specifications evaluated on SD v1.5 (136 directional pairs, 56 symmetric pairs across 8 seeds).
+2. **Hard 24 Suite ($N=192$ pairs per condition, 576 images):** A stress-test suite of 24 strictly directional prompts (12 `left_of`, 12 `right_of`, 0 symmetric) featuring same-class attribute binding, shared color palettes, and visual clutter to eliminate baseline ceiling effects.
+
+### 10.1 Backbone Evolution: Unaided Directional Spatial Baseline Comparison
+
+Comparing the unguided (strength 0.00 / OFF) performance of the 2022 UNet backbone (Stable Diffusion v1.5) against the 2024 Multimodal Diffusion Transformer (SD 3.5 Medium) across the exact same 136 directional pairs ($512\times 512$, 20 steps, 8 seeds):
+
+| Metric / Category | SD v1.5 Baseline (OFF) | SD 3.5 Medium Baseline (OFF) | Absolute Gain |
+| :--- | :---: | :---: | :---: |
+| **Directional Satisfaction (`left_of` / `right_of`, $N=136$)** | **$27.94\%$** ($38/136$) | **$80.88\%$** ($110/136$) | **$+52.94\%$** |
+| `left_of` Prompts ($N=72$) | $27.78\%$ ($20/72$) | $86.11\%$ ($62/72$) | $+58.33\%$ |
+| `right_of` Prompts ($N=64$) | $28.12\%$ ($18/64$) | $75.00\%$ ($48/64$) | $+46.88\%$ |
+| Symmetric Prompts (`beside`, $N=56$) | $44.64\%$ ($25/56$) | $91.07\%$ ($51/56$) | $+46.43\%$ |
+| **Overall Standard 24 Satisfaction ($N=192$)** | **$32.81\%$** ($63/192$) | **$83.85\%$** ($161/192$) | **$+51.04\%$** |
+| Dual-Entity Presence Rate ($N=192$) | $59.38\%$ ($114/192$) | $94.79\%$ ($182/192$) | $+35.41\%$ |
+
+**Key Takeaway:** SD 3.5 Medium exhibits a dramatic $+52.94\%$ jump in unaided directional spatial reasoning over SD v1.5. This reflects the superior semantic grounding of the $4.7\text{B}$ parameter T5-XXL text encoder and the multimodal cross-attention dynamics of the $2.5\text{B}$ parameter MMDiT backbone.
+
+---
+
+### 10.2 Standard 24 Benchmark Results (Matched SD v1.5 Suite, $N=192$)
+
+| Condition | Overall Satisfaction | Wilson 95% CI | Directional ($N=136$) | `left_of` ($N=72$) | `right_of` ($N=64$) | Symmetric ($N=56$) | Dual Presence | Misplaced / Omitted | Net Gain ($b-c$) | McNemar $p$-value | Significant? |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **OFF (0.00)** | **$83.85\%$** ($161/192$) | $[78.0\%, 88.4\%]$ | $80.88\%$ ($110/136$) | $86.11\%$ ($62/72$) | $75.00\%$ ($48/64$) | $91.07\%$ ($51/56$) | $94.79\%$ ($182/192$) | $21$ / $10$ | — | *Baseline Ref* | — |
+| **3.00** | **$91.15\%$** ($175/192$) | $[86.3\%, 94.4\%]$ | **$90.44\%$** ($123/136$) | $94.44\%$ ($68/72$) | $85.94\%$ ($55/64$) | **$92.86\%$** ($52/56$) | **$96.35\%$** ($185/192$) | **$10$** / **$7$** | **$+14$** ($17-3$) | **$p = 0.002577$** | **YES ($p < 0.01$)** |
+| **6.00** | **$89.58\%$** ($172/192$) | $[84.5\%, 93.2\%]$ | $87.50\%$ ($119/136$) | $87.50\%$ ($63/72$) | $87.50\%$ ($56/64$) | $94.64\%$ ($53/56$) | $94.27\%$ ($181/192$) | $9$ / $11$ | $+11$ ($24-13$) | $p = 0.098872$ | Inconclusive |
+
+---
+
+### 10.3 Hard 24 Benchmark Results (Directional Stress-Test Suite, $N=192$)
+
+| Condition | Overall Satisfaction | Wilson 95% CI | `left_of` ($N=96$) | `right_of` ($N=96$) | Dual Presence | Misplaced / Omitted | Net Gain ($b-c$) | McNemar $p$-value | Significant? |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **OFF (0.00)** | **$52.08\%$** ($100/192$) | $[45.1\%, 59.0\%]$ | $50.00\%$ ($48/96$) | $54.17\%$ ($52/96$) | $77.60\%$ ($149/192$) | $49$ / $43$ | — | *Baseline Ref* | — |
+| **3.00** | **$59.38\%$** ($114/192$) | $[52.3\%, 66.1\%]$ | $64.58\%$ ($62/96$) | $54.17\%$ ($52/96$) | **$80.21\%$** ($154/192$) | $40$ / $38$ | **$+14$** ($25-11$) | **$p = 0.028817$** | **YES ($p < 0.05$)** |
+| **6.00** | **$61.46\%$** ($118/192$) | $[54.4\%, 68.1\%]$ | **$67.71\%$** ($65/96$) | **$55.21\%$** ($53/96$) | **$80.21\%$** ($154/192$) | **$36$** / $38$ | **$+18$** ($37-19$) | **$p = 0.022241$** | **YES ($p < 0.05$)** |
+
+---
+
+### 10.4 Forensic Analysis of the `right_of` Asymmetry on Hard 24
+
+On the Hard 24 suite, an apparent directional asymmetry emerges when aggregating across all 24 prompts:
+* `left_of`: $50.00\% \to 64.58\% \to 67.71\%$ (strong gain, $+17.71\%$)
+* `right_of`: $54.17\% \to 54.17\% \to 55.21\%$ (flat, $+1.04\%$)
+
+Because the Hard 24 suite was engineered with 12 balanced inversion pairs (e.g. `hard_lat_01` `left_of` vs `hard_lat_13` `right_of`), a forensic breakdown was conducted separating **Same-Class Color Prompts** (Pairs 1–6, shared head nouns like `mug ... mug`, `apple ... apple`, `candle ... candle`, `book ... book`, `car ... car`, `bottle ... bottle`) from **Complex / Cluttered Prompts** (Pairs 7–12, distinct head nouns like `fork ... spoon`, `guitar ... microphone`, `cup ... eyeglasses`, `fern ... clock`, `cake ... milk`, `compass ... map`):
+
+#### Sub-Suite Breakout: Same-Class vs Distinct Nouns ($N=48$ pairs per sub-group)
+
+| Sub-Group | Direction | OFF (0.00) | ON (3.00) | ON (6.00) | Net Trajectory |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Distinct Nouns (Pairs 7–12)** | `left_of` ($N=48$) | $45.83\%$ ($22/48$) | **$58.33\%$** ($28/48$) | **$56.25\%$** ($27/48$) | **$+12.50\%$ gain** |
+| **Distinct Nouns (Pairs 7–12)** | `right_of` ($N=48$) | $58.33\%$ ($28/48$) | **$70.83\%$** ($34/48$) | **$70.83\%$** ($34/48$) | **$+12.50\%$ gain** |
+| **Same-Class Color (Pairs 1–6)** | `left_of` ($N=48$) | $54.17\%$ ($26/48$) | **$70.83\%$** ($34/48$) | **$79.17\%$** ($38/48$) | $+25.00\%$ gain |
+| **Same-Class Color (Pairs 1–6)** | `right_of` ($N=48$) | $50.00\%$ ($24/48$) | **$37.50\%$** ($18/48$) | **$39.58\%$** ($19/48$) | $-10.42\%$ regression |
+
+#### Root Cause Identification:
+1. **Mathematical Symmetry Verified:** On distinct-noun prompts (Pairs 7–12), spatial guidance operates with **exact symmetry** ($+12.50\%$ gain on `left_of` and $+12.50\%$ gain on `right_of` at strength 3.0). The underlying coordinate boxes (`left`: $[0.15, 0.02, 0.90, 0.46]$, `right`: $[0.15, 0.54, 0.90, 0.98]$) and evaluator geometric predicates (`sx < ox` vs `sx > ox`) are strictly symmetric.
+2. **Planner Noun De-duplication in Same-Class Pairs:** In prompts where both entities share the same head noun (e.g., `"a red ceramic mug to the right of a blue ceramic mug"`), the semantic planner's quantified noun extractor groups identical head nouns into a single entity slot (`'mug'`).
+3. **Asymmetric Interaction with English Reading Prior:**
+   - For `left_of` (`hard_lat_01`), the single `'mug'` slot is placed on the left ($\mu_x = 0.24$). The primary entity (blue mug) anchors to the left bias field, while the secondary entity (red mug) naturally spills over to the right half following standard English autoregressive generative order ($54.2\% \to 70.8\% \to 79.2\%$).
+   - For `right_of` (`hard_lat_13`), the single `'mug'` slot is placed on the right ($\mu_x = 0.76$). This steers both the red mug and blue mug attention tokens into the right quadrant $[0.54, 0.98]$. Because the blue mug has no leftward spatial anchor, it suffers occlusion, clustering, or omission by the dominant red mug ($50.0\% \to 37.5\%$).
+4. **Architectural Implication:** Spatial guidance for same-class compound entities requires attribute-aware entity disambiguation in the semantic planner (e.g., treating `blue mug` and `red mug` as distinct entities rather than de-duplicating on `mug`).
+
+---
+
+### 10.5 Perceptual Quality & Aesthetic Preservation (SD 3.5 Medium)
+
+| Benchmark | Condition | LAION-5B Aesthetic Score | CLIP-ViT-L/14 Cosine Sim | Mean Denoising Time / Step |
+| :--- | :---: | :---: | :---: | :---: |
+| **Standard 24** | **OFF (0.00)** | $5.318$ | $0.2843$ | $0.198\text{ s}$ |
+| **Standard 24** | **3.00** | **$5.346$** | **$0.2827$** | $0.252\text{ s}$ |
+| **Standard 24** | **6.00** | $5.350$ | $0.2835$ | $0.261\text{ s}$ |
+| **Hard 24** | **OFF (0.00)** | $5.447$ | $0.2867$ | $0.195\text{ s}$ |
+| **Hard 24** | **3.00** | **$5.454$** | **$0.2863$** | $0.254\text{ s}$ |
+| **Hard 24** | **6.00** | $5.427$ | $0.2833$ | $0.258\text{ s}$ |
+
+---
+
+### 10.6 Operational Guidance Strength Analysis & Recommendations
+
+When comparing strength 3.00 and strength 6.00 across both suites:
+1. **Confidence Interval Overlap:**
+   - On Standard 24: Wilson 95% CIs overlap heavily ($[86.3\%, 94.4\%]$ for 3.0 vs $[84.5\%, 93.2\%]$ for 6.0).
+   - On Hard 24: Wilson 95% CIs overlap heavily ($[52.3\%, 66.1\%]$ for 3.0 vs $[54.4\%, 68.1\%]$ for 6.0).
+   - At $N=192$ sample size, strength 3.0 and strength 6.0 are **not statistically separable** as a universal optimum.
+2. **Task-Distribution Dependent Operating Points:**
+   - **Strength 3.00 (Standard Compositions):** Optimal for standard scenes where the base backbone already places objects with high fidelity ($80.88\% \to 90.44\%$, $p = 0.00258$). Strength 3.0 maximizes net paired gain ($+14$ seeds fixed vs 3 lost) without over-constraining the model.
+   - **Strength 6.00 (Hard / Cluttered Compositions):** Optimal for highly ambiguous or cluttered compositions (such as Hard 24, where strength 6.0 reaches $61.46\%$, $p = 0.0222$, net $+18$ pairs fixed).
+3. **Aesthetic Invariance:** Across all tested conditions, LAION aesthetic scores ($5.318 \to 5.346 / 5.350$) and CLIP text-image cosine similarities ($0.284 \to 0.283$) remain fully preserved due to strict zero-bias isolation on CLIP-L and CLIP-G tokens.
+
+
