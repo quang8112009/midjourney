@@ -283,3 +283,51 @@ def test_all_encoders_token_resolution_invariant():
                     f"Entity '{obj.label}' in {spec['id']} resolved to empty token list on {name}!"
                 )
 
+
+def test_same_class_distinct_attributes_mirrored_layout():
+    """Verify that same-class entities with distinct attributes emit separate slots."""
+    from transformers import AutoTokenizer
+
+    from app.services.editing.prompt_intent import analyze_prompt
+    from app.services.editing.semantic_planner import plan_semantic_layout
+
+    tok_t5 = AutoTokenizer.from_pretrained("models/sd35_medium/tokenizer_3")
+
+    prompt_left = "a blue ceramic mug to the left of a red ceramic mug on a wooden kitchen table"
+    prompt_right = "a red ceramic mug to the right of a blue ceramic mug on a wooden kitchen table"
+
+    plan_left = plan_semantic_layout(analyze_prompt(prompt_left), tokenizer=tok_t5)
+    plan_right = plan_semantic_layout(analyze_prompt(prompt_right), tokenizer=tok_t5)
+
+    # Find entities in left prompt
+    blue_left = next(
+        (o for o in plan_left.objects if "blue" in o.label or "blue" in o.attributes), None
+    )
+    red_left = next(
+        (o for o in plan_left.objects if "red" in o.label or "red" in o.attributes), None
+    )
+    assert blue_left is not None, "Expected blue mug entity in left prompt"
+    assert red_left is not None, "Expected red mug entity in left prompt"
+    assert blue_left.gaussian.mu_x < red_left.gaussian.mu_x, "Left phrasing must place blue left"
+    assert blue_left.entity_id != red_left.entity_id, "Entities must have distinct entity_ids"
+
+    # Find entities in right prompt
+    red_right = next(
+        (o for o in plan_right.objects if "red" in o.label or "red" in o.attributes), None
+    )
+    blue_right = next(
+        (o for o in plan_right.objects if "blue" in o.label or "blue" in o.attributes), None
+    )
+    assert red_right is not None, "Expected red mug entity in right prompt"
+    assert blue_right is not None, "Expected blue mug entity in right prompt"
+    assert red_right.gaussian.mu_x > blue_right.gaussian.mu_x, "Right phrasing must place red right"
+    assert red_right.entity_id != blue_right.entity_id, "Entities must have distinct entity_ids"
+
+    # Mirrored layout check
+    err_blue = abs(blue_left.gaussian.mu_x + red_right.gaussian.mu_x - 1.0)
+    err_red = abs(red_left.gaussian.mu_x + blue_right.gaussian.mu_x - 1.0)
+    assert err_blue < 0.05, "Layout must be horizontally mirrored"
+    assert err_red < 0.05, "Layout must be horizontally mirrored"
+
+
+
