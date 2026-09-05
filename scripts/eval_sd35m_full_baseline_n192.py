@@ -79,6 +79,8 @@ def run_full_baseline_n192():
                 dt = time.time() - t0
                 img.save(img_path)
                 log(f"  [{run_idx:03d}/{total_runs}] {pid} (s={seed}) | Generated in {dt:.1f}s")
+                gc.collect()
+                torch.cuda.empty_cache()
 
         log(f"\n[+] All {total_runs} images ready in {time.time() - t_gen_start:.1f}s! Freeing pipeline from GPU...")
         del pipe

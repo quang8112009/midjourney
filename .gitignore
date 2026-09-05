@@ -21,4 +21,5 @@ benchmarks/images/lateral_dedicated_n192/
 benchmarks/images/rigorous_spatial_n96/
 benchmarks/images/strength_sweep/
 benchmarks/images/sd35m_*/
+benchmarks/images/same_class_detector_validation/
 
