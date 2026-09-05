@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import os
 import shutil
 import sys
 import time
 from pathlib import Path
 
+import huggingface_hub
 import requests
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -59,7 +61,6 @@ def setup_sd35_medium():
 
     # 2. Download Medium-specific files (transformer & config)
     log("\n--- [Step 2] Downloading Medium-Specific Transformer & Configs ---")
-    import huggingface_hub
     hf_token = os.environ.get("HF_TOKEN") or huggingface_hub.get_token()
     auth_headers = {"Authorization": f"Bearer {hf_token}"} if hf_token else {}
     for filename in FILES_TO_DOWNLOAD:
