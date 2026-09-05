@@ -341,14 +341,21 @@ def build_layout_guidance_bias(
                     occlusion = torch.clamp(obj_weights[j] * float(delta_z * 1.5), 0.0, 0.70)
                     obj_weights[i] = obj_weights[i] * (1.0 - occlusion)
 
+    # MMDiT offset for SD 3.5 joint context (CLIP-L 77 + CLIP-G 77 + T5 512).
+    # If token_idx < 154, local T5 token is shifted into joint T5 slice [154..665].
+    # If token_idx >= 154, it is already mapped to joint context space.
+    txt_offset = 154 if num_text_tokens == 666 else 0
+
     # 1. Discrete planned objects
     for idx, obj in enumerate(plan.objects):
         if not obj.token_indices:
             continue
         spatial_weights = obj_weights[idx]
         for token_idx in obj.token_indices:
-            if 0 <= token_idx < num_text_tokens:
-                bias[:, token_idx] += spatial_weights * float(guidance_strength)
+            is_local = txt_offset > 0 and token_idx < 154
+            target_idx = (txt_offset + token_idx) if is_local else token_idx
+            if 0 <= target_idx < num_text_tokens:
+                bias[:, target_idx] += spatial_weights * float(guidance_strength)
 
     # 2. Continuous density fields (crowds, swarms, fields, mass entities)
     for df in density_fields:
@@ -358,8 +365,10 @@ def build_layout_guidance_bias(
         spatial_weights = heatmap.reshape(-1)[:num_image_tokens]
 
         for token_idx in df.token_indices:
-            if 0 <= token_idx < num_text_tokens:
-                bias[:, token_idx] += spatial_weights * float(guidance_strength)
+            is_local = txt_offset > 0 and token_idx < 154
+            target_idx = (txt_offset + token_idx) if is_local else token_idx
+            if 0 <= target_idx < num_text_tokens:
+                bias[:, target_idx] += spatial_weights * float(guidance_strength)
 
     return bias
 

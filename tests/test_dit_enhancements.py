@@ -256,3 +256,30 @@ def test_compound_noun_phrase_parsing_and_adjective_attachment():
         assert expected_attr in obj.attributes, (
             f"Expected attribute '{expected_attr}' for '{expected_noun}'"
         )
+
+
+def test_all_encoders_token_resolution_invariant():
+    """Verify that every planned entity resolves to >= 1 token on CLIP-L, CLIP-G, T5-XXL."""
+    from transformers import AutoTokenizer
+
+    from app.services.editing.prompt_intent import analyze_prompt
+    from app.services.editing.semantic_planner import plan_semantic_layout
+    from scripts.eval_spatial_lateral_dedicated import LATERAL_24_SPECS
+
+    tok_clip1 = AutoTokenizer.from_pretrained("models/sd35_medium/tokenizer")
+    tok_clip2 = AutoTokenizer.from_pretrained("models/sd35_medium/tokenizer_2")
+    tok_t5 = AutoTokenizer.from_pretrained("models/sd35_medium/tokenizer_3")
+
+    tokenizers = [("CLIP-L", tok_clip1), ("CLIP-G", tok_clip2), ("T5-XXL", tok_t5)]
+
+    for spec in LATERAL_24_SPECS:
+        prompt = spec["prompt"]
+        intent = analyze_prompt(prompt, mode="generate")
+        for name, tok in tokenizers:
+            plan = plan_semantic_layout(intent, tokenizer=tok)
+            assert len(plan.objects) >= 2, f"Expected >= 2 objects in {spec['id']}"
+            for obj in plan.objects:
+                assert len(obj.token_indices) > 0, (
+                    f"Entity '{obj.label}' in {spec['id']} resolved to empty token list on {name}!"
+                )
+
