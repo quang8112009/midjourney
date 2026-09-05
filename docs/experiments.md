@@ -35,7 +35,9 @@ To test the hypothesis that 2D attention bias acts along horizontal coordinates,
 * **Strength 3.00:** $\text{SSIM} = 0.8368$, $\text{LAION} = 5.385$, $\text{CLIP} = 0.2743$
 * **Strength 6.00:** $\text{SSIM} = 0.7215$, $\text{LAION} = 5.370$, $\text{CLIP} = 0.2761$
 
-**Key Takeaway:** Lateral spatial steering is the one proven capability of 2D cross-attention guidance on SD v1.5 ($p = 5.0 \times 10^{-6}$), more than doubling directional accuracy from $25.00\% \to 53.68\%$.
+**Key Takeaways on SD v1.5 Lateral Guidance:**
+1. **Directional Steering Validated:** Lateral spatial steering is the one proven capability of 2D cross-attention guidance on SD v1.5 ($p = 5.0 \times 10^{-6}$), more than doubling directional accuracy from $25.00\% \to 53.68\%$ ($+28.68\%$ absolute gain).
+2. **Symmetric Relation Dynamics (`beside`, $N=56$):** The symmetric category scored $33/56$ ($58.93\%$) at both OFF and ON (6.00). Forensic seed inspection reveals this is not an inactive null state: the model experienced **9 paired gains ($b=9$)** and **9 paired losses ($c=9$)**, balancing out to net 0 ($p = 1.000$). Spatial guidance actively assigns distinct lateral quadrants ($\mu_x = 0.26$ for subject, $\mu_x = 0.72$ for object, $\Delta \mu_x = 0.46$).
 
 ---
 
@@ -198,7 +200,9 @@ Two complementary benchmark suites were tested:
 
 ### 10.1 Backbone Evolution: Unaided Directional Spatial Baseline Comparison
 
-Comparing the unguided (strength 0.00 / OFF) performance of the 2022 UNet backbone (Stable Diffusion v1.5) against the 2024 Multimodal Diffusion Transformer (SD 3.5 Medium) across the exact same 136 directional pairs ($512\times 512$, 20 steps, 8 seeds) under the same post-fix planner:
+Comparing the unguided (strength 0.00 / OFF) performance of the 2022 UNet backbone (Stable Diffusion v1.5) against the 2024 Multimodal Diffusion Transformer (SD 3.5 Medium) across the exact same 136 directional pairs ($512\times 512$, 20 steps, 8 seeds):
+
+*(Note: An audit of `LATERAL_24_SPECS` confirms that all 24 prompts feature distinct head nouns—e.g. `banana ... apple`, `car ... bicycle`, `mug ... laptop`—so the planner de-duplication fix has zero structural effect on the Standard 24 plans, making the SD 3.5 Medium measurements naturally invariant across code versions).*
 
 | Metric / Category | SD v1.5 Baseline (OFF) | SD 3.5 Medium Baseline (OFF) | Absolute Gain |
 | :--- | :---: | :---: | :---: |
