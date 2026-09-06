@@ -337,32 +337,49 @@ Because $512\times 512$ and $1024\times 1024$ score within $0.002$ on LAION v2.4
 
 To test whether aesthetic quality can be improved via prompt-level style expansion in the two-pass reasoning layer, an A/B study was executed on Stable Diffusion 3.5 Medium ($512\times 512$ / 20 Euler steps) across the standard 40 aesthetic prompts $\times$ 4 fixed seeds ($N=160$ paired runs).
 
-### 12.1 Paired Multi-Metric A/B Results (OFF vs ON, $N=160$ Pairs)
+### 12.1 Paired Multi-Metric A/B Results on SD 3.5 Medium (OFF vs ON, $N=160$ Pairs)
 
-| Metric | OFF (Mean $\pm$ Seed $\sigma$) | ON (Mean $\pm$ Seed $\sigma$) | Mean Paired Diff ($\bar{d}$) | 95% CI of Difference | Paired $t$-stat | Two-Tailed $p$-value | Conclusion |
+| Metric | OFF (Mean $\pm$ Seed $\sigma$) | ON (Mean $\pm$ Seed $\sigma$) | Mean Paired Diff ($\bar{d}$) | **95% Confidence Interval** | Paired $t$-stat | Two-Tailed $p$-value | Conclusion |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **LAION v2.4** | $6.350 \pm 0.162$ | $6.370 \pm 0.153$ | $+0.0200$ | $[-0.0267, +0.0666]$ | $t = +0.84$ | $p = 0.4016$ | **No Significant Gain** (Noise level) |
-| **ImageReward** | $0.9793 \pm 0.084$ | $0.9782 \pm 0.082$ | $-0.0011$ | $[-0.0249, +0.0228]$ | $t = -0.09$ | $p = 0.9305$ | Completely Flat |
-| **HPS v2.1** | $0.3394 \pm 0.003$ | $0.3393 \pm 0.003$ | $-0.0001$ | $[-0.0009, +0.0006]$ | $t = -0.37$ | $p = 0.7126$ | Completely Flat |
-| **CLIP Alignment** | $0.3022 \pm 0.011$ | $0.2967 \pm 0.012$ | **$-0.0055$** | $[-0.0086, -0.0024]$ | $t = -3.53$ | **$p = 0.0004$** | Slight Semantic Dilution |
-| **PickScore v1** | $0.1874 \pm 0.003$ | $0.1860 \pm 0.003$ | **$-0.0014$** | $[-0.0021, -0.0006]$ | $t = -3.60$ | **$p = 0.0003$** | Slight Preference Dilution |
+| **LAION v2.4** | $6.350 \pm 0.162$ | $6.370 \pm 0.153$ | $+0.0200$ | **$[-0.0267, +0.0666]$** | $t = +0.84$ | $p = 0.4016$ | **Flat / Within Noise** |
+| **ImageReward** | $0.9793 \pm 0.084$ | $0.9782 \pm 0.082$ | $-0.0011$ | **$[-0.0249, +0.0228]$** | $t = -0.09$ | $p = 0.9305$ | **Completely Flat** |
+| **HPS v2.1** | $0.3394 \pm 0.003$ | $0.3393 \pm 0.003$ | $-0.0001$ | **$[-0.0009, +0.0006]$** | $t = -0.37$ | $p = 0.7126$ | **Completely Flat** |
+| **CLIP Alignment** | $0.3022 \pm 0.011$ | $0.2967 \pm 0.012$ | **$-0.0055$** | **$[-0.0086, -0.0024]$** | $t = -3.53$ | **$p = 0.0004$** | **Slight Semantic Dilution** |
+| **PickScore v1** | $0.1874 \pm 0.003$ | $0.1860 \pm 0.003$ | **$-0.0014$** | **$[-0.0021, -0.0006]$** | $t = -3.60$ | **$p = 0.0003$** | **Slight Preference Dilution** |
 
-### 12.2 Human Visual Review & Contact Sheet
+---
+
+### 12.2 Comparative Hypothesis Test: SD v1.5 vs SD 3.5 Medium ($N=160$ Pairs Each)
+
+To test the hypothesis that prompt descriptor expansion is an artifact of the CLIP era (where smaller CLIP-L text encoders required keyword triggers to activate visual features, whereas modern T5-XXL language models natively parse natural language syntax), the identical paired experiment was run on Stable Diffusion v1.5 ($512\times 512$ / 20 steps):
+
+| Metric | SD v1.5 Paired Diff ($\bar{d}$) | SD v1.5 95% CI | SD 3.5 M Paired Diff ($\bar{d}$) | SD 3.5 M 95% CI | Comparative Finding |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **LAION v2.4** | **$+0.1171$** | $[+0.0605, +0.1737]$ | $+0.0200$ | $[-0.0267, +0.0666]$ | **Helps SD v1.5 ($p=5\times 10^{-5}$); Flat on SD 3.5 ($p=0.40$)** |
+| **ImageReward** | **$+0.0363$** | $[+0.0059, +0.0667]$ | $-0.0011$ | $[-0.0249, +0.0228]$ | Modest gain on v1.5; Flat on SD 3.5 |
+| **HPS v2.1** | $+0.0009$ | $[-0.0001, +0.0018]$ | $-0.0001$ | $[-0.0009, +0.0006]$ | Flat on both models |
+| **CLIP Alignment** | **$-0.0111$** | $[-0.0157, -0.0066]$ | **$-0.0055$** | $[-0.0086, -0.0024]$ | **Dilution penalty on both models ($p < 0.001$)** |
+| **PickScore v1** | **$-0.0028$** | $[-0.0040, -0.0016]$ | **$-0.0014$** | $[-0.0021, -0.0006]$ | Dilution penalty on both models ($p < 0.001$) |
+
+**Empirical Architectural Finding:**
+1. **Prompt Engineering Obsolescence in Modern Encoders:** On SD v1.5, appending craft descriptors yielded a statistically significant $+0.117$ LAION gain ($p = 4.99 \times 10^{-5}$), confirming that CLIP-L benefits from explicit modifier triggers. However, on SD 3.5 Medium, the exact same intervention produced zero aesthetic gain ($+0.020$, $95\%\text{ CI: } [-0.027, +0.067]$, $p = 0.402$).
+2. **Semantic Cost Remains:** In both architectures, stuffing extra style tokens into the text stream splits cross-attention weights and slightly penalizes semantic alignment to the core prompt subjects ($-0.011$ on v1.5, $-0.0055$ on 3.5).
+3. **Architectural Decision:** Automated rule-based style expansion is deprecated as an automated default (`STYLE_EXPANSION_ENABLED = False`). The mechanism is preserved exclusively as an opt-in user control.
+
+---
+
+### 12.3 Human Visual Review & Contact Sheet
 A 20-pair contact sheet was rendered to `benchmarks/visual_review_style_expansion_ab.png` comparing OFF and ON generations at identical seed values:
 * **Visual Impression:** Expanding already detailed prompts (e.g. adding lighting, lens, and pigment descriptors) refines subtle texture details (such as atmospheric fog or paper grain) but does not meaningfully alter overall compositional quality or artistic caliber.
 * **Semantic Dilution Penalty:** Adding extra aesthetic tokens slightly dilutes prompt attention away from the core subject tokens, explaining the slight drop in CLIP alignment ($-0.0055$, $p = 0.0004$).
 
-### 12.3 Spatial Regression Gate Confirmation
+### 12.4 Spatial Regression Gate Confirmation
 Running all spatial benchmark suites with style expansion forced ON confirms **100% spatial coordinate invariance**:
 * **Gate 1 (Standard 24 Lateral Suite):** 24/24 prompts invariant ($\Delta \mu_x = 0.0000$).
 * **Gate 2 (Hard 24 Directional Suite):** 24/24 prompts invariant ($\Delta \mu_x = 0.0000$).
 * **Gate 3 (Rigorous 16 Multi-Category Suite):** 16/16 prompts across lateral, depth, vertical_on, and vertical_under invariant ($\Delta \mu = 0.0000$).
 * **Zero-Bias Invariant Confirmed:** All added style expansion tokens receive strictly $0.0000$ spatial attention bias across CLIP-L, CLIP-G, and T5-XXL encoders.
 
-### 12.4 Final Aesthetic Verdict & Architectural Decision
-* **Backbone Upgrade is the Real Source of Aesthetic Gain:** Moving from SD v1.5 to SD 3.5 Medium provides a massive, verified $+0.398$ LAION gain ($p = 6.29 \times 10^{-27}$) and $+0.206$ ImageReward gain ($p = 1.61 \times 10^{-24}$).
-* **Automated Style Expansion is Ineffective as a Default:** Automated style expansion yields $\bar{d} = +0.020$ on LAION ($p = 0.4016$, well below cross-seed variance) while slightly penalizing semantic alignment ($p = 0.0004$).
-* **Architectural Action:** `STYLE_EXPANSION_ENABLED = False` is preserved as the default. The feature is maintained as an optional user-driven control (`style_expansion: true`, `custom_style`) exposed in the API without imposing mandatory automated prompt rewriting.
 
 
 
