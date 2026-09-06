@@ -1,0 +1,400 @@
+{
+  "gate1_standard_24_lateral": {
+    "passed": true,
+    "details": [
+      {
+        "id": "lat_01",
+        "raw_prompt": "a yellow banana to the left of a green apple on a wooden table",
+        "expanded_prompt": "a yellow banana to the left of a green apple on a wooden table, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.24,
+        "subj_mu_x_exp": 0.24,
+        "obj_mu_x_raw": 0.76,
+        "obj_mu_x_exp": 0.76,
+        "passed": true
+      },
+      {
+        "id": "lat_02",
+        "raw_prompt": "a red car to the right of a blue bicycle on a street",
+        "expanded_prompt": "a red car to the right of a blue bicycle on a street, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.76,
+        "subj_mu_x_exp": 0.76,
+        "obj_mu_x_raw": 0.24,
+        "obj_mu_x_exp": 0.24,
+        "passed": true
+      },
+      {
+        "id": "lat_03",
+        "raw_prompt": "a crystal vase beside an antique brass clock on a shelf",
+        "expanded_prompt": "a crystal vase beside an antique brass clock on a shelf, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.26,
+        "subj_mu_x_exp": 0.26,
+        "obj_mu_x_raw": 0.2525,
+        "obj_mu_x_exp": 0.2525,
+        "passed": true
+      },
+      {
+        "id": "lat_04",
+        "raw_prompt": "a silver teapot beside a porcelain teacup on a tray",
+        "expanded_prompt": "a silver teapot beside a porcelain teacup on a tray, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.26,
+        "subj_mu_x_exp": 0.26,
+        "obj_mu_x_raw": 0.72,
+        "obj_mu_x_exp": 0.72,
+        "passed": true
+      },
+      {
+        "id": "lat_05",
+        "raw_prompt": "a white coffee mug to the left of a black laptop on a wooden desk",
+        "expanded_prompt": "a white coffee mug to the left of a black laptop on a wooden desk, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.24,
+        "subj_mu_x_exp": 0.24,
+        "obj_mu_x_raw": 0.76,
+        "obj_mu_x_exp": 0.76,
+        "passed": true
+      },
+      {
+        "id": "lat_06",
+        "raw_prompt": "a glass bottle to the right of a ceramic bowl on a marble counter",
+        "expanded_prompt": "a glass bottle to the right of a ceramic bowl on a marble counter, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.76,
+        "subj_mu_x_exp": 0.76,
+        "obj_mu_x_raw": 0.24,
+        "obj_mu_x_exp": 0.24,
+        "passed": true
+      },
+      {
+        "id": "lat_07",
+        "raw_prompt": "a brown guitar beside a black amplifier in a studio",
+        "expanded_prompt": "a brown guitar beside a black amplifier in a studio, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.26,
+        "subj_mu_x_exp": 0.26,
+        "obj_mu_x_raw": 0.72,
+        "obj_mu_x_exp": 0.72,
+        "passed": true
+      },
+      {
+        "id": "lat_08",
+        "raw_prompt": "a green plant to the left of a tall floor lamp in a living room",
+        "expanded_prompt": "a green plant to the left of a tall floor lamp in a living room, clean rectilinear perspective, natural window light, authentic material textures, architectural photography",
+        "subj_mu_x_raw": 0.24,
+        "subj_mu_x_exp": 0.24,
+        "obj_mu_x_raw": 0.76,
+        "obj_mu_x_exp": 0.76,
+        "passed": true
+      },
+      {
+        "id": "lat_09",
+        "raw_prompt": "a golden trophy to the right of a framed photo on a wooden shelf",
+        "expanded_prompt": "a golden trophy to the right of a framed photo on a wooden shelf, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.76,
+        "subj_mu_x_exp": 0.76,
+        "obj_mu_x_raw": 0.24,
+        "obj_mu_x_exp": 0.24,
+        "passed": true
+      },
+      {
+        "id": "lat_10",
+        "raw_prompt": "a red apple beside a yellow lemon on a cutting board",
+        "expanded_prompt": "a red apple beside a yellow lemon on a cutting board, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.26,
+        "subj_mu_x_exp": 0.26,
+        "obj_mu_x_raw": 0.72,
+        "obj_mu_x_exp": 0.72,
+        "passed": true
+      },
+      {
+        "id": "lat_11",
+        "raw_prompt": "a blue backpack to the left of a yellow skateboard on a sidewalk",
+        "expanded_prompt": "a blue backpack to the left of a yellow skateboard on a sidewalk, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.24,
+        "subj_mu_x_exp": 0.24,
+        "obj_mu_x_raw": 0.76,
+        "obj_mu_x_exp": 0.76,
+        "passed": true
+      },
+      {
+        "id": "lat_12",
+        "raw_prompt": "a silver fork to the left of a white plate on a dining table",
+        "expanded_prompt": "a silver fork to the left of a white plate on a dining table, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.24,
+        "subj_mu_x_exp": 0.24,
+        "obj_mu_x_raw": 0.76,
+        "obj_mu_x_exp": 0.76,
+        "passed": true
+      },
+      {
+        "id": "lat_13",
+        "raw_prompt": "a metal knife to the right of a white plate on a dining table",
+        "expanded_prompt": "a metal knife to the right of a white plate on a dining table, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.76,
+        "subj_mu_x_exp": 0.76,
+        "obj_mu_x_raw": 0.24,
+        "obj_mu_x_exp": 0.24,
+        "passed": true
+      },
+      {
+        "id": "lat_14",
+        "raw_prompt": "a plush teddy bear to the left of a toy robot on a carpet",
+        "expanded_prompt": "a plush teddy bear to the left of a toy robot on a carpet, digital painting, dynamic atmospheric perspective, cinematic matte finish, dramatic mood",
+        "subj_mu_x_raw": 0.185,
+        "subj_mu_x_exp": 0.185,
+        "obj_mu_x_raw": 0.785,
+        "obj_mu_x_exp": 0.785,
+        "passed": true
+      },
+      {
+        "id": "lat_15",
+        "raw_prompt": "a microscope to the right of a glass beaker on a laboratory bench",
+        "expanded_prompt": "a microscope to the right of a glass beaker on a laboratory bench, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.76,
+        "subj_mu_x_exp": 0.76,
+        "obj_mu_x_raw": 0.24,
+        "obj_mu_x_exp": 0.24,
+        "passed": true
+      },
+      {
+        "id": "lat_16",
+        "raw_prompt": "a tennis racket beside a yellow tennis ball on a court",
+        "expanded_prompt": "a tennis racket beside a yellow tennis ball on a court, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.26,
+        "subj_mu_x_exp": 0.26,
+        "obj_mu_x_raw": 0.7025,
+        "obj_mu_x_exp": 0.7025,
+        "passed": true
+      },
+      {
+        "id": "lat_17",
+        "raw_prompt": "a leather wallet to the left of a smartphone on a glass table",
+        "expanded_prompt": "a leather wallet to the left of a smartphone on a glass table, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.24,
+        "subj_mu_x_exp": 0.24,
+        "obj_mu_x_raw": 0.76,
+        "obj_mu_x_exp": 0.76,
+        "passed": true
+      },
+      {
+        "id": "lat_18",
+        "raw_prompt": "a pair of sunglasses to the right of a straw hat on a beach towel",
+        "expanded_prompt": "a pair of sunglasses to the right of a straw hat on a beach towel, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.76,
+        "subj_mu_x_exp": 0.76,
+        "obj_mu_x_raw": 0.24,
+        "obj_mu_x_exp": 0.24,
+        "passed": true
+      },
+      {
+        "id": "lat_19",
+        "raw_prompt": "a vintage typewriter beside a desk lamp on a mahogany table",
+        "expanded_prompt": "a vintage typewriter beside a desk lamp on a mahogany table, authentic analog film grain, warm nostalgic color palette, subtle optical vignetting, 1970s print tone",
+        "subj_mu_x_raw": 0.26,
+        "subj_mu_x_exp": 0.26,
+        "obj_mu_x_raw": 0.72,
+        "obj_mu_x_exp": 0.72,
+        "passed": true
+      },
+      {
+        "id": "lat_20",
+        "raw_prompt": "a blue bird to the left of a brown squirrel on a wooden bench",
+        "expanded_prompt": "a blue bird to the left of a brown squirrel on a wooden bench, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.24,
+        "subj_mu_x_exp": 0.24,
+        "obj_mu_x_raw": 0.76,
+        "obj_mu_x_exp": 0.76,
+        "passed": true
+      },
+      {
+        "id": "lat_21",
+        "raw_prompt": "a white sneaker to the right of an orange basketball on a gym floor",
+        "expanded_prompt": "a white sneaker to the right of an orange basketball on a gym floor, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.76,
+        "subj_mu_x_exp": 0.76,
+        "obj_mu_x_raw": 0.24,
+        "obj_mu_x_exp": 0.24,
+        "passed": true
+      },
+      {
+        "id": "lat_22",
+        "raw_prompt": "a small desk fan beside a computer monitor on an office desk",
+        "expanded_prompt": "a small desk fan beside a computer monitor on an office desk, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.485,
+        "subj_mu_x_exp": 0.485,
+        "obj_mu_x_raw": 0.72,
+        "obj_mu_x_exp": 0.72,
+        "passed": true
+      },
+      {
+        "id": "lat_23",
+        "raw_prompt": "a black cat to the left of a golden dog on a green lawn",
+        "expanded_prompt": "a black cat to the left of a golden dog on a green lawn, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.24,
+        "subj_mu_x_exp": 0.24,
+        "obj_mu_x_raw": 0.76,
+        "obj_mu_x_exp": 0.76,
+        "passed": true
+      },
+      {
+        "id": "lat_24",
+        "raw_prompt": "a glass candle holder to the right of a stack of books on a nightstand",
+        "expanded_prompt": "a glass candle holder to the right of a stack of books on a nightstand, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "subj_mu_x_raw": 0.76,
+        "subj_mu_x_exp": 0.76,
+        "obj_mu_x_raw": 0.24,
+        "obj_mu_x_exp": 0.24,
+        "passed": true
+      }
+    ]
+  },
+  "gate2_hard_24_directional": {
+    "passed": true,
+    "details": [
+      {
+        "id": "hard_lat_01",
+        "raw_prompt": "a blue ceramic mug to the left of a red ceramic mug on a wooden kitchen table",
+        "expanded_prompt": "a blue ceramic mug to the left of a red ceramic mug on a wooden kitchen table, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_02",
+        "raw_prompt": "a fresh green apple to the left of a bright red apple on a white porcelain plate",
+        "expanded_prompt": "a fresh green apple to the left of a bright red apple on a white porcelain plate, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_03",
+        "raw_prompt": "a lit gold candle to the left of a lit silver candle on a stone mantelpiece",
+        "expanded_prompt": "a lit gold candle to the left of a lit silver candle on a stone mantelpiece, soft studio key lighting, subtle rim light, shallow depth of field, 85mm portrait lens, natural texture",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_04",
+        "raw_prompt": "a purple hardcover book to the left of an orange hardcover book on a crowded office desk",
+        "expanded_prompt": "a purple hardcover book to the left of an orange hardcover book on a crowded office desk, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_05",
+        "raw_prompt": "a yellow sports car to the left of a black sports car on a wet asphalt street",
+        "expanded_prompt": "a yellow sports car to the left of a black sports car on a wet asphalt street, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_06",
+        "raw_prompt": "a tall blue glass bottle to the left of a clear glass bottle on a reflective marble bar",
+        "expanded_prompt": "a tall blue glass bottle to the left of a clear glass bottle on a reflective marble bar, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_07",
+        "raw_prompt": "a silver fork to the left of a metal spoon beside a dinner plate on a linen tablecloth",
+        "expanded_prompt": "a silver fork to the left of a metal spoon beside a dinner plate on a linen tablecloth, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_08",
+        "raw_prompt": "a wooden acoustic guitar to the left of a black microphone stand on a concert stage",
+        "expanded_prompt": "a wooden acoustic guitar to the left of a black microphone stand on a concert stage, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_09",
+        "raw_prompt": "a white coffee cup to the left of a pair of eyeglasses next to an open notebook on a desk",
+        "expanded_prompt": "a white coffee cup to the left of a pair of eyeglasses next to an open notebook on a desk, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_10",
+        "raw_prompt": "a potted green fern to the left of a bronze desk clock in a sunlit library",
+        "expanded_prompt": "a potted green fern to the left of a bronze desk clock in a sunlit library, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_11",
+        "raw_prompt": "a slice of chocolate cake to the left of a glass of milk on a wooden cafe table",
+        "expanded_prompt": "a slice of chocolate cake to the left of a glass of milk on a wooden cafe table, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_12",
+        "raw_prompt": "a vintage brass compass to the left of a rolled parchment map on a wooden captains desk",
+        "expanded_prompt": "a vintage brass compass to the left of a rolled parchment map on a wooden captains desk, authentic analog film grain, warm nostalgic color palette, subtle optical vignetting, 1970s print tone",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_13",
+        "raw_prompt": "a red ceramic mug to the right of a blue ceramic mug on a wooden kitchen table",
+        "expanded_prompt": "a red ceramic mug to the right of a blue ceramic mug on a wooden kitchen table, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_14",
+        "raw_prompt": "a bright red apple to the right of a fresh green apple on a white porcelain plate",
+        "expanded_prompt": "a bright red apple to the right of a fresh green apple on a white porcelain plate, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_15",
+        "raw_prompt": "a lit silver candle to the right of a lit gold candle on a stone mantelpiece",
+        "expanded_prompt": "a lit silver candle to the right of a lit gold candle on a stone mantelpiece, soft studio key lighting, subtle rim light, shallow depth of field, 85mm portrait lens, natural texture",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_16",
+        "raw_prompt": "an orange hardcover book to the right of a purple hardcover book on a crowded office desk",
+        "expanded_prompt": "an orange hardcover book to the right of a purple hardcover book on a crowded office desk, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_17",
+        "raw_prompt": "a black sports car to the right of a yellow sports car on a wet asphalt street",
+        "expanded_prompt": "a black sports car to the right of a yellow sports car on a wet asphalt street, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_18",
+        "raw_prompt": "a clear glass bottle to the right of a tall blue glass bottle on a reflective marble bar",
+        "expanded_prompt": "a clear glass bottle to the right of a tall blue glass bottle on a reflective marble bar, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_19",
+        "raw_prompt": "a metal spoon to the right of a silver fork beside a dinner plate on a linen tablecloth",
+        "expanded_prompt": "a metal spoon to the right of a silver fork beside a dinner plate on a linen tablecloth, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_20",
+        "raw_prompt": "a black microphone stand to the right of a wooden acoustic guitar on a concert stage",
+        "expanded_prompt": "a black microphone stand to the right of a wooden acoustic guitar on a concert stage, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_21",
+        "raw_prompt": "a pair of eyeglasses to the right of a white coffee cup next to an open notebook on a desk",
+        "expanded_prompt": "a pair of eyeglasses to the right of a white coffee cup next to an open notebook on a desk, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_22",
+        "raw_prompt": "a bronze desk clock to the right of a potted green fern in a sunlit library",
+        "expanded_prompt": "a bronze desk clock to the right of a potted green fern in a sunlit library, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_23",
+        "raw_prompt": "a glass of milk to the right of a slice of chocolate cake on a wooden cafe table",
+        "expanded_prompt": "a glass of milk to the right of a slice of chocolate cake on a wooden cafe table, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+        "passed": true
+      },
+      {
+        "id": "hard_lat_24",
+        "raw_prompt": "a rolled parchment map to the right of a vintage brass compass on a wooden captains desk",
+        "expanded_prompt": "a rolled parchment map to the right of a vintage brass compass on a wooden captains desk, authentic analog film grain, warm nostalgic color palette, subtle optical vignetting, 1970s print tone",
+        "passed": true
+      }
+    ]
+  },
+  "gate3_rigorous_16_multicategory": {
+    "passed": true
+  },
+  "overall_regression_status": "PASSED - ZERO SPATIAL REGRESSION"
+}

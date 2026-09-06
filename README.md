@@ -59,12 +59,33 @@ Cross-architecture transfer of soft spatial cross-attention guidance was establi
   - **Strength 3.00:** Well-suited for standard scenes where the base model already exhibits strong spatial comprehension ($80.88\% \to 90.44\%$, $p=0.00258$), minimizing over-steering.
   - **Strength 6.00:** Provides stronger spatial steering on complex, cluttered, or counter-prior compositions ($52.08\% \to 76.56\%$, $p=4.25\times 10^{-11}$).
 
-### 4. Established UNet Spatial Boundaries (Stable Diffusion v1.5)
+### 4. Multi-Backbone Aesthetic Study & Style Expansion ($N=160$ Pairs)
+
+Live GPU evaluation across the standard 40-prompt aesthetic benchmark suite (4 seeds, 5 real scorers):
+
+#### 1. Backbone Upgrade Aesthetic Baseline (SD v1.5 vs SD 3.5 Medium)
+| Metric | SD v1.5 ($512\times 512$) | SD 3.5 M ($512\times 512$) | Paired Diff ($\bar{d}$) | $95\%$ CI of Diff | Paired $t$-stat | Two-Tailed $p$-value |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **LAION v2.4** | $5.952 \pm 0.205$ | **$6.350 \pm 0.162$** | **$+0.3979$** | $[+0.325, +0.470]$ | $t = +10.74$ | **$p = 6.29 \times 10^{-27}$** |
+| **ImageReward** | $0.7737 \pm 0.108$ | **$0.9793 \pm 0.084$** | **$+0.2055$** | $[+0.166, +0.245]$ | $t = +10.22$ | **$p = 1.61 \times 10^{-24}$** |
+| **HPS v2.1** | $0.3332 \pm 0.003$ | **$0.3394 \pm 0.003$** | **$+0.0062$** | $[+0.005, +0.008]$ | $t = +9.96$ | **$p = 2.33 \times 10^{-23}$** |
+| **CLIP Align** | $0.2989 \pm 0.014$ | **$0.3022 \pm 0.011$** | $+0.0033$ | $[-0.001, +0.008]$ | $t = +1.37$ | $p = 0.1692$ (Neutral) |
+
+* **Resolution Invariance:** SD 3.5 Medium scores $6.350$ at $512\times 512$ (3.9s/image) vs $6.348$ at $1024\times 1024$ (23.3s/image). Fast $512\times 512$ generation achieves identical aesthetic quality with a **$6\times$ computational speedup**.
+
+#### 2. LLM Style Expansion Intervention (A/B Test on SD 3.5 Medium, $N=160$ Pairs)
+* **Aesthetic Metrics:** $\bar{d} = +0.020$ on LAION ($p = 0.4016$, not significant), flat on ImageReward ($\bar{d} = -0.001$, $p = 0.930$) and HPS v2.1 ($\bar{d} = -0.0001$, $p = 0.713$).
+* **Alignment Trade-off:** Slight semantic dilution from added descriptor tokens ($\Delta \text{CLIP} = -0.0055$, $p = 0.0004$).
+* **Regression Gates:** 100% spatial coordinate invariance verified across Standard 24, Hard 24, and multi-category suites. Zero spatial leakage into style tokens.
+* **Architectural Action:** `STYLE_EXPANSION_ENABLED = False` preserved as default; exposed as an optional API feature.
+
+### 5. Established UNet Spatial Boundaries (Stable Diffusion v1.5)
 - **Lateral Spatial Steering ($p = 5.0 \times 10^{-6}$, $N=192$ paired):** Statistically significant horizontal control ($34.90\% \to 55.21\%$, $+39$ net paired gains across 24 prompts $\times$ 8 seeds, McNemar $p = 5.0 \times 10^{-6}$), more than doubling directional accuracy ($25.00\% \to 53.68\%$).
 - **3D Camera Depth Control ($p = 0.081$, $N=192$ paired):** Evaluated with **Depth Anything V2**, depth guidance did not achieve statistical significance ($41.67\% \to 47.92\%$, $p = 0.0807$). Disabled by default (`DEPTH_RELATION_GUIDANCE_STRENGTH = 0.0`).
 - **Vertical-On Placement ($p = 0.453$):** Unguided model already exhibits a strong resting prior ($70.83\%$). Disabled by default (`VERTICAL_ON_GUIDANCE_STRENGTH = 0.0`).
 
 Full datasets, paired contingency tables, forensic sub-group breakdowns, and visual review artifacts are documented in [docs/experiments.md](docs/experiments.md) and [docs/dit-research.md](docs/dit-research.md).
+
 
 ---
 

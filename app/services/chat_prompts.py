@@ -22,6 +22,8 @@ structured elements:
   <intent>What the user is actually asking for or trying to accomplish.</intent>
   <context_notes>Relevant information, entities, style, or constraints from earlier turns,
     or "none".</context_notes>
+  <style_hints>Aesthetic descriptors present in or implied by the prompt (medium, lighting,
+    palette, mood, camera/lens, texture, era), or "none".</style_hints>
   <ambiguity>
     <is_ambiguous>true or false</is_ambiguous>
     <assumption>If is_ambiguous is true and a safe, low-risk assumption can be made to
@@ -39,6 +41,7 @@ structured elements:
     image prompt incorporating all relevant subject/style context from history; otherwise
     "none".</generation_prompt>
 </reasoning>
+
 
 Rules:
 1. Operational conclusions only: Be concise, direct, and factual. Do not write long chains

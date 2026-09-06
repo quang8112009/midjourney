@@ -63,6 +63,7 @@ class ReasoningAnalysis(BaseModel):
 
     intent: str = Field(min_length=1, max_length=1_000)
     context_notes: str = "none"
+    style_hints: str = "none"
     ambiguity: AmbiguityAnalysis = Field(default_factory=AmbiguityAnalysis)
     constraints: str = "none"
     response_plan: str = Field(min_length=1, max_length=2_000)
@@ -70,7 +71,9 @@ class ReasoningAnalysis(BaseModel):
     generation_prompt: str | None = Field(default=None, max_length=2_000)
     raw_xml: str | None = None
 
-    @field_validator("intent", "context_notes", "constraints", "response_plan", mode="before")
+    @field_validator(
+        "intent", "context_notes", "style_hints", "constraints", "response_plan", mode="before"
+    )
     @classmethod
     def strip_text(cls, value: object) -> str:
         return value.strip() if isinstance(value, str) else str(value)
@@ -157,9 +160,12 @@ def parse_reasoning_xml(raw_text: str) -> ReasoningAnalysis:
                 if action not in ("respond", "generate_image", "clarify", "refuse"):
                     action = "respond"
 
+                style_hints = data.get("style_hints") or "none"
+
                 return ReasoningAnalysis(
                     intent=intent,
                     context_notes=context_notes,
+                    style_hints=style_hints,
                     ambiguity=ambiguity,
                     constraints=data.get("constraints") or data.get("constraint_summary") or "none",
                     response_plan=str(response_plan),
@@ -181,6 +187,7 @@ def parse_reasoning_xml(raw_text: str) -> ReasoningAnalysis:
         raise ReasoningParseError("Could not extract <intent> from reasoning output.")
 
     context_notes = _extract_tag_content(block, "context_notes") or "none"
+    style_hints = _extract_tag_content(block, "style_hints") or "none"
     constraints = _extract_tag_content(block, "constraints") or "none"
     response_plan = _extract_tag_content(block, "response_plan") or "Respond clearly to the user."
 
@@ -225,6 +232,7 @@ def parse_reasoning_xml(raw_text: str) -> ReasoningAnalysis:
     return ReasoningAnalysis(
         intent=intent,
         context_notes=context_notes,
+        style_hints=style_hints,
         ambiguity=ambiguity,
         constraints=constraints,
         response_plan=response_plan,
@@ -232,6 +240,7 @@ def parse_reasoning_xml(raw_text: str) -> ReasoningAnalysis:
         generation_prompt=generation_prompt,
         raw_xml=raw_text,
     )
+
 
 
 @dataclass(frozen=True, slots=True)
