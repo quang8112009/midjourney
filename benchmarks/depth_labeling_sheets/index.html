@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Human Depth Validation Labeling Interface (120 Blinded Samples)</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #18181c; color: #e0e0e0; margin: 0; padding: 20px; }
+    h1 { color: #ffd700; margin-bottom: 5px; }
+    p { color: #aaa; margin-top: 0; }
+    .toolbar { position: sticky; top: 0; background: #22222a; padding: 15px 20px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 100; display: flex; justify-content: space-between; align-items: center; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; }
+    .card { background: #22222a; border-radius: 8px; padding: 15px; border: 1px solid #333; display: flex; flex-direction: column; }
+    .card img { width: 100%; height: 320px; object-fit: contain; background: #000; border-radius: 4px; }
+    .card-id { font-weight: bold; color: #ffd700; margin-top: 10px; font-size: 14px; }
+    .card-prompt { font-size: 13px; color: #bbb; margin: 6px 0; }
+    .card-q { font-size: 13px; color: #76e392; font-weight: 500; margin-bottom: 12px; }
+    .btn-group { display: flex; gap: 10px; margin-top: auto; }
+    .btn-group button { flex: 1; padding: 10px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: all 0.2s; }
+    .btn-yes { background: #2e4a36; color: #85e89d; }
+    .btn-yes.selected { background: #28a745; color: #fff; box-shadow: 0 0 10px #28a745; }
+    .btn-no { background: #4a2e2e; color: #f97583; }
+    .btn-no.selected { background: #dc3545; color: #fff; box-shadow: 0 0 10px #dc3545; }
+    .action-btn { background: #007acc; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; }
+    .action-btn:hover { background: #005999; }
+    .progress { font-weight: bold; color: #ffd700; }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div>
+      <h1>Blinded Human Depth Validation Interface</h1>
+      <p>Evaluate whether the spatial depth relationship is visually true in each image (120 randomized items).</p>
+    </div>
+    <div>
+      <span class="progress" id="progress-text">0 / 120 Labeled</span>
+      <button class="action-btn" style="margin-left: 15px;" onclick="exportJSON()">Export human_labels.json</button>
+    </div>
+  </div>
+
+  <div class="grid" id="card-grid"></div>
+
+  <script>
+    let records = [];
+    let labels = {};
+
+    async function init() {
+      const res = await fetch('../human_depth_validation_blinded.json');
+      records = await res.json();
+      
+      // Load saved progress if any
+      const saved = localStorage.getItem('human_depth_labels');
+      if (saved) {
+        labels = JSON.parse(saved);
+      }
+
+      renderGrid();
+      updateProgress();
+    }
+
+    function renderGrid() {
+      const container = document.getElementById('card-grid');
+      container.innerHTML = '';
+
+      records.forEach((rec, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.id = `card-${rec.blind_id}`;
+
+        const isYes = labels[rec.blind_id] === true;
+        const isNo = labels[rec.blind_id] === false;
+
+        card.innerHTML = `
+          <img src="../../${rec.image_path}" alt="${rec.blind_id}" loading="lazy">
+          <div class="card-id">[${rec.blind_id}] ${rec.subject} &rarr; ${rec.target_relation} &rarr; ${rec.object}</div>
+          <div class="card-prompt">"${rec.prompt}"</div>
+          <div class="card-q">Q: Is the <b>${rec.subject}</b> ${rec.target_relation.replace('_', ' ')} the <b>${rec.object}</b>?</div>
+          <div class="btn-group">
+            <button class="btn-yes ${isYes ? 'selected' : ''}" onclick="setLabel('${rec.blind_id}', true)">YES (Satisfied)</button>
+            <button class="btn-no ${isNo ? 'selected' : ''}" onclick="setLabel('${rec.blind_id}', false)">NO (Violated)</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function setLabel(id, val) {
+      labels[id] = val;
+      localStorage.setItem('human_depth_labels', JSON.stringify(labels));
+      
+      const card = document.getElementById(`card-${id}`);
+      const btnYes = card.querySelector('.btn-yes');
+      const btnNo = card.querySelector('.btn-no');
+
+      if (val === true) {
+        btnYes.classList.add('selected');
+        btnNo.classList.remove('selected');
+      } else {
+        btnNo.classList.add('selected');
+        btnYes.classList.remove('selected');
+      }
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const count = Object.keys(labels).length;
+      document.getElementById('progress-text').innerText = `${count} / ${records.length} Labeled`;
+    }
+
+    function exportJSON() {
+      const out = {};
+      records.forEach(r => {
+        out[r.blind_id] = labels[r.blind_id] !== undefined ? labels[r.blind_id] : null;
+      });
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(out, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "human_labels.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blind Depth Validation Tool (120 Images)</title>
+  <style>
+    :root {
+      --bg: #121214;
+      --card-bg: #1e1e24;
+      --accent: #ffd700;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --border: #30363d;
+      --yes: #238636;
+      --yes-hover: #2ea043;
+      --no: #da3633;
+      --no-hover: #f85149;
+      --cant: #8b949e;
+      --cant-hover: #6e7681;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .criterion-box {
+      background: #161b22;
+      border: 1px solid #388bfd;
+      border-radius: 8px;
+      padding: 12px 20px;
+      max-width: 780px;
+      width: 100%;
+      margin-bottom: 16px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .criterion-title {
+      font-weight: bold;
+      color: #58a6ff;
+      margin-bottom: 4px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 780px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .top-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+    .counter {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .status-badge {
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: #30363d;
+    }
+    .status-badge.answered {
+      background: #1f6feb;
+      color: #fff;
+    }
+    .question-box {
+      text-align: center;
+      margin-bottom: 16px;
+      min-height: 48px;
+    }
+    .question-text {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .img-container {
+      width: 512px;
+      height: 512px;
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .btn {
+      flex: 1;
+      padding: 14px 16px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #fff;
+      transition: all 0.15s ease;
+    }
+    .btn-yes { background: var(--yes); }
+    .btn-yes:hover { background: var(--yes-hover); }
+    .btn-yes.selected { border-color: #7ee787; box-shadow: 0 0 12px rgba(126,231,135,0.6); }
+    
+    .btn-no { background: var(--no); }
+    .btn-no:hover { background: var(--no-hover); }
+    .btn-no.selected { border-color: #ffa198; box-shadow: 0 0 12px rgba(255,161,152,0.6); }
+    
+    .btn-cant { background: #30363d; color: #c9d1d9; }
+    .btn-cant:hover { background: var(--cant-hover); }
+    .btn-cant.selected { border-color: #f0883e; background: #6e7681; box-shadow: 0 0 12px rgba(240,136,62,0.6); }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    .nav-btn {
+      background: #21262d;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav-btn:hover { background: #30363d; }
+    .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .export-btn {
+      background: #1f6feb;
+      border: none;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .export-btn:hover { background: #388bfd; }
+    .keyboard-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="criterion-box">
+    <div class="criterion-title">Standing Ground-Truth Criterion:</div>
+    <div>1. <b>If objects overlap:</b> Whichever object occludes / overlaps in front of the other is <b>in front</b>.</div>
+    <div>2. <b>If objects do not overlap:</b> Whichever object has the lower ground contact point (closer to camera in ground-plane perspective) is <b>in front</b>.</div>
+    <div>3. <b>Can't tell:</b> Choose this if either entity is completely missing, unidentifiable, or ambiguous.</div>
+  </div>
+
+  <div class="card">
+    <div class="top-bar">
+      <div class="counter" id="counter-text">Image 1 / 120</div>
+      <div class="status-badge" id="status-badge">Unanswered</div>
+    </div>
+
+    <div class="question-box">
+      <div class="question-text" id="question-text">Loading question...</div>
+    </div>
+
+    <div class="img-container">
+      <img id="main-image" src="" alt="Blind Sample">
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-yes" id="btn-yes" onclick="selectAnswer('yes')">Yes (1 / Y)</button>
+      <button class="btn btn-no" id="btn-no" onclick="selectAnswer('no')">No (2 / N)</button>
+      <button class="btn btn-cant" id="btn-cant" onclick="selectAnswer('cant_tell')">Can't tell (3 / C)</button>
+    </div>
+
+    <div class="nav-bar">
+      <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">&larr; Back</button>
+      <button class="export-btn" onclick="exportCSV()">Download human_labels.csv</button>
+      <button class="nav-btn" id="btn-next" onclick="navigate(1)">Next &rarr;</button>
+    </div>
+
+    <div class="keyboard-hint">
+      Shortcuts: [1] or [Y] = Yes | [2] or [N] = No | [3] or [C] = Can't Tell | [&larr;] = Back | [&rarr;] = Next
+    </div>
+  </div>
+
+  <script>
+    const items = [
+  {
+    "id": "img_001",
+    "image": "images/img_001.png",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "relation": "in front of",
+    "question": "Is the 'red bicycle' actually in front of the 'wooden door' in this image?"
+  },
+  {
+    "id": "img_002",
+    "image": "images/img_002.png",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "relation": "in front of",
+    "question": "Is the 'ceramic bowl' actually in front of the 'coffee machine' in this image?"
+  },
+  {
+    "id": "img_003",
+    "image": "images/img_003.png",
+    "subject": "lighthouse",
+    "object": "rocky cliff",
+    "relation": "behind",
+    "question": "Is the 'lighthouse' actually behind the 'rocky cliff' in this image?"
+  },
+  {
+    "id": "img_004",
+    "image": "images/img_004.png",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "relation": "in front of",
+    "question": "Is the 'ceramic bowl' actually in front of the 'coffee machine' in this image?"
+  },
+  {
+    "id": "img_005",
+    "image": "images/img_005.png",
+    "subject": "potted cactus",
+    "object": "glass window",
+    "relation": "in front of",
+    "question": "Is the 'potted cactus' actually in front of the 'glass window' in this image?"
+  },
+  {
+    "id": "img_006",
+    "image": "images/img_006.png",
+    "subject": "potted cactus",
+    "object": "glass window",
+    "relation": "in front of",
+    "question": "Is the 'potted cactus' actually in front of the 'glass window' in this image?"
+  },
+  {
+    "id": "img_007",
+    "image": "images/img_007.png",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "relation": "in front of",
+    "question": "Is the 'bronze sculpture' actually in front of the 'red curtain' in this image?"
+  },
+  {
+    "id": "img_008",
+    "image": "images/img_008.png",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "relation": "in front of",
+    "question": "Is the 'wooden violin' actually in front of the 'music stand' in this image?"
+  },
+  {
+    "id": "img_009",
+    "image": "images/img_009.png",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "relation": "in front of",
+    "question": "Is the 'bronze sculpture' actually in front of the 'red curtain' in this image?"
+  },
+  {
+    "id": "img_010",
+    "image": "images/img_010.png",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "relation": "in front of",
+    "question": "Is the 'bronze sculpture' actually in front of the 'red curtain' in this image?"
+  },
+  {
+    "id": "img_011",
+    "image": "images/img_011.png",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "relation": "behind",
+    "question": "Is the 'mountain peak' actually behind the 'log cabin' in this image?"
+  },
+  {
+    "id": "img_012",
+    "image": "images/img_012.png",
+    "subject": "ceramic vase",
+    "object": "mirror",
+    "relation": "in front of",
+    "question": "Is the 'ceramic vase' actually in front of the 'mirror' in this image?"
+  },
+  {
+    "id": "img_013",
+    "image": "images/img_013.png",
+    "subject": "leather armchair",
+    "object": "floor lamp",
+    "relation": "in front of",
+    "question": "Is the 'leather armchair' actually in front of the 'floor lamp' in this image?"
+  },
+  {
+    "id": "img_014",
+    "image": "images/img_014.png",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "relation": "in front of",
+    "question": "Is the 'wooden stool' actually in front of the 'bookshelf' in this image?"
+  },
+  {
+    "id": "img_015",
+    "image": "images/img_015.png",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "relation": "behind",
+    "question": "Is the 'brick chimney' actually behind the 'steep roof' in this image?"
+  },
+  {
+    "id": "img_016",
+    "image": "images/img_016.png",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "relation": "in front of",
+    "question": "Is the 'bronze sculpture' actually in front of the 'red curtain' in this image?"
+  },
+  {
+    "id": "img_017",
+    "image": "images/img_017.png",
+    "subject": "glass bottle",
+    "object": "fruit basket",
+    "relation": "in front of",
+    "question": "Is the 'glass bottle' actually in front of the 'fruit basket' in this image?"
+  },
+  {
+    "id": "img_018",
+    "image": "images/img_018.png",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "relation": "behind",
+    "question": "Is the 'medieval castle' actually behind the 'stone bridge' in this image?"
+  },
+  {
+    "id": "img_019",
+    "image": "images/img_019.png",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "relation": "in front of",
+    "question": "Is the 'green chair' actually in front of the 'brick fireplace' in this image?"
+  },
+  {
+    "id": "img_020",
+    "image": "images/img_020.png",
+    "subject": "water tower",
+    "object": "warehouse",
+    "relation": "behind",
+    "question": "Is the 'water tower' actually behind the 'warehouse' in this image?"
+  },
+  {
+    "id": "img_021",
+    "image": "images/img_021.png",
+    "subject": "pine forest",
+    "object": "wooden fence",
+    "relation": "behind",
+    "question": "Is the 'pine forest' actually behind the 'wooden fence' in this image?"
+  },
+  {
+    "id": "img_022",
+    "image": "images/img_022.png",
+    "subject": "city skyline",
+    "object": "bridge",
+    "relation": "behind",
+    "question": "Is the 'city skyline' actually behind the 'bridge' in this image?"
+  },
+  {
+    "id": "img_023",
+    "image": "images/img_023.png",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "relation": "in front of",
+    "question": "Is the 'wooden violin' actually in front of the 'music stand' in this image?"
+  },
+  {
+    "id": "img_024",
+    "image": "images/img_024.png",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "relation": "in front of",
+    "question": "Is the 'green chair' actually in front of the 'brick fireplace' in this image?"
+  },
+  {
+    "id": "img_025",
+    "image": "images/img_025.png",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "relation": "behind",
+    "question": "Is the 'tall oak tree' actually behind the 'wooden cottage' in this image?"
+  },
+  {
+    "id": "img_026",
+    "image": "images/img_026.png",
+    "subject": "red cube",
+    "object": "blue sphere",
+    "relation": "in front of",
+    "question": "Is the 'red cube' actually in front of the 'blue sphere' in this image?"
+  },
+  {
+    "id": "img_027",
+    "image": "images/img_027.png",
+    "subject": "ceramic vase",
+    "object": "mirror",
+    "relation": "in front of",
+    "question": "Is the 'ceramic vase' actually in front of the 'mirror' in this image?"
+  },
+  {
+    "id": "img_028",
+    "image": "images/img_028.png",
+    "subject": "potted cactus",
+    "object": "glass window",
+    "relation": "in front of",
+    "question": "Is the 'potted cactus' actually in front of the 'glass window' in this image?"
+  },
+  {
+    "id": "img_029",
+    "image": "images/img_029.png",
+    "subject": "city skyline",
+    "object": "bridge",
+    "relation": "behind",
+    "question": "Is the 'city skyline' actually behind the 'bridge' in this image?"
+  },
+  {
+    "id": "img_030",
+    "image": "images/img_030.png",
+    "subject": "water tower",
+    "object": "warehouse",
+    "relation": "behind",
+    "question": "Is the 'water tower' actually behind the 'warehouse' in this image?"
+  },
+  {
+    "id": "img_031",
+    "image": "images/img_031.png",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "relation": "behind",
+    "question": "Is the 'tall oak tree' actually behind the 'wooden cottage' in this image?"
+  },
+  {
+    "id": "img_032",
+    "image": "images/img_032.png",
+    "subject": "lighthouse",
+    "object": "rocky cliff",
+    "relation": "behind",
+    "question": "Is the 'lighthouse' actually behind the 'rocky cliff' in this image?"
+  },
+  {
+    "id": "img_033",
+    "image": "images/img_033.png",
+    "subject": "mountain",
+    "object": "wooden windmill",
+    "relation": "behind",
+    "question": "Is the 'mountain' actually behind the 'wooden windmill' in this image?"
+  },
+  {
+    "id": "img_034",
+    "image": "images/img_034.png",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "relation": "behind",
+    "question": "Is the 'brick chimney' actually behind the 'steep roof' in this image?"
+  },
+  {
+    "id": "img_035",
+    "image": "images/img_035.png",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "relation": "in front of",
+    "question": "Is the 'telephone' actually in front of the 'desk calendar' in this image?"
+  },
+  {
+    "id": "img_036",
+    "image": "images/img_036.png",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "relation": "in front of",
+    "question": "Is the 'bronze sculpture' actually in front of the 'red curtain' in this image?"
+  },
+  {
+    "id": "img_037",
+    "image": "images/img_037.png",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "relation": "behind",
+    "question": "Is the 'clock tower' actually behind the 'stone archway' in this image?"
+  },
+  {
+    "id": "img_038",
+    "image": "images/img_038.png",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "relation": "in front of",
+    "question": "Is the 'wooden violin' actually in front of the 'music stand' in this image?"
+  },
+  {
+    "id": "img_039",
+    "image": "images/img_039.png",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "relation": "behind",
+    "question": "Is the 'brick chimney' actually behind the 'steep roof' in this image?"
+  },
+  {
+    "id": "img_040",
+    "image": "images/img_040.png",
+    "subject": "city skyline",
+    "object": "bridge",
+    "relation": "behind",
+    "question": "Is the 'city skyline' actually behind the 'bridge' in this image?"
+  },
+  {
+    "id": "img_041",
+    "image": "images/img_041.png",
+    "subject": "pine forest",
+    "object": "wooden fence",
+    "relation": "behind",
+    "question": "Is the 'pine forest' actually behind the 'wooden fence' in this image?"
+  },
+  {
+    "id": "img_042",
+    "image": "images/img_042.png",
+    "subject": "red cube",
+    "object": "blue sphere",
+    "relation": "in front of",
+    "question": "Is the 'red cube' actually in front of the 'blue sphere' in this image?"
+  },
+  {
+    "id": "img_043",
+    "image": "images/img_043.png",
+    "subject": "ceramic vase",
+    "object": "mirror",
+    "relation": "in front of",
+    "question": "Is the 'ceramic vase' actually in front of the 'mirror' in this image?"
+  },
+  {
+    "id": "img_044",
+    "image": "images/img_044.png",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "relation": "in front of",
+    "question": "Is the 'ceramic bowl' actually in front of the 'coffee machine' in this image?"
+  },
+  {
+    "id": "img_045",
+    "image": "images/img_045.png",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "relation": "behind",
+    "question": "Is the 'tall oak tree' actually behind the 'wooden cottage' in this image?"
+  },
+  {
+    "id": "img_046",
+    "image": "images/img_046.png",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "relation": "behind",
+    "question": "Is the 'tall oak tree' actually behind the 'wooden cottage' in this image?"
+  },
+  {
+    "id": "img_047",
+    "image": "images/img_047.png",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "relation": "behind",
+    "question": "Is the 'clock tower' actually behind the 'stone archway' in this image?"
+  },
+  {
+    "id": "img_048",
+    "image": "images/img_048.png",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "relation": "behind",
+    "question": "Is the 'brick chimney' actually behind the 'steep roof' in this image?"
+  },
+  {
+    "id": "img_049",
+    "image": "images/img_049.png",
+    "subject": "city skyline",
+    "object": "bridge",
+    "relation": "behind",
+    "question": "Is the 'city skyline' actually behind the 'bridge' in this image?"
+  },
+  {
+    "id": "img_050",
+    "image": "images/img_050.png",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "relation": "in front of",
+    "question": "Is the 'telephone' actually in front of the 'desk calendar' in this image?"
+  },
+  {
+    "id": "img_051",
+    "image": "images/img_051.png",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "relation": "behind",
+    "question": "Is the 'medieval castle' actually behind the 'stone bridge' in this image?"
+  },
+  {
+    "id": "img_052",
+    "image": "images/img_052.png",
+    "subject": "pine forest",
+    "object": "wooden fence",
+    "relation": "behind",
+    "question": "Is the 'pine forest' actually behind the 'wooden fence' in this image?"
+  },
+  {
+    "id": "img_053",
+    "image": "images/img_053.png",
+    "subject": "water tower",
+    "object": "warehouse",
+    "relation": "behind",
+    "question": "Is the 'water tower' actually behind the 'warehouse' in this image?"
+  },
+  {
+    "id": "img_054",
+    "image": "images/img_054.png",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "relation": "in front of",
+    "question": "Is the 'wooden stool' actually in front of the 'bookshelf' in this image?"
+  },
+  {
+    "id": "img_055",
+    "image": "images/img_055.png",
+    "subject": "city skyline",
+    "object": "bridge",
+    "relation": "behind",
+    "question": "Is the 'city skyline' actually behind the 'bridge' in this image?"
+  },
+  {
+    "id": "img_056",
+    "image": "images/img_056.png",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "relation": "in front of",
+    "question": "Is the 'red bicycle' actually in front of the 'wooden door' in this image?"
+  },
+  {
+    "id": "img_057",
+    "image": "images/img_057.png",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "relation": "behind",
+    "question": "Is the 'brick chimney' actually behind the 'steep roof' in this image?"
+  },
+  {
+    "id": "img_058",
+    "image": "images/img_058.png",
+    "subject": "leather armchair",
+    "object": "floor lamp",
+    "relation": "in front of",
+    "question": "Is the 'leather armchair' actually in front of the 'floor lamp' in this image?"
+  },
+  {
+    "id": "img_059",
+    "image": "images/img_059.png",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "relation": "in front of",
+    "question": "Is the 'ceramic bowl' actually in front of the 'coffee machine' in this image?"
+  },
+  {
+    "id": "img_060",
+    "image": "images/img_060.png",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "relation": "in front of",
+    "question": "Is the 'bronze sculpture' actually in front of the 'red curtain' in this image?"
+  },
+  {
+    "id": "img_061",
+    "image": "images/img_061.png",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "relation": "in front of",
+    "question": "Is the 'telephone' actually in front of the 'desk calendar' in this image?"
+  },
+  {
+    "id": "img_062",
+    "image": "images/img_062.png",
+    "subject": "stone wall",
+    "object": "rose bush",
+    "relation": "behind",
+    "question": "Is the 'stone wall' actually behind the 'rose bush' in this image?"
+  },
+  {
+    "id": "img_063",
+    "image": "images/img_063.png",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "relation": "behind",
+    "question": "Is the 'medieval castle' actually behind the 'stone bridge' in this image?"
+  },
+  {
+    "id": "img_064",
+    "image": "images/img_064.png",
+    "subject": "glass bottle",
+    "object": "fruit basket",
+    "relation": "in front of",
+    "question": "Is the 'glass bottle' actually in front of the 'fruit basket' in this image?"
+  },
+  {
+    "id": "img_065",
+    "image": "images/img_065.png",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "relation": "behind",
+    "question": "Is the 'medieval castle' actually behind the 'stone bridge' in this image?"
+  },
+  {
+    "id": "img_066",
+    "image": "images/img_066.png",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "relation": "in front of",
+    "question": "Is the 'ceramic bowl' actually in front of the 'coffee machine' in this image?"
+  },
+  {
+    "id": "img_067",
+    "image": "images/img_067.png",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "relation": "behind",
+    "question": "Is the 'tall oak tree' actually behind the 'wooden cottage' in this image?"
+  },
+  {
+    "id": "img_068",
+    "image": "images/img_068.png",
+    "subject": "golden statue",
+    "object": "stone fountain",
+    "relation": "behind",
+    "question": "Is the 'golden statue' actually behind the 'stone fountain' in this image?"
+  },
+  {
+    "id": "img_069",
+    "image": "images/img_069.png",
+    "subject": "stone wall",
+    "object": "rose bush",
+    "relation": "behind",
+    "question": "Is the 'stone wall' actually behind the 'rose bush' in this image?"
+  },
+  {
+    "id": "img_070",
+    "image": "images/img_070.png",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "relation": "in front of",
+    "question": "Is the 'ceramic bowl' actually in front of the 'coffee machine' in this image?"
+  },
+  {
+    "id": "img_071",
+    "image": "images/img_071.png",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "relation": "behind",
+    "question": "Is the 'brick chimney' actually behind the 'steep roof' in this image?"
+  },
+  {
+    "id": "img_072",
+    "image": "images/img_072.png",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "relation": "in front of",
+    "question": "Is the 'bronze sculpture' actually in front of the 'red curtain' in this image?"
+  },
+  {
+    "id": "img_073",
+    "image": "images/img_073.png",
+    "subject": "stone wall",
+    "object": "rose bush",
+    "relation": "behind",
+    "question": "Is the 'stone wall' actually behind the 'rose bush' in this image?"
+  },
+  {
+    "id": "img_074",
+    "image": "images/img_074.png",
+    "subject": "water tower",
+    "object": "warehouse",
+    "relation": "behind",
+    "question": "Is the 'water tower' actually behind the 'warehouse' in this image?"
+  },
+  {
+    "id": "img_075",
+    "image": "images/img_075.png",
+    "subject": "water tower",
+    "object": "warehouse",
+    "relation": "behind",
+    "question": "Is the 'water tower' actually behind the 'warehouse' in this image?"
+  },
+  {
+    "id": "img_076",
+    "image": "images/img_076.png",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "relation": "behind",
+    "question": "Is the 'clock tower' actually behind the 'stone archway' in this image?"
+  },
+  {
+    "id": "img_077",
+    "image": "images/img_077.png",
+    "subject": "mountain",
+    "object": "wooden windmill",
+    "relation": "behind",
+    "question": "Is the 'mountain' actually behind the 'wooden windmill' in this image?"
+  },
+  {
+    "id": "img_078",
+    "image": "images/img_078.png",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "relation": "in front of",
+    "question": "Is the 'wooden violin' actually in front of the 'music stand' in this image?"
+  },
+  {
+    "id": "img_079",
+    "image": "images/img_079.png",
+    "subject": "golden statue",
+    "object": "stone fountain",
+    "relation": "behind",
+    "question": "Is the 'golden statue' actually behind the 'stone fountain' in this image?"
+  },
+  {
+    "id": "img_080",
+    "image": "images/img_080.png",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "relation": "in front of",
+    "question": "Is the 'wooden violin' actually in front of the 'music stand' in this image?"
+  },
+  {
+    "id": "img_081",
+    "image": "images/img_081.png",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "relation": "behind",
+    "question": "Is the 'tall oak tree' actually behind the 'wooden cottage' in this image?"
+  },
+  {
+    "id": "img_082",
+    "image": "images/img_082.png",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "relation": "behind",
+    "question": "Is the 'brick chimney' actually behind the 'steep roof' in this image?"
+  },
+  {
+    "id": "img_083",
+    "image": "images/img_083.png",
+    "subject": "potted cactus",
+    "object": "glass window",
+    "relation": "in front of",
+    "question": "Is the 'potted cactus' actually in front of the 'glass window' in this image?"
+  },
+  {
+    "id": "img_084",
+    "image": "images/img_084.png",
+    "subject": "red cube",
+    "object": "blue sphere",
+    "relation": "in front of",
+    "question": "Is the 'red cube' actually in front of the 'blue sphere' in this image?"
+  },
+  {
+    "id": "img_085",
+    "image": "images/img_085.png",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "relation": "in front of",
+    "question": "Is the 'wooden stool' actually in front of the 'bookshelf' in this image?"
+  },
+  {
+    "id": "img_086",
+    "image": "images/img_086.png",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "relation": "in front of",
+    "question": "Is the 'telephone' actually in front of the 'desk calendar' in this image?"
+  },
+  {
+    "id": "img_087",
+    "image": "images/img_087.png",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "relation": "behind",
+    "question": "Is the 'mountain peak' actually behind the 'log cabin' in this image?"
+  },
+  {
+    "id": "img_088",
+    "image": "images/img_088.png",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "relation": "in front of",
+    "question": "Is the 'wooden stool' actually in front of the 'bookshelf' in this image?"
+  },
+  {
+    "id": "img_089",
+    "image": "images/img_089.png",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "relation": "behind",
+    "question": "Is the 'medieval castle' actually behind the 'stone bridge' in this image?"
+  },
+  {
+    "id": "img_090",
+    "image": "images/img_090.png",
+    "subject": "golden statue",
+    "object": "stone fountain",
+    "relation": "behind",
+    "question": "Is the 'golden statue' actually behind the 'stone fountain' in this image?"
+  },
+  {
+    "id": "img_091",
+    "image": "images/img_091.png",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "relation": "in front of",
+    "question": "Is the 'telephone' actually in front of the 'desk calendar' in this image?"
+  },
+  {
+    "id": "img_092",
+    "image": "images/img_092.png",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "relation": "behind",
+    "question": "Is the 'brick chimney' actually behind the 'steep roof' in this image?"
+  },
+  {
+    "id": "img_093",
+    "image": "images/img_093.png",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "relation": "behind",
+    "question": "Is the 'mountain peak' actually behind the 'log cabin' in this image?"
+  },
+  {
+    "id": "img_094",
+    "image": "images/img_094.png",
+    "subject": "city skyline",
+    "object": "bridge",
+    "relation": "behind",
+    "question": "Is the 'city skyline' actually behind the 'bridge' in this image?"
+  },
+  {
+    "id": "img_095",
+    "image": "images/img_095.png",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "relation": "in front of",
+    "question": "Is the 'telephone' actually in front of the 'desk calendar' in this image?"
+  },
+  {
+    "id": "img_096",
+    "image": "images/img_096.png",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "relation": "in front of",
+    "question": "Is the 'wooden stool' actually in front of the 'bookshelf' in this image?"
+  },
+  {
+    "id": "img_097",
+    "image": "images/img_097.png",
+    "subject": "stone wall",
+    "object": "rose bush",
+    "relation": "behind",
+    "question": "Is the 'stone wall' actually behind the 'rose bush' in this image?"
+  },
+  {
+    "id": "img_098",
+    "image": "images/img_098.png",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "relation": "in front of",
+    "question": "Is the 'telephone' actually in front of the 'desk calendar' in this image?"
+  },
+  {
+    "id": "img_099",
+    "image": "images/img_099.png",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "relation": "in front of",
+    "question": "Is the 'red bicycle' actually in front of the 'wooden door' in this image?"
+  },
+  {
+    "id": "img_100",
+    "image": "images/img_100.png",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "relation": "in front of",
+    "question": "Is the 'red bicycle' actually in front of the 'wooden door' in this image?"
+  },
+  {
+    "id": "img_101",
+    "image": "images/img_101.png",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "relation": "in front of",
+    "question": "Is the 'telephone' actually in front of the 'desk calendar' in this image?"
+  },
+  {
+    "id": "img_102",
+    "image": "images/img_102.png",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "relation": "in front of",
+    "question": "Is the 'wooden violin' actually in front of the 'music stand' in this image?"
+  },
+  {
+    "id": "img_103",
+    "image": "images/img_103.png",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "relation": "in front of",
+    "question": "Is the 'green chair' actually in front of the 'brick fireplace' in this image?"
+  },
+  {
+    "id": "img_104",
+    "image": "images/img_104.png",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "relation": "behind",
+    "question": "Is the 'tall oak tree' actually behind the 'wooden cottage' in this image?"
+  },
+  {
+    "id": "img_105",
+    "image": "images/img_105.png",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "relation": "behind",
+    "question": "Is the 'mountain peak' actually behind the 'log cabin' in this image?"
+  },
+  {
+    "id": "img_106",
+    "image": "images/img_106.png",
+    "subject": "mountain",
+    "object": "wooden windmill",
+    "relation": "behind",
+    "question": "Is the 'mountain' actually behind the 'wooden windmill' in this image?"
+  },
+  {
+    "id": "img_107",
+    "image": "images/img_107.png",
+    "subject": "city skyline",
+    "object": "bridge",
+    "relation": "behind",
+    "question": "Is the 'city skyline' actually behind the 'bridge' in this image?"
+  },
+  {
+    "id": "img_108",
+    "image": "images/img_108.png",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "relation": "in front of",
+    "question": "Is the 'green chair' actually in front of the 'brick fireplace' in this image?"
+  },
+  {
+    "id": "img_109",
+    "image": "images/img_109.png",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "relation": "in front of",
+    "question": "Is the 'ceramic bowl' actually in front of the 'coffee machine' in this image?"
+  },
+  {
+    "id": "img_110",
+    "image": "images/img_110.png",
+    "subject": "leather armchair",
+    "object": "floor lamp",
+    "relation": "in front of",
+    "question": "Is the 'leather armchair' actually in front of the 'floor lamp' in this image?"
+  },
+  {
+    "id": "img_111",
+    "image": "images/img_111.png",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "relation": "behind",
+    "question": "Is the 'medieval castle' actually behind the 'stone bridge' in this image?"
+  },
+  {
+    "id": "img_112",
+    "image": "images/img_112.png",
+    "subject": "lighthouse",
+    "object": "rocky cliff",
+    "relation": "behind",
+    "question": "Is the 'lighthouse' actually behind the 'rocky cliff' in this image?"
+  },
+  {
+    "id": "img_113",
+    "image": "images/img_113.png",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "relation": "behind",
+    "question": "Is the 'clock tower' actually behind the 'stone archway' in this image?"
+  },
+  {
+    "id": "img_114",
+    "image": "images/img_114.png",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "relation": "in front of",
+    "question": "Is the 'telephone' actually in front of the 'desk calendar' in this image?"
+  },
+  {
+    "id": "img_115",
+    "image": "images/img_115.png",
+    "subject": "leather armchair",
+    "object": "floor lamp",
+    "relation": "in front of",
+    "question": "Is the 'leather armchair' actually in front of the 'floor lamp' in this image?"
+  },
+  {
+    "id": "img_116",
+    "image": "images/img_116.png",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "relation": "behind",
+    "question": "Is the 'clock tower' actually behind the 'stone archway' in this image?"
+  },
+  {
+    "id": "img_117",
+    "image": "images/img_117.png",
+    "subject": "mountain",
+    "object": "wooden windmill",
+    "relation": "behind",
+    "question": "Is the 'mountain' actually behind the 'wooden windmill' in this image?"
+  },
+  {
+    "id": "img_118",
+    "image": "images/img_118.png",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "relation": "behind",
+    "question": "Is the 'clock tower' actually behind the 'stone archway' in this image?"
+  },
+  {
+    "id": "img_119",
+    "image": "images/img_119.png",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "relation": "in front of",
+    "question": "Is the 'wooden stool' actually in front of the 'bookshelf' in this image?"
+  },
+  {
+    "id": "img_120",
+    "image": "images/img_120.png",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "relation": "in front of",
+    "question": "Is the 'green chair' actually in front of the 'brick fireplace' in this image?"
+  }
+];
+    let currentIndex = 0;
+    let answers = {};
+
+    // Load localStorage answers if available
+    try {
+      const saved = localStorage.getItem("blind_depth_answers_v1");
+      if (saved) {
+        answers = JSON.parse(saved);
+      }
+    } catch(e) {}
+
+    function renderCurrent() {
+      const item = items[currentIndex];
+      document.getElementById("counter-text").innerText = `Image ${currentIndex + 1} / ${items.length} (${item.id})`;
+      document.getElementById("question-text").innerText = item.question;
+      document.getElementById("main-image").src = item.image;
+
+      const ans = answers[item.id];
+      const badge = document.getElementById("status-badge");
+      if (ans) {
+        badge.innerText = `Recorded: ${ans.toUpperCase()}`;
+        badge.className = "status-badge answered";
+      } else {
+        badge.innerText = "Unanswered";
+        badge.className = "status-badge";
+      }
+
+      // Reset button styles
+      document.getElementById("btn-yes").className = "btn btn-yes" + (ans === "yes" ? " selected" : "");
+      document.getElementById("btn-no").className = "btn btn-no" + (ans === "no" ? " selected" : "");
+      document.getElementById("btn-cant").className = "btn btn-cant" + (ans === "cant_tell" ? " selected" : "");
+
+      document.getElementById("btn-prev").disabled = (currentIndex === 0);
+      document.getElementById("btn-next").disabled = (currentIndex === items.length - 1);
+    }
+
+    function selectAnswer(val) {
+      const item = items[currentIndex];
+      answers[item.id] = val;
+      try {
+        localStorage.setItem("blind_depth_answers_v1", JSON.stringify(answers));
+      } catch(e) {}
+      renderCurrent();
+      // Auto-advance after selection if not on last image
+      if (currentIndex < items.length - 1) {
+        setTimeout(() => {
+          navigate(1);
+        }, 180);
+      }
+    }
+
+    function navigate(delta) {
+      const nextIdx = currentIndex + delta;
+      if (nextIdx >= 0 && nextIdx < items.length) {
+        currentIndex = nextIdx;
+        renderCurrent();
+      }
+    }
+
+    function exportCSV() {
+      let csv = "image_id,label\n";
+      items.forEach(it => {
+        const a = answers[it.id] || "unanswered";
+        csv += `${it.id},${a}\n`;
+      });
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "human_depth_labels.csv";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Keyboard navigation
+    window.addEventListener("keydown", (e) => {
+      const key = e.key.toLowerCase();
+      if (key === "1" || key === "y") {
+        selectAnswer("yes");
+      } else if (key === "2" || key === "n") {
+        selectAnswer("no");
+      } else if (key === "3" || key === "c") {
+        selectAnswer("cant_tell");
+      } else if (e.key === "ArrowLeft") {
+        navigate(-1);
+      } else if (e.key === "ArrowRight") {
+        navigate(1);
+      }
+    });
+
+    renderCurrent();
+  </script>
+</body>
+</html>
