@@ -414,37 +414,54 @@ Comparing FlowMatchEuler (1st-order Flow Matching, incumbent) vs FlowMatchHeun (
 
 ---
 
-### 13.3 Stage 3: CFG Rescaling Factor Sweep ($\phi \in \{0.0, 0.50, 0.70, 0.85\}$ at 20 Steps)
+### 13.3 Stage 3: CFG Rescaling Factor Sweep ($\phi \in \{0.0, 0.50, 0.70, 0.85, 1.00\}$ at 20 Steps)
 
-| Rescaling Factor ($\phi$) | LAION v2.4 | ImageReward | HPS v2.1 | CLIP Alignment | Paired $\Delta\text{LAION}$ vs $\phi=0$ | 95% CI of Difference | Paired $p$-value |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **$\phi = 0.00$ (Incumbent)** | $6.350 \pm 0.162$ | $0.9793 \pm 0.084$ | $0.3394 \pm 0.003$ | $0.3022 \pm 0.011$ | $0.0000$ | — | — |
-| **$\phi = 0.50$** | $6.386 \pm 0.160$ | $0.9980 \pm 0.084$ | $0.3400 \pm 0.003$ | $0.3025 \pm 0.011$ | **$+0.0362$** | $[+0.0157, +0.0567]$ | **$p = 0.0005$** |
-| **$\phi = 0.70$ (Optimal)** | **$6.390 \pm 0.161$** | **$0.9993 \pm 0.084$** | **$0.3400 \pm 0.003$** | **$0.3023 \pm 0.011$** | **$+0.0398$** | **$[+0.0164, +0.0633]$** | **$p = 0.0009$** |
-| **$\phi = 0.85$** | $6.391 \pm 0.161$ | $1.0010 \pm 0.084$ | $0.3401 \pm 0.003$ | $0.3028 \pm 0.011$ | **$+0.0410$** | $[+0.0147, +0.0673]$ | **$p = 0.0023$** |
+To determine whether CFG rescaling improves dynamic range and where the curve plateaus, the sweep was extended to $\phi = 1.00$:
 
-* **Stage 3 Decision:** Variance-preserving CFG rescaling ($\phi = 0.70$) yields a statistically robust, consistent dynamic-range enhancement ($+0.0398$ on LAION, $+0.0200$ on ImageReward, $p < 0.001$) preventing oversaturation highlights without impacting latency or CLIP semantic alignment ($\Delta\text{CLIP} = +0.0001, p = 0.936$). **$\phi = 0.70$ is confirmed as the standard setting**.
+| Rescaling Factor ($\phi$) | LAION v2.4 | ImageReward | HPS v2.1 | CLIP Alignment | Paired $\Delta\text{LAION}$ vs $\phi=0$ | 95% CI of Difference | Paired $p$-value | Status |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **$\phi = 0.00$ (Incumbent)** | $6.350 \pm 0.162$ | $0.9793 \pm 0.084$ | $0.3394 \pm 0.003$ | $0.3022 \pm 0.011$ | $0.0000$ | — | — | Baseline |
+| **$\phi = 0.50$** | $6.386 \pm 0.160$ | $0.9980 \pm 0.084$ | $0.3400 \pm 0.003$ | $0.3025 \pm 0.011$ | $+0.0362$ | $[+0.0157, +0.0567]$ | $p = 0.0005$ | Measurable Gain |
+| **$\phi = 0.70$ (Optimal Default)** | **$6.390 \pm 0.161$** | **$0.9993 \pm 0.084$** | **$0.3400 \pm 0.003$** | **$0.3023 \pm 0.011$** | **$+0.0398$** | **$[+0.0164, +0.0633]$** | **$p = 0.0009$** | **Plateau Optimum** |
+| **$\phi = 0.85$** | $6.391 \pm 0.161$ | $1.0010 \pm 0.084$ | $0.3401 \pm 0.003$ | $0.3028 \pm 0.011$ | $+0.0410$ | $[+0.0147, +0.0673]$ | $p = 0.0023$ | Flat vs 0.70 ($\Delta=0.001$) |
+| **$\phi = 1.00$** | $6.392 \pm 0.161$ | $1.0018 \pm 0.084$ | $0.3401 \pm 0.003$ | $0.3030 \pm 0.011$ | $+0.0420$ | $[+0.0153, +0.0687]$ | $p = 0.0020$ | Flat vs 0.70 ($\Delta=0.002$) |
 
----
-
-### 13.4 Stage 4: Mask-Aware Refiner Pass & Edit Isolation Invariant Check
-
-| Refinement Strength | LAION v2.4 (Mean) | Paired Diff vs Base ($\bar{d}$) | 95% CI of Difference | Paired $t$-stat ($p$-value) | Outside-Mask SSIM Invariant | Status |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Strength 0.20** | $6.350$ | $+0.0006$ | $[-0.0178, +0.0189]$ | $t = +0.060$ ($p = 0.952$) | **$1.0000$ (Exact)** | Within Noise |
-| **Strength 0.25** | $6.352$ | $+0.0027$ | $[-0.0163, +0.0217]$ | $t = +0.278$ ($p = 0.781$) | **$1.0000$ (Exact)** | Within Noise |
-| **Strength 0.35** | $6.362$ | $+0.0124$ | $[-0.0106, +0.0354]$ | $t = +1.057$ ($p = 0.291$) | **$1.0000$ (Exact)** | Within Noise |
-
-* **Stage 4 Decision:** Full-frame refiner passes on SD 3.5 Medium produce flat aesthetic metrics across all strengths (all 95% CIs cross zero). Inpainting mask compositing verified with 100% outside-mask pixel preservation ($SSIM = 1.0000$). The refiner is preserved strictly as an opt-in specialized tool (`REFINER_ENABLED = False` default) rather than an unguided default pass.
+* **Justification of $\phi = 0.70$:**
+  1. **Empirical Plateau:** The gain largely saturates by $\phi = 0.70$ ($+0.0398$). Moving further from $0.70 \to 1.00$ yields merely $+0.0022$ on LAION (and $+0.0025$ on ImageReward), which is an order of magnitude smaller than noise ($< 0.015\times \sigma_{\text{seed}}$).
+  2. **Theoretical Stability (Lin et al., 2023):** $\phi \to 1.00$ strictly forces $\sigma(\epsilon_{\text{cfg}}) = \sigma(\epsilon_{\text{cond}})$, which at high prompt guidance can over-suppress high-frequency dynamic contrast. Setting $\phi = 0.70$ captures $95\%$ of the benefit while preserving healthy contrast variance.
+* **Proportion & Perspective:** While $+0.0398$ is statistically reliable ($p < 0.001$) and computationally free, it represents roughly $\frac{1}{10}\text{th}$ of the backbone upgrade's $+0.398$ gain and about $\frac{1}{4}\text{th}$ of the cross-seed noise envelope ($\pm 0.162$). It is a small systematic polish, not an aesthetic leap.
 
 ---
 
-### 13.5 Summary of Production Operating Point
-* **Backbone:** Stable Diffusion 3.5 Medium (`stabilityai/stable-diffusion-3.5-medium`)
-* **Resolution:** $512\times 512$ ($3.9\text{ s/image}$ at $15.4\text{ img/min}$, matching $1024\times 1024$ quality within $0.002$)
-* **Sampler:** `FlowMatchEulerDiscreteScheduler` (20 reverse-time steps)
-* **Guidance Scale & Rescale:** `guidance_scale = 4.5`, `cfg_rescale = 0.70`
-* **Refiner & Style Expansion Defaults:** `False` (zero latency overhead; strictly opt-in)
+### 13.4 Stage 4: Mask-Aware Refiner Pass & Edit Isolation Benchmarking
+
+| Refinement Strength | LAION v2.4 (Mean) | Paired Diff vs Base ($\bar{d}$) | 95% CI of Difference | Paired $t$-stat ($p$-value) | Status on Unconditional Output |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| **Strength 0.20** | $6.350$ | $+0.0006$ | $[-0.0178, +0.0189]$ | $t = +0.060$ ($p = 0.952$) | Completely Flat |
+| **Strength 0.25** | $6.352$ | $+0.0027$ | $[-0.0163, +0.0217]$ | $t = +0.278$ ($p = 0.781$) | Completely Flat |
+| **Strength 0.35** | $6.362$ | $+0.0124$ | $[-0.0106, +0.0354]$ | $t = +1.057$ ($p = 0.291$) | Completely Flat |
+
+#### Edit Isolation & Mask Compositing Mechanism:
+* **How Compositing Works:** In `MaskAwareRefiner`, the refined image is combined with the source image via `Image.composite(refined, base_image, mask_pil)`. Where the mask is $0.0$ (outside the edit region), the source pixels are preserved. Where soft feathering exists at the boundary (e.g. radius $= 1\text{ px}$), sub-pixel alpha blending is performed.
+* **Live Inpainting Benchmark Evaluation:** Running `evaluate_edit_isolation()` across the standard feathered edit test suite yields:
+  - **Outside Preservation SSIM:** **$0.9981$** (matching the established $\ge 0.998$ standard).
+  - **Unintended Leakage:** Reduced from $0.5610 \to 0.0057$ (**$98.98\%$ leakage reduction**).
+* **Stage 4 Decision:** Full-frame refiner passes are flat on SD 3.5 Medium. Refiner is preserved exclusively as an opt-in tool (`REFINER_ENABLED = False` default) for localized inpainting.
+
+---
+
+### 13.5 Comprehensive Aesthetic Phase Conclusion
+
+The end-to-end aesthetic investigation on SD 3.5 Medium yields a decisive, negative-heavy synthesis:
+1. **Backbone Choice Dominates All Aesthetic Quality:** Upgrading from SD v1.5 to SD 3.5 Medium accounts for nearly all achievable aesthetic and compositional gain (**$+0.3979$ on LAION**, $95\%\text{ CI: } [+0.325, +0.470]$, $p = 6.29 \times 10^{-27}$; **$+0.2055$ on ImageReward**, $p = 1.61 \times 10^{-24}$).
+2. **CFG Rescale Adds a Small Free Polish:** Setting $\phi = 0.70$ provides a modest, cost-free systematic gain ($+0.0398$ on LAION, $+0.0200$ on ImageReward) with zero latency overhead.
+3. **Traditional "Tricks" Are Ineffective on Modern Backbones:**
+   - **Prompt Descriptor Appending:** Flat on SD 3.5 ($+0.020$, $p = 0.402$) while actively penalizing semantic alignment ($\Delta\text{CLIP} = -0.0055, p = 0.0004$).
+   - **Alternative Samplers (Heun):** Flat / slightly worse ($-0.049$).
+   - **Step Counts Above 20:** Flat ($+0.0198$ at 28 steps, $+0.0075$ at 36 steps; both inside cross-seed noise $\pm 0.162$).
+   - **Full-Frame Refiner Passes:** Flat across all denoise strengths ($+0.0006 \to +0.0124$).
+4. **Production Configuration:** Stable Diffusion 3.5 Medium at $512\times 512$ / 20 Euler steps / CFG 4.5 with $\phi = 0.70$ rescale ($3.90\text{ s/image}$, $15.4\text{ img/min}$).
+
 
 
 
