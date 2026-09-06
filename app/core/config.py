@@ -27,9 +27,9 @@ class Settings(BaseSettings):
 
     MODEL_ID: str = "runwayml/stable-diffusion-v1-5"
     PIXART_MODEL_ID: str = "PixArt-alpha/PixArt-XL-2-512x512"
-    SD35_MODEL_ID: str = "stabilityai/stable-diffusion-3.5-large"
+    SD35_MODEL_ID: str = "stabilityai/stable-diffusion-3.5-medium"
     FLUX_MODEL_ID: str = "black-forest-labs/FLUX.1-dev"
-    DEFAULT_MODEL_BACKBONE: str = "pixart-alpha"
+    DEFAULT_MODEL_BACKBONE: str = "stable-diffusion-3.5"
     MODEL_CACHE_DIR: str = "./models/cache"
     DEVICE: Literal["auto", "cpu", "cuda"] = "auto"
     DTYPE: Literal["auto", "float32", "float16", "bfloat16"] = "auto"
@@ -41,10 +41,11 @@ class Settings(BaseSettings):
     DEFAULT_GUIDANCE_SCALE: float = Field(7.5, ge=1.0, le=20.0)
     PIXART_DEFAULT_STEPS: int = Field(20, ge=1, le=100)
     PIXART_DEFAULT_GUIDANCE_SCALE: float = Field(4.5, ge=1.0, le=20.0)
-    SD35_DEFAULT_STEPS: int = Field(28, ge=1, le=100)
+    SD35_DEFAULT_STEPS: int = Field(20, ge=1, le=100)
     SD35_DEFAULT_GUIDANCE_SCALE: float = Field(4.5, ge=1.0, le=20.0)
-    SD35_DEFAULT_WIDTH: int = Field(1024, ge=256, le=2048, multiple_of=8)
-    SD35_DEFAULT_HEIGHT: int = Field(1024, ge=256, le=2048, multiple_of=8)
+    SD35_DEFAULT_WIDTH: int = Field(512, ge=256, le=2048, multiple_of=8)
+    SD35_DEFAULT_HEIGHT: int = Field(512, ge=256, le=2048, multiple_of=8)
+
 
     # Inference-Time Quality & Tier Management
     DEFAULT_QUALITY_TIER: Literal["preview", "final", "ultra"] = "final"

@@ -187,7 +187,7 @@ def test_guidance_schedule_phase_transitions_across_steps():
 
 
 def test_generate_request_supports_new_models_and_tiers():
-    """Verify GenerateRequest schema parses SD 3.5 Large and quality tiers."""
+    """Verify GenerateRequest schema parses SD 3.5 and quality tiers."""
     req = GenerateRequest(
         prompt="A cinematic landscape",
         model="stable-diffusion-3.5",
@@ -195,8 +195,9 @@ def test_generate_request_supports_new_models_and_tiers():
     )
     assert req.model == "stable-diffusion-3.5"
     assert req.num_inference_steps == 14
-    assert req.width == 1024
-    assert req.height == 1024
+    assert req.width == 512
+    assert req.height == 512
+
 
     req_final = GenerateRequest(
         prompt="A cinematic landscape",
