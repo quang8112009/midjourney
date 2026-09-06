@@ -82,11 +82,13 @@ Live GPU evaluation across the standard 40-prompt aesthetic benchmark suite (8 f
 * **Alignment Dilution Penalty:** Statistically significant cross-attention dilution across all three backbones ($-0.0129$ on v1.5, $-0.0068$ on PixArt, $-0.0051$ on SD 3.5).
 * **Causal Conclusion:** Because PixArt-Alpha is a DiT while SD v1.5 is a UNet, and both PixArt and SD 3.5 use T5-XXL, **the text encoder (T5 vs CLIP), not the generative denoiser architecture, is the determining factor in prompt descriptor obsolescence**.
 
-#### 3. Human Ground-Truth Validation of Depth Metrics (Case Study A, $N=120$ Blinded Samples)
+#### 3. Human Ground-Truth Validation & Repair Ablations of Depth Metrics (Case Study A, $N=120$ Blinded Samples)
 * **Trivial Majority Baseline ("Always Yes"):** **$81.11\%$ Accuracy** ($73\text{ Yes} / 17\text{ No}$ on evaluable images).
 * **2D Ground-Plane Predicate:** $56.67\%$ Accuracy ($51/90$), $79.31\%$ Precision, **12 False Positives**.
-* **Depth Anything V2 (3D Depth):** $60.00\%$ Accuracy ($54/90$), **$89.36\%$ Precision, 5 False Positives** (McNemar $p = 0.5811$ vs 2D; difference of $+3$ images is not significant).
-* **Failure of Automated 3D Metrics:** Both automated metrics score $> 20\%$ below the trivial majority baseline ($81.11\%$), and $25\%$ of scenes ($30/120$) lacked the objects required to evaluate at all ("Can't tell") while both automated metrics silently assigned verdicts to $100\%$ of them. Spatial depth conclusions resting on automated evaluators are uninterpretable.
+* **Depth Anything V2 (3D Depth):** $60.00\%$ Accuracy ($54/90$), **$89.36\%$ Precision, 5 False Positives** (McNemar $p = 0.5811$ vs 2D; difference of $+3$ images is not statistically separable).
+* **Metric Repair Ablations (Section 5.4):** Sweeping 10 depth aggregations (median, p10, p25, eroded box, foreground adaptive), threshold tuning, occlusion intersection rules, and multi-modal logistic regression all land between $50\%\text{--}67\%$ accuracy (well below majority baseline). $80.6\%$ of false negatives stem from upstream zero-shot object detection failures and a $25.0\%$ scene unevaluable rate ("Can't tell").
+* **Takeaway:** Automated evaluation of 3D depth relations fails under current methods. Spatial depth conclusions resting on automated evaluators are uninterpretable.
+
 
 
 

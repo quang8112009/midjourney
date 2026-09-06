@@ -31,8 +31,7 @@ def main():
         sd35_data = json.load(f)["stats_summary"]
     with open(ROOT_DIR / "benchmarks" / "paired_backbone_8seed_stats.json") as f:
         paired_bb = json.load(f)
-    with open(ROOT_DIR / "benchmarks" / "phase5_sd35m_standard_24_results.json") as f:
-        std24_data = json.load(f)["conditions"]["3.0"]
+
 
 
     print("\n1. MULTI-BACKBONE AESTHETIC BASELINE (8 SEEDS, N=320 IMAGES PER BACKBONE)")

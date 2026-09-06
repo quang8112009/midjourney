@@ -1,0 +1,158 @@
+{
+  "majority_class_baseline": 81.11,
+  "evaluable_samples_count": 90,
+  "cant_tell_samples_count": 30,
+  "depth_aggregation_ablations": {
+    "mean": {
+      "accuracy": 60.0,
+      "precision": 89.36,
+      "recall": 57.53,
+      "f1": 70.0,
+      "tp": 42,
+      "fp": 5,
+      "fn": 31,
+      "tn": 12,
+      "total": 90
+    },
+    "median": {
+      "accuracy": 62.22,
+      "precision": 91.49,
+      "recall": 58.9,
+      "f1": 71.67,
+      "tp": 43,
+      "fp": 4,
+      "fn": 30,
+      "tn": 13,
+      "total": 90
+    },
+    "p10": {
+      "accuracy": 46.67,
+      "precision": 83.78,
+      "recall": 42.47,
+      "f1": 56.36,
+      "tp": 31,
+      "fp": 6,
+      "fn": 42,
+      "tn": 11,
+      "total": 90
+    },
+    "p25": {
+      "accuracy": 52.22,
+      "precision": 87.5,
+      "recall": 47.95,
+      "f1": 61.95,
+      "tp": 35,
+      "fp": 5,
+      "fn": 38,
+      "tn": 12,
+      "total": 90
+    },
+    "p75": {
+      "accuracy": 58.89,
+      "precision": 89.13,
+      "recall": 56.16,
+      "f1": 68.91,
+      "tp": 41,
+      "fp": 5,
+      "fn": 32,
+      "tn": 12,
+      "total": 90
+    },
+    "p90": {
+      "accuracy": 57.78,
+      "precision": 87.23,
+      "recall": 56.16,
+      "f1": 68.33,
+      "tp": 41,
+      "fp": 6,
+      "fn": 32,
+      "tn": 11,
+      "total": 90
+    },
+    "eroded_25": {
+      "accuracy": 57.78,
+      "precision": 87.23,
+      "recall": 56.16,
+      "f1": 68.33,
+      "tp": 41,
+      "fp": 6,
+      "fn": 32,
+      "tn": 11,
+      "total": 90
+    },
+    "eroded_50": {
+      "accuracy": 58.89,
+      "precision": 89.13,
+      "recall": 56.16,
+      "f1": 68.91,
+      "tp": 41,
+      "fp": 5,
+      "fn": 32,
+      "tn": 12,
+      "total": 90
+    },
+    "center_pixel": {
+      "accuracy": 50.0,
+      "precision": 80.43,
+      "recall": 50.68,
+      "f1": 62.18,
+      "tp": 37,
+      "fp": 9,
+      "fn": 36,
+      "tn": 8,
+      "total": 90
+    },
+    "foreground_adaptive_p60": {
+      "accuracy": 60.0,
+      "precision": 91.11,
+      "recall": 56.16,
+      "f1": 69.49,
+      "tp": 41,
+      "fp": 4,
+      "fn": 32,
+      "tn": 13,
+      "total": 90
+    }
+  },
+  "threshold_analysis": {
+    "roc_auc_all": 0.5713,
+    "roc_auc_detected_only": 0.8167,
+    "best_threshold": -0.2,
+    "best_threshold_accuracy": 62.22
+  },
+  "auxiliary_signals": {
+    "occlusion_rule": {
+      "accuracy": 37.78,
+      "precision": 74.29,
+      "recall": 35.62,
+      "f1": 48.15,
+      "tp": 26,
+      "fp": 9,
+      "fn": 47,
+      "tn": 8,
+      "total": 90
+    },
+    "logistic_regression_train": {
+      "accuracy": 93.18,
+      "precision": 94.59,
+      "recall": 97.22,
+      "f1": 95.89,
+      "tp": 35,
+      "fp": 2,
+      "fn": 1,
+      "tn": 6,
+      "total": 44
+    },
+    "logistic_regression_test": {
+      "accuracy": 67.39,
+      "precision": 80.56,
+      "recall": 78.38,
+      "f1": 79.45,
+      "tp": 29,
+      "fp": 7,
+      "fn": 8,
+      "tn": 2,
+      "total": 46
+    }
+  }
+}

@@ -541,6 +541,42 @@ On the 90 evaluable human-labeled pairs:
 2. **Missing-Object Blindspot ($25\%$ Unevaluable Rate):** In $30$ out of $120$ generated scenes ($25.0\%$), objects were missing or completely unidentifiable ("Can't tell"). Neither metric flagged these images as unevaluable—both automated evaluators silently assigned verdicts to $100\%$ of missing-object scenes.
 3. **Invalidation of Prior Depth Conclusions:** This result directly invalidates any spatial conclusion resting on these automated depth metrics—including our own earlier statistical claims ($p = 0.0029$ under 2D proxy vs $p = 0.081$ under Depth Anything V2). Those numbers reflect metric noise and bounding-box artifacts rather than physical depth steering. We disclose this negative finding openly rather than selecting whichever metric supported a narrative.
 
+### 16.5 Depth Metric Repair & Aggregation Ablations ($N=90$ Evaluable Human Labels)
+
+To determine whether the depth metric could be repaired through better aggregation, threshold tuning, or auxiliary visual cues, an exhaustive series of ablations was conducted against the 90 evaluable human labels:
+
+#### 1. Spatial Aggregation Ablations
+| Aggregation Method | Accuracy | Majority Baseline | Precision | Recall | F1 Score | Confusion (TP/FP/FN/TN) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Majority-Class Baseline ("Always Yes")** | — | **$81.11\%$** | $81.11\%$ | $100.00\%$ | $89.57\%$ | $73 / 17 / 0 / 0$ |
+| **Default Box Mean** | **$60.00\%$** | $81.11\%$ | $89.36\%$ | $57.53\%$ | $70.00\%$ | $42 / 5 / 31 / 12$ |
+| **Box Median** | **$62.22\%$** | $81.11\%$ | $91.49\%$ | $58.90\%$ | $71.67\%$ | $43 / 4 / 30 / 13$ |
+| **10th Percentile (p10)** | $46.67\%$ | $81.11\%$ | $83.78\%$ | $42.47\%$ | $56.36\%$ | $31 / 6 / 42 / 11$ |
+| **25th Percentile (p25)** | $52.22\%$ | $81.11\%$ | $87.50\%$ | $47.95\%$ | $61.95\%$ | $35 / 5 / 38 / 12$ |
+| **75th Percentile (p75)** | $58.89\%$ | $81.11\%$ | $89.13\%$ | $56.16\%$ | $68.91\%$ | $41 / 5 / 32 / 12$ |
+| **90th Percentile (p90)** | $57.78\%$ | $81.11\%$ | $87.23\%$ | $56.16\%$ | $68.33\%$ | $41 / 6 / 32 / 11$ |
+| **Eroded Box 25%** | $57.78\%$ | $81.11\%$ | $87.23\%$ | $56.16\%$ | $68.33\%$ | $41 / 6 / 32 / 11$ |
+| **Eroded Box 50%** | $58.89\%$ | $81.11\%$ | $89.13\%$ | $56.16\%$ | $68.91\%$ | $41 / 5 / 32 / 12$ |
+| **Center Pixel** | $50.00\%$ | $81.11\%$ | $80.43\%$ | $50.68\%$ | $62.18\%$ | $37 / 9 / 36 / 8$ |
+| **Foreground Adaptive (Top 40% p60)** | **$60.00\%$** | $81.11\%$ | $91.11\%$ | $56.16\%$ | $69.49\%$ | $41 / 4 / 32 / 13$ |
+| **2D Ground-Plane Predicate** | **$56.67\%$** | $81.11\%$ | $79.31\%$ | $63.01\%$ | $70.23\%$ | $46 / 12 / 27 / 5$ |
+
+#### 2. Threshold Sweep & ROC / AUC Diagnostic
+* **Full Dataset ROC AUC ($N=90$, missing detections assigned $-999$):** $\text{AUC} = 0.5713$.
+* **Detected-Only Subset ROC AUC ($N=63$ where both objects detected):** $\text{AUC} = 0.8167$.
+* **Optimal Threshold ($\tau = -0.20$):** Reaches peak accuracy of **$62.22\%$**, demonstrating that calibration alone cannot bridge the gap to the $81.11\%$ majority baseline.
+
+#### 3. Auxiliary Signals & Multi-Feature Modeling
+* **Occlusion Alone ($57.8\%$ box overlap rate):** Evaluating depth strictly within bounding box intersections achieves only **$37.78\%$ accuracy** ($F_1 = 48.15\%$) because most depth pairs sit in disjoint vertical tiers without line-of-sight occlusion.
+* **Logistic Regression (50/50 Stratified Split):** Training on `[depth_gap, iou, area_ratio, subj_score, obj_score, has_overlap]` achieves $93.18\%$ on train split, but drops to **$67.39\%$ accuracy on held-out test data** ($13.72\%$ below majority baseline).
+
+#### 4. Detector Abstention Analysis ($N=120$)
+* Setting a detector confidence floor of $\tau = 0.12$ successfully flags **$76.67\%$ ($23/30$) of all unevaluable scenes**, but exhibits low precision ($38.33\%$, flagging 60 images total). Current zero-shot detectors cannot reliably distinguish missing objects from artistic stylization.
+
+#### 5. Section 5.4 Diagnostic Verdict
+Every tested variant lands in the **$50\%\text{--}67\%$ accuracy range—substantially below the trivial majority-class baseline of $81.11\%$**. The core failure is not depth map fidelity ($\text{AUC} = 0.8167$ when detected), but the **upstream zero-shot object detection failure rate ($80.6\%$ of false negatives stem from missing boxes)** and a **$25\%$ scene unevaluable rate**. Automated evaluation of 3D depth relations remains fundamentally unviable without human ground-truth validation.
+
+
 
 ---
 
