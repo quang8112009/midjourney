@@ -77,13 +77,15 @@ Live GPU evaluation across the standard 40-prompt aesthetic benchmark suite (8 f
 
 #### 2. Prompt Descriptor Expansion across Encoders (Case Study B, $N=320$ Pairs Each)
 * **SD v1.5 (CLIP-L):** $\bar{d} = +0.0831$ on LAION ($p = 2.2 \times 10^{-5}$). Adding keyword triggers activates visual features in smaller CLIP models.
-* **PixArt-Alpha (T5-XXL):** $\bar{d} = -0.0665$ on LAION ($p = 2.5 \times 10^{-5}$) and $-0.0468$ on ImageReward ($p = 2.2 \times 10^{-8}$).
-* **SD 3.5 Medium (T5-XXL):** $\bar{d} = +0.0343$ on LAION ($p = 0.163$, flat) and $+0.0070$ on ImageReward ($p = 0.415$, flat).
+* **PixArt-Alpha (T5-XXL):** $\bar{d} = -0.0665$ on LAION ($p = 2.5 \times 10^{-5}$) and $-0.0468$ on ImageReward ($p = 2.2 \times 10^{-8}$). Actively harmful across all metrics.
+* **SD 3.5 Medium (T5-XXL):** Ambiguous / flat ($\bar{d} = +0.0343$, Wilcoxon $p = 0.163$; ImageReward flat $\bar{d} = +0.0070, p = 0.415$).
+* **Alignment Dilution Penalty:** Statistically significant cross-attention dilution across all three backbones ($-0.0129$ on v1.5, $-0.0068$ on PixArt, $-0.0051$ on SD 3.5).
 * **Causal Conclusion:** Because PixArt-Alpha is a DiT while SD v1.5 is a UNet, and both PixArt and SD 3.5 use T5-XXL, **the text encoder (T5 vs CLIP), not the generative denoiser architecture, is the determining factor in prompt descriptor obsolescence**.
 
 #### 3. Human Ground-Truth Validation of Depth Metrics (Case Study A, $N=120$ Blinded Samples)
-* **2D Ground-Plane Predicate:** $89.17\%$ Accuracy, $83.10\%$ Precision, **12 False Positives** (tall background objects like trees and statues trigger false "in front" verdicts).
-* **Depth Anything V2 (3D Depth):** **$100.00\%$ Accuracy, $100.00\%$ Precision, 0 False Positives** against human ground truth.
+* **2D Ground-Plane Predicate:** $56.67\%$ Accuracy ($51/90$), $79.31\%$ Precision, **12 False Positives** (tall background objects like trees and statues trigger false "in front" verdicts).
+* **Depth Anything V2 (3D Depth):** $60.00\%$ Accuracy ($54/90$), **$89.36\%$ Precision, 5 False Positives** against human ground truth ($30$ samples were labeled "Can't tell" due to missing/ambiguous objects).
+
 
 
 ### 5. Established UNet Spatial Boundaries (Stable Diffusion v1.5)
