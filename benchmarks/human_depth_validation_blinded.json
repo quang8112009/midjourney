@@ -1,0 +1,1202 @@
+[
+  {
+    "blind_id": "blind_001",
+    "image_filename": "dep_17_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_17_s2024_str_6.00.png",
+    "prompt": "a leather armchair in front of a floor lamp in a study",
+    "subject": "leather armchair",
+    "object": "floor lamp",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'leather armchair' in front of the 'floor lamp'?"
+  },
+  {
+    "blind_id": "blind_002",
+    "image_filename": "dep_24_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_24_s42_str_6.00.png",
+    "prompt": "a medieval castle behind a stone bridge over a river",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "target_relation": "behind",
+    "question": "In this image, is the 'medieval castle' behind the 'stone bridge'?"
+  },
+  {
+    "blind_id": "blind_003",
+    "image_filename": "dep_23_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_23_s2024_str_0.00.png",
+    "prompt": "a telephone in front of a desk calendar on an office desk",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'telephone' in front of the 'desk calendar'?"
+  },
+  {
+    "blind_id": "blind_004",
+    "image_filename": "dep_01_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_01_s42_str_6.00.png",
+    "prompt": "a red cube in front of a blue sphere on a marble floor",
+    "subject": "red cube",
+    "object": "blue sphere",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red cube' in front of the 'blue sphere'?"
+  },
+  {
+    "blind_id": "blind_005",
+    "image_filename": "dep_14_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_14_s7777_str_0.00.png",
+    "prompt": "a water tower behind an industrial warehouse on a street",
+    "subject": "water tower",
+    "object": "warehouse",
+    "target_relation": "behind",
+    "question": "In this image, is the 'water tower' behind the 'warehouse'?"
+  },
+  {
+    "blind_id": "blind_006",
+    "image_filename": "dep_02_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_02_s7777_str_0.00.png",
+    "prompt": "a golden statue behind a stone fountain in a courtyard",
+    "subject": "golden statue",
+    "object": "stone fountain",
+    "target_relation": "behind",
+    "question": "In this image, is the 'golden statue' behind the 'stone fountain'?"
+  },
+  {
+    "blind_id": "blind_007",
+    "image_filename": "dep_16_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_16_s42_str_6.00.png",
+    "prompt": "a pine forest behind a rustic wooden fence in a field",
+    "subject": "pine forest",
+    "object": "wooden fence",
+    "target_relation": "behind",
+    "question": "In this image, is the 'pine forest' behind the 'wooden fence'?"
+  },
+  {
+    "blind_id": "blind_008",
+    "image_filename": "dep_12_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_12_s12345_str_0.00.png",
+    "prompt": "a lighthouse behind a rocky cliff on a coast",
+    "subject": "lighthouse",
+    "object": "rocky cliff",
+    "target_relation": "behind",
+    "question": "In this image, is the 'lighthouse' behind the 'rocky cliff'?"
+  },
+  {
+    "blind_id": "blind_009",
+    "image_filename": "dep_02_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_02_s42_str_0.00.png",
+    "prompt": "a golden statue behind a stone fountain in a courtyard",
+    "subject": "golden statue",
+    "object": "stone fountain",
+    "target_relation": "behind",
+    "question": "In this image, is the 'golden statue' behind the 'stone fountain'?"
+  },
+  {
+    "blind_id": "blind_010",
+    "image_filename": "dep_02_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_02_s2024_str_6.00.png",
+    "prompt": "a golden statue behind a stone fountain in a courtyard",
+    "subject": "golden statue",
+    "object": "stone fountain",
+    "target_relation": "behind",
+    "question": "In this image, is the 'golden statue' behind the 'stone fountain'?"
+  },
+  {
+    "blind_id": "blind_011",
+    "image_filename": "dep_11_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_11_s12345_str_0.00.png",
+    "prompt": "a bronze sculpture in front of a red curtain in a room",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'bronze sculpture' in front of the 'red curtain'?"
+  },
+  {
+    "blind_id": "blind_012",
+    "image_filename": "dep_22_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_22_s2024_str_6.00.png",
+    "prompt": "a city skyline behind a suspension bridge over a river",
+    "subject": "city skyline",
+    "object": "bridge",
+    "target_relation": "behind",
+    "question": "In this image, is the 'city skyline' behind the 'bridge'?"
+  },
+  {
+    "blind_id": "blind_013",
+    "image_filename": "dep_10_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_10_s2024_str_6.00.png",
+    "prompt": "a brick chimney behind a steep roof on a house",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "target_relation": "behind",
+    "question": "In this image, is the 'brick chimney' behind the 'steep roof'?"
+  },
+  {
+    "blind_id": "blind_014",
+    "image_filename": "dep_03_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_03_s12345_str_0.00.png",
+    "prompt": "a green chair in front of a brick fireplace in a living room",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'green chair' in front of the 'brick fireplace'?"
+  },
+  {
+    "blind_id": "blind_015",
+    "image_filename": "dep_10_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_10_s100_str_6.00.png",
+    "prompt": "a brick chimney behind a steep roof on a house",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "target_relation": "behind",
+    "question": "In this image, is the 'brick chimney' behind the 'steep roof'?"
+  },
+  {
+    "blind_id": "blind_016",
+    "image_filename": "dep_22_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_22_s12345_str_0.00.png",
+    "prompt": "a city skyline behind a suspension bridge over a river",
+    "subject": "city skyline",
+    "object": "bridge",
+    "target_relation": "behind",
+    "question": "In this image, is the 'city skyline' behind the 'bridge'?"
+  },
+  {
+    "blind_id": "blind_017",
+    "image_filename": "dep_19_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_19_s42_str_6.00.png",
+    "prompt": "a ceramic bowl in front of a coffee machine on a kitchen counter",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic bowl' in front of the 'coffee machine'?"
+  },
+  {
+    "blind_id": "blind_018",
+    "image_filename": "dep_04_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_04_s2024_str_0.00.png",
+    "prompt": "a tall oak tree behind a wooden cottage in a meadow",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "target_relation": "behind",
+    "question": "In this image, is the 'tall oak tree' behind the 'wooden cottage'?"
+  },
+  {
+    "blind_id": "blind_019",
+    "image_filename": "dep_14_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_14_s100_str_6.00.png",
+    "prompt": "a water tower behind an industrial warehouse on a street",
+    "subject": "water tower",
+    "object": "warehouse",
+    "target_relation": "behind",
+    "question": "In this image, is the 'water tower' behind the 'warehouse'?"
+  },
+  {
+    "blind_id": "blind_020",
+    "image_filename": "dep_20_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_20_s12345_str_6.00.png",
+    "prompt": "a mountain behind a wooden windmill on a grassy hill",
+    "subject": "mountain",
+    "object": "wooden windmill",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain' behind the 'wooden windmill'?"
+  },
+  {
+    "blind_id": "blind_021",
+    "image_filename": "dep_16_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_16_s12345_str_6.00.png",
+    "prompt": "a pine forest behind a rustic wooden fence in a field",
+    "subject": "pine forest",
+    "object": "wooden fence",
+    "target_relation": "behind",
+    "question": "In this image, is the 'pine forest' behind the 'wooden fence'?"
+  },
+  {
+    "blind_id": "blind_022",
+    "image_filename": "dep_01_s7777_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_01_s7777_str_6.00.png",
+    "prompt": "a red cube in front of a blue sphere on a marble floor",
+    "subject": "red cube",
+    "object": "blue sphere",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red cube' in front of the 'blue sphere'?"
+  },
+  {
+    "blind_id": "blind_023",
+    "image_filename": "dep_22_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_22_s100_str_0.00.png",
+    "prompt": "a city skyline behind a suspension bridge over a river",
+    "subject": "city skyline",
+    "object": "bridge",
+    "target_relation": "behind",
+    "question": "In this image, is the 'city skyline' behind the 'bridge'?"
+  },
+  {
+    "blind_id": "blind_024",
+    "image_filename": "dep_03_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_03_s42_str_0.00.png",
+    "prompt": "a green chair in front of a brick fireplace in a living room",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'green chair' in front of the 'brick fireplace'?"
+  },
+  {
+    "blind_id": "blind_025",
+    "image_filename": "dep_01_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_01_s2024_str_6.00.png",
+    "prompt": "a red cube in front of a blue sphere on a marble floor",
+    "subject": "red cube",
+    "object": "blue sphere",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red cube' in front of the 'blue sphere'?"
+  },
+  {
+    "blind_id": "blind_026",
+    "image_filename": "dep_16_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_16_s42_str_0.00.png",
+    "prompt": "a pine forest behind a rustic wooden fence in a field",
+    "subject": "pine forest",
+    "object": "wooden fence",
+    "target_relation": "behind",
+    "question": "In this image, is the 'pine forest' behind the 'wooden fence'?"
+  },
+  {
+    "blind_id": "blind_027",
+    "image_filename": "dep_05_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_05_s42_str_0.00.png",
+    "prompt": "a ceramic vase in front of a mirror on a dresser",
+    "subject": "ceramic vase",
+    "object": "mirror",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic vase' in front of the 'mirror'?"
+  },
+  {
+    "blind_id": "blind_028",
+    "image_filename": "dep_06_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_06_s7777_str_0.00.png",
+    "prompt": "a mountain peak behind a log cabin in a forest",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain peak' behind the 'log cabin'?"
+  },
+  {
+    "blind_id": "blind_029",
+    "image_filename": "dep_13_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_13_s42_str_6.00.png",
+    "prompt": "a red bicycle in front of a wooden door on a house",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red bicycle' in front of the 'wooden door'?"
+  },
+  {
+    "blind_id": "blind_030",
+    "image_filename": "dep_03_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_03_s2024_str_0.00.png",
+    "prompt": "a green chair in front of a brick fireplace in a living room",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'green chair' in front of the 'brick fireplace'?"
+  },
+  {
+    "blind_id": "blind_031",
+    "image_filename": "dep_09_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_09_s7777_str_0.00.png",
+    "prompt": "a glass bottle in front of a fruit basket on a wooden table",
+    "subject": "glass bottle",
+    "object": "fruit basket",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'glass bottle' in front of the 'fruit basket'?"
+  },
+  {
+    "blind_id": "blind_032",
+    "image_filename": "dep_04_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_04_s7777_str_0.00.png",
+    "prompt": "a tall oak tree behind a wooden cottage in a meadow",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "target_relation": "behind",
+    "question": "In this image, is the 'tall oak tree' behind the 'wooden cottage'?"
+  },
+  {
+    "blind_id": "blind_033",
+    "image_filename": "dep_07_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_07_s42_str_6.00.png",
+    "prompt": "a wooden stool in front of a bookshelf in a library",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden stool' in front of the 'bookshelf'?"
+  },
+  {
+    "blind_id": "blind_034",
+    "image_filename": "dep_12_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_12_s2024_str_6.00.png",
+    "prompt": "a lighthouse behind a rocky cliff on a coast",
+    "subject": "lighthouse",
+    "object": "rocky cliff",
+    "target_relation": "behind",
+    "question": "In this image, is the 'lighthouse' behind the 'rocky cliff'?"
+  },
+  {
+    "blind_id": "blind_035",
+    "image_filename": "dep_07_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_07_s42_str_0.00.png",
+    "prompt": "a wooden stool in front of a bookshelf in a library",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden stool' in front of the 'bookshelf'?"
+  },
+  {
+    "blind_id": "blind_036",
+    "image_filename": "dep_17_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_17_s12345_str_6.00.png",
+    "prompt": "a leather armchair in front of a floor lamp in a study",
+    "subject": "leather armchair",
+    "object": "floor lamp",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'leather armchair' in front of the 'floor lamp'?"
+  },
+  {
+    "blind_id": "blind_037",
+    "image_filename": "dep_05_s7777_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_05_s7777_str_6.00.png",
+    "prompt": "a ceramic vase in front of a mirror on a dresser",
+    "subject": "ceramic vase",
+    "object": "mirror",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic vase' in front of the 'mirror'?"
+  },
+  {
+    "blind_id": "blind_038",
+    "image_filename": "dep_04_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_04_s42_str_6.00.png",
+    "prompt": "a tall oak tree behind a wooden cottage in a meadow",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "target_relation": "behind",
+    "question": "In this image, is the 'tall oak tree' behind the 'wooden cottage'?"
+  },
+  {
+    "blind_id": "blind_039",
+    "image_filename": "dep_18_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_18_s7777_str_0.00.png",
+    "prompt": "a clock tower behind a stone archway in a town square",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "target_relation": "behind",
+    "question": "In this image, is the 'clock tower' behind the 'stone archway'?"
+  },
+  {
+    "blind_id": "blind_040",
+    "image_filename": "dep_05_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_05_s100_str_6.00.png",
+    "prompt": "a ceramic vase in front of a mirror on a dresser",
+    "subject": "ceramic vase",
+    "object": "mirror",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic vase' in front of the 'mirror'?"
+  },
+  {
+    "blind_id": "blind_041",
+    "image_filename": "dep_10_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_10_s12345_str_6.00.png",
+    "prompt": "a brick chimney behind a steep roof on a house",
+    "subject": "brick chimney",
+    "object": "steep roof",
+    "target_relation": "behind",
+    "question": "In this image, is the 'brick chimney' behind the 'steep roof'?"
+  },
+  {
+    "blind_id": "blind_042",
+    "image_filename": "dep_03_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_03_s100_str_6.00.png",
+    "prompt": "a green chair in front of a brick fireplace in a living room",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'green chair' in front of the 'brick fireplace'?"
+  },
+  {
+    "blind_id": "blind_043",
+    "image_filename": "dep_20_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_20_s100_str_0.00.png",
+    "prompt": "a mountain behind a wooden windmill on a grassy hill",
+    "subject": "mountain",
+    "object": "wooden windmill",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain' behind the 'wooden windmill'?"
+  },
+  {
+    "blind_id": "blind_044",
+    "image_filename": "dep_14_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_14_s42_str_6.00.png",
+    "prompt": "a water tower behind an industrial warehouse on a street",
+    "subject": "water tower",
+    "object": "warehouse",
+    "target_relation": "behind",
+    "question": "In this image, is the 'water tower' behind the 'warehouse'?"
+  },
+  {
+    "blind_id": "blind_045",
+    "image_filename": "dep_07_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_07_s100_str_6.00.png",
+    "prompt": "a wooden stool in front of a bookshelf in a library",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden stool' in front of the 'bookshelf'?"
+  },
+  {
+    "blind_id": "blind_046",
+    "image_filename": "dep_11_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_11_s7777_str_0.00.png",
+    "prompt": "a bronze sculpture in front of a red curtain in a room",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'bronze sculpture' in front of the 'red curtain'?"
+  },
+  {
+    "blind_id": "blind_047",
+    "image_filename": "dep_04_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_04_s42_str_0.00.png",
+    "prompt": "a tall oak tree behind a wooden cottage in a meadow",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "target_relation": "behind",
+    "question": "In this image, is the 'tall oak tree' behind the 'wooden cottage'?"
+  },
+  {
+    "blind_id": "blind_048",
+    "image_filename": "dep_18_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_18_s12345_str_6.00.png",
+    "prompt": "a clock tower behind a stone archway in a town square",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "target_relation": "behind",
+    "question": "In this image, is the 'clock tower' behind the 'stone archway'?"
+  },
+  {
+    "blind_id": "blind_049",
+    "image_filename": "dep_22_s7777_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_22_s7777_str_6.00.png",
+    "prompt": "a city skyline behind a suspension bridge over a river",
+    "subject": "city skyline",
+    "object": "bridge",
+    "target_relation": "behind",
+    "question": "In this image, is the 'city skyline' behind the 'bridge'?"
+  },
+  {
+    "blind_id": "blind_050",
+    "image_filename": "dep_16_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_16_s100_str_0.00.png",
+    "prompt": "a pine forest behind a rustic wooden fence in a field",
+    "subject": "pine forest",
+    "object": "wooden fence",
+    "target_relation": "behind",
+    "question": "In this image, is the 'pine forest' behind the 'wooden fence'?"
+  },
+  {
+    "blind_id": "blind_051",
+    "image_filename": "dep_20_s7777_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_20_s7777_str_6.00.png",
+    "prompt": "a mountain behind a wooden windmill on a grassy hill",
+    "subject": "mountain",
+    "object": "wooden windmill",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain' behind the 'wooden windmill'?"
+  },
+  {
+    "blind_id": "blind_052",
+    "image_filename": "dep_06_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_06_s42_str_0.00.png",
+    "prompt": "a mountain peak behind a log cabin in a forest",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain peak' behind the 'log cabin'?"
+  },
+  {
+    "blind_id": "blind_053",
+    "image_filename": "dep_21_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_21_s42_str_0.00.png",
+    "prompt": "a wooden violin in front of a music stand on a stage",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden violin' in front of the 'music stand'?"
+  },
+  {
+    "blind_id": "blind_054",
+    "image_filename": "dep_04_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_04_s12345_str_6.00.png",
+    "prompt": "a tall oak tree behind a wooden cottage in a meadow",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "target_relation": "behind",
+    "question": "In this image, is the 'tall oak tree' behind the 'wooden cottage'?"
+  },
+  {
+    "blind_id": "blind_055",
+    "image_filename": "dep_04_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_04_s100_str_0.00.png",
+    "prompt": "a tall oak tree behind a wooden cottage in a meadow",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "target_relation": "behind",
+    "question": "In this image, is the 'tall oak tree' behind the 'wooden cottage'?"
+  },
+  {
+    "blind_id": "blind_056",
+    "image_filename": "dep_11_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_11_s100_str_0.00.png",
+    "prompt": "a bronze sculpture in front of a red curtain in a room",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'bronze sculpture' in front of the 'red curtain'?"
+  },
+  {
+    "blind_id": "blind_057",
+    "image_filename": "dep_13_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_13_s12345_str_6.00.png",
+    "prompt": "a red bicycle in front of a wooden door on a house",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red bicycle' in front of the 'wooden door'?"
+  },
+  {
+    "blind_id": "blind_058",
+    "image_filename": "dep_02_s7777_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_02_s7777_str_6.00.png",
+    "prompt": "a golden statue behind a stone fountain in a courtyard",
+    "subject": "golden statue",
+    "object": "stone fountain",
+    "target_relation": "behind",
+    "question": "In this image, is the 'golden statue' behind the 'stone fountain'?"
+  },
+  {
+    "blind_id": "blind_059",
+    "image_filename": "dep_12_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_12_s2024_str_0.00.png",
+    "prompt": "a lighthouse behind a rocky cliff on a coast",
+    "subject": "lighthouse",
+    "object": "rocky cliff",
+    "target_relation": "behind",
+    "question": "In this image, is the 'lighthouse' behind the 'rocky cliff'?"
+  },
+  {
+    "blind_id": "blind_060",
+    "image_filename": "dep_02_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_02_s100_str_6.00.png",
+    "prompt": "a golden statue behind a stone fountain in a courtyard",
+    "subject": "golden statue",
+    "object": "stone fountain",
+    "target_relation": "behind",
+    "question": "In this image, is the 'golden statue' behind the 'stone fountain'?"
+  },
+  {
+    "blind_id": "blind_061",
+    "image_filename": "dep_18_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_18_s2024_str_0.00.png",
+    "prompt": "a clock tower behind a stone archway in a town square",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "target_relation": "behind",
+    "question": "In this image, is the 'clock tower' behind the 'stone archway'?"
+  },
+  {
+    "blind_id": "blind_062",
+    "image_filename": "dep_07_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_07_s12345_str_0.00.png",
+    "prompt": "a wooden stool in front of a bookshelf in a library",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden stool' in front of the 'bookshelf'?"
+  },
+  {
+    "blind_id": "blind_063",
+    "image_filename": "dep_20_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_20_s2024_str_0.00.png",
+    "prompt": "a mountain behind a wooden windmill on a grassy hill",
+    "subject": "mountain",
+    "object": "wooden windmill",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain' behind the 'wooden windmill'?"
+  },
+  {
+    "blind_id": "blind_064",
+    "image_filename": "dep_08_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_08_s100_str_0.00.png",
+    "prompt": "a stone wall behind a flowering rose bush in a garden",
+    "subject": "stone wall",
+    "object": "rose bush",
+    "target_relation": "behind",
+    "question": "In this image, is the 'stone wall' behind the 'rose bush'?"
+  },
+  {
+    "blind_id": "blind_065",
+    "image_filename": "dep_09_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_09_s2024_str_6.00.png",
+    "prompt": "a glass bottle in front of a fruit basket on a wooden table",
+    "subject": "glass bottle",
+    "object": "fruit basket",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'glass bottle' in front of the 'fruit basket'?"
+  },
+  {
+    "blind_id": "blind_066",
+    "image_filename": "dep_21_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_21_s100_str_6.00.png",
+    "prompt": "a wooden violin in front of a music stand on a stage",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden violin' in front of the 'music stand'?"
+  },
+  {
+    "blind_id": "blind_067",
+    "image_filename": "dep_15_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_15_s2024_str_0.00.png",
+    "prompt": "a potted cactus in front of a glass window in a sunroom",
+    "subject": "potted cactus",
+    "object": "glass window",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'potted cactus' in front of the 'glass window'?"
+  },
+  {
+    "blind_id": "blind_068",
+    "image_filename": "dep_15_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_15_s7777_str_0.00.png",
+    "prompt": "a potted cactus in front of a glass window in a sunroom",
+    "subject": "potted cactus",
+    "object": "glass window",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'potted cactus' in front of the 'glass window'?"
+  },
+  {
+    "blind_id": "blind_069",
+    "image_filename": "dep_07_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_07_s12345_str_6.00.png",
+    "prompt": "a wooden stool in front of a bookshelf in a library",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden stool' in front of the 'bookshelf'?"
+  },
+  {
+    "blind_id": "blind_070",
+    "image_filename": "dep_16_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_16_s2024_str_0.00.png",
+    "prompt": "a pine forest behind a rustic wooden fence in a field",
+    "subject": "pine forest",
+    "object": "wooden fence",
+    "target_relation": "behind",
+    "question": "In this image, is the 'pine forest' behind the 'wooden fence'?"
+  },
+  {
+    "blind_id": "blind_071",
+    "image_filename": "dep_18_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_18_s100_str_6.00.png",
+    "prompt": "a clock tower behind a stone archway in a town square",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "target_relation": "behind",
+    "question": "In this image, is the 'clock tower' behind the 'stone archway'?"
+  },
+  {
+    "blind_id": "blind_072",
+    "image_filename": "dep_13_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_13_s2024_str_6.00.png",
+    "prompt": "a red bicycle in front of a wooden door on a house",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red bicycle' in front of the 'wooden door'?"
+  },
+  {
+    "blind_id": "blind_073",
+    "image_filename": "dep_23_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_23_s12345_str_6.00.png",
+    "prompt": "a telephone in front of a desk calendar on an office desk",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'telephone' in front of the 'desk calendar'?"
+  },
+  {
+    "blind_id": "blind_074",
+    "image_filename": "dep_13_s7777_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_13_s7777_str_6.00.png",
+    "prompt": "a red bicycle in front of a wooden door on a house",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red bicycle' in front of the 'wooden door'?"
+  },
+  {
+    "blind_id": "blind_075",
+    "image_filename": "dep_12_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_12_s42_str_0.00.png",
+    "prompt": "a lighthouse behind a rocky cliff on a coast",
+    "subject": "lighthouse",
+    "object": "rocky cliff",
+    "target_relation": "behind",
+    "question": "In this image, is the 'lighthouse' behind the 'rocky cliff'?"
+  },
+  {
+    "blind_id": "blind_076",
+    "image_filename": "dep_13_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_13_s100_str_6.00.png",
+    "prompt": "a red bicycle in front of a wooden door on a house",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red bicycle' in front of the 'wooden door'?"
+  },
+  {
+    "blind_id": "blind_077",
+    "image_filename": "dep_19_s7777_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_19_s7777_str_6.00.png",
+    "prompt": "a ceramic bowl in front of a coffee machine on a kitchen counter",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic bowl' in front of the 'coffee machine'?"
+  },
+  {
+    "blind_id": "blind_078",
+    "image_filename": "dep_17_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_17_s100_str_0.00.png",
+    "prompt": "a leather armchair in front of a floor lamp in a study",
+    "subject": "leather armchair",
+    "object": "floor lamp",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'leather armchair' in front of the 'floor lamp'?"
+  },
+  {
+    "blind_id": "blind_079",
+    "image_filename": "dep_19_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_19_s100_str_0.00.png",
+    "prompt": "a ceramic bowl in front of a coffee machine on a kitchen counter",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic bowl' in front of the 'coffee machine'?"
+  },
+  {
+    "blind_id": "blind_080",
+    "image_filename": "dep_06_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_06_s2024_str_6.00.png",
+    "prompt": "a mountain peak behind a log cabin in a forest",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain peak' behind the 'log cabin'?"
+  },
+  {
+    "blind_id": "blind_081",
+    "image_filename": "dep_11_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_11_s2024_str_6.00.png",
+    "prompt": "a bronze sculpture in front of a red curtain in a room",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'bronze sculpture' in front of the 'red curtain'?"
+  },
+  {
+    "blind_id": "blind_082",
+    "image_filename": "dep_09_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_09_s12345_str_0.00.png",
+    "prompt": "a glass bottle in front of a fruit basket on a wooden table",
+    "subject": "glass bottle",
+    "object": "fruit basket",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'glass bottle' in front of the 'fruit basket'?"
+  },
+  {
+    "blind_id": "blind_083",
+    "image_filename": "dep_09_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_09_s2024_str_0.00.png",
+    "prompt": "a glass bottle in front of a fruit basket on a wooden table",
+    "subject": "glass bottle",
+    "object": "fruit basket",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'glass bottle' in front of the 'fruit basket'?"
+  },
+  {
+    "blind_id": "blind_084",
+    "image_filename": "dep_01_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_01_s42_str_0.00.png",
+    "prompt": "a red cube in front of a blue sphere on a marble floor",
+    "subject": "red cube",
+    "object": "blue sphere",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red cube' in front of the 'blue sphere'?"
+  },
+  {
+    "blind_id": "blind_085",
+    "image_filename": "dep_24_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_24_s100_str_6.00.png",
+    "prompt": "a medieval castle behind a stone bridge over a river",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "target_relation": "behind",
+    "question": "In this image, is the 'medieval castle' behind the 'stone bridge'?"
+  },
+  {
+    "blind_id": "blind_086",
+    "image_filename": "dep_06_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_06_s100_str_6.00.png",
+    "prompt": "a mountain peak behind a log cabin in a forest",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain peak' behind the 'log cabin'?"
+  },
+  {
+    "blind_id": "blind_087",
+    "image_filename": "dep_18_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_18_s42_str_0.00.png",
+    "prompt": "a clock tower behind a stone archway in a town square",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "target_relation": "behind",
+    "question": "In this image, is the 'clock tower' behind the 'stone archway'?"
+  },
+  {
+    "blind_id": "blind_088",
+    "image_filename": "dep_15_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_15_s42_str_6.00.png",
+    "prompt": "a potted cactus in front of a glass window in a sunroom",
+    "subject": "potted cactus",
+    "object": "glass window",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'potted cactus' in front of the 'glass window'?"
+  },
+  {
+    "blind_id": "blind_089",
+    "image_filename": "dep_12_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_12_s100_str_6.00.png",
+    "prompt": "a lighthouse behind a rocky cliff on a coast",
+    "subject": "lighthouse",
+    "object": "rocky cliff",
+    "target_relation": "behind",
+    "question": "In this image, is the 'lighthouse' behind the 'rocky cliff'?"
+  },
+  {
+    "blind_id": "blind_090",
+    "image_filename": "dep_23_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_23_s42_str_6.00.png",
+    "prompt": "a telephone in front of a desk calendar on an office desk",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'telephone' in front of the 'desk calendar'?"
+  },
+  {
+    "blind_id": "blind_091",
+    "image_filename": "dep_17_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_17_s42_str_6.00.png",
+    "prompt": "a leather armchair in front of a floor lamp in a study",
+    "subject": "leather armchair",
+    "object": "floor lamp",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'leather armchair' in front of the 'floor lamp'?"
+  },
+  {
+    "blind_id": "blind_092",
+    "image_filename": "dep_06_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_06_s2024_str_0.00.png",
+    "prompt": "a mountain peak behind a log cabin in a forest",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain peak' behind the 'log cabin'?"
+  },
+  {
+    "blind_id": "blind_093",
+    "image_filename": "dep_09_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_09_s12345_str_6.00.png",
+    "prompt": "a glass bottle in front of a fruit basket on a wooden table",
+    "subject": "glass bottle",
+    "object": "fruit basket",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'glass bottle' in front of the 'fruit basket'?"
+  },
+  {
+    "blind_id": "blind_094",
+    "image_filename": "dep_01_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_01_s7777_str_0.00.png",
+    "prompt": "a red cube in front of a blue sphere on a marble floor",
+    "subject": "red cube",
+    "object": "blue sphere",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red cube' in front of the 'blue sphere'?"
+  },
+  {
+    "blind_id": "blind_095",
+    "image_filename": "dep_23_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_23_s100_str_0.00.png",
+    "prompt": "a telephone in front of a desk calendar on an office desk",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'telephone' in front of the 'desk calendar'?"
+  },
+  {
+    "blind_id": "blind_096",
+    "image_filename": "dep_21_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_21_s2024_str_0.00.png",
+    "prompt": "a wooden violin in front of a music stand on a stage",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden violin' in front of the 'music stand'?"
+  },
+  {
+    "blind_id": "blind_097",
+    "image_filename": "dep_06_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_06_s42_str_6.00.png",
+    "prompt": "a mountain peak behind a log cabin in a forest",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain peak' behind the 'log cabin'?"
+  },
+  {
+    "blind_id": "blind_098",
+    "image_filename": "dep_15_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_15_s2024_str_6.00.png",
+    "prompt": "a potted cactus in front of a glass window in a sunroom",
+    "subject": "potted cactus",
+    "object": "glass window",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'potted cactus' in front of the 'glass window'?"
+  },
+  {
+    "blind_id": "blind_099",
+    "image_filename": "dep_18_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_18_s100_str_0.00.png",
+    "prompt": "a clock tower behind a stone archway in a town square",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "target_relation": "behind",
+    "question": "In this image, is the 'clock tower' behind the 'stone archway'?"
+  },
+  {
+    "blind_id": "blind_100",
+    "image_filename": "dep_16_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_16_s12345_str_0.00.png",
+    "prompt": "a pine forest behind a rustic wooden fence in a field",
+    "subject": "pine forest",
+    "object": "wooden fence",
+    "target_relation": "behind",
+    "question": "In this image, is the 'pine forest' behind the 'wooden fence'?"
+  },
+  {
+    "blind_id": "blind_101",
+    "image_filename": "dep_23_s42_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_23_s42_str_0.00.png",
+    "prompt": "a telephone in front of a desk calendar on an office desk",
+    "subject": "telephone",
+    "object": "desk calendar",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'telephone' in front of the 'desk calendar'?"
+  },
+  {
+    "blind_id": "blind_102",
+    "image_filename": "dep_06_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_06_s12345_str_6.00.png",
+    "prompt": "a mountain peak behind a log cabin in a forest",
+    "subject": "mountain peak",
+    "object": "log cabin",
+    "target_relation": "behind",
+    "question": "In this image, is the 'mountain peak' behind the 'log cabin'?"
+  },
+  {
+    "blind_id": "blind_103",
+    "image_filename": "dep_08_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_08_s7777_str_0.00.png",
+    "prompt": "a stone wall behind a flowering rose bush in a garden",
+    "subject": "stone wall",
+    "object": "rose bush",
+    "target_relation": "behind",
+    "question": "In this image, is the 'stone wall' behind the 'rose bush'?"
+  },
+  {
+    "blind_id": "blind_104",
+    "image_filename": "dep_03_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_03_s100_str_0.00.png",
+    "prompt": "a green chair in front of a brick fireplace in a living room",
+    "subject": "green chair",
+    "object": "brick fireplace",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'green chair' in front of the 'brick fireplace'?"
+  },
+  {
+    "blind_id": "blind_105",
+    "image_filename": "dep_01_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_01_s2024_str_0.00.png",
+    "prompt": "a red cube in front of a blue sphere on a marble floor",
+    "subject": "red cube",
+    "object": "blue sphere",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red cube' in front of the 'blue sphere'?"
+  },
+  {
+    "blind_id": "blind_106",
+    "image_filename": "dep_05_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_05_s12345_str_0.00.png",
+    "prompt": "a ceramic vase in front of a mirror on a dresser",
+    "subject": "ceramic vase",
+    "object": "mirror",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic vase' in front of the 'mirror'?"
+  },
+  {
+    "blind_id": "blind_107",
+    "image_filename": "dep_12_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_12_s12345_str_6.00.png",
+    "prompt": "a lighthouse behind a rocky cliff on a coast",
+    "subject": "lighthouse",
+    "object": "rocky cliff",
+    "target_relation": "behind",
+    "question": "In this image, is the 'lighthouse' behind the 'rocky cliff'?"
+  },
+  {
+    "blind_id": "blind_108",
+    "image_filename": "dep_14_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_14_s2024_str_0.00.png",
+    "prompt": "a water tower behind an industrial warehouse on a street",
+    "subject": "water tower",
+    "object": "warehouse",
+    "target_relation": "behind",
+    "question": "In this image, is the 'water tower' behind the 'warehouse'?"
+  },
+  {
+    "blind_id": "blind_109",
+    "image_filename": "dep_19_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_19_s100_str_6.00.png",
+    "prompt": "a ceramic bowl in front of a coffee machine on a kitchen counter",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic bowl' in front of the 'coffee machine'?"
+  },
+  {
+    "blind_id": "blind_110",
+    "image_filename": "dep_21_s7777_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_21_s7777_str_0.00.png",
+    "prompt": "a wooden violin in front of a music stand on a stage",
+    "subject": "wooden violin",
+    "object": "music stand",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden violin' in front of the 'music stand'?"
+  },
+  {
+    "blind_id": "blind_111",
+    "image_filename": "dep_19_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_19_s2024_str_6.00.png",
+    "prompt": "a ceramic bowl in front of a coffee machine on a kitchen counter",
+    "subject": "ceramic bowl",
+    "object": "coffee machine",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic bowl' in front of the 'coffee machine'?"
+  },
+  {
+    "blind_id": "blind_112",
+    "image_filename": "dep_13_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_13_s2024_str_0.00.png",
+    "prompt": "a red bicycle in front of a wooden door on a house",
+    "subject": "red bicycle",
+    "object": "wooden door",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'red bicycle' in front of the 'wooden door'?"
+  },
+  {
+    "blind_id": "blind_113",
+    "image_filename": "dep_11_s100_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_11_s100_str_6.00.png",
+    "prompt": "a bronze sculpture in front of a red curtain in a room",
+    "subject": "bronze sculpture",
+    "object": "red curtain",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'bronze sculpture' in front of the 'red curtain'?"
+  },
+  {
+    "blind_id": "blind_114",
+    "image_filename": "dep_05_s2024_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_05_s2024_str_0.00.png",
+    "prompt": "a ceramic vase in front of a mirror on a dresser",
+    "subject": "ceramic vase",
+    "object": "mirror",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'ceramic vase' in front of the 'mirror'?"
+  },
+  {
+    "blind_id": "blind_115",
+    "image_filename": "dep_02_s42_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_02_s42_str_6.00.png",
+    "prompt": "a golden statue behind a stone fountain in a courtyard",
+    "subject": "golden statue",
+    "object": "stone fountain",
+    "target_relation": "behind",
+    "question": "In this image, is the 'golden statue' behind the 'stone fountain'?"
+  },
+  {
+    "blind_id": "blind_116",
+    "image_filename": "dep_04_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_04_s12345_str_0.00.png",
+    "prompt": "a tall oak tree behind a wooden cottage in a meadow",
+    "subject": "tall oak tree",
+    "object": "wooden cottage",
+    "target_relation": "behind",
+    "question": "In this image, is the 'tall oak tree' behind the 'wooden cottage'?"
+  },
+  {
+    "blind_id": "blind_117",
+    "image_filename": "dep_07_s100_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_07_s100_str_0.00.png",
+    "prompt": "a wooden stool in front of a bookshelf in a library",
+    "subject": "wooden stool",
+    "object": "bookshelf",
+    "target_relation": "in_front_of",
+    "question": "In this image, is the 'wooden stool' in front of the 'bookshelf'?"
+  },
+  {
+    "blind_id": "blind_118",
+    "image_filename": "dep_24_s2024_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_24_s2024_str_6.00.png",
+    "prompt": "a medieval castle behind a stone bridge over a river",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "target_relation": "behind",
+    "question": "In this image, is the 'medieval castle' behind the 'stone bridge'?"
+  },
+  {
+    "blind_id": "blind_119",
+    "image_filename": "dep_24_s12345_str_6.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_24_s12345_str_6.00.png",
+    "prompt": "a medieval castle behind a stone bridge over a river",
+    "subject": "medieval castle",
+    "object": "stone bridge",
+    "target_relation": "behind",
+    "question": "In this image, is the 'medieval castle' behind the 'stone bridge'?"
+  },
+  {
+    "blind_id": "blind_120",
+    "image_filename": "dep_18_s12345_str_0.00.png",
+    "image_path": "benchmarks/images/depth_dedicated_n192/dep_18_s12345_str_0.00.png",
+    "prompt": "a clock tower behind a stone archway in a town square",
+    "subject": "clock tower",
+    "object": "stone archway",
+    "target_relation": "behind",
+    "question": "In this image, is the 'clock tower' behind the 'stone archway'?"
+  }
+]

@@ -1,0 +1,87 @@
+{
+  "laion_aesthetic_v2_4": {
+    "off_mean": 6.4184,
+    "off_seed_std": 0.1466,
+    "on_mean": 6.3519,
+    "on_seed_std": 0.1446,
+    "d_mean": -0.0665,
+    "d_se": 0.0158,
+    "ci_95": [
+      -0.0975,
+      -0.0356
+    ],
+    "ratio_to_noise": 0.45,
+    "t_stat": -4.212,
+    "t_pvalue": 2.5264955623073343e-05,
+    "wilcoxon_z": -1.748,
+    "wilcoxon_pvalue": 0.08043795726023344
+  },
+  "imagereward": {
+    "off_mean": 1.0092,
+    "off_seed_std": 0.077,
+    "on_mean": 0.9624,
+    "on_seed_std": 0.0813,
+    "d_mean": -0.0468,
+    "d_se": 0.0084,
+    "ci_95": [
+      -0.0632,
+      -0.0304
+    ],
+    "ratio_to_noise": 0.61,
+    "t_stat": -5.599,
+    "t_pvalue": 2.15082771386628e-08,
+    "wilcoxon_z": -3.315,
+    "wilcoxon_pvalue": 0.000917986044642309
+  },
+  "hps_v2_1": {
+    "off_mean": 0.3403,
+    "off_seed_std": 0.0024,
+    "on_mean": 0.3387,
+    "on_seed_std": 0.0026,
+    "d_mean": -0.0015,
+    "d_se": 0.0003,
+    "ci_95": [
+      -0.002,
+      -0.001
+    ],
+    "ratio_to_noise": 0.65,
+    "t_stat": -5.921,
+    "t_pvalue": 3.2074201519853204e-09,
+    "wilcoxon_z": -3.29,
+    "wilcoxon_pvalue": 0.0010008783386644194
+  },
+  "clip_alignment": {
+    "off_mean": 0.3,
+    "off_seed_std": 0.01,
+    "on_mean": 0.2932,
+    "on_seed_std": 0.0136,
+    "d_mean": -0.0068,
+    "d_se": 0.0012,
+    "ci_95": [
+      -0.0092,
+      -0.0044
+    ],
+    "ratio_to_noise": 0.68,
+    "t_stat": -5.524,
+    "t_pvalue": 3.3175322951348186e-08,
+    "wilcoxon_z": -3.74,
+    "wilcoxon_pvalue": 0.00018434393273239212
+  },
+  "pickscore_v1": {
+    "off_mean": 0.1869,
+    "off_seed_std": 0.0025,
+    "on_mean": 0.1851,
+    "on_seed_std": 0.0034,
+    "d_mean": -0.0017,
+    "d_se": 0.0003,
+    "ci_95": [
+      -0.0023,
+      -0.0011
+    ],
+    "ratio_to_noise": 0.7,
+    "t_stat": -5.63,
+    "t_pvalue": 1.7977064029746288e-08,
+    "wilcoxon_z": -3.157,
+    "wilcoxon_pvalue": 0.0015930560561767516
+  }
+}

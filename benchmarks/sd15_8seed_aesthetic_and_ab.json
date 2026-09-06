@@ -1,0 +1,3584 @@
+{
+  "metadata": {
+    "seeds": [
+      42,
+      100,
+      2024,
+      7777,
+      123,
+      999,
+      4321,
+      8888
+    ],
+    "num_pairs": 320
+  },
+  "stats_summary": {
+    "laion_aesthetic_v2_4": {
+      "off_mean": 5.9544,
+      "off_seed_std": 0.2343,
+      "on_mean": 6.0374,
+      "on_seed_std": 0.2373,
+      "d_mean": 0.0831,
+      "d_se": 0.0196,
+      "ci_95": [
+        0.0447,
+        0.1214
+      ],
+      "ratio_to_noise": 0.35,
+      "t_stat": 4.245,
+      "t_pvalue": 2.1841380632742322e-05,
+      "wilcoxon_z": -2.595,
+      "wilcoxon_pvalue": 0.009462685568936546
+    },
+    "imagereward": {
+      "off_mean": 0.774,
+      "off_seed_std": 0.1264,
+      "on_mean": 0.7897,
+      "on_seed_std": 0.1308,
+      "d_mean": 0.0157,
+      "d_se": 0.0108,
+      "ci_95": [
+        -0.0056,
+        0.0369
+      ],
+      "ratio_to_noise": 0.12,
+      "t_stat": 1.445,
+      "t_pvalue": 0.14849773945234004,
+      "wilcoxon_z": -1.576,
+      "wilcoxon_pvalue": 0.11494238772836321
+    },
+    "hps_v2_1": {
+      "off_mean": 0.3332,
+      "off_seed_std": 0.0039,
+      "on_mean": 0.3334,
+      "on_seed_std": 0.0041,
+      "d_mean": 0.0002,
+      "d_se": 0.0003,
+      "ci_95": [
+        -0.0005,
+        0.0009
+      ],
+      "ratio_to_noise": 0.05,
+      "t_stat": 0.613,
+      "t_pvalue": 0.5397712018336649,
+      "wilcoxon_z": -0.602,
+      "wilcoxon_pvalue": 0.5468906355334302
+    },
+    "clip_alignment": {
+      "off_mean": 0.2984,
+      "off_seed_std": 0.0171,
+      "on_mean": 0.2855,
+      "on_seed_std": 0.0201,
+      "d_mean": -0.0129,
+      "d_se": 0.0017,
+      "ci_95": [
+        -0.0163,
+        -0.0096
+      ],
+      "ratio_to_noise": 0.76,
+      "t_stat": -7.51,
+      "t_pvalue": 5.905841588532725e-14,
+      "wilcoxon_z": -4.21,
+      "wilcoxon_pvalue": 2.557847790865068e-05
+    },
+    "pickscore_v1": {
+      "off_mean": 0.1865,
+      "off_seed_std": 0.0043,
+      "on_mean": 0.1832,
+      "on_seed_std": 0.0051,
+      "d_mean": -0.0033,
+      "d_se": 0.0004,
+      "ci_95": [
+        -0.0041,
+        -0.0024
+      ],
+      "ratio_to_noise": 0.76,
+      "t_stat": -7.499,
+      "t_pvalue": 6.420626880439051e-14,
+      "wilcoxon_z": -3.642,
+      "wilcoxon_pvalue": 0.0002700178294891062
+    }
+  },
+  "records_off": [
+    {
+      "prompt_id": "aes_01",
+      "prompt": "cinematic portrait of an ancient warrior at golden hour with volumetric lighting and god rays",
+      "expanded_prompt": "cinematic portrait of an ancient warrior at golden hour with volumetric lighting and god rays, soft studio key lighting, subtle rim light, shallow depth of field, 85mm portrait lens, natural texture",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.26,
+          "clip_alignment": 0.3278,
+          "pickscore_v1": 0.1939,
+          "hps_v2_1": 0.3401,
+          "imagereward": 0.9856,
+          "prompt_id": "aes_01",
+          "seed": 42,
+          "sha256": "924779a18471770c00b309e5a49fab0e5d0ff638be482a843b10b2c9773c92b5"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.8,
+          "clip_alignment": 0.3398,
+          "pickscore_v1": 0.1967,
+          "hps_v2_1": 0.3492,
+          "imagereward": 1.2796,
+          "prompt_id": "aes_01",
+          "seed": 100,
+          "sha256": "ffb43eff3d8c5659649b70d9598dd99408dea258ca3c1e9129ee1fcfcde1a41a"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.378,
+          "clip_alignment": 0.3379,
+          "pickscore_v1": 0.1963,
+          "hps_v2_1": 0.3427,
+          "imagereward": 1.0649,
+          "prompt_id": "aes_01",
+          "seed": 2024,
+          "sha256": "b0d2ecf601c96421790d7dd91d66e0a57800ae5cd1f854a056cf000b75fd46e1"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.362,
+          "clip_alignment": 0.329,
+          "pickscore_v1": 0.1941,
+          "hps_v2_1": 0.3418,
+          "imagereward": 1.039,
+          "prompt_id": "aes_01",
+          "seed": 7777,
+          "sha256": "3150ae26a9e01c2ece23b8e4d651b74ea7162d49516d992d50427c79156d01b1"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.429,
+          "clip_alignment": 0.3264,
+          "pickscore_v1": 0.1935,
+          "hps_v2_1": 0.3426,
+          "imagereward": 1.0674,
+          "prompt_id": "aes_01",
+          "seed": 123,
+          "sha256": "ebf993858c01a7028f0a31f138e7b6a34b0b6eec61048c0f917cd8d928357385"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.311,
+          "clip_alignment": 0.3264,
+          "pickscore_v1": 0.1935,
+          "hps_v2_1": 0.3408,
+          "imagereward": 1.0086,
+          "prompt_id": "aes_01",
+          "seed": 999,
+          "sha256": "88c5799f59e49b0096b891c7a971f1bdf799aa52ea0d084da0e3e07e57dfcd5b"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.848,
+          "clip_alignment": 0.2997,
+          "pickscore_v1": 0.187,
+          "hps_v2_1": 0.3317,
+          "imagereward": 0.7235,
+          "prompt_id": "aes_01",
+          "seed": 4321,
+          "sha256": "6d4fe209de10cd805f317efed5bed6e667dd04677f69df16504258ece0deacf1"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.426,
+          "clip_alignment": 0.3332,
+          "pickscore_v1": 0.1951,
+          "hps_v2_1": 0.3431,
+          "imagereward": 1.0796,
+          "prompt_id": "aes_01",
+          "seed": 8888,
+          "sha256": "72c64d50be9bcfaf3ff6b614e09aad0bcd49517ec2834d02cfa574935976f005"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_02",
+      "prompt": "photorealistic close-up macro of dew drops on a blooming rose, 8k resolution studio lighting",
+      "expanded_prompt": "photorealistic close-up macro of dew drops on a blooming rose, 8k resolution studio lighting, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.993,
+          "clip_alignment": 0.3147,
+          "pickscore_v1": 0.1907,
+          "hps_v2_1": 0.3351,
+          "imagereward": 0.8258,
+          "prompt_id": "aes_02",
+          "seed": 42,
+          "sha256": "ecc0768baa8482d3dc85ca58230ab484268fea07ac411cf5132fe6394358d689"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.005,
+          "clip_alignment": 0.2859,
+          "pickscore_v1": 0.1836,
+          "hps_v2_1": 0.333,
+          "imagereward": 0.7745,
+          "prompt_id": "aes_02",
+          "seed": 100,
+          "sha256": "294ed20259fdde71ad9cfafe0faa5462d278f2156887e79e2f94794b5e7427c2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.088,
+          "clip_alignment": 0.2972,
+          "pickscore_v1": 0.1864,
+          "hps_v2_1": 0.3351,
+          "imagereward": 0.8387,
+          "prompt_id": "aes_02",
+          "seed": 2024,
+          "sha256": "a15b08368232d054f120287a90c6092375b283470399849d660dad40505e31db"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.07,
+          "clip_alignment": 0.285,
+          "pickscore_v1": 0.1833,
+          "hps_v2_1": 0.3339,
+          "imagereward": 0.8051,
+          "prompt_id": "aes_02",
+          "seed": 7777,
+          "sha256": "c9419ab7b37db8c905946e64e3f7b6a2858223796695f301e94545dd92af4c80"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.91,
+          "clip_alignment": 0.3053,
+          "pickscore_v1": 0.1884,
+          "hps_v2_1": 0.3331,
+          "imagereward": 0.7654,
+          "prompt_id": "aes_02",
+          "seed": 123,
+          "sha256": "228ab7e2f6d722e9b6234e4525c4d151dab5b09545a37af34f726d30d02d1053"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.778,
+          "clip_alignment": 0.2866,
+          "pickscore_v1": 0.1837,
+          "hps_v2_1": 0.3296,
+          "imagereward": 0.6624,
+          "prompt_id": "aes_02",
+          "seed": 999,
+          "sha256": "cd79f43c9acd518c6971683948fbc6bdc2f95f35217123f7a9ecf8e25c3de835"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.947,
+          "clip_alignment": 0.299,
+          "pickscore_v1": 0.1868,
+          "hps_v2_1": 0.3331,
+          "imagereward": 0.7717,
+          "prompt_id": "aes_02",
+          "seed": 4321,
+          "sha256": "b94c7926ff5b6f86c63c527150e4d17db07a554c161350b4567cf5e45f7c4bb5"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.802,
+          "clip_alignment": 0.2637,
+          "pickscore_v1": 0.1779,
+          "hps_v2_1": 0.3281,
+          "imagereward": 0.6282,
+          "prompt_id": "aes_02",
+          "seed": 8888,
+          "sha256": "493ca877f5bb5d6c3aa9d2e40608002e6c33027b101b422d10a7f908d009f92b"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_03",
+      "prompt": "dramatic medium shot of an astronaut looking at Earth from a moon crater, highly detailed",
+      "expanded_prompt": "dramatic medium shot of an astronaut looking at Earth from a moon crater, highly detailed, soft studio key lighting, subtle rim light, shallow depth of field, 85mm portrait lens, natural texture",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.406,
+          "clip_alignment": 0.2508,
+          "pickscore_v1": 0.1745,
+          "hps_v2_1": 0.3212,
+          "imagereward": 0.4047,
+          "prompt_id": "aes_03",
+          "seed": 42,
+          "sha256": "620c472b4311901ae0fd6c0070b1a5144daad85d6dbc3d14ada8e83d0e30fb27"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.601,
+          "clip_alignment": 0.2363,
+          "pickscore_v1": 0.1707,
+          "hps_v2_1": 0.3229,
+          "imagereward": 0.473,
+          "prompt_id": "aes_03",
+          "seed": 100,
+          "sha256": "4949a68dcc4a874600b3bfc91b803938c78e1757ef0ff3bfa5bee735df591757"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.67,
+          "clip_alignment": 0.249,
+          "pickscore_v1": 0.174,
+          "hps_v2_1": 0.325,
+          "imagereward": 0.5328,
+          "prompt_id": "aes_03",
+          "seed": 2024,
+          "sha256": "10cc5451249ba876d5e5017c71377b4605dd03a579049640553c76d8f0363801"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.852,
+          "clip_alignment": 0.2569,
+          "pickscore_v1": 0.1761,
+          "hps_v2_1": 0.3283,
+          "imagereward": 0.6397,
+          "prompt_id": "aes_03",
+          "seed": 7777,
+          "sha256": "52a7c63dddd37d5997f88e087552c93d103ebb33e4f13604b9d79e187b5e6fd8"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.754,
+          "clip_alignment": 0.2515,
+          "pickscore_v1": 0.1747,
+          "hps_v2_1": 0.3264,
+          "imagereward": 0.58,
+          "prompt_id": "aes_03",
+          "seed": 123,
+          "sha256": "136f3f07a214baa3066b01e62b22de009018f6378e758c048aca489fd0a0aec5"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.523,
+          "clip_alignment": 0.2575,
+          "pickscore_v1": 0.1763,
+          "hps_v2_1": 0.3235,
+          "imagereward": 0.4767,
+          "prompt_id": "aes_03",
+          "seed": 999,
+          "sha256": "634d5bb2cc3aabc5f8d405a894d05b47dd83e5f47810ede878583d08ba1f6816"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.9,
+          "clip_alignment": 0.2418,
+          "pickscore_v1": 0.1721,
+          "hps_v2_1": 0.3278,
+          "imagereward": 0.6335,
+          "prompt_id": "aes_03",
+          "seed": 4321,
+          "sha256": "c8f2a2703db0c9c723a8e146f6ad23bedf5ecbf476b04398ea4e316e3e73838a"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.323,
+          "clip_alignment": 0.2488,
+          "pickscore_v1": 0.174,
+          "hps_v2_1": 0.3347,
+          "imagereward": 0.8591,
+          "prompt_id": "aes_03",
+          "seed": 8888,
+          "sha256": "707fda5dc5f133325c63a519ba3e9068934c9f3957eb9c1ae125993a5bf25a90"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_04",
+      "prompt": "editorial fashion photograph of a woman in an avant-garde silk gown in neoclassical hall",
+      "expanded_prompt": "editorial fashion photograph of a woman in an avant-garde silk gown in neoclassical hall, soft studio key lighting, subtle rim light, shallow depth of field, 85mm portrait lens, natural texture",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.673,
+          "clip_alignment": 0.2951,
+          "pickscore_v1": 0.1859,
+          "hps_v2_1": 0.3287,
+          "imagereward": 0.6269,
+          "prompt_id": "aes_04",
+          "seed": 42,
+          "sha256": "4e739114076da5c13da1410c18093f963aad25fee20acd88ac84d381915884ff"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.037,
+          "clip_alignment": 0.2748,
+          "pickscore_v1": 0.1807,
+          "hps_v2_1": 0.3325,
+          "imagereward": 0.7682,
+          "prompt_id": "aes_04",
+          "seed": 100,
+          "sha256": "254908211118b5786976f1505c1ea5882068fcc0df03ce800be189e8a240ca73"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.106,
+          "clip_alignment": 0.2954,
+          "pickscore_v1": 0.186,
+          "hps_v2_1": 0.3352,
+          "imagereward": 0.8441,
+          "prompt_id": "aes_04",
+          "seed": 2024,
+          "sha256": "e64a133d31b6a1a3f8331554df8f77efa65ed9510e01fbff58a6185ce9018cf4"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.808,
+          "clip_alignment": 0.3029,
+          "pickscore_v1": 0.1878,
+          "hps_v2_1": 0.3314,
+          "imagereward": 0.7101,
+          "prompt_id": "aes_04",
+          "seed": 7777,
+          "sha256": "fdced427d51831a354834d791a5821b248c8450c6bb7484a8074f08cdec6332c"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.322,
+          "clip_alignment": 0.2913,
+          "pickscore_v1": 0.1849,
+          "hps_v2_1": 0.3381,
+          "imagereward": 0.9434,
+          "prompt_id": "aes_04",
+          "seed": 123,
+          "sha256": "7b43cfcb6e1d2a9f32273f6345ed7c3e62390f1af311f066a9d94133a6fba2d0"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.966,
+          "clip_alignment": 0.296,
+          "pickscore_v1": 0.1861,
+          "hps_v2_1": 0.3332,
+          "imagereward": 0.7747,
+          "prompt_id": "aes_04",
+          "seed": 999,
+          "sha256": "f021ef6311204126ac22f173836a2e800092e10e4ab9b23c3df956215709da2e"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.206,
+          "clip_alignment": 0.3013,
+          "pickscore_v1": 0.1874,
+          "hps_v2_1": 0.3372,
+          "imagereward": 0.9057,
+          "prompt_id": "aes_04",
+          "seed": 4321,
+          "sha256": "a7e0527fe1d65c67a3ca52374366c520fce1df211042c41a65699d93dd2d29bc"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.077,
+          "clip_alignment": 0.243,
+          "pickscore_v1": 0.1724,
+          "hps_v2_1": 0.3306,
+          "imagereward": 0.7246,
+          "prompt_id": "aes_04",
+          "seed": 8888,
+          "sha256": "10cc7887d1a614d33e39324061a809d776d02aa26dc91a2fe2f4b925836e1378"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_05",
+      "prompt": "hyperrealistic street photography of Tokyo in the rain at midnight, reflections on asphalt",
+      "expanded_prompt": "hyperrealistic street photography of Tokyo in the rain at midnight, reflections on asphalt, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.378,
+          "clip_alignment": 0.3157,
+          "pickscore_v1": 0.1909,
+          "hps_v2_1": 0.3409,
+          "imagereward": 1.0202,
+          "prompt_id": "aes_05",
+          "seed": 42,
+          "sha256": "3935b71be9a966e59f8f0f22278d75993774aa33d6d3b02f3fd403b11830e503"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.056,
+          "clip_alignment": 0.3014,
+          "pickscore_v1": 0.1874,
+          "hps_v2_1": 0.335,
+          "imagereward": 0.8308,
+          "prompt_id": "aes_05",
+          "seed": 100,
+          "sha256": "85de2cfef301b3a19ed415f68b55310a86eeaf1368ed8826f0c0595a1997db45"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.102,
+          "clip_alignment": 0.3166,
+          "pickscore_v1": 0.1912,
+          "hps_v2_1": 0.3369,
+          "imagereward": 0.8841,
+          "prompt_id": "aes_05",
+          "seed": 2024,
+          "sha256": "25db8404fcd7f14b25788c55c4ff1caf050e6f78d36f096a9b53dc9249efae31"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.245,
+          "clip_alignment": 0.3109,
+          "pickscore_v1": 0.1898,
+          "hps_v2_1": 0.3386,
+          "imagereward": 0.9444,
+          "prompt_id": "aes_05",
+          "seed": 7777,
+          "sha256": "14fe6e0cec7d70ca262bcd26a8d37a1ff861f564bdbbcf3e94004779f30200f4"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.32,
+          "clip_alignment": 0.301,
+          "pickscore_v1": 0.1873,
+          "hps_v2_1": 0.3389,
+          "imagereward": 0.9619,
+          "prompt_id": "aes_05",
+          "seed": 123,
+          "sha256": "bfece907499e56daaa7b0d33e085e13b0a80771a2097e7d75649e9a7676fffaf"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.914,
+          "clip_alignment": 0.3241,
+          "pickscore_v1": 0.193,
+          "hps_v2_1": 0.3346,
+          "imagereward": 0.8054,
+          "prompt_id": "aes_05",
+          "seed": 999,
+          "sha256": "dbf19ce1ff4e59cd13c6c7e995444b428f0ec5b4281a927c2c7a49d0d1730f3e"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.698,
+          "clip_alignment": 0.3111,
+          "pickscore_v1": 0.1898,
+          "hps_v2_1": 0.3454,
+          "imagereward": 1.1713,
+          "prompt_id": "aes_05",
+          "seed": 4321,
+          "sha256": "daf9198bdfa9356d651b1ea8ba1941ef028a572130ba87036f4a8122ece34ddb"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.113,
+          "clip_alignment": 0.3155,
+          "pickscore_v1": 0.1909,
+          "hps_v2_1": 0.3369,
+          "imagereward": 0.8874,
+          "prompt_id": "aes_05",
+          "seed": 8888,
+          "sha256": "cdf4832ebbde626912c7bd2de356553e5f9b6b30da4c5119d1879137cf8eac44"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_06",
+      "prompt": "a majestic snow leopard standing on a Himalayan cliff at dawn, photorealistic fur texture",
+      "expanded_prompt": "a majestic snow leopard standing on a Himalayan cliff at dawn, photorealistic fur texture, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.442,
+          "clip_alignment": 0.3524,
+          "pickscore_v1": 0.1996,
+          "hps_v2_1": 0.3448,
+          "imagereward": 1.1256,
+          "prompt_id": "aes_06",
+          "seed": 42,
+          "sha256": "307a54c2f54de9ddd8da19b55c899a003464f26bf0c932d924403665e05d8fc2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.501,
+          "clip_alignment": 0.3312,
+          "pickscore_v1": 0.1947,
+          "hps_v2_1": 0.344,
+          "imagereward": 1.1128,
+          "prompt_id": "aes_06",
+          "seed": 100,
+          "sha256": "1092f5766d886db5b766fc9defdfc1f905fcc6de017b3e59a3a45000112a304d"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.594,
+          "clip_alignment": 0.3565,
+          "pickscore_v1": 0.2006,
+          "hps_v2_1": 0.3474,
+          "imagereward": 1.21,
+          "prompt_id": "aes_06",
+          "seed": 2024,
+          "sha256": "1ad7614f13ef9b6b1075927a3635480601902ca4660ffa75dc4b20b0a67a0b21"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.149,
+          "clip_alignment": 0.3098,
+          "pickscore_v1": 0.1895,
+          "hps_v2_1": 0.337,
+          "imagereward": 0.8942,
+          "prompt_id": "aes_06",
+          "seed": 7777,
+          "sha256": "f34da96e70b063ae301cde4770cf09c887c5bd3c3a33a9f6603039eb50f064f1"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.429,
+          "clip_alignment": 0.3173,
+          "pickscore_v1": 0.1913,
+          "hps_v2_1": 0.3418,
+          "imagereward": 1.049,
+          "prompt_id": "aes_06",
+          "seed": 123,
+          "sha256": "8deb73377324e2c0671018157259163d885500756de4feec4c2a751a0ca18b62"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.324,
+          "clip_alignment": 0.3211,
+          "pickscore_v1": 0.1923,
+          "hps_v2_1": 0.3406,
+          "imagereward": 1.0044,
+          "prompt_id": "aes_06",
+          "seed": 999,
+          "sha256": "b76cffeb037329803c9c1a01ed89fd1555cb679394bd77e1f84c5094d3e8bf8c"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.475,
+          "clip_alignment": 0.325,
+          "pickscore_v1": 0.1932,
+          "hps_v2_1": 0.3431,
+          "imagereward": 1.0873,
+          "prompt_id": "aes_06",
+          "seed": 4321,
+          "sha256": "f78e1cbe3b7277839434ba24b7b6d77393975781eb63b063a5cde61c19f1e919"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.51,
+          "clip_alignment": 0.3209,
+          "pickscore_v1": 0.1922,
+          "hps_v2_1": 0.3433,
+          "imagereward": 1.0968,
+          "prompt_id": "aes_06",
+          "seed": 8888,
+          "sha256": "1e257381a21801d1898a22157cb452642e4918edfeb1edfbee46bd7380ee6745"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_07",
+      "prompt": "interior architectural photograph of a minimalist brutalist villa with floor-to-ceiling glass",
+      "expanded_prompt": "interior architectural photograph of a minimalist brutalist villa with floor-to-ceiling glass, clean rectilinear perspective, natural window light, authentic material textures, architectural photography",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.331,
+          "clip_alignment": 0.3003,
+          "pickscore_v1": 0.1872,
+          "hps_v2_1": 0.324,
+          "imagereward": 0.4659,
+          "prompt_id": "aes_07",
+          "seed": 42,
+          "sha256": "25b9bf5049d361dd76da4c8c1bfe243ee7300460d7373a51da062a337a3aafd8"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.501,
+          "clip_alignment": 0.2997,
+          "pickscore_v1": 0.187,
+          "hps_v2_1": 0.3265,
+          "imagereward": 0.5502,
+          "prompt_id": "aes_07",
+          "seed": 100,
+          "sha256": "0fe41f8bcd9d45bf2ef5abc7962673ec88811ae715b675f24d3d56da9f471881"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.702,
+          "clip_alignment": 0.2923,
+          "pickscore_v1": 0.1852,
+          "hps_v2_1": 0.3289,
+          "imagereward": 0.6355,
+          "prompt_id": "aes_07",
+          "seed": 2024,
+          "sha256": "288f2d46f0c32dbfb39423233ce78f676559176d8f8ab4c79c001a46b7cd90a5"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.768,
+          "clip_alignment": 0.3087,
+          "pickscore_v1": 0.1893,
+          "hps_v2_1": 0.3312,
+          "imagereward": 0.7014,
+          "prompt_id": "aes_07",
+          "seed": 7777,
+          "sha256": "d087356c3880e35e185d68b32f463bba0472b8f4a8d3da2b10d145bfa1f65de5"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.517,
+          "clip_alignment": 0.2917,
+          "pickscore_v1": 0.185,
+          "hps_v2_1": 0.3261,
+          "imagereward": 0.5416,
+          "prompt_id": "aes_07",
+          "seed": 123,
+          "sha256": "c2c9dacc917857da0a79c1452f6601060ce5e8a313d864aec9019228eaac8257"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.439,
+          "clip_alignment": 0.285,
+          "pickscore_v1": 0.1833,
+          "hps_v2_1": 0.3244,
+          "imagereward": 0.4892,
+          "prompt_id": "aes_07",
+          "seed": 999,
+          "sha256": "db5ba580563ec32ca7f2d648e65ebd8b9558c65131213709cdbb6e24beccb7ec"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.543,
+          "clip_alignment": 0.2896,
+          "pickscore_v1": 0.1845,
+          "hps_v2_1": 0.3263,
+          "imagereward": 0.5507,
+          "prompt_id": "aes_07",
+          "seed": 4321,
+          "sha256": "6d19ceb4acc5d4eb5a81977f47c338836b969fe9af4cb59c36387a71741fb8db"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.506,
+          "clip_alignment": 0.2646,
+          "pickscore_v1": 0.1781,
+          "hps_v2_1": 0.3238,
+          "imagereward": 0.4824,
+          "prompt_id": "aes_07",
+          "seed": 8888,
+          "sha256": "c37a58c594cc9c74674a9074bc676c647c6b62b9c68d75e29267f865514531c9"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_08",
+      "prompt": "candid portrait of a jazz saxophonist playing under a moody spotlight in a smoky club",
+      "expanded_prompt": "candid portrait of a jazz saxophonist playing under a moody spotlight in a smoky club, soft studio key lighting, subtle rim light, shallow depth of field, 85mm portrait lens, natural texture",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.905,
+          "clip_alignment": 0.2925,
+          "pickscore_v1": 0.1852,
+          "hps_v2_1": 0.332,
+          "imagereward": 0.7376,
+          "prompt_id": "aes_08",
+          "seed": 42,
+          "sha256": "54c7249c0cbc4b4e8401e7fc588dfe2f69ac992e6015bcdaa6950f314a0b05c1"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.17,
+          "clip_alignment": 0.2751,
+          "pickscore_v1": 0.1808,
+          "hps_v2_1": 0.3346,
+          "imagereward": 0.8351,
+          "prompt_id": "aes_08",
+          "seed": 100,
+          "sha256": "fb6bf35f500dbc59b55afdc79f8db2205b3d5005eec3814facc9321763b9e1bc"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.81,
+          "clip_alignment": 0.2924,
+          "pickscore_v1": 0.1852,
+          "hps_v2_1": 0.3305,
+          "imagereward": 0.6895,
+          "prompt_id": "aes_08",
+          "seed": 2024,
+          "sha256": "780d9bd8bf09577651fe880a91ca2566b44b3fdaaf04442209d71166b1a9f36f"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.537,
+          "clip_alignment": 0.2472,
+          "pickscore_v1": 0.1736,
+          "hps_v2_1": 0.3378,
+          "imagereward": 0.9628,
+          "prompt_id": "aes_08",
+          "seed": 7777,
+          "sha256": "c04fac9adb3df9123a0994210862bcd021a882fef955e0e7a7a5f34919e862de"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.744,
+          "clip_alignment": 0.2527,
+          "pickscore_v1": 0.175,
+          "hps_v2_1": 0.3264,
+          "imagereward": 0.5773,
+          "prompt_id": "aes_08",
+          "seed": 123,
+          "sha256": "6cf55e01e56df200d1b0429f16e90f88c2fedb8319369e4662461b3b43ac0f2e"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.653,
+          "clip_alignment": 0.2657,
+          "pickscore_v1": 0.1784,
+          "hps_v2_1": 0.326,
+          "imagereward": 0.5578,
+          "prompt_id": "aes_08",
+          "seed": 999,
+          "sha256": "9661717627492cbffab09094b0884bfd5ceb8ec78f93494d5741a58ee2a6876b"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.83,
+          "clip_alignment": 0.2562,
+          "pickscore_v1": 0.1759,
+          "hps_v2_1": 0.3279,
+          "imagereward": 0.6273,
+          "prompt_id": "aes_08",
+          "seed": 4321,
+          "sha256": "bcaa04f1fb5f68e38db9b4a6f46572d14ec79a36b54130ace4d950a4855a8576"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.773,
+          "clip_alignment": 0.2968,
+          "pickscore_v1": 0.1863,
+          "hps_v2_1": 0.3303,
+          "imagereward": 0.68,
+          "prompt_id": "aes_08",
+          "seed": 8888,
+          "sha256": "1884f62d5dca42519f109ceb15460f041cbc06e30fdaeea5ebbfd4617f4f22af"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_09",
+      "prompt": "extreme close-up of a human eye reflecting a spiral galaxy, ultra sharp focus",
+      "expanded_prompt": "extreme close-up of a human eye reflecting a spiral galaxy, ultra sharp focus, soft studio key lighting, subtle rim light, shallow depth of field, 85mm portrait lens, natural texture",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.893,
+          "clip_alignment": 0.246,
+          "pickscore_v1": 0.1732,
+          "hps_v2_1": 0.3281,
+          "imagereward": 0.6384,
+          "prompt_id": "aes_09",
+          "seed": 42,
+          "sha256": "f97f00c107f0be566659b6271c151f1a12800144c6c9f3f86f4c44a109ccab80"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.455,
+          "clip_alignment": 0.2271,
+          "pickscore_v1": 0.1682,
+          "hps_v2_1": 0.32,
+          "imagereward": 0.3816,
+          "prompt_id": "aes_09",
+          "seed": 100,
+          "sha256": "35a9651877840f664cfcc6fad8c736ef627ec87ee1ea0a8cb8fa56e665a18b0d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.59,
+          "clip_alignment": 0.1898,
+          "pickscore_v1": 0.158,
+          "hps_v2_1": 0.319,
+          "imagereward": 0.3743,
+          "prompt_id": "aes_09",
+          "seed": 2024,
+          "sha256": "6bce37c6bfba956f6c5cebdfe4cdd636bb0444f348374774a32b58641a7f0e7e"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.567,
+          "clip_alignment": 0.2468,
+          "pickscore_v1": 0.1734,
+          "hps_v2_1": 0.3232,
+          "imagereward": 0.477,
+          "prompt_id": "aes_09",
+          "seed": 7777,
+          "sha256": "8cb67d325bcc4e9a25ed5797e39a9c7d57d46e4d7e33b2c0c3b11175b278aece"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.924,
+          "clip_alignment": 0.248,
+          "pickscore_v1": 0.1738,
+          "hps_v2_1": 0.3287,
+          "imagereward": 0.6581,
+          "prompt_id": "aes_09",
+          "seed": 123,
+          "sha256": "27ee8ae16a8e5dd11dd87feafd0f1ad62e5668f44c1b0d0e55ced188b14559ea"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.661,
+          "clip_alignment": 0.238,
+          "pickscore_v1": 0.1711,
+          "hps_v2_1": 0.324,
+          "imagereward": 0.5064,
+          "prompt_id": "aes_09",
+          "seed": 999,
+          "sha256": "d40e78dd6c69637cb5fe86132d9eed3572c7b24e234c77061478c343d43f4546"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.253,
+          "clip_alignment": 0.2429,
+          "pickscore_v1": 0.1724,
+          "hps_v2_1": 0.3182,
+          "imagereward": 0.3123,
+          "prompt_id": "aes_09",
+          "seed": 4321,
+          "sha256": "168c697e4a0dc52fc2046b619197c0dcb067ff4ce109de156b97a5c32c8ffd61"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.106,
+          "clip_alignment": 0.2685,
+          "pickscore_v1": 0.1791,
+          "hps_v2_1": 0.3181,
+          "imagereward": 0.2902,
+          "prompt_id": "aes_09",
+          "seed": 8888,
+          "sha256": "af3bfbe5354c651781555751834dbed387e263493fb68ca69a28b6128bdbc53d"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_10",
+      "prompt": "aerial panoramic photograph of Norwegian fjords under northern lights, deep blue and emerald",
+      "expanded_prompt": "aerial panoramic photograph of Norwegian fjords under northern lights, deep blue and emerald, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.483,
+          "clip_alignment": 0.2804,
+          "pickscore_v1": 0.1822,
+          "hps_v2_1": 0.3247,
+          "imagereward": 0.5024,
+          "prompt_id": "aes_10",
+          "seed": 42,
+          "sha256": "0391c333cc17282da3d3a8dd96e28adf77018b5837f5661fb2d0e5b3cc24a544"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.358,
+          "clip_alignment": 0.2718,
+          "pickscore_v1": 0.18,
+          "hps_v2_1": 0.3371,
+          "imagereward": 0.9224,
+          "prompt_id": "aes_10",
+          "seed": 100,
+          "sha256": "4a66e76d79a4825c581352c4b9a04bc1ae278be35366bfc4fdc1a773c49efd33"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.292,
+          "clip_alignment": 0.1922,
+          "pickscore_v1": 0.1587,
+          "hps_v2_1": 0.3297,
+          "imagereward": 0.7301,
+          "prompt_id": "aes_10",
+          "seed": 2024,
+          "sha256": "f53c3b209cc2bf70006b882c97525d26fa518affdc76dd92b4c69612ab6ec138"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.641,
+          "clip_alignment": 0.2885,
+          "pickscore_v1": 0.1842,
+          "hps_v2_1": 0.3277,
+          "imagereward": 0.5977,
+          "prompt_id": "aes_10",
+          "seed": 7777,
+          "sha256": "0b256c01debb94adad3546d1aae0861d3a28cb304c441cac43af1c5b5b69cf36"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.665,
+          "clip_alignment": 0.2249,
+          "pickscore_v1": 0.1676,
+          "hps_v2_1": 0.323,
+          "imagereward": 0.4821,
+          "prompt_id": "aes_10",
+          "seed": 123,
+          "sha256": "1fd65f7e6a47b5436e94f866dab5661341747026bed0870898f8437455655b27"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.706,
+          "clip_alignment": 0.231,
+          "pickscore_v1": 0.1692,
+          "hps_v2_1": 0.3241,
+          "imagereward": 0.5149,
+          "prompt_id": "aes_10",
+          "seed": 999,
+          "sha256": "b659e3256c443727d7ae52a7eb2499e28411a8ac7e08243eb7d7a10f1651d8ae"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.35,
+          "clip_alignment": 0.2663,
+          "pickscore_v1": 0.1785,
+          "hps_v2_1": 0.3366,
+          "imagereward": 0.9075,
+          "prompt_id": "aes_10",
+          "seed": 4321,
+          "sha256": "590485e2932051644acaed3c8a1d40f1e558fab9e8412543e8a30edf6110c591"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.586,
+          "clip_alignment": 0.2738,
+          "pickscore_v1": 0.1805,
+          "hps_v2_1": 0.3407,
+          "imagereward": 1.0407,
+          "prompt_id": "aes_10",
+          "seed": 8888,
+          "sha256": "27009a1b62603c7773c706ee21168f2b8658da69b519b2aecb5e205088c9b4ee"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_11",
+      "prompt": "a dreamy ethereal cyberpunk street in watercolor style with volumetric neon lighting",
+      "expanded_prompt": "a dreamy ethereal cyberpunk street in watercolor style with volumetric neon lighting, delicate watercolor washes, cold-press paper texture, translucent color pooling, soft pigment granulation",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.841,
+          "clip_alignment": 0.3046,
+          "pickscore_v1": 0.1882,
+          "hps_v2_1": 0.347,
+          "imagereward": 1.2297,
+          "prompt_id": "aes_11",
+          "seed": 42,
+          "sha256": "246c31e26beadcef8d23076747f10d7c546f11bece3bfb7fe32d43fac47777d2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.688,
+          "clip_alignment": 0.3207,
+          "pickscore_v1": 0.1922,
+          "hps_v2_1": 0.346,
+          "imagereward": 1.1855,
+          "prompt_id": "aes_11",
+          "seed": 100,
+          "sha256": "1c3d88c9600c2ce83f93c484c44882e9dbb344bd178c3effcfa58d1e018045e6"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.733,
+          "clip_alignment": 0.3205,
+          "pickscore_v1": 0.1921,
+          "hps_v2_1": 0.3466,
+          "imagereward": 1.2074,
+          "prompt_id": "aes_11",
+          "seed": 2024,
+          "sha256": "ab66cb5c1797044d0f9ebef039f853f4f36688a84fc5bd776647a263e78c6eff"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.701,
+          "clip_alignment": 0.3074,
+          "pickscore_v1": 0.1889,
+          "hps_v2_1": 0.3451,
+          "imagereward": 1.1654,
+          "prompt_id": "aes_11",
+          "seed": 7777,
+          "sha256": "f8f0876ec506247d569b39622d3543da2f9f5330c8d3648f40dfc16e0dfd2b8e"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.786,
+          "clip_alignment": 0.3101,
+          "pickscore_v1": 0.1896,
+          "hps_v2_1": 0.3466,
+          "imagereward": 1.2131,
+          "prompt_id": "aes_11",
+          "seed": 123,
+          "sha256": "b8af0acd8f817aefa6234d165f1d97ac6f4044494b4e9f2065a5b27e18b3e6b0"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.727,
+          "clip_alignment": 0.3237,
+          "pickscore_v1": 0.1929,
+          "hps_v2_1": 0.3468,
+          "imagereward": 1.2109,
+          "prompt_id": "aes_11",
+          "seed": 999,
+          "sha256": "d44e8f5c253e23280b737ee700fd66774d7268bad784fc4d6c3250a62c638e2b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.797,
+          "clip_alignment": 0.3351,
+          "pickscore_v1": 0.1956,
+          "hps_v2_1": 0.3488,
+          "imagereward": 1.2687,
+          "prompt_id": "aes_11",
+          "seed": 4321,
+          "sha256": "6f46a20684f6505cc1d8c8117d0d23ee2e527e9d5fc4f41b6719c6446ee8ac01"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.644,
+          "clip_alignment": 0.315,
+          "pickscore_v1": 0.1908,
+          "hps_v2_1": 0.3449,
+          "imagereward": 1.1518,
+          "prompt_id": "aes_11",
+          "seed": 8888,
+          "sha256": "51c286f0c7b865d8ec1e13c8bdb5cfe54768abefa9d6a2414c1ce31a11227dd7"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_12",
+      "prompt": "sprawling futuristic solar-punk metropolis with hanging gardens, glass sky bridges, airships",
+      "expanded_prompt": "sprawling futuristic solar-punk metropolis with hanging gardens, glass sky bridges, airships, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.543,
+          "clip_alignment": 0.2877,
+          "pickscore_v1": 0.184,
+          "hps_v2_1": 0.3412,
+          "imagereward": 1.0467,
+          "prompt_id": "aes_12",
+          "seed": 42,
+          "sha256": "df332cfdc5d1527a3daa7365c251d63b9678878be5dcda61a430ecc8d18e4476"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.903,
+          "clip_alignment": 0.2835,
+          "pickscore_v1": 0.1829,
+          "hps_v2_1": 0.3312,
+          "imagereward": 0.7183,
+          "prompt_id": "aes_12",
+          "seed": 100,
+          "sha256": "79d7a82ed7cf974d824346c7ef6a1d0ac638334a2023d5a3059cccd8849959f4"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.464,
+          "clip_alignment": 0.2986,
+          "pickscore_v1": 0.1868,
+          "hps_v2_1": 0.3409,
+          "imagereward": 1.0294,
+          "prompt_id": "aes_12",
+          "seed": 2024,
+          "sha256": "7f565135899e3de7c2917d7aca91076b840ca6599f9859d9f9e0053714a326d8"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.72,
+          "clip_alignment": 0.3111,
+          "pickscore_v1": 0.1898,
+          "hps_v2_1": 0.3457,
+          "imagereward": 1.1823,
+          "prompt_id": "aes_12",
+          "seed": 7777,
+          "sha256": "55a0457ae46f893067e6341e415b17a867a89b41bcb850ba19e3ce10797bda58"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.307,
+          "clip_alignment": 0.3156,
+          "pickscore_v1": 0.1909,
+          "hps_v2_1": 0.3399,
+          "imagereward": 0.9849,
+          "prompt_id": "aes_12",
+          "seed": 123,
+          "sha256": "7f48bceac6b1ed8319725cfca134622085f8878f157a6b9c1566d81d930777df"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.746,
+          "clip_alignment": 0.2809,
+          "pickscore_v1": 0.1823,
+          "hps_v2_1": 0.3287,
+          "imagereward": 0.6349,
+          "prompt_id": "aes_12",
+          "seed": 999,
+          "sha256": "84b10d171992e68aee63e1af288933d4e1e0a1edb18662a9f602c66df2fd293c"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.512,
+          "clip_alignment": 0.2991,
+          "pickscore_v1": 0.1869,
+          "hps_v2_1": 0.3416,
+          "imagereward": 1.0541,
+          "prompt_id": "aes_12",
+          "seed": 4321,
+          "sha256": "18c84c9748aa23999400f22baad1aa5d18035d2cb9343d1b554cbcd2c1750872"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.396,
+          "clip_alignment": 0.3013,
+          "pickscore_v1": 0.1874,
+          "hps_v2_1": 0.3401,
+          "imagereward": 1.0009,
+          "prompt_id": "aes_12",
+          "seed": 8888,
+          "sha256": "ee59734f6b1749f5680fc84e45ef3ab35c8c7207e000b0639a64080d4ab6b9fd"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_13",
+      "prompt": "monolithic alien obelisk glowing with turquoise energy in an expanse of black desert sand",
+      "expanded_prompt": "monolithic alien obelisk glowing with turquoise energy in an expanse of black desert sand, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.441,
+          "clip_alignment": 0.3164,
+          "pickscore_v1": 0.1911,
+          "hps_v2_1": 0.3269,
+          "imagereward": 0.5533,
+          "prompt_id": "aes_13",
+          "seed": 42,
+          "sha256": "ad84b3ccfdcbec8c18171d0fb70b348d06846946f6d8a2a6d7250779e13109a9"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.783,
+          "clip_alignment": 0.3358,
+          "pickscore_v1": 0.1958,
+          "hps_v2_1": 0.3336,
+          "imagereward": 0.7631,
+          "prompt_id": "aes_13",
+          "seed": 100,
+          "sha256": "faed53a6764beb64996600fa4206f50f1be587a63ab79c9c23a2ef0a46bc6e1d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.927,
+          "clip_alignment": 0.3169,
+          "pickscore_v1": 0.1912,
+          "hps_v2_1": 0.3343,
+          "imagereward": 0.7975,
+          "prompt_id": "aes_13",
+          "seed": 2024,
+          "sha256": "e1c61f0b63ecdfc9b56e828a091f4a7cf248beac8bc7c0f47772cbe38fc7b4cd"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.276,
+          "clip_alignment": 0.3394,
+          "pickscore_v1": 0.1966,
+          "hps_v2_1": 0.3413,
+          "imagereward": 1.0169,
+          "prompt_id": "aes_13",
+          "seed": 7777,
+          "sha256": "28d52f5bf5f073faacfe48bec0726ea2c4d6653d1832bcfd79d18e5906df6f25"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.58,
+          "clip_alignment": 0.306,
+          "pickscore_v1": 0.1886,
+          "hps_v2_1": 0.3282,
+          "imagereward": 0.6017,
+          "prompt_id": "aes_13",
+          "seed": 123,
+          "sha256": "712dd4dee49d0a8ff6e416bb9ca2d8bba1197e5813e44c952c780b2677745ce7"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.189,
+          "clip_alignment": 0.3394,
+          "pickscore_v1": 0.1966,
+          "hps_v2_1": 0.34,
+          "imagereward": 0.9734,
+          "prompt_id": "aes_13",
+          "seed": 999,
+          "sha256": "7f28db654c88814a650f7a8acdedcfdef38fb633979605c3da18aff58188887d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.178,
+          "clip_alignment": 0.3358,
+          "pickscore_v1": 0.1958,
+          "hps_v2_1": 0.3245,
+          "imagereward": 0.4604,
+          "prompt_id": "aes_13",
+          "seed": 4321,
+          "sha256": "ebc2939e710319975020ceefa38e4583ae9d54201e9cde106bdbadd605046c24"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.113,
+          "clip_alignment": 0.3362,
+          "pickscore_v1": 0.1959,
+          "hps_v2_1": 0.3386,
+          "imagereward": 0.929,
+          "prompt_id": "aes_13",
+          "seed": 8888,
+          "sha256": "fef396c9ea93fa46cef440421eb2cca0bf5678d6d856157af02b125d245cadda"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_14",
+      "prompt": "subterranean cyberpunk market with holographic koi fish swimming in dense humid air",
+      "expanded_prompt": "subterranean cyberpunk market with holographic koi fish swimming in dense humid air, volumetric neon lighting, cinematic chiaroscuro, reflective damp surfaces, 35mm atmospheric lens",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.277,
+          "clip_alignment": 0.2828,
+          "pickscore_v1": 0.1828,
+          "hps_v2_1": 0.3368,
+          "imagereward": 0.9044,
+          "prompt_id": "aes_14",
+          "seed": 42,
+          "sha256": "bb61bd3e45a867fdf1b966eb47fcf534d34e348a5f4e1514a59450350702445a"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.432,
+          "clip_alignment": 0.3331,
+          "pickscore_v1": 0.1951,
+          "hps_v2_1": 0.3431,
+          "imagereward": 1.082,
+          "prompt_id": "aes_14",
+          "seed": 100,
+          "sha256": "e3dab67595026a536d7631fd1283a18d65187515db2b02d95f01b88463f7c564"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.987,
+          "clip_alignment": 0.2946,
+          "pickscore_v1": 0.1858,
+          "hps_v2_1": 0.3334,
+          "imagereward": 0.7827,
+          "prompt_id": "aes_14",
+          "seed": 2024,
+          "sha256": "c3ad5ed35772207645f31b0e8ee6fe669df5aaf8fec46529e7526fecab9cf510"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.091,
+          "clip_alignment": 0.3314,
+          "pickscore_v1": 0.1947,
+          "hps_v2_1": 0.3379,
+          "imagereward": 0.9083,
+          "prompt_id": "aes_14",
+          "seed": 7777,
+          "sha256": "8ac063de5ce3967d98c224cadf220b6dd6ac61c54c4373e006c4eeeb6a6800d8"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.338,
+          "clip_alignment": 0.3328,
+          "pickscore_v1": 0.195,
+          "hps_v2_1": 0.3417,
+          "imagereward": 1.0345,
+          "prompt_id": "aes_14",
+          "seed": 123,
+          "sha256": "efa09ca9d65e909074ad1f132b8ab2bb32b54746bbd11110029de0320dfd08d4"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.179,
+          "clip_alignment": 0.3213,
+          "pickscore_v1": 0.1923,
+          "hps_v2_1": 0.3384,
+          "imagereward": 0.9321,
+          "prompt_id": "aes_14",
+          "seed": 999,
+          "sha256": "bb50f0b813d219bf42b20f9831180e9ba606731c897f515bec127238a5d87672"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.514,
+          "clip_alignment": 0.3033,
+          "pickscore_v1": 0.1879,
+          "hps_v2_1": 0.342,
+          "imagereward": 1.0636,
+          "prompt_id": "aes_14",
+          "seed": 4321,
+          "sha256": "3eb4c32786556168c3fbc6f787b1df87f481f802577745b2fb86951916f59af6"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.511,
+          "clip_alignment": 0.3132,
+          "pickscore_v1": 0.1903,
+          "hps_v2_1": 0.3427,
+          "imagereward": 1.0821,
+          "prompt_id": "aes_14",
+          "seed": 8888,
+          "sha256": "7a3aa0cc97b0a8c39b3ad71b915830c4a0a922bc6206bffba7d75c9ed7f09340"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_15",
+      "prompt": "gigantic deep-space exploration vessel orbiting a ringed gas giant, hard sci-fi concept art",
+      "expanded_prompt": "gigantic deep-space exploration vessel orbiting a ringed gas giant, hard sci-fi concept art, digital painting, dynamic atmospheric perspective, cinematic matte finish, dramatic mood",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.034,
+          "clip_alignment": 0.2719,
+          "pickscore_v1": 0.18,
+          "hps_v2_1": 0.3323,
+          "imagereward": 0.7607,
+          "prompt_id": "aes_15",
+          "seed": 42,
+          "sha256": "177b8ce458ae86af00899736ba7cfdab334cfc50329df6bd0f502499301d28f0"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.11,
+          "clip_alignment": 0.2547,
+          "pickscore_v1": 0.1755,
+          "hps_v2_1": 0.332,
+          "imagereward": 0.7645,
+          "prompt_id": "aes_15",
+          "seed": 100,
+          "sha256": "62b4d383d0310b2548649ebaf5a7229192195e3b9a5edd8040be2d258408dc32"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.164,
+          "clip_alignment": 0.2722,
+          "pickscore_v1": 0.1801,
+          "hps_v2_1": 0.3342,
+          "imagereward": 0.8264,
+          "prompt_id": "aes_15",
+          "seed": 2024,
+          "sha256": "92c957a4544a6f7d50ae9ab5f690f26ee6bc9bce8b832ff1e69016ecca385cbd"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.0,
+          "clip_alignment": 0.2137,
+          "pickscore_v1": 0.1646,
+          "hps_v2_1": 0.3271,
+          "imagereward": 0.6276,
+          "prompt_id": "aes_15",
+          "seed": 7777,
+          "sha256": "649e8888db3b582d222be505826eb35a0dd2caf577eafe11e9bcbda3d919a1b5"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.037,
+          "clip_alignment": 0.2974,
+          "pickscore_v1": 0.1864,
+          "hps_v2_1": 0.3344,
+          "imagereward": 0.8135,
+          "prompt_id": "aes_15",
+          "seed": 123,
+          "sha256": "e77716910c7d4527c9df1df7c3731bbba19680e0925c58041927181332e4c023"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.093,
+          "clip_alignment": 0.2609,
+          "pickscore_v1": 0.1771,
+          "hps_v2_1": 0.3323,
+          "imagereward": 0.7683,
+          "prompt_id": "aes_15",
+          "seed": 999,
+          "sha256": "3a32e96dd45a634b1ab2afd68373d132ca28f2c6970edf5d1418d5ecd4fa2160"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.361,
+          "clip_alignment": 0.2155,
+          "pickscore_v1": 0.1651,
+          "hps_v2_1": 0.3327,
+          "imagereward": 0.8118,
+          "prompt_id": "aes_15",
+          "seed": 4321,
+          "sha256": "9e6730bbe6e238bcb14fd3a55017f176e094b5fcec20869594029eb83992de3b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.581,
+          "clip_alignment": 0.2552,
+          "pickscore_v1": 0.1756,
+          "hps_v2_1": 0.3391,
+          "imagereward": 1.0009,
+          "prompt_id": "aes_15",
+          "seed": 8888,
+          "sha256": "55b785e9eba945b2526f82bb938cc211a03c7e4125a3cd692a0137aa4fb79db3"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_16",
+      "prompt": "derelict mech overgrown with bioluminescent moss in an ancient primeval forest",
+      "expanded_prompt": "derelict mech overgrown with bioluminescent moss in an ancient primeval forest, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.394,
+          "clip_alignment": 0.3323,
+          "pickscore_v1": 0.1949,
+          "hps_v2_1": 0.3425,
+          "imagereward": 1.0613,
+          "prompt_id": "aes_16",
+          "seed": 42,
+          "sha256": "d7db374c7d189449d535ab73bd8b9b5ee2060c16d8907a0911f06978007c79ca"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.917,
+          "clip_alignment": 0.3414,
+          "pickscore_v1": 0.1971,
+          "hps_v2_1": 0.3361,
+          "imagereward": 0.8415,
+          "prompt_id": "aes_16",
+          "seed": 100,
+          "sha256": "a3dd8da97696d6b98b76a46454fae0a87949cb75dd3e85e82c5fb4d8e7405412"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.359,
+          "clip_alignment": 0.3479,
+          "pickscore_v1": 0.1986,
+          "hps_v2_1": 0.3432,
+          "imagereward": 1.0754,
+          "prompt_id": "aes_16",
+          "seed": 2024,
+          "sha256": "f35ed9ef28ff86e1f821c05a2899be502af84756ea9a059c28332c7b5f036c58"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.174,
+          "clip_alignment": 0.3357,
+          "pickscore_v1": 0.1957,
+          "hps_v2_1": 0.3395,
+          "imagereward": 0.9584,
+          "prompt_id": "aes_16",
+          "seed": 7777,
+          "sha256": "018357a9635d6d4b92f8d39b52add5815363959202de96be84d3322c0bed73cf"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.673,
+          "clip_alignment": 0.3568,
+          "pickscore_v1": 0.2006,
+          "hps_v2_1": 0.3486,
+          "imagereward": 1.2499,
+          "prompt_id": "aes_16",
+          "seed": 123,
+          "sha256": "283d7fc5de3101f4a3565fbcba17455d35dbf204949e2c23bca41cc06221d77e"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.117,
+          "clip_alignment": 0.3235,
+          "pickscore_v1": 0.1928,
+          "hps_v2_1": 0.3376,
+          "imagereward": 0.9056,
+          "prompt_id": "aes_16",
+          "seed": 999,
+          "sha256": "fe2ae7e37ca6d88dd53736c228c52e7d7473f639ab432d4c129bd1ea8e427868"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.142,
+          "clip_alignment": 0.3282,
+          "pickscore_v1": 0.194,
+          "hps_v2_1": 0.3384,
+          "imagereward": 0.9277,
+          "prompt_id": "aes_16",
+          "seed": 4321,
+          "sha256": "81b73a0a1245c3b5358f994cf396947176096b4d22641ee2bc6bbad9ec2d1247"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.159,
+          "clip_alignment": 0.323,
+          "pickscore_v1": 0.1927,
+          "hps_v2_1": 0.3382,
+          "imagereward": 0.9253,
+          "prompt_id": "aes_16",
+          "seed": 8888,
+          "sha256": "7376577dbebdceb15c6cd753b0c0f0ef0fc5f47e20de8bf78b4364cd93136386"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_17",
+      "prompt": "retrofuturistic 1970s laboratory filled with glowing vacuum tubes and complex oscilloscopes",
+      "expanded_prompt": "retrofuturistic 1970s laboratory filled with glowing vacuum tubes and complex oscilloscopes, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.59,
+          "clip_alignment": 0.2807,
+          "pickscore_v1": 0.1822,
+          "hps_v2_1": 0.3263,
+          "imagereward": 0.5564,
+          "prompt_id": "aes_17",
+          "seed": 42,
+          "sha256": "cf799cd5a2d39bde217490e685d1b59b18da1d5c337ed47c7165bb92021907e3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.553,
+          "clip_alignment": 0.299,
+          "pickscore_v1": 0.1868,
+          "hps_v2_1": 0.3272,
+          "imagereward": 0.5744,
+          "prompt_id": "aes_17",
+          "seed": 100,
+          "sha256": "fce6a4d7c1ab1840bd45d32e40b2be113e223fdf89d84c9465266195ce792197"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.584,
+          "clip_alignment": 0.3086,
+          "pickscore_v1": 0.1892,
+          "hps_v2_1": 0.3284,
+          "imagereward": 0.6091,
+          "prompt_id": "aes_17",
+          "seed": 2024,
+          "sha256": "64ff1bf350425bf3f2947d859e534f15f95ce5352903bda1312c23ed94a352f2"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.52,
+          "clip_alignment": 0.311,
+          "pickscore_v1": 0.1898,
+          "hps_v2_1": 0.3277,
+          "imagereward": 0.5822,
+          "prompt_id": "aes_17",
+          "seed": 7777,
+          "sha256": "69988bb57f48dafec5db5eb02d2f694eebe53aa5b00e86efe5de0d20faa54694"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.534,
+          "clip_alignment": 0.2642,
+          "pickscore_v1": 0.178,
+          "hps_v2_1": 0.3241,
+          "imagereward": 0.4951,
+          "prompt_id": "aes_17",
+          "seed": 123,
+          "sha256": "76d62fbfbe40c8b638677000769f7b491a8abaab56a59eedee980cddf5550d9d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.46,
+          "clip_alignment": 0.3196,
+          "pickscore_v1": 0.1919,
+          "hps_v2_1": 0.3275,
+          "imagereward": 0.5695,
+          "prompt_id": "aes_17",
+          "seed": 999,
+          "sha256": "84418faa9b2a4851b2b9710c444fe40d66ac9038fda5b99bc5ee1ef1956dbe37"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.518,
+          "clip_alignment": 0.3028,
+          "pickscore_v1": 0.1878,
+          "hps_v2_1": 0.327,
+          "imagereward": 0.5646,
+          "prompt_id": "aes_17",
+          "seed": 4321,
+          "sha256": "5c9cf7a04757bcf0da5c4f66e39b15d5f14f688ec7d8ef05e4b2cac2bb375e5b"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.173,
+          "clip_alignment": 0.3346,
+          "pickscore_v1": 0.1955,
+          "hps_v2_1": 0.3244,
+          "imagereward": 0.4554,
+          "prompt_id": "aes_17",
+          "seed": 8888,
+          "sha256": "d81fe48516f4c704bb0b1cf416524508d205e9ebcd5dafb6674fc517b561c3fb"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_18",
+      "prompt": "cybernetic geisha with polished porcelain plating and gold kintsugi seams, octane render",
+      "expanded_prompt": "cybernetic geisha with polished porcelain plating and gold kintsugi seams, octane render, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.124,
+          "clip_alignment": 0.2994,
+          "pickscore_v1": 0.1869,
+          "hps_v2_1": 0.3208,
+          "imagereward": 0.3607,
+          "prompt_id": "aes_18",
+          "seed": 42,
+          "sha256": "26fc347d828ab9fe539c7a57efae55567e86af0af1130f9cd3bfa3be0cd6cb5c"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.029,
+          "clip_alignment": 0.347,
+          "pickscore_v1": 0.1984,
+          "hps_v2_1": 0.3382,
+          "imagereward": 0.9085,
+          "prompt_id": "aes_18",
+          "seed": 100,
+          "sha256": "62f8485f6b0612714f42284fedbc9fb634c57a2b3425b5bb1b9318706a3dfc39"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.817,
+          "clip_alignment": 0.2934,
+          "pickscore_v1": 0.1855,
+          "hps_v2_1": 0.3307,
+          "imagereward": 0.6955,
+          "prompt_id": "aes_18",
+          "seed": 2024,
+          "sha256": "5b3717c94ae11047939913934ac5026882748ba7faca88fcf36ded7ba403e647"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.653,
+          "clip_alignment": 0.3297,
+          "pickscore_v1": 0.1943,
+          "hps_v2_1": 0.3312,
+          "imagereward": 0.686,
+          "prompt_id": "aes_18",
+          "seed": 7777,
+          "sha256": "00b3ed6f62887344112920b84c5d8283a3b401883d8821621c34b673234b08b4"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.222,
+          "clip_alignment": 0.3921,
+          "pickscore_v1": 0.2084,
+          "hps_v2_1": 0.3447,
+          "imagereward": 1.0954,
+          "prompt_id": "aes_18",
+          "seed": 123,
+          "sha256": "fb74518d8dae0839ed7606928143cd96ce312bc01627ce6636fcae67584a2313"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.552,
+          "clip_alignment": 0.3312,
+          "pickscore_v1": 0.1947,
+          "hps_v2_1": 0.3298,
+          "imagereward": 0.6385,
+          "prompt_id": "aes_18",
+          "seed": 999,
+          "sha256": "c504ae79e8b00af928d011f760ba8fe48caed56798d9bb74e00a52447d35ab3b"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.766,
+          "clip_alignment": 0.3521,
+          "pickscore_v1": 0.1995,
+          "hps_v2_1": 0.3347,
+          "imagereward": 0.7873,
+          "prompt_id": "aes_18",
+          "seed": 4321,
+          "sha256": "be15717bc0a4d45d94f257149bf3b3dbdcef1dd027e6b94612ab137a216db8f6"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.093,
+          "clip_alignment": 0.3966,
+          "pickscore_v1": 0.2094,
+          "hps_v2_1": 0.3431,
+          "imagereward": 1.0398,
+          "prompt_id": "aes_18",
+          "seed": 8888,
+          "sha256": "23075ee002401d9bb0400601896fabca476d5077b08a5a14a047571e2609bb7e"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_19",
+      "prompt": "vast orbital space elevator rising through dramatic storm clouds into starry space",
+      "expanded_prompt": "vast orbital space elevator rising through dramatic storm clouds into starry space, digital painting, dynamic atmospheric perspective, cinematic matte finish, dramatic mood",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.533,
+          "clip_alignment": 0.2585,
+          "pickscore_v1": 0.1765,
+          "hps_v2_1": 0.3387,
+          "imagereward": 0.9834,
+          "prompt_id": "aes_19",
+          "seed": 42,
+          "sha256": "03f5c63aa5d52cb0971188a7f9c8a56579a8f2cefb1ae2de8091fd6ecf750340"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.133,
+          "clip_alignment": 0.2615,
+          "pickscore_v1": 0.1773,
+          "hps_v2_1": 0.3329,
+          "imagereward": 0.7893,
+          "prompt_id": "aes_19",
+          "seed": 100,
+          "sha256": "0da9e963a825b48b3265ce58318449fe3903e41d7ed72d24aeb299e593c81154"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.75,
+          "clip_alignment": 0.2517,
+          "pickscore_v1": 0.1747,
+          "hps_v2_1": 0.3264,
+          "imagereward": 0.5782,
+          "prompt_id": "aes_19",
+          "seed": 2024,
+          "sha256": "05137a8ef6a5ff3d64a2c88c82a9ffb2cc00ace9b7d940780ead1ab1291cb9d6"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.734,
+          "clip_alignment": 0.2739,
+          "pickscore_v1": 0.1805,
+          "hps_v2_1": 0.3279,
+          "imagereward": 0.6148,
+          "prompt_id": "aes_19",
+          "seed": 7777,
+          "sha256": "1c31bbb9fc35d38040428bb56573d409b01792dd52d1620543e043d307a13d9e"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.035,
+          "clip_alignment": 0.2935,
+          "pickscore_v1": 0.1855,
+          "hps_v2_1": 0.334,
+          "imagereward": 0.8045,
+          "prompt_id": "aes_19",
+          "seed": 123,
+          "sha256": "1128761799487ef6e2479097f47ca167302750755c8ccb130ea2a62786686f58"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.097,
+          "clip_alignment": 0.2795,
+          "pickscore_v1": 0.1819,
+          "hps_v2_1": 0.3338,
+          "imagereward": 0.8077,
+          "prompt_id": "aes_19",
+          "seed": 999,
+          "sha256": "024e2346909e03049e229563e19a175b69d54268d813733d5954bf525be5e580"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.877,
+          "clip_alignment": 0.2493,
+          "pickscore_v1": 0.1741,
+          "hps_v2_1": 0.3281,
+          "imagereward": 0.6371,
+          "prompt_id": "aes_19",
+          "seed": 4321,
+          "sha256": "c956d85460e0ab6527d290a5926e6a25334d9aa022a196445fca5388b278dc51"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.627,
+          "clip_alignment": 0.2626,
+          "pickscore_v1": 0.1776,
+          "hps_v2_1": 0.3254,
+          "imagereward": 0.5388,
+          "prompt_id": "aes_19",
+          "seed": 8888,
+          "sha256": "b359f2ba28e96126996540198f073a58d62fe1e0889cd50350adb286cf4842eb"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_20",
+      "prompt": "interstellar observatory perched on the edge of an asteroid belt, cinematic composition",
+      "expanded_prompt": "interstellar observatory perched on the edge of an asteroid belt, cinematic composition, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.079,
+          "clip_alignment": 0.2313,
+          "pickscore_v1": 0.1693,
+          "hps_v2_1": 0.3297,
+          "imagereward": 0.7021,
+          "prompt_id": "aes_20",
+          "seed": 42,
+          "sha256": "1db1837a93901b82ee7ad46205a25e2b457c2c5675354399d203d4fed2e135d0"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.06,
+          "clip_alignment": 0.2827,
+          "pickscore_v1": 0.1827,
+          "hps_v2_1": 0.3335,
+          "imagereward": 0.7955,
+          "prompt_id": "aes_20",
+          "seed": 100,
+          "sha256": "3375f502d92c61ed64b703b486a517616f924b75b8863eb8dcc29b9af3c8f42a"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.714,
+          "clip_alignment": 0.2363,
+          "pickscore_v1": 0.1707,
+          "hps_v2_1": 0.3246,
+          "imagereward": 0.5296,
+          "prompt_id": "aes_20",
+          "seed": 2024,
+          "sha256": "f89eedb7f9c0e5a78f2d535827184d575dd49d34eb84a8376fad57bce506dad9"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.774,
+          "clip_alignment": 0.2642,
+          "pickscore_v1": 0.178,
+          "hps_v2_1": 0.3277,
+          "imagereward": 0.6154,
+          "prompt_id": "aes_20",
+          "seed": 7777,
+          "sha256": "0c8097500b0dc1ded749bbcf6895793f2e13739958059faf7b3b66d829a0f268"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.613,
+          "clip_alignment": 0.2199,
+          "pickscore_v1": 0.1663,
+          "hps_v2_1": 0.3218,
+          "imagereward": 0.4463,
+          "prompt_id": "aes_20",
+          "seed": 123,
+          "sha256": "cf615571335236e54516234bb9a436fd2a4b6533fc6f3872dd718e1441c7aed0"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.265,
+          "clip_alignment": 0.2739,
+          "pickscore_v1": 0.1805,
+          "hps_v2_1": 0.3359,
+          "imagereward": 0.8805,
+          "prompt_id": "aes_20",
+          "seed": 999,
+          "sha256": "228b819482858a0365817f31ce1ca1f0a1365cd0a4881ef0c64d449426172088"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.944,
+          "clip_alignment": 0.2455,
+          "pickscore_v1": 0.1731,
+          "hps_v2_1": 0.3288,
+          "imagereward": 0.6628,
+          "prompt_id": "aes_20",
+          "seed": 4321,
+          "sha256": "05bafa35d514220ff5423b3616b8460b106020f95a7b5d5b0741cf787ab55dcb"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.318,
+          "clip_alignment": 0.229,
+          "pickscore_v1": 0.1687,
+          "hps_v2_1": 0.3331,
+          "imagereward": 0.8168,
+          "prompt_id": "aes_20",
+          "seed": 8888,
+          "sha256": "379c678f35f42ef064b9e9ea657b9a5b18e8fc15aa9000294b42060b1f52e114"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_21",
+      "prompt": "oil painting of an ancient castle on a rugged cliff at sunset with dramatic chiaroscuro",
+      "expanded_prompt": "oil painting of an ancient castle on a rugged cliff at sunset with dramatic chiaroscuro, rich impasto brushwork, layered glazing, classical chiaroscuro lighting, textured linen canvas",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.024,
+          "clip_alignment": 0.2956,
+          "pickscore_v1": 0.186,
+          "hps_v2_1": 0.334,
+          "imagereward": 0.8034,
+          "prompt_id": "aes_21",
+          "seed": 42,
+          "sha256": "a4acaca96b4dd47be5f2f04dfb8aec7874651353b548d749072c2294057013f4"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.136,
+          "clip_alignment": 0.3014,
+          "pickscore_v1": 0.1874,
+          "hps_v2_1": 0.3362,
+          "imagereward": 0.8709,
+          "prompt_id": "aes_21",
+          "seed": 100,
+          "sha256": "081c18a3453c55e90b8f71c68e0fbf0a31775f472d079fd49d3c995e1cc0e997"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.477,
+          "clip_alignment": 0.3366,
+          "pickscore_v1": 0.1959,
+          "hps_v2_1": 0.3441,
+          "imagereward": 1.1118,
+          "prompt_id": "aes_21",
+          "seed": 2024,
+          "sha256": "f924987941ae5f3d44a26da824d3a32cb1ca182620ea30aedf369c71d542acf2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.452,
+          "clip_alignment": 0.3245,
+          "pickscore_v1": 0.1931,
+          "hps_v2_1": 0.3427,
+          "imagereward": 1.075,
+          "prompt_id": "aes_21",
+          "seed": 7777,
+          "sha256": "d9159a1ee2eeec269620a5811e758a3b38f824d0b67e889f98b18f5b80ec71ed"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.969,
+          "clip_alignment": 0.3089,
+          "pickscore_v1": 0.1893,
+          "hps_v2_1": 0.3342,
+          "imagereward": 0.8024,
+          "prompt_id": "aes_21",
+          "seed": 123,
+          "sha256": "9b4db926881635b2011627ceda7a3016b9dbdce060f9c9b82022da5ae4a76dd9"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.271,
+          "clip_alignment": 0.2969,
+          "pickscore_v1": 0.1863,
+          "hps_v2_1": 0.3378,
+          "imagereward": 0.9296,
+          "prompt_id": "aes_21",
+          "seed": 999,
+          "sha256": "c1f5ab274cb78584a41a8e4d337a7519e88c141f2328cd8b3056dad73f38de07"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.259,
+          "clip_alignment": 0.3125,
+          "pickscore_v1": 0.1902,
+          "hps_v2_1": 0.3389,
+          "imagereward": 0.9546,
+          "prompt_id": "aes_21",
+          "seed": 4321,
+          "sha256": "fef131caf9039660f355d3263928ce1c0deea5167713a489336cb55d534f4105"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.494,
+          "clip_alignment": 0.308,
+          "pickscore_v1": 0.1891,
+          "hps_v2_1": 0.342,
+          "imagereward": 1.063,
+          "prompt_id": "aes_21",
+          "seed": 8888,
+          "sha256": "e5e1d00148e18bd4726f0a92733fb9e4d305c8be4c0dd32fdec531d1304b8975"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_22",
+      "prompt": "delicate Japanese ukiyo-e woodblock print of a crane flying past Mount Fuji cherry blossoms",
+      "expanded_prompt": "delicate Japanese ukiyo-e woodblock print of a crane flying past Mount Fuji cherry blossoms, traditional Japanese woodblock print, washi paper texture, bold ink outlines, flat mineral pigments",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.247,
+          "clip_alignment": 0.3074,
+          "pickscore_v1": 0.1889,
+          "hps_v2_1": 0.3383,
+          "imagereward": 0.9382,
+          "prompt_id": "aes_22",
+          "seed": 42,
+          "sha256": "f1e11573bb64fcffe744b80a7e58e55ec661323c5a50a0890b93bad772348099"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.539,
+          "clip_alignment": 0.3011,
+          "pickscore_v1": 0.1874,
+          "hps_v2_1": 0.3422,
+          "imagereward": 1.0716,
+          "prompt_id": "aes_22",
+          "seed": 100,
+          "sha256": "2349c102c39ce77a71905e15afbe14464fe3520a3faeb0a75a263aaeb3f8f75b"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.894,
+          "clip_alignment": 0.289,
+          "pickscore_v1": 0.1843,
+          "hps_v2_1": 0.3315,
+          "imagereward": 0.7251,
+          "prompt_id": "aes_22",
+          "seed": 2024,
+          "sha256": "03b464017fbe3c87973da1e2040dfb238486b511c92400dc7f88c242a13f15bb"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.993,
+          "clip_alignment": 0.3106,
+          "pickscore_v1": 0.1897,
+          "hps_v2_1": 0.3347,
+          "imagereward": 0.8176,
+          "prompt_id": "aes_22",
+          "seed": 7777,
+          "sha256": "bb4a5a300824bf4d01a4e8a6023df5695aef65d7108c2bd29a61af2ca73f665b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.302,
+          "clip_alignment": 0.2833,
+          "pickscore_v1": 0.1829,
+          "hps_v2_1": 0.3372,
+          "imagereward": 0.9176,
+          "prompt_id": "aes_22",
+          "seed": 123,
+          "sha256": "3295ceaad9858a554171654f23ca80d6655bb29e71c145d8fea0fdb27507ef3d"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.426,
+          "clip_alignment": 0.3159,
+          "pickscore_v1": 0.191,
+          "hps_v2_1": 0.3417,
+          "imagereward": 1.0449,
+          "prompt_id": "aes_22",
+          "seed": 999,
+          "sha256": "02184413c34c8d25536b2c67438e59daf676d32e0902238a8a333001dd4e4343"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.297,
+          "clip_alignment": 0.2939,
+          "pickscore_v1": 0.1856,
+          "hps_v2_1": 0.338,
+          "imagereward": 0.9365,
+          "prompt_id": "aes_22",
+          "seed": 4321,
+          "sha256": "dffc690465dd60051c107e243064f246f4d81d7989e5de5805f1e2bc6c97293f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.93,
+          "clip_alignment": 0.3272,
+          "pickscore_v1": 0.1937,
+          "hps_v2_1": 0.3351,
+          "imagereward": 0.8193,
+          "prompt_id": "aes_22",
+          "seed": 8888,
+          "sha256": "710348a475aac70aea87d324c0e39f8643fb43c630a1df9a49edfb640493a659"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_23",
+      "prompt": "expressive charcoal sketch of a galloping stallion with energetic dynamic smudges",
+      "expanded_prompt": "expressive charcoal sketch of a galloping stallion with energetic dynamic smudges, expressive high-contrast charcoal smudges, textured laid paper, dynamic tonal shading",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.336,
+          "clip_alignment": 0.3015,
+          "pickscore_v1": 0.1875,
+          "hps_v2_1": 0.3242,
+          "imagereward": 0.471,
+          "prompt_id": "aes_23",
+          "seed": 42,
+          "sha256": "47f4317ca232ea7e3ba4324d4be7c7235768f6b71a854aaba88f912e97233fde"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.532,
+          "clip_alignment": 0.3426,
+          "pickscore_v1": 0.1974,
+          "hps_v2_1": 0.3304,
+          "imagereward": 0.6515,
+          "prompt_id": "aes_23",
+          "seed": 100,
+          "sha256": "b5c1d46ec281172aa30f1bf75a6b3cf335ff398e130bb4570e8427600622af67"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.38,
+          "clip_alignment": 0.3434,
+          "pickscore_v1": 0.1975,
+          "hps_v2_1": 0.3282,
+          "imagereward": 0.5769,
+          "prompt_id": "aes_23",
+          "seed": 2024,
+          "sha256": "6956647b8a2ae652c47f39e0ee7a03aef97be9b1852b6281e424b5f17eb0c0a0"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.016,
+          "clip_alignment": 0.3483,
+          "pickscore_v1": 0.1987,
+          "hps_v2_1": 0.3231,
+          "imagereward": 0.4044,
+          "prompt_id": "aes_23",
+          "seed": 7777,
+          "sha256": "1d4afa8c7ef014d89bbdfb8329df7fce18fe891c662388f018d319f98eed5121"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.284,
+          "clip_alignment": 0.3498,
+          "pickscore_v1": 0.199,
+          "hps_v2_1": 0.3272,
+          "imagereward": 0.5417,
+          "prompt_id": "aes_23",
+          "seed": 123,
+          "sha256": "6dd386bc0527d2bdb265feee0bea5446c8bbeb36ff8276bc1bf4d7509664762d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.17,
+          "clip_alignment": 0.3354,
+          "pickscore_v1": 0.1957,
+          "hps_v2_1": 0.3244,
+          "imagereward": 0.4556,
+          "prompt_id": "aes_23",
+          "seed": 999,
+          "sha256": "cadf5e20fa47483d50700fd65358e1459ac2ec4c8012bc0d5a0aaf64a0b740e7"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.191,
+          "clip_alignment": 0.3182,
+          "pickscore_v1": 0.1916,
+          "hps_v2_1": 0.3233,
+          "imagereward": 0.4321,
+          "prompt_id": "aes_23",
+          "seed": 4321,
+          "sha256": "cb380d2fff8dd317f3555fa59f89fc30a85c6f01f6595232468310625c8a8ae8"
+        },
+        {
+          "laion_aesthetic_v2_4": 4.997,
+          "clip_alignment": 0.3246,
+          "pickscore_v1": 0.1931,
+          "hps_v2_1": 0.3209,
+          "imagereward": 0.3475,
+          "prompt_id": "aes_23",
+          "seed": 8888,
+          "sha256": "7aa1132af59e66b40a87de9ca911bf96ea12a41617b5c3df1eca8d8081981c8e"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_24",
+      "prompt": "vibrant post-impressionist landscape of rolling lavender fields with swirling starry skies",
+      "expanded_prompt": "vibrant post-impressionist landscape of rolling lavender fields with swirling starry skies, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.227,
+          "clip_alignment": 0.293,
+          "pickscore_v1": 0.1853,
+          "hps_v2_1": 0.3368,
+          "imagereward": 0.8995,
+          "prompt_id": "aes_24",
+          "seed": 42,
+          "sha256": "01a32ce102762f1881751a2b943b6d3bf35af1a84dd930db987e0baa9a73bf7d"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.352,
+          "clip_alignment": 0.3031,
+          "pickscore_v1": 0.1879,
+          "hps_v2_1": 0.3395,
+          "imagereward": 0.9821,
+          "prompt_id": "aes_24",
+          "seed": 100,
+          "sha256": "b5899fb5a0c733954a18d7adf72e8f9a306329b1e560eb00744a7a003f120060"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.11,
+          "clip_alignment": 0.2783,
+          "pickscore_v1": 0.1816,
+          "hps_v2_1": 0.3339,
+          "imagereward": 0.8115,
+          "prompt_id": "aes_24",
+          "seed": 2024,
+          "sha256": "9341cd12164254c7bead0dba412d88f897a1e7b0215800ee2858c7c90ac55154"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.028,
+          "clip_alignment": 0.2904,
+          "pickscore_v1": 0.1847,
+          "hps_v2_1": 0.3336,
+          "imagereward": 0.7946,
+          "prompt_id": "aes_24",
+          "seed": 7777,
+          "sha256": "fef977c35810cd0962045e77c9bd062dd7389dd46c0c878c34c5fec29f784919"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.192,
+          "clip_alignment": 0.2869,
+          "pickscore_v1": 0.1838,
+          "hps_v2_1": 0.3358,
+          "imagereward": 0.8696,
+          "prompt_id": "aes_24",
+          "seed": 123,
+          "sha256": "52a89ed078628a756a0731b2b9fd6fe0716cf08e2b7879f5fe00dfda7f344633"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.198,
+          "clip_alignment": 0.3026,
+          "pickscore_v1": 0.1877,
+          "hps_v2_1": 0.3372,
+          "imagereward": 0.9043,
+          "prompt_id": "aes_24",
+          "seed": 999,
+          "sha256": "414858cd33e904359b7dd5c3cef6e1aa274873dd3923ab80d782b8f05d32b686"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.186,
+          "clip_alignment": 0.3155,
+          "pickscore_v1": 0.1909,
+          "hps_v2_1": 0.338,
+          "imagereward": 0.924,
+          "prompt_id": "aes_24",
+          "seed": 4321,
+          "sha256": "26192d987c6660b1a0b6b27c3bceeb02c005cbcb9703cb9b25f016c8502e4fbe"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.239,
+          "clip_alignment": 0.2605,
+          "pickscore_v1": 0.177,
+          "hps_v2_1": 0.3344,
+          "imagereward": 0.8405,
+          "prompt_id": "aes_24",
+          "seed": 8888,
+          "sha256": "3b4670d25a53989541f3afe1bfd0bcb384a18acf22eccbfce6be218fcf3c80d2"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_25",
+      "prompt": "baroque still life of ripe pomegranate, brass chalice, and peeled lemon on dark velvet",
+      "expanded_prompt": "baroque still life of ripe pomegranate, brass chalice, and peeled lemon on dark velvet, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.167,
+          "clip_alignment": 0.3468,
+          "pickscore_v1": 0.1983,
+          "hps_v2_1": 0.3402,
+          "imagereward": 0.9768,
+          "prompt_id": "aes_25",
+          "seed": 42,
+          "sha256": "0da7b9ac665533da77f15c2757e373c560f717831a8fac85a92237f57d8cf91f"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.237,
+          "clip_alignment": 0.3572,
+          "pickscore_v1": 0.2007,
+          "hps_v2_1": 0.3421,
+          "imagereward": 1.0327,
+          "prompt_id": "aes_25",
+          "seed": 100,
+          "sha256": "730f4e2875df883a6c3d14543b8ded3197d06faece06d5f03ad30df0f4d04259"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.213,
+          "clip_alignment": 0.3583,
+          "pickscore_v1": 0.201,
+          "hps_v2_1": 0.3419,
+          "imagereward": 1.0233,
+          "prompt_id": "aes_25",
+          "seed": 2024,
+          "sha256": "761dfaa8fc980aa3255740d3468142401c76f8eee088f691009c167ce2487b62"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.333,
+          "clip_alignment": 0.3464,
+          "pickscore_v1": 0.1982,
+          "hps_v2_1": 0.3427,
+          "imagereward": 1.0594,
+          "prompt_id": "aes_25",
+          "seed": 7777,
+          "sha256": "a558670807f5395fbb82c991be05a29fa7ce594b4210ce61ea9e240b5c4493c8"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.32,
+          "clip_alignment": 0.3364,
+          "pickscore_v1": 0.1959,
+          "hps_v2_1": 0.3417,
+          "imagereward": 1.0327,
+          "prompt_id": "aes_25",
+          "seed": 123,
+          "sha256": "92fc9dcb828a60e0b4df3e1ed75b0770a9ca6d341f334fd724cba0ec5ef13cb3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.849,
+          "clip_alignment": 0.3496,
+          "pickscore_v1": 0.199,
+          "hps_v2_1": 0.3357,
+          "imagereward": 0.8236,
+          "prompt_id": "aes_25",
+          "seed": 999,
+          "sha256": "0eb766e227cb60c09bda9c239048b3addd23e584d4fbd9eec7a96e262202a210"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.968,
+          "clip_alignment": 0.3444,
+          "pickscore_v1": 0.1978,
+          "hps_v2_1": 0.3371,
+          "imagereward": 0.8726,
+          "prompt_id": "aes_25",
+          "seed": 4321,
+          "sha256": "02cebb1be793de9fea4d358cfefb738e743906dba1bb3776279b691cca3a4f9a"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.914,
+          "clip_alignment": 0.3384,
+          "pickscore_v1": 0.1964,
+          "hps_v2_1": 0.3358,
+          "imagereward": 0.8339,
+          "prompt_id": "aes_25",
+          "seed": 8888,
+          "sha256": "eb71d6f88f17d132d6a99254817de417fc339aee126e9f669f82b57b1ba9b153"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_26",
+      "prompt": "traditional Chinese ink wash painting of misty mountains, pine trees, and a solitary pavilion",
+      "expanded_prompt": "traditional Chinese ink wash painting of misty mountains, pine trees, and a solitary pavilion, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.062,
+          "clip_alignment": 0.3562,
+          "pickscore_v1": 0.2005,
+          "hps_v2_1": 0.3394,
+          "imagereward": 0.9436,
+          "prompt_id": "aes_26",
+          "seed": 42,
+          "sha256": "77022c0781ed98e95fca9ccf6ed0fc5add197924b90873571d848d73c92dcb2b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.047,
+          "clip_alignment": 0.3333,
+          "pickscore_v1": 0.1952,
+          "hps_v2_1": 0.3374,
+          "imagereward": 0.8901,
+          "prompt_id": "aes_26",
+          "seed": 100,
+          "sha256": "93838d42006c93c3d7f194cc2e51eafed892c73806659f5f37fd94a6e61ea97f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.417,
+          "clip_alignment": 0.3347,
+          "pickscore_v1": 0.1955,
+          "hps_v2_1": 0.328,
+          "imagereward": 0.5779,
+          "prompt_id": "aes_26",
+          "seed": 2024,
+          "sha256": "118b01782eceee13282134447b731d94177d0a6418638af228c2b98dbcbf10a3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.787,
+          "clip_alignment": 0.3362,
+          "pickscore_v1": 0.1958,
+          "hps_v2_1": 0.3337,
+          "imagereward": 0.7659,
+          "prompt_id": "aes_26",
+          "seed": 7777,
+          "sha256": "755f4e273c9495a163bc09387486d415f56f9b99b1acc3acfa6ff98bce1c22fe"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.533,
+          "clip_alignment": 0.3734,
+          "pickscore_v1": 0.2043,
+          "hps_v2_1": 0.3479,
+          "imagereward": 1.2133,
+          "prompt_id": "aes_26",
+          "seed": 123,
+          "sha256": "f1c6aaabe9b5c315cf223d6bc9300863b8aff6be31aa90cbefa30527cb6c6a36"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.394,
+          "clip_alignment": 0.3447,
+          "pickscore_v1": 0.1978,
+          "hps_v2_1": 0.3435,
+          "imagereward": 1.0866,
+          "prompt_id": "aes_26",
+          "seed": 999,
+          "sha256": "d994fb898e4e3deef51d279047af50de00d4a3944ace5ca18656674212658614"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.293,
+          "clip_alignment": 0.3369,
+          "pickscore_v1": 0.196,
+          "hps_v2_1": 0.3413,
+          "imagereward": 1.0202,
+          "prompt_id": "aes_26",
+          "seed": 4321,
+          "sha256": "806ddcba393c8b216913daa5b6a7ea985e71dfcc7d7d624c7b4afa1a33a4c51e"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.482,
+          "clip_alignment": 0.3535,
+          "pickscore_v1": 0.1999,
+          "hps_v2_1": 0.3455,
+          "imagereward": 1.148,
+          "prompt_id": "aes_26",
+          "seed": 8888,
+          "sha256": "8908156eae9a46816e2c33e30f81b0400410275c3638858c58bc2c9dadcbb76a"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_27",
+      "prompt": "renaissance fresco of allegorical muses seated in a marble loggia overlooking Florence",
+      "expanded_prompt": "renaissance fresco of allegorical muses seated in a marble loggia overlooking Florence, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.041,
+          "clip_alignment": 0.2728,
+          "pickscore_v1": 0.1802,
+          "hps_v2_1": 0.3324,
+          "imagereward": 0.7663,
+          "prompt_id": "aes_27",
+          "seed": 42,
+          "sha256": "6a9a5ff20c75a04e43a8cdef5c44134f296c72bf355b3225be95e0d25839aab8"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.911,
+          "clip_alignment": 0.3019,
+          "pickscore_v1": 0.1876,
+          "hps_v2_1": 0.3328,
+          "imagereward": 0.7596,
+          "prompt_id": "aes_27",
+          "seed": 100,
+          "sha256": "a34b9a94f6eb07d0f2022a06d9e5f60288d1f8d792c3a1237c4984e349ec75e2"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.111,
+          "clip_alignment": 0.279,
+          "pickscore_v1": 0.1818,
+          "hps_v2_1": 0.334,
+          "imagereward": 0.8133,
+          "prompt_id": "aes_27",
+          "seed": 2024,
+          "sha256": "b745e689423c445316d5c134275f161bdb9c2a00d2307d92e26e312f7bf84090"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.981,
+          "clip_alignment": 0.2559,
+          "pickscore_v1": 0.1758,
+          "hps_v2_1": 0.3302,
+          "imagereward": 0.7023,
+          "prompt_id": "aes_27",
+          "seed": 7777,
+          "sha256": "5021444d5fb759efc76fac3d3105fc8341a2a80409865c2ebc80477225b17569"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.192,
+          "clip_alignment": 0.2645,
+          "pickscore_v1": 0.1781,
+          "hps_v2_1": 0.334,
+          "imagereward": 0.8252,
+          "prompt_id": "aes_27",
+          "seed": 123,
+          "sha256": "67321203258708329a02a505a58776fc0978f15e85023e85f78a6add001c3438"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.184,
+          "clip_alignment": 0.2593,
+          "pickscore_v1": 0.1767,
+          "hps_v2_1": 0.3335,
+          "imagereward": 0.8107,
+          "prompt_id": "aes_27",
+          "seed": 999,
+          "sha256": "d349be5d67125709bd2aeed77769dec19ec68340bddf01e70a2dcd7048b3821b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.3,
+          "clip_alignment": 0.2731,
+          "pickscore_v1": 0.1803,
+          "hps_v2_1": 0.3363,
+          "imagereward": 0.8962,
+          "prompt_id": "aes_27",
+          "seed": 4321,
+          "sha256": "0e32468cf7d5483d0d0f9d0a44a463e97316415884e374f85378a32c0730e253"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.044,
+          "clip_alignment": 0.2847,
+          "pickscore_v1": 0.1833,
+          "hps_v2_1": 0.3334,
+          "imagereward": 0.7917,
+          "prompt_id": "aes_27",
+          "seed": 8888,
+          "sha256": "4f99fb7256e763a5f695eb00f341a8b1bb318eb2494a20f086589ad015fad166"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_28",
+      "prompt": "moody atmospheric gouache illustration of an autumn forest path covered in golden leaves",
+      "expanded_prompt": "moody atmospheric gouache illustration of an autumn forest path covered in golden leaves, opaque matte gouache layers, velvet surface finish, vibrant saturated color blocking",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.466,
+          "clip_alignment": 0.2967,
+          "pickscore_v1": 0.1863,
+          "hps_v2_1": 0.3407,
+          "imagereward": 1.0266,
+          "prompt_id": "aes_28",
+          "seed": 42,
+          "sha256": "8b27d72b76baa620c6170072fd463796291fcb800cca8a87903d35d9049e58e9"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.422,
+          "clip_alignment": 0.2999,
+          "pickscore_v1": 0.1871,
+          "hps_v2_1": 0.3403,
+          "imagereward": 1.0105,
+          "prompt_id": "aes_28",
+          "seed": 100,
+          "sha256": "57bb3babf4aadd30edd5731eba58e7276b071e633328515974191b94a053415a"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.303,
+          "clip_alignment": 0.278,
+          "pickscore_v1": 0.1815,
+          "hps_v2_1": 0.3368,
+          "imagereward": 0.9074,
+          "prompt_id": "aes_28",
+          "seed": 2024,
+          "sha256": "2e196f6274812569a0ed9c19d45c91552a3c2944fa94f0930822c3a959c25e20"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.68,
+          "clip_alignment": 0.2848,
+          "pickscore_v1": 0.1833,
+          "hps_v2_1": 0.343,
+          "imagereward": 1.1095,
+          "prompt_id": "aes_28",
+          "seed": 7777,
+          "sha256": "218bd661c4d154e8eea37fd5c9cf11f7b89ea44221796d2ab741a0e9eadfe0a8"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.272,
+          "clip_alignment": 0.3064,
+          "pickscore_v1": 0.1887,
+          "hps_v2_1": 0.3386,
+          "imagereward": 0.9486,
+          "prompt_id": "aes_28",
+          "seed": 123,
+          "sha256": "e548cb7462d1cab23f9220767044d22ee43001e172e979cbda5e0c32348c7d49"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.428,
+          "clip_alignment": 0.2652,
+          "pickscore_v1": 0.1783,
+          "hps_v2_1": 0.3376,
+          "imagereward": 0.9445,
+          "prompt_id": "aes_28",
+          "seed": 999,
+          "sha256": "70ca4c9900ec69681b90fa78164a9832d782db71c8f1dae6906fe414ed7d6a5c"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.582,
+          "clip_alignment": 0.2997,
+          "pickscore_v1": 0.187,
+          "hps_v2_1": 0.3427,
+          "imagereward": 1.0904,
+          "prompt_id": "aes_28",
+          "seed": 4321,
+          "sha256": "a0f66f96106ce01e594fb26760c9cde03b1302a1c95e0b2f5a5c53a6f63374f7"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.444,
+          "clip_alignment": 0.2833,
+          "pickscore_v1": 0.1829,
+          "hps_v2_1": 0.3393,
+          "imagereward": 0.9886,
+          "prompt_id": "aes_28",
+          "seed": 8888,
+          "sha256": "49b2332cac5b5c3e84143c6eef0cadf0cc79d6b13b252c0ab424be637de05714"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_29",
+      "prompt": "intricate stained glass window depicting the Tree of Life with vibrant jewel tones",
+      "expanded_prompt": "intricate stained glass window depicting the Tree of Life with vibrant jewel tones, luminous translucent glass segments, dark lead caming outlines, rich jewel-tone light refraction",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.479,
+          "clip_alignment": 0.3029,
+          "pickscore_v1": 0.1878,
+          "hps_v2_1": 0.3264,
+          "imagereward": 0.5452,
+          "prompt_id": "aes_29",
+          "seed": 42,
+          "sha256": "0425d876e9dc44e8fdde8e686d1ade184066ec9c79b109eee8f408f2862dfce1"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.581,
+          "clip_alignment": 0.3499,
+          "pickscore_v1": 0.199,
+          "hps_v2_1": 0.3317,
+          "imagereward": 0.6903,
+          "prompt_id": "aes_29",
+          "seed": 100,
+          "sha256": "a07b8b1f06aa4bd36f449246376235c86f7531f43fa8976c15689dc61b8d618d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.643,
+          "clip_alignment": 0.3241,
+          "pickscore_v1": 0.193,
+          "hps_v2_1": 0.3306,
+          "imagereward": 0.6698,
+          "prompt_id": "aes_29",
+          "seed": 2024,
+          "sha256": "5109d90e40cf37f84d327ce8c14d81540c973eb297bfc465ffae9030b78bc088"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.08,
+          "clip_alignment": 0.3112,
+          "pickscore_v1": 0.1899,
+          "hps_v2_1": 0.3361,
+          "imagereward": 0.8624,
+          "prompt_id": "aes_29",
+          "seed": 7777,
+          "sha256": "3584d51dc4706b49b7beb411487b169cd1945eb4ec4e27456993daf231f051ab"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.577,
+          "clip_alignment": 0.328,
+          "pickscore_v1": 0.1939,
+          "hps_v2_1": 0.3299,
+          "imagereward": 0.6447,
+          "prompt_id": "aes_29",
+          "seed": 123,
+          "sha256": "575154a99907e4682090ad5db7451ed13919b23752ff381b63c45d5d4042c59a"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.596,
+          "clip_alignment": 0.3356,
+          "pickscore_v1": 0.1957,
+          "hps_v2_1": 0.3308,
+          "imagereward": 0.669,
+          "prompt_id": "aes_29",
+          "seed": 999,
+          "sha256": "f81c2fa8425cd307ab7b6b4af01e5a532ec99076b9be950188c98fa1ce6cc554"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.163,
+          "clip_alignment": 0.3118,
+          "pickscore_v1": 0.19,
+          "hps_v2_1": 0.3224,
+          "imagereward": 0.4049,
+          "prompt_id": "aes_29",
+          "seed": 4321,
+          "sha256": "f585559d3291ee202d5dcf4f1060764907337a2d8f0745f7e4d775c3a127f1fc"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.377,
+          "clip_alignment": 0.3042,
+          "pickscore_v1": 0.1881,
+          "hps_v2_1": 0.325,
+          "imagereward": 0.4968,
+          "prompt_id": "aes_29",
+          "seed": 8888,
+          "sha256": "618e85a4efc2e25544ac18c10e45fe5eeee29fe6a28fbd191e37facfcba4951b"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_30",
+      "prompt": "vintage 1920s art deco travel poster of the French Riviera with bold geometric typography",
+      "expanded_prompt": "vintage 1920s art deco travel poster of the French Riviera with bold geometric typography, authentic analog film grain, warm nostalgic color palette, subtle optical vignetting, 1970s print tone",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.623,
+          "clip_alignment": 0.312,
+          "pickscore_v1": 0.19,
+          "hps_v2_1": 0.3293,
+          "imagereward": 0.6354,
+          "prompt_id": "aes_30",
+          "seed": 42,
+          "sha256": "971315a6a933b5e4476a5919247a7d73716f8af6d55b892709ead1e974abb81a"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.275,
+          "clip_alignment": 0.3424,
+          "pickscore_v1": 0.1973,
+          "hps_v2_1": 0.3265,
+          "imagereward": 0.5224,
+          "prompt_id": "aes_30",
+          "seed": 100,
+          "sha256": "f7715751684e9fd25406e812a6e1c8cb04d9370ec61250b6ef34a7491ea46ef2"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.981,
+          "clip_alignment": 0.329,
+          "pickscore_v1": 0.1942,
+          "hps_v2_1": 0.336,
+          "imagereward": 0.8485,
+          "prompt_id": "aes_30",
+          "seed": 2024,
+          "sha256": "47f6a3f61c43178847bb0f8f889730afb776b7472691f6d9ae201398fdb1a037"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.62,
+          "clip_alignment": 0.3238,
+          "pickscore_v1": 0.1929,
+          "hps_v2_1": 0.3302,
+          "imagereward": 0.6576,
+          "prompt_id": "aes_30",
+          "seed": 7777,
+          "sha256": "de45cae8859b1e31c5615882986f4c0a22fa368df26c7abbfb428f15b89c99be"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.422,
+          "clip_alignment": 0.2909,
+          "pickscore_v1": 0.1848,
+          "hps_v2_1": 0.3246,
+          "imagereward": 0.493,
+          "prompt_id": "aes_30",
+          "seed": 123,
+          "sha256": "8c46fdb8d27d65541811e6c65abe28223d7de2d92ac8e410694f712117ffb953"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.67,
+          "clip_alignment": 0.313,
+          "pickscore_v1": 0.1903,
+          "hps_v2_1": 0.3301,
+          "imagereward": 0.6608,
+          "prompt_id": "aes_30",
+          "seed": 999,
+          "sha256": "bbb9967b594b0e2be6ee11c38c676fbf83eb22724142dd64c2563ed5862056d2"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.209,
+          "clip_alignment": 0.3036,
+          "pickscore_v1": 0.188,
+          "hps_v2_1": 0.3224,
+          "imagereward": 0.4117,
+          "prompt_id": "aes_30",
+          "seed": 4321,
+          "sha256": "0f2b42d9ea8052c595f1e3802235d1f5840e39c768f700f7719b8900b80b83ff"
+        },
+        {
+          "laion_aesthetic_v2_4": 4.71,
+          "clip_alignment": 0.2802,
+          "pickscore_v1": 0.1821,
+          "hps_v2_1": 0.3131,
+          "imagereward": 0.1153,
+          "prompt_id": "aes_30",
+          "seed": 8888,
+          "sha256": "842d24c435409661c4594e828c5ebaf524866620fb1059f0cad819dc4fd03066"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_31",
+      "prompt": "whimsical anime landscape with pastel sunset clouds and soft bokeh background",
+      "expanded_prompt": "whimsical anime landscape with pastel sunset clouds and soft bokeh background, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.343,
+          "clip_alignment": 0.2561,
+          "pickscore_v1": 0.1759,
+          "hps_v2_1": 0.3356,
+          "imagereward": 0.8834,
+          "prompt_id": "aes_31",
+          "seed": 42,
+          "sha256": "12e889458013c317fa029c1e97efc2cc3cdf501cddb4ea68c0158ca55baa39f0"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.336,
+          "clip_alignment": 0.2673,
+          "pickscore_v1": 0.1788,
+          "hps_v2_1": 0.3364,
+          "imagereward": 0.9026,
+          "prompt_id": "aes_31",
+          "seed": 100,
+          "sha256": "1563e1d24500992eebb35a705773f2a2a322b4e68e7d7c1cfe5b88df30c700d3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.5,
+          "clip_alignment": 0.2237,
+          "pickscore_v1": 0.1673,
+          "hps_v2_1": 0.3204,
+          "imagereward": 0.3972,
+          "prompt_id": "aes_31",
+          "seed": 2024,
+          "sha256": "82967a81674fdcc7262b7e3ca0746a2f483f8e4945a299ba2139aae569d6d648"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.065,
+          "clip_alignment": 0.2708,
+          "pickscore_v1": 0.1797,
+          "hps_v2_1": 0.3326,
+          "imagereward": 0.7741,
+          "prompt_id": "aes_31",
+          "seed": 7777,
+          "sha256": "2ba3fbd3d7f97d5d5f3b296e5ea22ee0bae04228c283870e955bdb2aa17daf66"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.262,
+          "clip_alignment": 0.2747,
+          "pickscore_v1": 0.1807,
+          "hps_v2_1": 0.3359,
+          "imagereward": 0.8805,
+          "prompt_id": "aes_31",
+          "seed": 123,
+          "sha256": "01167e4a7f1506b83c42d801207ea040a2427b76c8567c6fa284a7a0dbf37f7b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.308,
+          "clip_alignment": 0.2772,
+          "pickscore_v1": 0.1814,
+          "hps_v2_1": 0.3368,
+          "imagereward": 0.9083,
+          "prompt_id": "aes_31",
+          "seed": 999,
+          "sha256": "f4148a0fda17e6eb65ce13ca3ceeb430f5ffdc1a508cda2823fdd5db3656c645"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.7,
+          "clip_alignment": 0.2627,
+          "pickscore_v1": 0.1776,
+          "hps_v2_1": 0.3265,
+          "imagereward": 0.5753,
+          "prompt_id": "aes_31",
+          "seed": 4321,
+          "sha256": "11e61980667a1dad077135ae4972d0d18c0e5e0699734cc910d9ab11c5485c35"
+        },
+        {
+          "laion_aesthetic_v2_4": 4.926,
+          "clip_alignment": 0.2683,
+          "pickscore_v1": 0.1791,
+          "hps_v2_1": 0.3153,
+          "imagereward": 0.1994,
+          "prompt_id": "aes_31",
+          "seed": 8888,
+          "sha256": "8b0e8ae2a26397c8bb6701ef0d4afecd425921737ef1b6aedf407d67d51438f7"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_32",
+      "prompt": "dystopian futuristic city in 16-bit pixel art style with glowing neon signs and rain",
+      "expanded_prompt": "dystopian futuristic city in 16-bit pixel art style with glowing neon signs and rain, crisp 16-bit pixel cluster hierarchy, authentic CRT color palette, clean dithering",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.464,
+          "clip_alignment": 0.3209,
+          "pickscore_v1": 0.1922,
+          "hps_v2_1": 0.3426,
+          "imagereward": 1.0738,
+          "prompt_id": "aes_32",
+          "seed": 42,
+          "sha256": "4ee9a96caa331e104c85c613eba655d5d5f54d1cb8b62cddc8b32de2171d5214"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.784,
+          "clip_alignment": 0.2986,
+          "pickscore_v1": 0.1868,
+          "hps_v2_1": 0.3307,
+          "imagereward": 0.6894,
+          "prompt_id": "aes_32",
+          "seed": 100,
+          "sha256": "2f8427fbc161454e3ade2ab777bc3383ab36271f44e0e4cbfadf040ec308663f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.668,
+          "clip_alignment": 0.3053,
+          "pickscore_v1": 0.1884,
+          "hps_v2_1": 0.3294,
+          "imagereward": 0.6446,
+          "prompt_id": "aes_32",
+          "seed": 2024,
+          "sha256": "9e1deb271c91db015627fa6e88d1a3b298c269e94cd32ba381852ee281cd68ab"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.387,
+          "clip_alignment": 0.2993,
+          "pickscore_v1": 0.1869,
+          "hps_v2_1": 0.3247,
+          "imagereward": 0.4919,
+          "prompt_id": "aes_32",
+          "seed": 7777,
+          "sha256": "647f2e97de59cf300fd7f3b0df06c76bf0451cc92a51abb11e62b6a55c699e62"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.415,
+          "clip_alignment": 0.3382,
+          "pickscore_v1": 0.1963,
+          "hps_v2_1": 0.3433,
+          "imagereward": 1.0839,
+          "prompt_id": "aes_32",
+          "seed": 123,
+          "sha256": "a2cbb9ce5915e85efea54dc5cf7b6d785407c368fa57c9f677bd01bc76fe41b5"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.328,
+          "clip_alignment": 0.2179,
+          "pickscore_v1": 0.1657,
+          "hps_v2_1": 0.3174,
+          "imagereward": 0.3001,
+          "prompt_id": "aes_32",
+          "seed": 999,
+          "sha256": "18655ddb443b3c3d410e6a4188c453ad582b829bd5b1502d45c5a8dffc30faa3"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.012,
+          "clip_alignment": 0.2924,
+          "pickscore_v1": 0.1852,
+          "hps_v2_1": 0.3336,
+          "imagereward": 0.7909,
+          "prompt_id": "aes_32",
+          "seed": 4321,
+          "sha256": "6294b39de34be866bfbf15e22769261e9c5265a5b07630b9ff4d736d60161a7d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.913,
+          "clip_alignment": 0.3043,
+          "pickscore_v1": 0.1882,
+          "hps_v2_1": 0.333,
+          "imagereward": 0.7653,
+          "prompt_id": "aes_32",
+          "seed": 8888,
+          "sha256": "f57c60b9115684ba9f53f5ad78eef95ec4c04f4ffa3d43771097676a31f9cc8c"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_33",
+      "prompt": "charming 3D claymation diorama of a cozy cottage village with warm glowing windows",
+      "expanded_prompt": "charming 3D claymation diorama of a cozy cottage village with warm glowing windows, tactile polymer clay texture, subtle fingerprint impressions, stop-motion studio lighting",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.575,
+          "clip_alignment": 0.3572,
+          "pickscore_v1": 0.2007,
+          "hps_v2_1": 0.3322,
+          "imagereward": 0.7019,
+          "prompt_id": "aes_33",
+          "seed": 42,
+          "sha256": "9189c6dd78c44c9bf821e564fec77e3dc6edb7468d2bd5c1d538c32b69e80f8f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.376,
+          "clip_alignment": 0.3341,
+          "pickscore_v1": 0.1954,
+          "hps_v2_1": 0.3274,
+          "imagereward": 0.556,
+          "prompt_id": "aes_33",
+          "seed": 100,
+          "sha256": "15cd0590246e95e181d3012029a9dd17093eafb90d6179ab9c8a5513345a6705"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.637,
+          "clip_alignment": 0.3395,
+          "pickscore_v1": 0.1966,
+          "hps_v2_1": 0.3317,
+          "imagereward": 0.6975,
+          "prompt_id": "aes_33",
+          "seed": 2024,
+          "sha256": "e9bfdde12b98035affc101d534f7fc4b83eafe78c20757be9637a23310df4b53"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.65,
+          "clip_alignment": 0.3317,
+          "pickscore_v1": 0.1948,
+          "hps_v2_1": 0.3313,
+          "imagereward": 0.6881,
+          "prompt_id": "aes_33",
+          "seed": 7777,
+          "sha256": "f6708ec20abe7573515bac9acdc5e85456d0141315fccc7d5dc4aa83bfc730be"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.824,
+          "clip_alignment": 0.3246,
+          "pickscore_v1": 0.1931,
+          "hps_v2_1": 0.3333,
+          "imagereward": 0.761,
+          "prompt_id": "aes_33",
+          "seed": 123,
+          "sha256": "8a58e123d555ea0a4155e03ec3b539c8d729a6ceccf5aeba73e4d5ae70cbf439"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.334,
+          "clip_alignment": 0.3271,
+          "pickscore_v1": 0.1937,
+          "hps_v2_1": 0.3262,
+          "imagereward": 0.5211,
+          "prompt_id": "aes_33",
+          "seed": 999,
+          "sha256": "90b227baf172d36b3e00bf803d4c649cddb625db8def7f8f10cb59f5a8b20c7f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.58,
+          "clip_alignment": 0.3439,
+          "pickscore_v1": 0.1977,
+          "hps_v2_1": 0.3312,
+          "imagereward": 0.6776,
+          "prompt_id": "aes_33",
+          "seed": 4321,
+          "sha256": "98353a8a8e88565f3f984e466ea5c1fadfbf3b70b7882906acd766e06f2e3528"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.262,
+          "clip_alignment": 0.3479,
+          "pickscore_v1": 0.1986,
+          "hps_v2_1": 0.3268,
+          "imagereward": 0.5265,
+          "prompt_id": "aes_33",
+          "seed": 8888,
+          "sha256": "c99ca04106c141a14edeb8ce70f82f7acbdc6697613e03e58b7469b16cbcf14d"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_34",
+      "prompt": "isometric voxel art render of a bustling fantasy tavern with warm fireplace lighting",
+      "expanded_prompt": "isometric voxel art render of a bustling fantasy tavern with warm fireplace lighting, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.371,
+          "clip_alignment": 0.3489,
+          "pickscore_v1": 0.1988,
+          "hps_v2_1": 0.3435,
+          "imagereward": 1.0833,
+          "prompt_id": "aes_34",
+          "seed": 42,
+          "sha256": "e8be8323dbcb3499473e9becb93445e687e917b004357a7942969b8974fafd8a"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.107,
+          "clip_alignment": 0.3825,
+          "pickscore_v1": 0.2063,
+          "hps_v2_1": 0.3422,
+          "imagereward": 1.0183,
+          "prompt_id": "aes_34",
+          "seed": 100,
+          "sha256": "59e2d2cde1f746a403455df0a85b3e3ee1d078e0e209d13af76a41d6349b5e28"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.286,
+          "clip_alignment": 0.3564,
+          "pickscore_v1": 0.2005,
+          "hps_v2_1": 0.3428,
+          "imagereward": 1.0559,
+          "prompt_id": "aes_34",
+          "seed": 2024,
+          "sha256": "b4ca2b8d61ba592537856eb67c676dcd96436de797693753fe6f7338dbe175d7"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.573,
+          "clip_alignment": 0.3568,
+          "pickscore_v1": 0.2006,
+          "hps_v2_1": 0.3321,
+          "imagereward": 0.7001,
+          "prompt_id": "aes_34",
+          "seed": 7777,
+          "sha256": "00c2471c23dd2e4cd30d8e8ba77652791edd61bae8d389ff6491b7da53fcd2c0"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.163,
+          "clip_alignment": 0.3469,
+          "pickscore_v1": 0.1984,
+          "hps_v2_1": 0.3402,
+          "imagereward": 0.9752,
+          "prompt_id": "aes_34",
+          "seed": 123,
+          "sha256": "6268af15b76b62d04e62c13678597892c0fe5cb70dfc881e69dd0eb4760e50fb"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.971,
+          "clip_alignment": 0.32,
+          "pickscore_v1": 0.192,
+          "hps_v2_1": 0.3352,
+          "imagereward": 0.8253,
+          "prompt_id": "aes_34",
+          "seed": 999,
+          "sha256": "da8969cf74318d4311db2da74ab877b7cd00daa92b4149d5e825270e1ba698ad"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.336,
+          "clip_alignment": 0.3378,
+          "pickscore_v1": 0.1962,
+          "hps_v2_1": 0.3421,
+          "imagereward": 1.0439,
+          "prompt_id": "aes_34",
+          "seed": 4321,
+          "sha256": "52cf2e06247e07009d4a651e8f7ae42f38d749fc9ebc4b534f6b48088017b61f"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.077,
+          "clip_alignment": 0.375,
+          "pickscore_v1": 0.2047,
+          "hps_v2_1": 0.3412,
+          "imagereward": 0.9884,
+          "prompt_id": "aes_34",
+          "seed": 8888,
+          "sha256": "3468401d7f55081b0aa991519f7e9d42602755f31882cab2b494083a4926cf20"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_35",
+      "prompt": "enchanted fairytale forest with glowing mushrooms, floating wisps, ancient twisted roots",
+      "expanded_prompt": "enchanted fairytale forest with glowing mushrooms, floating wisps, ancient twisted roots, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.272,
+          "clip_alignment": 0.294,
+          "pickscore_v1": 0.1856,
+          "hps_v2_1": 0.3376,
+          "imagereward": 0.9237,
+          "prompt_id": "aes_35",
+          "seed": 42,
+          "sha256": "a484bcbb184ab6ca835bfee2dcefeaf61b9a69d15d27cee63e56fe3b31d5251c"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.586,
+          "clip_alignment": 0.3029,
+          "pickscore_v1": 0.1878,
+          "hps_v2_1": 0.328,
+          "imagereward": 0.5988,
+          "prompt_id": "aes_35",
+          "seed": 100,
+          "sha256": "ece962ef0e0b56cfb7b2026621f507582485f215100d86f96eda1d4e751f2aba"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.024,
+          "clip_alignment": 0.2793,
+          "pickscore_v1": 0.1819,
+          "hps_v2_1": 0.3327,
+          "imagereward": 0.7706,
+          "prompt_id": "aes_35",
+          "seed": 2024,
+          "sha256": "a65291c0d65d4d2c6f9e6109e0257d0f20c91c24323696a3a08aa5bf64d1d356"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.533,
+          "clip_alignment": 0.261,
+          "pickscore_v1": 0.1772,
+          "hps_v2_1": 0.3389,
+          "imagereward": 0.9882,
+          "prompt_id": "aes_35",
+          "seed": 7777,
+          "sha256": "4f9090f527df186ea143601786143c5d626b5af295273e6a5ad7669b1ea3a133"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.392,
+          "clip_alignment": 0.2886,
+          "pickscore_v1": 0.1842,
+          "hps_v2_1": 0.339,
+          "imagereward": 0.973,
+          "prompt_id": "aes_35",
+          "seed": 123,
+          "sha256": "5013bcd3b3a586c4f92a24887cffd4f7845765418907c12c6baad7e736c1c480"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.243,
+          "clip_alignment": 0.3153,
+          "pickscore_v1": 0.1909,
+          "hps_v2_1": 0.3389,
+          "imagereward": 0.9522,
+          "prompt_id": "aes_35",
+          "seed": 999,
+          "sha256": "f9383bd381140be7019290168a48d5a2f2b81155dfe102a7995c2cb9da248c1e"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.234,
+          "clip_alignment": 0.2988,
+          "pickscore_v1": 0.1868,
+          "hps_v2_1": 0.3374,
+          "imagereward": 0.9144,
+          "prompt_id": "aes_35",
+          "seed": 4321,
+          "sha256": "9dcc102e9a5df201548f448c0e2290e56d2304e52b846a4badf192936ebed8cb"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.513,
+          "clip_alignment": 0.3046,
+          "pickscore_v1": 0.1882,
+          "hps_v2_1": 0.3271,
+          "imagereward": 0.5659,
+          "prompt_id": "aes_35",
+          "seed": 8888,
+          "sha256": "dc2b6dbed8cf0887996648aed9bdc76bfbb3c0d2780101881fd3cc90c021c005"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_36",
+      "prompt": "surreal floating crystal islands connected by luminous energy bridges in an indigo sky",
+      "expanded_prompt": "surreal floating crystal islands connected by luminous energy bridges in an indigo sky, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.985,
+          "clip_alignment": 0.258,
+          "pickscore_v1": 0.1764,
+          "hps_v2_1": 0.3304,
+          "imagereward": 0.7084,
+          "prompt_id": "aes_36",
+          "seed": 42,
+          "sha256": "3f624393bfee4e1d8442d9f4dbc48c24e0a3c040d78cc5e8c4f01ee89170b056"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.302,
+          "clip_alignment": 0.2697,
+          "pickscore_v1": 0.1794,
+          "hps_v2_1": 0.3211,
+          "imagereward": 0.3906,
+          "prompt_id": "aes_36",
+          "seed": 100,
+          "sha256": "d609eb824a524363ee075a9ebd8fd298eb28425b33387b22ee1472e091645b4c"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.882,
+          "clip_alignment": 0.2841,
+          "pickscore_v1": 0.1831,
+          "hps_v2_1": 0.331,
+          "imagereward": 0.7093,
+          "prompt_id": "aes_36",
+          "seed": 2024,
+          "sha256": "c57049bbd92a39e09b31b01a92c53884fab4db65e86ebd49d1f5dd9bd3075f3b"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.742,
+          "clip_alignment": 0.2865,
+          "pickscore_v1": 0.1837,
+          "hps_v2_1": 0.3291,
+          "imagereward": 0.6443,
+          "prompt_id": "aes_36",
+          "seed": 7777,
+          "sha256": "f6cab7fd1108fbee12d19133a1b33fdf36bd41f5062273a9b8e9b1c06311290b"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.578,
+          "clip_alignment": 0.2561,
+          "pickscore_v1": 0.1759,
+          "hps_v2_1": 0.3242,
+          "imagereward": 0.5011,
+          "prompt_id": "aes_36",
+          "seed": 123,
+          "sha256": "4f0767709ace6b8e1b56fdbaf79910fce82fa6fc66b5834e558211ff189b7c72"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.747,
+          "clip_alignment": 0.2268,
+          "pickscore_v1": 0.1681,
+          "hps_v2_1": 0.3244,
+          "imagereward": 0.5272,
+          "prompt_id": "aes_36",
+          "seed": 999,
+          "sha256": "7982f916e957e49e7add90053d56fae6fbc91e3269474549fd085ba2d90976d8"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.096,
+          "clip_alignment": 0.3092,
+          "pickscore_v1": 0.1894,
+          "hps_v2_1": 0.3362,
+          "imagereward": 0.8662,
+          "prompt_id": "aes_36",
+          "seed": 4321,
+          "sha256": "a846b576ef1704c1f4a805cfaaa773024ebd767e52b7642db298130c51361879"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.722,
+          "clip_alignment": 0.2599,
+          "pickscore_v1": 0.1769,
+          "hps_v2_1": 0.3266,
+          "imagereward": 0.581,
+          "prompt_id": "aes_36",
+          "seed": 8888,
+          "sha256": "1365e1031a923a25c80183a231383f733ca54d836e86b8879b8b4c7f9925f238"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_37",
+      "prompt": "intricate geometric origami dragon crafted from iridescent metallic paper",
+      "expanded_prompt": "intricate geometric origami dragon crafted from iridescent metallic paper, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.616,
+          "clip_alignment": 0.3004,
+          "pickscore_v1": 0.1872,
+          "hps_v2_1": 0.3283,
+          "imagereward": 0.609,
+          "prompt_id": "aes_37",
+          "seed": 42,
+          "sha256": "43ca1fba092e257241fe5eec5872632fe8b47e6be24566b9fa0e27b175da38b5"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.264,
+          "clip_alignment": 0.3292,
+          "pickscore_v1": 0.1942,
+          "hps_v2_1": 0.3253,
+          "imagereward": 0.4902,
+          "prompt_id": "aes_37",
+          "seed": 100,
+          "sha256": "64bbec79b8ca4ff070e9c20e03d886dadeb4c62142c179189deedb24252545fd"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.812,
+          "clip_alignment": 0.2875,
+          "pickscore_v1": 0.184,
+          "hps_v2_1": 0.3302,
+          "imagereward": 0.681,
+          "prompt_id": "aes_37",
+          "seed": 2024,
+          "sha256": "ad809a85450b65c901f168153a350a266dfadc03846a509e9391c0a68459a718"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.646,
+          "clip_alignment": 0.3638,
+          "pickscore_v1": 0.2022,
+          "hps_v2_1": 0.3338,
+          "imagereward": 0.7506,
+          "prompt_id": "aes_37",
+          "seed": 7777,
+          "sha256": "ee2fb14f2adb9556b3246836bc8561c025319d35e40be90825395932b589148d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.79,
+          "clip_alignment": 0.3074,
+          "pickscore_v1": 0.1889,
+          "hps_v2_1": 0.3314,
+          "imagereward": 0.7096,
+          "prompt_id": "aes_37",
+          "seed": 123,
+          "sha256": "face098e4b07fd1c100b14361f526ae210bc0d56e80c08dc647eed8a8e7316c3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.301,
+          "clip_alignment": 0.309,
+          "pickscore_v1": 0.1893,
+          "hps_v2_1": 0.3242,
+          "imagereward": 0.4686,
+          "prompt_id": "aes_37",
+          "seed": 999,
+          "sha256": "c11b8c10c2e8695b2541cf8aa3c0575fc722b1239c7e485dea190873b65287a8"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.424,
+          "clip_alignment": 0.3496,
+          "pickscore_v1": 0.199,
+          "hps_v2_1": 0.3293,
+          "imagereward": 0.6111,
+          "prompt_id": "aes_37",
+          "seed": 4321,
+          "sha256": "c568027202eb9558a61dbc722967a8cb35dde313433c68babbe686ad24efb9f1"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.808,
+          "clip_alignment": 0.3131,
+          "pickscore_v1": 0.1903,
+          "hps_v2_1": 0.3322,
+          "imagereward": 0.7303,
+          "prompt_id": "aes_37",
+          "seed": 8888,
+          "sha256": "180c4bf66c4fd5f315a4dc73cb67a6b4f67ae9b3853d198baf24d057c0e36c4a"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_38",
+      "prompt": "deep underwater scene of a bioluminescent coral reef with shimmering jellyfish",
+      "expanded_prompt": "deep underwater scene of a bioluminescent coral reef with shimmering jellyfish, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 6.047,
+          "clip_alignment": 0.2518,
+          "pickscore_v1": 0.1747,
+          "hps_v2_1": 0.3308,
+          "imagereward": 0.7271,
+          "prompt_id": "aes_38",
+          "seed": 42,
+          "sha256": "9ccd1fa78666ec5b08e164bc0a71889112d2595276de11172c64a919b331dea3"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.637,
+          "clip_alignment": 0.2484,
+          "pickscore_v1": 0.1739,
+          "hps_v2_1": 0.3244,
+          "imagereward": 0.5154,
+          "prompt_id": "aes_38",
+          "seed": 100,
+          "sha256": "c4c6407bf5eb41408733dd51537727d9a634b095bb580dd396a943e851be0d59"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.058,
+          "clip_alignment": 0.2557,
+          "pickscore_v1": 0.1758,
+          "hps_v2_1": 0.3313,
+          "imagereward": 0.7407,
+          "prompt_id": "aes_38",
+          "seed": 2024,
+          "sha256": "93f26523d86d101292839dbf290895c9f573354e94c76e1f01bb4b93bb401731"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.081,
+          "clip_alignment": 0.2935,
+          "pickscore_v1": 0.1855,
+          "hps_v2_1": 0.3347,
+          "imagereward": 0.8274,
+          "prompt_id": "aes_38",
+          "seed": 7777,
+          "sha256": "13aa2cb8a1a7afa858d47c69054adff7ced94d31def68d3c4d46c11abca56dcd"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.986,
+          "clip_alignment": 0.2396,
+          "pickscore_v1": 0.1715,
+          "hps_v2_1": 0.329,
+          "imagereward": 0.6723,
+          "prompt_id": "aes_38",
+          "seed": 123,
+          "sha256": "2a0822f2c7fe993ba598734218e55d56bc54b99eaa815d5ab61c5617a19724d7"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.81,
+          "clip_alignment": 0.2441,
+          "pickscore_v1": 0.1727,
+          "hps_v2_1": 0.3267,
+          "imagereward": 0.5934,
+          "prompt_id": "aes_38",
+          "seed": 999,
+          "sha256": "14b5bb2c59aa64ed1c1f94788820bc96283ecc80d95248cd73d094a46f995d49"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.099,
+          "clip_alignment": 0.2799,
+          "pickscore_v1": 0.182,
+          "hps_v2_1": 0.3339,
+          "imagereward": 0.8094,
+          "prompt_id": "aes_38",
+          "seed": 4321,
+          "sha256": "41fc779ccaba5c040751c8d683f3a9c1cdd98c6acfc5b22c0de160c3f64bba48"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.572,
+          "clip_alignment": 0.3089,
+          "pickscore_v1": 0.1893,
+          "hps_v2_1": 0.3283,
+          "imagereward": 0.6038,
+          "prompt_id": "aes_38",
+          "seed": 8888,
+          "sha256": "414e6a1338b7e61edbdbc853d5deb6c87022ce874a268e9f802c82841d98316d"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_39",
+      "prompt": "abstract fluid art composition of liquid gold, obsidian black, turquoise swirling together",
+      "expanded_prompt": "abstract fluid art composition of liquid gold, obsidian black, turquoise swirling together, natural soft lighting, shallow depth of field, 35mm prime lens, authentic color grading, fine grain",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.361,
+          "clip_alignment": 0.2972,
+          "pickscore_v1": 0.1864,
+          "hps_v2_1": 0.3242,
+          "imagereward": 0.4748,
+          "prompt_id": "aes_39",
+          "seed": 42,
+          "sha256": "89cc69ee4e87a798e8c49519b3358c03125907aa997f20b9a1daa42239684177"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.406,
+          "clip_alignment": 0.2948,
+          "pickscore_v1": 0.1858,
+          "hps_v2_1": 0.3247,
+          "imagereward": 0.4928,
+          "prompt_id": "aes_39",
+          "seed": 100,
+          "sha256": "e9e15144eb083d9d72cad9c05ce1b79e208e1581ca776a56d2d37a2cea6d609f"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.391,
+          "clip_alignment": 0.3129,
+          "pickscore_v1": 0.1903,
+          "hps_v2_1": 0.3259,
+          "imagereward": 0.5211,
+          "prompt_id": "aes_39",
+          "seed": 2024,
+          "sha256": "ea213026647e6b23a2681e1989d796cab97e2705b090e5cadfbe05651b2de43d"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.291,
+          "clip_alignment": 0.301,
+          "pickscore_v1": 0.1873,
+          "hps_v2_1": 0.3234,
+          "imagereward": 0.4475,
+          "prompt_id": "aes_39",
+          "seed": 7777,
+          "sha256": "4c087c8353ef06224bd07c63cdb964eee34697e737ade52e42fd821bf35da010"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.419,
+          "clip_alignment": 0.3021,
+          "pickscore_v1": 0.1876,
+          "hps_v2_1": 0.3255,
+          "imagereward": 0.5138,
+          "prompt_id": "aes_39",
+          "seed": 123,
+          "sha256": "f20f4bab42802248a3385abb30ec3a6066277b1468a5682b5fed9482ec98cf9c"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.425,
+          "clip_alignment": 0.2602,
+          "pickscore_v1": 0.177,
+          "hps_v2_1": 0.3222,
+          "imagereward": 0.4332,
+          "prompt_id": "aes_39",
+          "seed": 999,
+          "sha256": "afa1f51a4fee48d6a2e13993a7f593b940c6693b035d73f641d4f0d90b4727a4"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.38,
+          "clip_alignment": 0.2952,
+          "pickscore_v1": 0.1859,
+          "hps_v2_1": 0.3243,
+          "imagereward": 0.4805,
+          "prompt_id": "aes_39",
+          "seed": 4321,
+          "sha256": "6d450aa409c97cadd62016240fa45a683d487b86aba90482373d950329c3f640"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.722,
+          "clip_alignment": 0.3235,
+          "pickscore_v1": 0.1928,
+          "hps_v2_1": 0.3317,
+          "imagereward": 0.7078,
+          "prompt_id": "aes_39",
+          "seed": 8888,
+          "sha256": "3730272d7c3972880c1407199b008b998961f9a74cc1f38c45e1e41890502e48"
+        }
+      ]
+    },
+    {
+      "prompt_id": "aes_40",
+      "prompt": "crystalline geometric palace glistening with prism light refraction on a frozen lake",
+      "expanded_prompt": "crystalline geometric palace glistening with prism light refraction on a frozen lake, golden hour lighting, atmospheric perspective, wide-angle cinematic composition, rich natural tones",
+      "seeds": [
+        {
+          "laion_aesthetic_v2_4": 5.531,
+          "clip_alignment": 0.2478,
+          "pickscore_v1": 0.1737,
+          "hps_v2_1": 0.3228,
+          "imagereward": 0.461,
+          "prompt_id": "aes_40",
+          "seed": 42,
+          "sha256": "190cdb0812961a4c65b4e534f6b3c9d01d8f0b69d63b494c1642b5f1a606009b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.117,
+          "clip_alignment": 0.2252,
+          "pickscore_v1": 0.1677,
+          "hps_v2_1": 0.3298,
+          "imagereward": 0.709,
+          "prompt_id": "aes_40",
+          "seed": 100,
+          "sha256": "2352c4cbb9854c2a9642aee890e8ec0ade3aca333a139fa76490a85876a99776"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.154,
+          "clip_alignment": 0.2359,
+          "pickscore_v1": 0.1706,
+          "hps_v2_1": 0.3162,
+          "imagereward": 0.249,
+          "prompt_id": "aes_40",
+          "seed": 2024,
+          "sha256": "004d784db30503b6decc9c7a2dde27c54dcf62371ccf9fb04dcc193697618860"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.046,
+          "clip_alignment": 0.287,
+          "pickscore_v1": 0.1838,
+          "hps_v2_1": 0.3187,
+          "imagereward": 0.2972,
+          "prompt_id": "aes_40",
+          "seed": 7777,
+          "sha256": "6ebcce779be42172780d94012e4e6ded2193d225c2ab260ab5d04f32a6eae5c0"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.67,
+          "clip_alignment": 0.2676,
+          "pickscore_v1": 0.1789,
+          "hps_v2_1": 0.3265,
+          "imagereward": 0.5704,
+          "prompt_id": "aes_40",
+          "seed": 123,
+          "sha256": "a9f1562ef30aa76dec5fbc565a2ad5cd96f35b37a43f8cb3d0ea514654ec0c5b"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.002,
+          "clip_alignment": 0.2198,
+          "pickscore_v1": 0.1662,
+          "hps_v2_1": 0.3276,
+          "imagereward": 0.6405,
+          "prompt_id": "aes_40",
+          "seed": 999,
+          "sha256": "cee85f1aa3b80a95c57a159852c51b88e9068637c61ab20d7558f61b9236536c"
+        },
+        {
+          "laion_aesthetic_v2_4": 5.86,
+          "clip_alignment": 0.252,
+          "pickscore_v1": 0.1748,
+          "hps_v2_1": 0.3281,
+          "imagereward": 0.6342,
+          "prompt_id": "aes_40",
+          "seed": 4321,
+          "sha256": "da50ceebe9d187fbd1115fd863df80cf901b9e0f770f5fca3618f346bac1e8ae"
+        },
+        {
+          "laion_aesthetic_v2_4": 6.234,
+          "clip_alignment": 0.2812,
+          "pickscore_v1": 0.1824,
+          "hps_v2_1": 0.336,
+          "imagereward": 0.8792,
+          "prompt_id": "aes_40",
+          "seed": 8888,
+          "sha256": "6c9d28a9fd2d0b7932ea268e5fd832ed862c9689041f613e096c29e3e23451ff"
+        }
+      ]
+    }
+  ]
+}
