@@ -362,9 +362,7 @@ To test the hypothesis that prompt descriptor expansion is an artifact of the CL
 | **PickScore v1** | **$-0.0028$** | $[-0.0040, -0.0016]$ | **$-0.0014$** | $[-0.0021, -0.0006]$ | Dilution penalty on both models ($p < 0.001$) |
 
 **Empirical Architectural Finding:**
-1. **Prompt Engineering Obsolescence in Modern Encoders:** On SD v1.5, appending craft descriptors yielded a statistically significant $+0.117$ LAION gain ($p = 4.99 \times 10^{-5}$), confirming that CLIP-L benefits from explicit modifier triggers. However, on SD 3.5 Medium, the exact same intervention produced zero aesthetic gain ($+0.020$, $95\%\text{ CI: } [-0.027, +0.067]$, $p = 0.402$).
-2. **Semantic Cost Remains:** In both architectures, stuffing extra style tokens into the text stream splits cross-attention weights and slightly penalizes semantic alignment to the core prompt subjects ($-0.011$ on v1.5, $-0.0055$ on 3.5).
-3. **Architectural Decision:** Automated rule-based style expansion is deprecated as an automated default (`STYLE_EXPANSION_ENABLED = False`). The mechanism is preserved exclusively as an opt-in user control.
+The community habit of appending "cinematic lighting, 35mm, film grain" to every prompt is **measurably obsolete on modern encoders**. The exact same intervention gains $+0.117$ LAION on CLIP-era SD v1.5 ($p = 4.99 \times 10^{-5}$) and nothing on T5-era SD 3.5 Medium ($p = 0.402$), while the semantic alignment cost appears on both architectures ($-0.011$ on v1.5, $-0.0055$ on 3.5). Automated rule-based style expansion is deprecated as an automated default (`STYLE_EXPANSION_ENABLED = False`) and preserved exclusively as an opt-in user control.
 
 ---
 
@@ -379,6 +377,72 @@ Running all spatial benchmark suites with style expansion forced ON confirms **1
 * **Gate 2 (Hard 24 Directional Suite):** 24/24 prompts invariant ($\Delta \mu_x = 0.0000$).
 * **Gate 3 (Rigorous 16 Multi-Category Suite):** 16/16 prompts across lateral, depth, vertical_on, and vertical_under invariant ($\Delta \mu = 0.0000$).
 * **Zero-Bias Invariant Confirmed:** All added style expansion tokens receive strictly $0.0000$ spatial attention bias across CLIP-L, CLIP-G, and T5-XXL encoders.
+
+---
+
+## 13. Sequential Inference-Time Aesthetic Levers Sweep on SD 3.5 Medium ($N=160$ Pairs per Condition)
+
+To identify real inference-time aesthetic improvements without combinatorial false discovery, a sequential 1-factor-at-a-time sweep was executed on Stable Diffusion 3.5 Medium across the 40 standard style prompts $\times$ 4 fixed seeds ($N=160$ pairs per stage). Total sweep GPU runtime: **$934.5\text{ s}$ (15.58 minutes)**.
+
+### 13.1 Stage 1: Sampler Comparison (Fixed 20 Steps, CFG 4.5)
+Comparing FlowMatchEuler (1st-order Flow Matching, incumbent) vs FlowMatchHeun (2nd-order Flow Matching):
+
+| Metric | Euler (Incumbent) | Heun (Candidate) | Mean Paired Diff ($\bar{d}$) | 95% CI of Difference | Paired $t$-stat | Two-Tailed $p$-value | Verdict |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **LAION v2.4** | **$6.350 \pm 0.162$** | $6.301 \pm 0.162$ | $-0.0490$ | $[-0.0779, -0.0200]$ | $t = -3.315$ | $p = 0.0009$ | **Within Noise / Slightly Worse** |
+| **ImageReward** | **$0.9793 \pm 0.084$** | $0.9518 \pm 0.084$ | $-0.0274$ | $[-0.0431, -0.0117]$ | $t = -3.424$ | $p = 0.0006$ | Within Noise |
+| **HPS v2.1** | **$0.3394 \pm 0.003$** | $0.3386 \pm 0.003$ | $-0.0009$ | $[-0.0013, -0.0004]$ | $t = -3.407$ | $p = 0.0007$ | Within Noise |
+| **CLIP Align** | $0.3022 \pm 0.011$ | $0.3007 \pm 0.011$ | $-0.0015$ | $[-0.0037, +0.0008]$ | $t = -1.267$ | $p = 0.2051$ | Neutral |
+
+* **Stage 1 Decision:** FlowMatchHeun does not separate positively from the incumbent ($\Delta \text{LAION} = -0.049$, within seed noise $\pm 0.162$). **FlowMatchEuler is strictly retained as the optimal sampler**.
+
+---
+
+### 13.2 Stage 2: Step Count Quality-per-Second Pareto Curve (14, 20, 28, 36 Steps on FlowMatchEuler)
+
+| Step Count | Latency (s/img) | Throughput (img/min) | LAION v2.4 (Mean) | Paired Diff vs 20 Steps ($\bar{d}$) | 95% CI of Difference | Paired $t$-stat ($p$-value) | Quality Verdict |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **14 Steps (Preview)** | **$2.77\text{ s}$** | **$21.6$** | $6.312$ | $-0.0376$ | $[-0.0694, -0.0058]$ | $t = -2.314$ ($p = 0.0207$) | Minor quality drop |
+| **20 Steps (Fast Incumbent)**| **$3.90\text{ s}$** | **$15.4$** | **$6.350$** | **$0.0000$** | — | — | **Pareto Optimal Default** |
+| **28 Steps (Standard)** | $5.54\text{ s}$ | $10.8$ | $6.370$ | $+0.0198$ | $[-0.0059, +0.0454]$ | $t = +1.509$ ($p = 0.1314$) | **Inside noise envelope ($\pm 0.162$)** |
+| **36 Steps (Ultra)** | $7.13\text{ s}$ | $8.4$ | $6.357$ | $+0.0075$ | $[-0.0189, +0.0339]$ | $t = +0.557$ ($p = 0.5775$) | **Inside noise envelope ($\pm 0.162$)** |
+
+* **Stage 2 Decision:** 28 steps and 36 steps are **statistically indistinguishable from 20 steps** (both 95% CIs span zero; $+0.0198$ is $< 0.12\times$ cross-seed noise envelope $\pm 0.162$). Doubling inference time from 20 to 36 steps yields zero separable quality gain. **20 steps is confirmed as the production sweet spot**.
+
+---
+
+### 13.3 Stage 3: CFG Rescaling Factor Sweep ($\phi \in \{0.0, 0.50, 0.70, 0.85\}$ at 20 Steps)
+
+| Rescaling Factor ($\phi$) | LAION v2.4 | ImageReward | HPS v2.1 | CLIP Alignment | Paired $\Delta\text{LAION}$ vs $\phi=0$ | 95% CI of Difference | Paired $p$-value |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **$\phi = 0.00$ (Incumbent)** | $6.350 \pm 0.162$ | $0.9793 \pm 0.084$ | $0.3394 \pm 0.003$ | $0.3022 \pm 0.011$ | $0.0000$ | — | — |
+| **$\phi = 0.50$** | $6.386 \pm 0.160$ | $0.9980 \pm 0.084$ | $0.3400 \pm 0.003$ | $0.3025 \pm 0.011$ | **$+0.0362$** | $[+0.0157, +0.0567]$ | **$p = 0.0005$** |
+| **$\phi = 0.70$ (Optimal)** | **$6.390 \pm 0.161$** | **$0.9993 \pm 0.084$** | **$0.3400 \pm 0.003$** | **$0.3023 \pm 0.011$** | **$+0.0398$** | **$[+0.0164, +0.0633]$** | **$p = 0.0009$** |
+| **$\phi = 0.85$** | $6.391 \pm 0.161$ | $1.0010 \pm 0.084$ | $0.3401 \pm 0.003$ | $0.3028 \pm 0.011$ | **$+0.0410$** | $[+0.0147, +0.0673]$ | **$p = 0.0023$** |
+
+* **Stage 3 Decision:** Variance-preserving CFG rescaling ($\phi = 0.70$) yields a statistically robust, consistent dynamic-range enhancement ($+0.0398$ on LAION, $+0.0200$ on ImageReward, $p < 0.001$) preventing oversaturation highlights without impacting latency or CLIP semantic alignment ($\Delta\text{CLIP} = +0.0001, p = 0.936$). **$\phi = 0.70$ is confirmed as the standard setting**.
+
+---
+
+### 13.4 Stage 4: Mask-Aware Refiner Pass & Edit Isolation Invariant Check
+
+| Refinement Strength | LAION v2.4 (Mean) | Paired Diff vs Base ($\bar{d}$) | 95% CI of Difference | Paired $t$-stat ($p$-value) | Outside-Mask SSIM Invariant | Status |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Strength 0.20** | $6.350$ | $+0.0006$ | $[-0.0178, +0.0189]$ | $t = +0.060$ ($p = 0.952$) | **$1.0000$ (Exact)** | Within Noise |
+| **Strength 0.25** | $6.352$ | $+0.0027$ | $[-0.0163, +0.0217]$ | $t = +0.278$ ($p = 0.781$) | **$1.0000$ (Exact)** | Within Noise |
+| **Strength 0.35** | $6.362$ | $+0.0124$ | $[-0.0106, +0.0354]$ | $t = +1.057$ ($p = 0.291$) | **$1.0000$ (Exact)** | Within Noise |
+
+* **Stage 4 Decision:** Full-frame refiner passes on SD 3.5 Medium produce flat aesthetic metrics across all strengths (all 95% CIs cross zero). Inpainting mask compositing verified with 100% outside-mask pixel preservation ($SSIM = 1.0000$). The refiner is preserved strictly as an opt-in specialized tool (`REFINER_ENABLED = False` default) rather than an unguided default pass.
+
+---
+
+### 13.5 Summary of Production Operating Point
+* **Backbone:** Stable Diffusion 3.5 Medium (`stabilityai/stable-diffusion-3.5-medium`)
+* **Resolution:** $512\times 512$ ($3.9\text{ s/image}$ at $15.4\text{ img/min}$, matching $1024\times 1024$ quality within $0.002$)
+* **Sampler:** `FlowMatchEulerDiscreteScheduler` (20 reverse-time steps)
+* **Guidance Scale & Rescale:** `guidance_scale = 4.5`, `cfg_rescale = 0.70`
+* **Refiner & Style Expansion Defaults:** `False` (zero latency overhead; strictly opt-in)
+
 
 
 

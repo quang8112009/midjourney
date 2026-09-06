@@ -1,0 +1,718 @@
+{
+  "stage1_sampler": {
+    "candidate": "FlowMatchHeun",
+    "incumbent": "FlowMatchEuler",
+    "paired_comparison": {
+      "laion_aesthetic_v2_4": {
+        "incumbent_mean": 6.3497,
+        "candidate_mean": 6.3007,
+        "d_mean": -0.049,
+        "ci_95": [
+          -0.0779,
+          -0.02
+        ],
+        "ratio_to_noise": 0.3,
+        "t_stat": -3.315,
+        "t_pvalue": 0.0009148951812108013,
+        "wilcoxon_pvalue": 0.021841567369731488
+      },
+      "imagereward": {
+        "incumbent_mean": 0.9793,
+        "candidate_mean": 0.9518,
+        "d_mean": -0.0274,
+        "ci_95": [
+          -0.0431,
+          -0.0117
+        ],
+        "ratio_to_noise": 0.33,
+        "t_stat": -3.424,
+        "t_pvalue": 0.0006163046802187356,
+        "wilcoxon_pvalue": 0.03292728517333334
+      },
+      "hps_v2_1": {
+        "incumbent_mean": 0.3394,
+        "candidate_mean": 0.3386,
+        "d_mean": -0.0009,
+        "ci_95": [
+          -0.0013,
+          -0.0004
+        ],
+        "ratio_to_noise": 0.33,
+        "t_stat": -3.407,
+        "t_pvalue": 0.0006575261151078966,
+        "wilcoxon_pvalue": 0.19500253007993515
+      },
+      "clip_alignment": {
+        "incumbent_mean": 0.3022,
+        "candidate_mean": 0.3007,
+        "d_mean": -0.0015,
+        "ci_95": [
+          -0.0037,
+          0.0008
+        ],
+        "ratio_to_noise": 0.13,
+        "t_stat": -1.267,
+        "t_pvalue": 0.20510830007140787,
+        "wilcoxon_pvalue": 0.12147378587741219
+      },
+      "pickscore_v1": {
+        "incumbent_mean": 0.1874,
+        "candidate_mean": 0.1871,
+        "d_mean": -0.0004,
+        "ci_95": [
+          -0.0009,
+          0.0002
+        ],
+        "ratio_to_noise": 0.13,
+        "t_stat": -1.258,
+        "t_pvalue": 0.2084496164845582,
+        "wilcoxon_pvalue": 0.33577681802783477
+      }
+    },
+    "mean_latency_sec": 3.9
+  },
+  "stage2_step_count": {
+    "steps_14": {
+      "steps": 14,
+      "mean_latency_sec": 2.77,
+      "throughput_img_per_min": 21.6,
+      "paired_comparison": {
+        "laion_aesthetic_v2_4": {
+          "incumbent_mean": 6.3497,
+          "candidate_mean": 6.3121,
+          "d_mean": -0.0376,
+          "ci_95": [
+            -0.0694,
+            -0.0058
+          ],
+          "ratio_to_noise": 0.23,
+          "t_stat": -2.314,
+          "t_pvalue": 0.0206570675242577,
+          "wilcoxon_pvalue": 0.05008976863399593
+        },
+        "imagereward": {
+          "incumbent_mean": 0.9793,
+          "candidate_mean": 0.9556,
+          "d_mean": -0.0236,
+          "ci_95": [
+            -0.0411,
+            -0.0061
+          ],
+          "ratio_to_noise": 0.28,
+          "t_stat": -2.646,
+          "t_pvalue": 0.008150792296476165,
+          "wilcoxon_pvalue": 0.019685137240854144
+        },
+        "hps_v2_1": {
+          "incumbent_mean": 0.3394,
+          "candidate_mean": 0.3387,
+          "d_mean": -0.0008,
+          "ci_95": [
+            -0.0013,
+            -0.0002
+          ],
+          "ratio_to_noise": 0.29,
+          "t_stat": -2.695,
+          "t_pvalue": 0.007047348216364279,
+          "wilcoxon_pvalue": 0.21499996570372634
+        },
+        "clip_alignment": {
+          "incumbent_mean": 0.3022,
+          "candidate_mean": 0.2998,
+          "d_mean": -0.0024,
+          "ci_95": [
+            -0.0048,
+            -0.0
+          ],
+          "ratio_to_noise": 0.21,
+          "t_stat": -1.977,
+          "t_pvalue": 0.04802535745693247,
+          "wilcoxon_pvalue": 0.7898134184098603
+        },
+        "pickscore_v1": {
+          "incumbent_mean": 0.1874,
+          "candidate_mean": 0.1868,
+          "d_mean": -0.0006,
+          "ci_95": [
+            -0.0012,
+            -0.0
+          ],
+          "ratio_to_noise": 0.21,
+          "t_stat": -1.984,
+          "t_pvalue": 0.04722275469491447,
+          "wilcoxon_pvalue": 0.16808429256585136
+        }
+      }
+    },
+    "steps_28": {
+      "steps": 28,
+      "mean_latency_sec": 5.54,
+      "throughput_img_per_min": 10.8,
+      "paired_comparison": {
+        "laion_aesthetic_v2_4": {
+          "incumbent_mean": 6.3497,
+          "candidate_mean": 6.3695,
+          "d_mean": 0.0198,
+          "ci_95": [
+            -0.0059,
+            0.0454
+          ],
+          "ratio_to_noise": 0.12,
+          "t_stat": 1.509,
+          "t_pvalue": 0.13139702547276816,
+          "wilcoxon_pvalue": 0.44859315160260116
+        },
+        "imagereward": {
+          "incumbent_mean": 0.9793,
+          "candidate_mean": 0.9885,
+          "d_mean": 0.0093,
+          "ci_95": [
+            -0.0043,
+            0.0229
+          ],
+          "ratio_to_noise": 0.11,
+          "t_stat": 1.336,
+          "t_pvalue": 0.18142687777354924,
+          "wilcoxon_pvalue": 0.5453149050753232
+        },
+        "hps_v2_1": {
+          "incumbent_mean": 0.3394,
+          "candidate_mean": 0.3397,
+          "d_mean": 0.0003,
+          "ci_95": [
+            -0.0001,
+            0.0007
+          ],
+          "ratio_to_noise": 0.11,
+          "t_stat": 1.276,
+          "t_pvalue": 0.20205920588402806,
+          "wilcoxon_pvalue": 0.046587888623381556
+        },
+        "clip_alignment": {
+          "incumbent_mean": 0.3022,
+          "candidate_mean": 0.3019,
+          "d_mean": -0.0003,
+          "ci_95": [
+            -0.002,
+            0.0014
+          ],
+          "ratio_to_noise": 0.03,
+          "t_stat": -0.328,
+          "t_pvalue": 0.7430064902870066,
+          "wilcoxon_pvalue": 0.4786256091638963
+        },
+        "pickscore_v1": {
+          "incumbent_mean": 0.1874,
+          "candidate_mean": 0.1873,
+          "d_mean": -0.0001,
+          "ci_95": [
+            -0.0005,
+            0.0004
+          ],
+          "ratio_to_noise": 0.02,
+          "t_stat": -0.317,
+          "t_pvalue": 0.7510017833551198,
+          "wilcoxon_pvalue": 0.8300104662029493
+        }
+      }
+    },
+    "steps_36": {
+      "steps": 36,
+      "mean_latency_sec": 7.13,
+      "throughput_img_per_min": 8.4,
+      "paired_comparison": {
+        "laion_aesthetic_v2_4": {
+          "incumbent_mean": 6.3497,
+          "candidate_mean": 6.3572,
+          "d_mean": 0.0075,
+          "ci_95": [
+            -0.0189,
+            0.0339
+          ],
+          "ratio_to_noise": 0.05,
+          "t_stat": 0.557,
+          "t_pvalue": 0.577529989129766,
+          "wilcoxon_pvalue": 0.6321339743844965
+        },
+        "imagereward": {
+          "incumbent_mean": 0.9793,
+          "candidate_mean": 0.9824,
+          "d_mean": 0.0032,
+          "ci_95": [
+            -0.0112,
+            0.0176
+          ],
+          "ratio_to_noise": 0.04,
+          "t_stat": 0.431,
+          "t_pvalue": 0.6664788517125599,
+          "wilcoxon_pvalue": 0.9918442496354299
+        },
+        "hps_v2_1": {
+          "incumbent_mean": 0.3394,
+          "candidate_mean": 0.3395,
+          "d_mean": 0.0001,
+          "ci_95": [
+            -0.0004,
+            0.0005
+          ],
+          "ratio_to_noise": 0.03,
+          "t_stat": 0.391,
+          "t_pvalue": 0.6955172566647239,
+          "wilcoxon_pvalue": 0.5567774019100835
+        },
+        "clip_alignment": {
+          "incumbent_mean": 0.3022,
+          "candidate_mean": 0.3019,
+          "d_mean": -0.0003,
+          "ci_95": [
+            -0.0024,
+            0.0018
+          ],
+          "ratio_to_noise": 0.02,
+          "t_stat": -0.262,
+          "t_pvalue": 0.7931163291218749,
+          "wilcoxon_pvalue": 0.7747149364127998
+        },
+        "pickscore_v1": {
+          "incumbent_mean": 0.1874,
+          "candidate_mean": 0.1873,
+          "d_mean": -0.0001,
+          "ci_95": [
+            -0.0006,
+            0.0005
+          ],
+          "ratio_to_noise": 0.03,
+          "t_stat": -0.268,
+          "t_pvalue": 0.7889257449376404,
+          "wilcoxon_pvalue": 0.6864927481572975
+        }
+      }
+    }
+  },
+  "stage3_cfg_rescale": {
+    "phi_50": {
+      "phi": 0.5,
+      "paired_comparison": {
+        "laion_aesthetic_v2_4": {
+          "incumbent_mean": 6.3497,
+          "candidate_mean": 6.3859,
+          "d_mean": 0.0362,
+          "ci_95": [
+            0.0157,
+            0.0567
+          ],
+          "ratio_to_noise": 0.22,
+          "t_stat": 3.455,
+          "t_pvalue": 0.0005495216113232479,
+          "wilcoxon_pvalue": 0.1210645426695366
+        },
+        "imagereward": {
+          "incumbent_mean": 0.9793,
+          "candidate_mean": 0.998,
+          "d_mean": 0.0187,
+          "ci_95": [
+            0.0077,
+            0.0298
+          ],
+          "ratio_to_noise": 0.22,
+          "t_stat": 3.326,
+          "t_pvalue": 0.000880043161728001,
+          "wilcoxon_pvalue": 0.013436139604165547
+        },
+        "hps_v2_1": {
+          "incumbent_mean": 0.3394,
+          "candidate_mean": 0.34,
+          "d_mean": 0.0006,
+          "ci_95": [
+            0.0002,
+            0.0009
+          ],
+          "ratio_to_noise": 0.22,
+          "t_stat": 3.266,
+          "t_pvalue": 0.0010897137331507675,
+          "wilcoxon_pvalue": 0.03266768771783676
+        },
+        "clip_alignment": {
+          "incumbent_mean": 0.3022,
+          "candidate_mean": 0.3025,
+          "d_mean": 0.0003,
+          "ci_95": [
+            -0.0012,
+            0.0018
+          ],
+          "ratio_to_noise": 0.03,
+          "t_stat": 0.41,
+          "t_pvalue": 0.6819693082521578,
+          "wilcoxon_pvalue": 0.9470256788864566
+        },
+        "pickscore_v1": {
+          "incumbent_mean": 0.1874,
+          "candidate_mean": 0.1875,
+          "d_mean": 0.0001,
+          "ci_95": [
+            -0.0003,
+            0.0005
+          ],
+          "ratio_to_noise": 0.03,
+          "t_stat": 0.444,
+          "t_pvalue": 0.6570649618847658,
+          "wilcoxon_pvalue": 0.4454809713853325
+        }
+      }
+    },
+    "phi_70": {
+      "phi": 0.7,
+      "paired_comparison": {
+        "laion_aesthetic_v2_4": {
+          "incumbent_mean": 6.3497,
+          "candidate_mean": 6.3895,
+          "d_mean": 0.0398,
+          "ci_95": [
+            0.0164,
+            0.0633
+          ],
+          "ratio_to_noise": 0.25,
+          "t_stat": 3.327,
+          "t_pvalue": 0.0008783284680654656,
+          "wilcoxon_pvalue": 0.05884535165004546
+        },
+        "imagereward": {
+          "incumbent_mean": 0.9793,
+          "candidate_mean": 0.9993,
+          "d_mean": 0.02,
+          "ci_95": [
+            0.0074,
+            0.0327
+          ],
+          "ratio_to_noise": 0.24,
+          "t_stat": 3.098,
+          "t_pvalue": 0.001949215364268138,
+          "wilcoxon_pvalue": 0.0233562153165139
+        },
+        "hps_v2_1": {
+          "incumbent_mean": 0.3394,
+          "candidate_mean": 0.34,
+          "d_mean": 0.0006,
+          "ci_95": [
+            0.0002,
+            0.001
+          ],
+          "ratio_to_noise": 0.23,
+          "t_stat": 3.002,
+          "t_pvalue": 0.0026819581370825982,
+          "wilcoxon_pvalue": 0.09312428622882543
+        },
+        "clip_alignment": {
+          "incumbent_mean": 0.3022,
+          "candidate_mean": 0.3023,
+          "d_mean": 0.0001,
+          "ci_95": [
+            -0.0017,
+            0.0018
+          ],
+          "ratio_to_noise": 0.01,
+          "t_stat": 0.081,
+          "t_pvalue": 0.9355906473902295,
+          "wilcoxon_pvalue": 0.7218577084026337
+        },
+        "pickscore_v1": {
+          "incumbent_mean": 0.1874,
+          "candidate_mean": 0.1874,
+          "d_mean": 0.0,
+          "ci_95": [
+            -0.0004,
+            0.0005
+          ],
+          "ratio_to_noise": 0.01,
+          "t_stat": 0.11,
+          "t_pvalue": 0.9123515819135037,
+          "wilcoxon_pvalue": 0.5882108582364691
+        }
+      }
+    },
+    "phi_85": {
+      "phi": 0.85,
+      "paired_comparison": {
+        "laion_aesthetic_v2_4": {
+          "incumbent_mean": 6.3497,
+          "candidate_mean": 6.3907,
+          "d_mean": 0.041,
+          "ci_95": [
+            0.0147,
+            0.0673
+          ],
+          "ratio_to_noise": 0.25,
+          "t_stat": 3.055,
+          "t_pvalue": 0.0022515500229889516,
+          "wilcoxon_pvalue": 0.0018868273551480102
+        },
+        "imagereward": {
+          "incumbent_mean": 0.9793,
+          "candidate_mean": 1.001,
+          "d_mean": 0.0217,
+          "ci_95": [
+            0.0073,
+            0.0361
+          ],
+          "ratio_to_noise": 0.26,
+          "t_stat": 2.955,
+          "t_pvalue": 0.0031230597297984457,
+          "wilcoxon_pvalue": 0.0410845817308572
+        },
+        "hps_v2_1": {
+          "incumbent_mean": 0.3394,
+          "candidate_mean": 0.3401,
+          "d_mean": 0.0007,
+          "ci_95": [
+            0.0002,
+            0.0011
+          ],
+          "ratio_to_noise": 0.26,
+          "t_stat": 2.899,
+          "t_pvalue": 0.003749265229845667,
+          "wilcoxon_pvalue": 0.009237773095561681
+        },
+        "clip_alignment": {
+          "incumbent_mean": 0.3022,
+          "candidate_mean": 0.3028,
+          "d_mean": 0.0006,
+          "ci_95": [
+            -0.0015,
+            0.0028
+          ],
+          "ratio_to_noise": 0.06,
+          "t_stat": 0.578,
+          "t_pvalue": 0.563571057248374,
+          "wilcoxon_pvalue": 0.31236883376736024
+        },
+        "pickscore_v1": {
+          "incumbent_mean": 0.1874,
+          "candidate_mean": 0.1876,
+          "d_mean": 0.0001,
+          "ci_95": [
+            -0.0004,
+            0.0007
+          ],
+          "ratio_to_noise": 0.05,
+          "t_stat": 0.535,
+          "t_pvalue": 0.5926123380681045,
+          "wilcoxon_pvalue": 0.9862794859868851
+        }
+      }
+    }
+  },
+  "stage4_refiner": {
+    "strength_20": {
+      "strength": 0.2,
+      "paired_comparison": {
+        "laion_aesthetic_v2_4": {
+          "incumbent_mean": 6.3497,
+          "candidate_mean": 6.3503,
+          "d_mean": 0.0006,
+          "ci_95": [
+            -0.0178,
+            0.0189
+          ],
+          "ratio_to_noise": 0.0,
+          "t_stat": 0.06,
+          "t_pvalue": 0.9520207405137999,
+          "wilcoxon_pvalue": 0.022593955696400367
+        },
+        "imagereward": {
+          "incumbent_mean": 0.9793,
+          "candidate_mean": 0.9781,
+          "d_mean": -0.0012,
+          "ci_95": [
+            -0.0108,
+            0.0084
+          ],
+          "ratio_to_noise": 0.01,
+          "t_stat": -0.239,
+          "t_pvalue": 0.8107986752610884,
+          "wilcoxon_pvalue": 0.779939045216828
+        },
+        "hps_v2_1": {
+          "incumbent_mean": 0.3394,
+          "candidate_mean": 0.3394,
+          "d_mean": -0.0,
+          "ci_95": [
+            -0.0003,
+            0.0003
+          ],
+          "ratio_to_noise": 0.02,
+          "t_stat": -0.311,
+          "t_pvalue": 0.7561444665937371,
+          "wilcoxon_pvalue": 0.5438159053483886
+        },
+        "clip_alignment": {
+          "incumbent_mean": 0.3022,
+          "candidate_mean": 0.3015,
+          "d_mean": -0.0007,
+          "ci_95": [
+            -0.0023,
+            0.0008
+          ],
+          "ratio_to_noise": 0.06,
+          "t_stat": -0.903,
+          "t_pvalue": 0.3665250807844509,
+          "wilcoxon_pvalue": 0.26808458005849267
+        },
+        "pickscore_v1": {
+          "incumbent_mean": 0.1874,
+          "candidate_mean": 0.1873,
+          "d_mean": -0.0002,
+          "ci_95": [
+            -0.0005,
+            0.0002
+          ],
+          "ratio_to_noise": 0.06,
+          "t_stat": -0.814,
+          "t_pvalue": 0.4154038726563547,
+          "wilcoxon_pvalue": 0.4546439087462747
+        }
+      }
+    },
+    "strength_25": {
+      "strength": 0.25,
+      "paired_comparison": {
+        "laion_aesthetic_v2_4": {
+          "incumbent_mean": 6.3497,
+          "candidate_mean": 6.3524,
+          "d_mean": 0.0027,
+          "ci_95": [
+            -0.0163,
+            0.0217
+          ],
+          "ratio_to_noise": 0.02,
+          "t_stat": 0.278,
+          "t_pvalue": 0.7809170279062971,
+          "wilcoxon_pvalue": 0.24115263300569223
+        },
+        "imagereward": {
+          "incumbent_mean": 0.9793,
+          "candidate_mean": 0.9794,
+          "d_mean": 0.0001,
+          "ci_95": [
+            -0.0098,
+            0.0101
+          ],
+          "ratio_to_noise": 0.0,
+          "t_stat": 0.024,
+          "t_pvalue": 0.9808257951290842,
+          "wilcoxon_pvalue": 0.49235334152332627
+        },
+        "hps_v2_1": {
+          "incumbent_mean": 0.3394,
+          "candidate_mean": 0.3394,
+          "d_mean": -0.0,
+          "ci_95": [
+            -0.0003,
+            0.0003
+          ],
+          "ratio_to_noise": 0.0,
+          "t_stat": -0.008,
+          "t_pvalue": 0.9937228527091043,
+          "wilcoxon_pvalue": 0.15079266243055264
+        },
+        "clip_alignment": {
+          "incumbent_mean": 0.3022,
+          "candidate_mean": 0.3016,
+          "d_mean": -0.0006,
+          "ci_95": [
+            -0.0023,
+            0.0011
+          ],
+          "ratio_to_noise": 0.05,
+          "t_stat": -0.67,
+          "t_pvalue": 0.5026148666245982,
+          "wilcoxon_pvalue": 0.7500636887466096
+        },
+        "pickscore_v1": {
+          "incumbent_mean": 0.1874,
+          "candidate_mean": 0.1873,
+          "d_mean": -0.0001,
+          "ci_95": [
+            -0.0006,
+            0.0003
+          ],
+          "ratio_to_noise": 0.05,
+          "t_stat": -0.59,
+          "t_pvalue": 0.5551061349423392,
+          "wilcoxon_pvalue": 0.9843215879743493
+        }
+      }
+    },
+    "strength_35": {
+      "strength": 0.35,
+      "paired_comparison": {
+        "laion_aesthetic_v2_4": {
+          "incumbent_mean": 6.3497,
+          "candidate_mean": 6.3621,
+          "d_mean": 0.0124,
+          "ci_95": [
+            -0.0106,
+            0.0354
+          ],
+          "ratio_to_noise": 0.08,
+          "t_stat": 1.057,
+          "t_pvalue": 0.2907061057225684,
+          "wilcoxon_pvalue": 0.6565709423205163
+        },
+        "imagereward": {
+          "incumbent_mean": 0.9793,
+          "candidate_mean": 0.9844,
+          "d_mean": 0.0051,
+          "ci_95": [
+            -0.0065,
+            0.0168
+          ],
+          "ratio_to_noise": 0.06,
+          "t_stat": 0.864,
+          "t_pvalue": 0.3877498086904564,
+          "wilcoxon_pvalue": 0.7629982473534247
+        },
+        "hps_v2_1": {
+          "incumbent_mean": 0.3394,
+          "candidate_mean": 0.3396,
+          "d_mean": 0.0001,
+          "ci_95": [
+            -0.0002,
+            0.0005
+          ],
+          "ratio_to_noise": 0.06,
+          "t_stat": 0.812,
+          "t_pvalue": 0.4169495265149251,
+          "wilcoxon_pvalue": 0.18856145764566254
+        },
+        "clip_alignment": {
+          "incumbent_mean": 0.3022,
+          "candidate_mean": 0.3017,
+          "d_mean": -0.0005,
+          "ci_95": [
+            -0.0024,
+            0.0013
+          ],
+          "ratio_to_noise": 0.05,
+          "t_stat": -0.542,
+          "t_pvalue": 0.587808142660751,
+          "wilcoxon_pvalue": 0.9369482919535734
+        },
+        "pickscore_v1": {
+          "incumbent_mean": 0.1874,
+          "candidate_mean": 0.1873,
+          "d_mean": -0.0001,
+          "ci_95": [
+            -0.0006,
+            0.0003
+          ],
+          "ratio_to_noise": 0.04,
+          "t_stat": -0.513,
+          "t_pvalue": 0.6079182732536423,
+          "wilcoxon_pvalue": 0.335743204255272
+        }
+      }
+    },
+    "outside_mask_isolation_verified": true
+  },
+  "total_sweep_gpu_seconds": 934.5
+}
