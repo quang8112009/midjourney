@@ -10,50 +10,11 @@
       0.3253,
       0.4704
     ],
+    "ratio_to_noise": 1.94,
     "t_stat": 10.745,
-    "p_value": 6.288041515729247e-27
-  },
-  "clip_alignment": {
-    "sd15_mean": 0.2989,
-    "sd15_seed_std": 0.0142,
-    "sd35_mean": 0.3022,
-    "sd35_seed_std": 0.0113,
-    "d_mean": 0.0033,
-    "d_se": 0.0024,
-    "ci_95": [
-      -0.0014,
-      0.008
-    ],
-    "t_stat": 1.375,
-    "p_value": 0.16917069347669283
-  },
-  "pickscore_v1": {
-    "sd15_mean": 0.1866,
-    "sd15_seed_std": 0.0035,
-    "sd35_mean": 0.1874,
-    "sd35_seed_std": 0.0028,
-    "d_mean": 0.0008,
-    "d_se": 0.0006,
-    "ci_95": [
-      -0.0004,
-      0.002
-    ],
-    "t_stat": 1.349,
-    "p_value": 0.17741128214094534
-  },
-  "hps_v2_1": {
-    "sd15_mean": 0.3332,
-    "sd15_seed_std": 0.0034,
-    "sd35_mean": 0.3394,
-    "sd35_seed_std": 0.0026,
-    "d_mean": 0.0062,
-    "d_se": 0.0006,
-    "ci_95": [
-      0.005,
-      0.0075
-    ],
-    "t_stat": 9.958,
-    "p_value": 2.3322042359205302e-23
+    "t_pvalue": 6.288041515729247e-27,
+    "wilcoxon_z": -7.269,
+    "wilcoxon_pvalue": 3.6089754979789894e-13
   },
   "imagereward": {
     "sd15_mean": 0.7737,
@@ -66,7 +27,61 @@
       0.1661,
       0.245
     ],
+    "ratio_to_noise": 1.9,
     "t_stat": 10.22,
-    "p_value": 1.6097287292240627e-24
+    "t_pvalue": 1.6097287292240627e-24,
+    "wilcoxon_z": -7.111,
+    "wilcoxon_pvalue": 1.1517860519427448e-12
+  },
+  "hps_v2_1": {
+    "sd15_mean": 0.3332,
+    "sd15_seed_std": 0.0034,
+    "sd35_mean": 0.3394,
+    "sd35_seed_std": 0.0026,
+    "d_mean": 0.0062,
+    "d_se": 0.0006,
+    "ci_95": [
+      0.005,
+      0.0075
+    ],
+    "ratio_to_noise": 1.86,
+    "t_stat": 9.958,
+    "t_pvalue": 2.3322042359205302e-23,
+    "wilcoxon_z": -7.188,
+    "wilcoxon_pvalue": 6.589377100482732e-13
+  },
+  "clip_alignment": {
+    "sd15_mean": 0.2989,
+    "sd15_seed_std": 0.0142,
+    "sd35_mean": 0.3022,
+    "sd35_seed_std": 0.0113,
+    "d_mean": 0.0033,
+    "d_se": 0.0024,
+    "ci_95": [
+      -0.0014,
+      0.008
+    ],
+    "ratio_to_noise": 0.23,
+    "t_stat": 1.375,
+    "t_pvalue": 0.16917069347669283,
+    "wilcoxon_z": -2.264,
+    "wilcoxon_pvalue": 0.023564903195321996
+  },
+  "pickscore_v1": {
+    "sd15_mean": 0.1866,
+    "sd15_seed_std": 0.0035,
+    "sd35_mean": 0.1874,
+    "sd35_seed_std": 0.0028,
+    "d_mean": 0.0008,
+    "d_se": 0.0006,
+    "ci_95": [
+      -0.0004,
+      0.002
+    ],
+    "ratio_to_noise": 0.23,
+    "t_stat": 1.349,
+    "t_pvalue": 0.17741128214094534,
+    "wilcoxon_z": -1.159,
+    "wilcoxon_pvalue": 0.2465467820638968
   }
 }
