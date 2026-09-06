@@ -107,7 +107,8 @@ Lateral            7/24 (29.2%)   7/24 (29.2%)   8/24 (33.3%)   9/24 (37.5%)   1
   Discordant (b,c) —              b=1, c=1       b=1, c=0       b=3, c=1       b=4, c=1       b=9, c=2
   McNemar exact p  —              p = 1.0000     p = 1.0000     p = 0.6250     p = 0.3750     p = 0.0654*
 ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-* Note: Expanding the lateral sample from N=24 to N=192 confirmed significance: p = 0.000394.
+* Note: Expanding the lateral sample from N=24 to N=192 confirmed significance: McNemar $p = 5.0 \times 10^{-6}$.
+
 ```
 
 ---

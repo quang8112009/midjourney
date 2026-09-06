@@ -116,7 +116,8 @@ class Settings(BaseSettings):
             self.RELATION_GUIDANCE_STRENGTHS.get("default", self.DEPTH_GUIDANCE_STRENGTH),
         )
 
-    SELF_ATTENTION_DEPTH_BIAS_ENABLED: bool = True
+    SELF_ATTENTION_DEPTH_BIAS_ENABLED: bool = False
+
     DENSITY_FIELD_ENABLED: bool = True
     DENSITY_ENTITY_THRESHOLD: int = Field(10, ge=2, le=500)
     VISUAL_CROSS_ATTN_ENABLED: bool = True
