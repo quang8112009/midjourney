@@ -21,10 +21,10 @@ prompts_sd35 = sd35_data["matched_512x512_20steps"]["per_prompt_results"]
 
 metrics = [
     ("laion_aesthetic_v2_4", "LAION v2.4"),
-    ("imagereward", "ImageReward"),
-    ("hps_v2_1", "HPS v2.1"),
     ("clip_alignment", "CLIP Alignment"),
     ("pickscore_v1", "PickScore v1"),
+    ("hps_v2_1", "HPS v2.1"),
+    ("imagereward", "ImageReward"),
 ]
 
 paired_data = {m[0]: {"sd15": [], "sd35": []} for m in metrics}
@@ -40,26 +40,9 @@ for p15, p35 in zip(prompts_sd15, prompts_sd35, strict=True):
             paired_data[m_key]["sd35"].append(s35[m_key])
 
 
-def wilcoxon_signed_rank(diff: np.ndarray) -> tuple[float, float, float]:
-    d = diff[diff != 0]
-    n = len(d)
-    ranks = np.argsort(np.abs(d)) + 1
-    w_pos = np.sum(ranks[d > 0])
-    w_neg = np.sum(ranks[d < 0])
-    w = min(w_pos, w_neg)
-    mean_w = n * (n + 1) / 4
-    std_w = math.sqrt(n * (n + 1) * (2 * n + 1) / 24)
-    z = (w - mean_w) / std_w
-    p_val = math.erfc(abs(z) / math.sqrt(2))
-    return float(w), float(z), float(p_val)
-
-
-print("=" * 135)
-print(
-    f"{'Metric':<16} | {'SD v1.5 (Mean+-std)':<20} | {'SD 3.5 M (Mean+-std)':<20} | "
-    f"{'Paired Diff (d_bar)':<20} | {'95% CI of Diff':<18} | {'Paired t-test':<18} | {'Wilcoxon Test':<18}"
-)
-print("=" * 135)
+print("=" * 115)
+print(f"{'Metric':<18} | {'SD v1.5 (Mean+-std)':<18} | {'SD 3.5 M (Mean+-std)':<18} | {'Mean Diff':<12} | {'95% CI of Diff':<18} | {'Paired t-stat':<14} | {'p-value':<12}")
+print("=" * 115)
 
 stats_summary = {}
 
@@ -68,26 +51,25 @@ for m_key, m_name in metrics:
     v35 = np.array(paired_data[m_key]["sd35"])
     diff = v35 - v15
     n = len(diff)
-
+    
     mean_15 = float(np.mean(v15))
-    std_15 = float(np.mean([np.std(v15[i * 4 : (i + 1) * 4]) for i in range(40)]))
-
+    std_15 = float(np.mean([np.std(v15[i*4:(i+1)*4]) for i in range(40)])) # within-prompt cross-seed std
+    
     mean_35 = float(np.mean(v35))
-    std_35 = float(np.mean([np.std(v35[i * 4 : (i + 1) * 4]) for i in range(40)]))
-
+    std_35 = float(np.mean([np.std(v35[i*4:(i+1)*4]) for i in range(40)])) # within-prompt cross-seed std
+    
     d_mean = float(np.mean(diff))
     d_std = float(np.std(diff, ddof=1))
     d_se = d_std / math.sqrt(n)
-
+    
     t_stat = d_mean / d_se
-    p_t = math.erfc(abs(t_stat) / math.sqrt(2))
-
+    # Normal approximation p-value for N=160
+    from math import erfc
+    p_val = erfc(abs(t_stat) / math.sqrt(2))
+    
     ci_low = d_mean - 1.96 * d_se
     ci_high = d_mean + 1.96 * d_se
-
-    w_stat, w_z, p_w = wilcoxon_signed_rank(diff)
-    ratio_to_noise = abs(d_mean) / std_15
-
+    
     stats_summary[m_key] = {
         "sd15_mean": round(mean_15, 4),
         "sd15_seed_std": round(std_15, 4),
@@ -96,22 +78,14 @@ for m_key, m_name in metrics:
         "d_mean": round(d_mean, 4),
         "d_se": round(d_se, 4),
         "ci_95": [round(ci_low, 4), round(ci_high, 4)],
-        "ratio_to_noise": round(ratio_to_noise, 2),
         "t_stat": round(t_stat, 3),
-        "t_pvalue": p_t,
-        "wilcoxon_z": round(w_z, 3),
-        "wilcoxon_pvalue": p_w,
+        "p_value": p_val,
     }
+    
+    p_str = f"p={p_val:.2e}" if p_val < 1e-4 else f"p={p_val:.4f}"
+    print(f"{m_name:<18} | {mean_15:6.4f} +- {std_15:6.4f}   | {mean_35:6.4f} +- {std_35:6.4f}   | {d_mean:+8.4f}   | [{ci_low:+7.4f}, {ci_high:+7.4f}] | t={t_stat:+7.2f}     | {p_str:<12}")
 
-    p_t_str = f"p={p_t:.2e}" if p_t < 1e-4 else f"p={p_t:.4f}"
-    p_w_str = f"p={p_w:.2e}" if p_w < 1e-4 else f"p={p_w:.4f}"
-    print(
-        f"{m_name:<16} | {mean_15:6.4f} +- {std_15:6.4f}   | {mean_35:6.4f} +- {std_35:6.4f}   | "
-        f"{d_mean:+8.4f} (r={ratio_to_noise:.2f}x) | [{ci_low:+7.4f}, {ci_high:+7.4f}] | "
-        f"t={t_stat:+6.2f} ({p_t_str}) | z={w_z:+6.2f} ({p_w_str})"
-    )
-
-print("=" * 135)
+print("=" * 115)
 
 with open(ROOT_DIR / "benchmarks" / "paired_backbone_aesthetic_stats.json", "w") as f:
     json.dump(stats_summary, f, indent=2)
