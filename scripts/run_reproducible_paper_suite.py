@@ -50,21 +50,22 @@ def main():
     print(f"{'Backbone':<22} | {'Text Encoder':<14} | {'LAION Diff (95% CI)':<30} | {'CLIP Align Diff (95% CI)':<30} | {'Finding':<15}")
     print("-" * 110)
     print(f"{'SD v1.5 (UNet)':<22} | {'CLIP-L (77)':<14} | {sd15_data['laion_aesthetic_v2_4']['d_mean']:+0.4f} (CI={sd15_data['laion_aesthetic_v2_4']['ci_95']}){'':<4} | {sd15_data['clip_alignment']['d_mean']:+0.4f} (CI={sd15_data['clip_alignment']['ci_95']}){'':<4} | Genuinely Helps")
-    print(f"{'PixArt-Alpha (DiT)':<22} | {'T5-XXL (120)':<14} | {pixart_data['laion_aesthetic_v2_4']['d_mean']:+0.4f} (CI={pixart_data['laion_aesthetic_v2_4']['ci_95']}){'':<4} | {pixart_data['clip_alignment']['d_mean']:+0.4f} (CI={pixart_data['clip_alignment']['ci_95']}){'':<4} | Obsolete (Dilutes)")
-    print(f"{'SD 3.5 Medium (MMDiT)':<22} | {'T5-XXL (512)':<14} | {sd35_data['laion_aesthetic_v2_4']['d_mean']:+0.4f} (CI={sd35_data['laion_aesthetic_v2_4']['ci_95']}){'':<4} | {sd35_data['clip_alignment']['d_mean']:+0.4f} (CI={sd35_data['clip_alignment']['ci_95']}){'':<4} | Obsolete (Flat)")
+    print(f"{'PixArt-Alpha (DiT)':<22} | {'T5-XXL (120)':<14} | {pixart_data['laion_aesthetic_v2_4']['d_mean']:+0.4f} (CI={pixart_data['laion_aesthetic_v2_4']['ci_95']}){'':<4} | {pixart_data['clip_alignment']['d_mean']:+0.4f} (CI={pixart_data['clip_alignment']['ci_95']}){'':<4} | Actively Hurts")
+    print(f"{'SD 3.5 Medium (MMDiT)':<22} | {'T5-XXL (512)':<14} | {sd35_data['laion_aesthetic_v2_4']['d_mean']:+0.4f} (CI={sd35_data['laion_aesthetic_v2_4']['ci_95']}){'':<4} | {sd35_data['clip_alignment']['d_mean']:+0.4f} (CI={sd35_data['clip_alignment']['ci_95']}){'':<4} | Ambiguous/Flat")
 
     # 3. Case Study A: Human Validation of Depth Metrics
-    with open(ROOT_DIR / "benchmarks" / "depth_human_validation_results.json") as f:
-        depth_human = json.load(f)["overall_comparison"]
+    with open(ROOT_DIR / "benchmarks" / "blind_depth_evaluation" / "depth_human_validation_results.json") as f:
+        depth_human = json.load(f)["overall"]
 
     print("\n\n3. CASE STUDY A: HUMAN GROUND-TRUTH VALIDATION OF DEPTH METRICS (N=120 BLINDED SAMPLES)")
     print("-" * 110)
     print(f"{'Metric / Evaluator':<30} | {'Accuracy vs Human':<20} | {'Precision':<16} | {'Recall':<16} | {'False Positives':<16}")
     print("-" * 110)
-    m2 = depth_human["2d_ground_plane"]
-    m3 = depth_human["depth_anything_v2"]
-    print(f"{'2D Ground-Plane Predicate':<30} | {m2['accuracy']*100:6.2f}% ({m2['tp']+m2['tn']}/120){'':<4} | {m2['precision']*100:6.2f}%{'':<8} | {m2['recall']*100:6.2f}%{'':<8} | {m2['fp']:<16}")
-    print(f"{'Depth Anything V2 (3D Depth)':<30} | {m3['accuracy']*100:6.2f}% ({m3['tp']+m3['tn']}/120){'':<4} | {m3['precision']*100:6.2f}%{'':<8} | {m3['recall']*100:6.2f}%{'':<8} | {m3['fp']:<16}")
+    m2 = depth_human["2d"]
+    m3 = depth_human["3d"]
+    print(f"{'2D Ground-Plane Predicate':<30} | {m2['accuracy']*100:6.2f}% ({m2['tp']+m2['tn']}/{m2['total']}){'':<4} | {m2['precision']*100:6.2f}%{'':<8} | {m2['recall']*100:6.2f}%{'':<8} | {m2['fp']:<16}")
+    print(f"{'Depth Anything V2 (3D Depth)':<30} | {m3['accuracy']*100:6.2f}% ({m3['tp']+m3['tn']}/{m3['total']}){'':<4} | {m3['precision']*100:6.2f}%{'':<8} | {m3['recall']*100:6.2f}%{'':<8} | {m3['fp']:<16}")
+
 
     print("\n" + "=" * 110)
     print("[+] All empirical datasets successfully validated and ready for technical paper.")

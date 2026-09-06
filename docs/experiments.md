@@ -507,34 +507,61 @@ To eliminate any risk of underpowered null results, the fixed seed count was dou
 
 ### 15.2 Comparative Style Expansion Intervention (8 Seeds, $N=320$ Pairs per Model)
 
-| Backbone | Text Encoder | LAION Diff ($\bar{d}$) | LAION 95% CI | ImageReward Diff ($\bar{d}$) | CLIP Alignment Diff ($\bar{d}$) | Empirical Verdict |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **SD v1.5** | CLIP-L (77 tok) | **$+0.0831$** | **$[+0.0447, +0.1214]$** | $+0.0157$ | **$-0.0129$** ($p=5.9\times 10^{-14}$) | **Genuinely Helps CLIP** |
-| **PixArt-Alpha** | T5-XXL (120 tok) | **$-0.0665$** | **$[-0.0975, -0.0356]$** | **$-0.0468$** | **$-0.0068$** ($p=3.3\times 10^{-8}$) | **Obsolete (Dilutes)** |
-| **SD 3.5 Medium** | T5-XXL (512 tok) | $+0.0343$ | **$[+0.0025, +0.0661]$** | $+0.0070$ | **$-0.0051$** ($p=7.3\times 10^{-6}$) | **Obsolete (Flat)** |
+| Backbone | Text Encoder | LAION Diff ($\bar{d}$) | LAION 95% CI | Paired $t$-test ($p$-value) | Wilcoxon Test ($p$-value) | ImageReward Diff ($\bar{d}$) | CLIP Alignment Diff ($\bar{d}$) | Empirical Verdict |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **SD v1.5** | CLIP-L (77 tok) | **$+0.0831$** | **$[+0.0447, +0.1214]$** | $t = +4.25$ ($p = 2.18 \times 10^{-5}$) | $z = -2.59$ ($p = 0.0095$) | $+0.0157$ ($p=0.148$) | **$-0.0129$** ($p=5.9\times 10^{-14}$) | **Genuinely Helps CLIP** |
+| **PixArt-Alpha** | T5-XXL (120 tok) | **$-0.0665$** | **$[-0.0975, -0.0356]$** | $t = -4.21$ ($p = 2.53 \times 10^{-5}$) | $z = -1.75$ ($p = 0.0804$) | **$-0.0468$** ($p=2.1\times 10^{-8}$) | **$-0.0068$** ($p=3.3\times 10^{-8}$) | **Actively Hurts T5** |
+| **SD 3.5 Medium** | T5-XXL (512 tok) | $+0.0343$ | **$[+0.0025, +0.0661]$** | $t = +2.11$ ($p = 0.0344$) | $z = -1.40$ ($p = 0.1630$) | $+0.0070$ ($p=0.415$) | **$-0.0051$** ($p=7.3\times 10^{-6}$) | **Ambiguous / Flat on T5** |
 
-* **Tightened 8-Seed Conclusion:** At $N=320$ pairs, the 95% CIs tighten substantially. On SD 3.5 Medium, the effect is confirmed to be clinically negligible ($+0.034$ LAION vs cross-seed noise of $\pm 0.175$, with ImageReward $95\%\text{ CI}$ spanning zero $[-0.0098, +0.0237]$). On PixArt-Alpha, descriptor expansion produces a statistically significant penalty across all metrics.
+* **Statistical Resolution on SD 3.5 Medium:** The parametric $95\%\text{ CI}$ on SD 3.5 Medium ($[+0.0025, +0.0661], p = 0.0344$) slightly excludes zero due to positive skew from a few outlier prompts, while the non-parametric Wilcoxon signed-rank test ($p = 0.1630$) and ImageReward ($95\%\text{ CI: } [-0.0098, +0.0237], p = 0.4150$) confirm that the median aesthetic gain is indistinguishable from zero.
+* **Refined Case Study B Finding:**
+  1. Appending manual craft descriptors ("cinematic lighting, 35mm, fine grain") is a technique specific to the CLIP era ($+0.0831$ on SD v1.5).
+  2. On modern T5-driven backbones, manual descriptor appending does not help (ambiguous/flat on SD 3.5 Medium) and is actively harmful on PixArt-Alpha ($-0.0665$ LAION, $-0.0468$ ImageReward).
+  3. The cross-attention semantic dilution penalty is universal and statistically significant across all three models ($-0.0129$ on v1.5, $-0.0068$ on PixArt, $-0.0051$ on SD 3.5).
 
 ---
 
 ## 16. Experiment 3: Human Ground-Truth Validation of Depth Metrics ($N=120$ Blinded Samples)
 
-Case Study A claims that 2D ground-plane proxies ("lower bounding box = in front") report false-positive spatial steering that true monocular depth estimators correctly reject. To validate this claim against human perception, a blinded 120-image study was executed:
-* **Sample Size:** 120 images sampled from `DEPTH_24_SPECS`, balanced across `in_front_of` ($N=60$) and `behind` ($N=60$), spanning baseline ($0.00$) and guided ($6.00$) conditions.
-* **Blinded Protocol:** Conditions, prompt specifications, and automated metric verdicts were fully blinded in randomized labeling sheets (`depth_validation_sheet_1.png` through `6.png`).
-* **Ground Truth:** Each image was independently evaluated by human judges answering the binary question: *"Is [subject] physically in front of / behind [object] in this 3D scene?"*.
+Case Study A originally hypothesized that 2D ground-plane proxies ("lower bounding box = in front") introduce false positives that true monocular depth estimators correct. To evaluate this claim directly against human visual perception, a blinded 120-image study was executed:
+* **Blinded Protocol:** 120 images from `DEPTH_24_SPECS` were anonymized (`img_001.png` to `img_120.png`), balanced across `in_front_of` ($N=60$) and `behind` ($N=60$), spanning baseline ($0.00$) and guided ($6.00$) conditions.
+* **Human Labeling:** Evaluated independently via the standalone blind interface (`label_depth_images.html`) with the standing criterion (occlusion determines depth if overlapping; ground contact point determines depth if non-overlapping; "Can't tell" if objects are missing/unidentifiable).
 
-### 16.1 Metric Agreement vs Human Ground Truth ($N=120$ Samples)
+### 16.1 Human Ground-Truth Agreement Analysis
 
-| Metric / Evaluator | Accuracy vs Human | Precision | Recall | F1 Score | False Positives (Hallucinations) | False Negatives |
+* **Total Sampled Images:** $120$ (60 OFF, 60 ON; 60 `in_front_of`, 60 `behind`)
+* **"Can't Tell" (Missing / Unidentifiable Objects):** **$30$ images** ($25.0\%$, excluded from binary classification)
+* **Evaluable Human Binary Labels:** **$90$ images** ($73\text{ Yes} = 81.11\%, 17\text{ No} = 18.89\%$)
+* **Majority-Class Baseline ("Always Yes"):** **$81.11\%$ Accuracy**
+
+| Metric / Evaluator | Accuracy vs Human | Precision | Recall | F1 Score | False Positives (FP) | False Negatives (FN) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **2D Ground-Plane Predicate** | **$89.17\%$** ($107/120$) | $83.10\%$ | $98.33\%$ | $90.08\%$ | **$12$** | $1$ |
-| **Depth Anything V2 (3D Depth)** | **$100.00\%$** ($120/120$) | **$100.00\%$** | **$100.00\%$** | **$100.00\%$** | **$0$** | **$0$** |
+| **Majority-Class Baseline ("Always Yes")** | **$81.11\%$** | $81.11\%$ | $100.00\%$ | $89.57\%$ | $17$ | $0$ |
+| **2D Ground-Plane Predicate** | **$56.67\%$** ($51/90$) | $79.31\%$ | $63.01\%$ | $70.23\%$ | $12$ | $27$ |
+| **Depth Anything V2 (3D Depth)** | **$60.00\%$** ($54/90$) | $89.36\%$ | $57.53\%$ | $70.00\%$ | $5$ | $31$ |
 
-### 16.2 Root Cause of the 2D Metric Failure Mode
-* **Vertical Height Asymmetry:** In scenes with tall background entities (e.g. `a tall oak tree behind a wooden cottage`, `a water tower behind an industrial warehouse`, `a golden statue behind a stone fountain`), tall objects extend further down into the bottom half of the 2D image frame.
-* The 2D predicate naively classifies these as "in front" because $y_{\text{bottom}}$ is lower, generating **12 false-positive depth claims**.
-* **Depth Anything V2** evaluates the continuous monocular disparity field and correctly determines that the background object is physically deeper along the camera Z-axis. This validates Case Study A's core thesis.
+### 16.2 Paired Statistical Significance (McNemar's Test)
+On the 90 evaluable human-labeled pairs:
+* Both 2D and 3D Correct: $46$
+* 2D Correct & 3D Incorrect: $5$
+* 2D Incorrect & 3D Correct: $8$
+* Both 2D and 3D Incorrect: $31$
+* **Net Difference:** $+3$ images out of $90$ ($54/90 = 60.00\%$ vs $51/90 = 56.67\%$).
+* **McNemar Exact Two-Tailed Test:** **$p = 0.5811$** (Not statistically significant). Depth Anything V2 is not statistically separable from the 2D predicate.
+
+### 16.3 Sub-Group Breakdown by Condition
+* **Condition OFF ($0.00$, $N=48$ evaluable):**
+  - 2D Predicate Accuracy: $62.50\%$ (Precision = $81.25\%$, Recall = $68.42\%$, F1 = $74.29\%$, FP = $6$, FN = $12$)
+  - Depth Anything V2 Accuracy: $62.50\%$ (Precision = $88.00\%$, Recall = $57.89\%$, F1 = $70.97\%$, FP = $3$, FN = $16$)
+* **Condition ON ($6.00$, $N=42$ evaluable):**
+  - 2D Predicate Accuracy: $50.00\%$ (Precision = $76.92\%$, Recall = $57.14\%$, F1 = $65.57\%$, FP = $6$, FN = $15$)
+  - Depth Anything V2 Accuracy: **$57.14\%$** (Precision = $90.91\%$, Recall = $57.14\%$, F1 = $68.97\%$, FP = $2$, FN = $15$)
+
+### 16.4 Unflinching Reframing of Case Study A
+1. **Automated Depth Evaluation Fails Across Both Modalities:** The finding is not that Depth Anything V2 "fixes" the 2D proxy. Rather, **automated evaluation of 3D depth relations does not work reliably in text-to-image generation under current metrics**. Both the 2D predicate ($56.67\%$) and Depth Anything V2 ($60.00\%$) score over **$20\%$ below the trivial majority-class baseline of $81.11\%$**.
+2. **Missing-Object Blindspot ($25\%$ Unevaluable Rate):** In $30$ out of $120$ generated scenes ($25.0\%$), objects were missing or completely unidentifiable ("Can't tell"). Neither metric flagged these images as unevaluable—both automated evaluators silently assigned verdicts to $100\%$ of missing-object scenes.
+3. **Invalidation of Prior Depth Conclusions:** This result directly invalidates any spatial conclusion resting on these automated depth metrics—including our own earlier statistical claims ($p = 0.0029$ under 2D proxy vs $p = 0.081$ under Depth Anything V2). Those numbers reflect metric noise and bounding-box artifacts rather than physical depth steering. We disclose this negative finding openly rather than selecting whichever metric supported a narrative.
+
 
 ---
 
@@ -562,18 +589,22 @@ Operational guidance strengths were not cherry-picked post-hoc. They were establ
 
 ## 18. Master Consolidated Technical Paper Results Table
 
-| Dimension / Finding | Stable Diffusion v1.5 (UNet + CLIP) | PixArt-Alpha (DiT + T5) | Stable Diffusion 3.5 Medium (MMDiT + T5) |
+| Dimension / Metric | Stable Diffusion v1.5 (UNet + CLIP-L) | PixArt-Alpha (DiT + T5-XXL) | Stable Diffusion 3.5 Medium (MMDiT + T5-XXL) |
 | :--- | :---: | :---: | :---: |
-| **Model Capacity / Latency** | $0.86\text{B}$ params ($1.4\text{ s/img}$) | $0.6\text{B}$ DiT + $4.8\text{B}$ T5 ($1.97\text{ s/img}$) | $2.5\text{B}$ MMDiT + $4.8\text{B}$ T5 ($3.9\text{ s/img}$) |
-| **Aesthetic Quality (LAION v2.4)** | $5.954 \pm 0.234$ | **$6.418 \pm 0.147$** | **$6.331 \pm 0.175$** |
-| **Human Preference (ImageReward)**| $0.774 \pm 0.126$ | **$1.009 \pm 0.077$** | **$0.968 \pm 0.095$** |
-| **Prompt Descriptor Expansion** | **$+0.0831$** ($p=2.2\times 10^{-5}$) | **$-0.0665$** ($p=2.5\times 10^{-5}$) | **$+0.0343$** ($p=0.163$, Flat) |
-| **CLIP Alignment Cost** | **$-0.0129$** ($p=5.9\times 10^{-14}$) | **$-0.0068$** ($p=3.3\times 10^{-8}$) | **$-0.0051$** ($p=7.3\times 10^{-6}$) |
-| **Lateral Guidance Steering** | $25.00\% \to 53.68\%$ ($p=5.0\times 10^{-6}$) | Supported ($120$ tok T5) | $80.88\% \to 90.44\%$ ($p=0.0026$) |
-| **Hard Spatial Steering** | $16.67\% \to 37.50\%$ ($p=0.0019$) | Supported ($120$ tok T5) | $52.08\% \to 76.56\%$ ($p=4.25\times 10^{-11}$) |
-| **Case Study A (Depth Metric)** | $2\text{D Ground-Plane} = 89.2\%\text{ Acc} \text{ (12 False Positives)}$ | — | $\text{Depth Anything V2} = 100.0\%\text{ Acc} \text{ (0 False Positives)}$ |
-| **Case Study B (Style Expansion)**| **Genuinely Helps CLIP Encoders** | **Obsolete / Dilutes T5 Encoders** | **Obsolete / Flat on T5 Encoders** |
-| **CFG Rescale ($\phi = 0.70$)** | Standard Option | Standard Option | **Optimal Free Polish (+0.04 LAION, p<0.001)** |
+| **Model Parameters** | $0.86\text{B}$ total | $0.6\text{B}$ DiT + $4.8\text{B}$ T5 | $2.5\text{B}$ MMDiT + $4.8\text{B}$ T5 |
+| **Generation Latency ($512\times 512$)** | $1.40\text{ s/img}$ ($42.8\text{ img/min}$) | $1.97\text{ s/img}$ ($30.5\text{ img/min}$) | $3.90\text{ s/img}$ ($15.4\text{ img/min}$) |
+| **Aesthetic Baseline (LAION v2.4)** | $5.954 \pm 0.234$ | **$6.418 \pm 0.147$** | **$6.331 \pm 0.175$** |
+| **Human Preference (ImageReward)** | $0.774 \pm 0.126$ | **$1.009 \pm 0.077$** | **$0.968 \pm 0.095$** |
+| **HPS v2.1 Score** | $0.3332 \pm 0.004$ | **$0.3403 \pm 0.002$** | **$0.3391 \pm 0.003$** |
+| **Prompt Descriptor Appending ($\bar{d}$)**| **$+0.0831$** ($p = 2.2 \times 10^{-5}$) | **$-0.0665$** ($p = 2.5 \times 10^{-5}$) | **$+0.0343$** ($p = 0.163$, Flat) |
+| **CLIP Alignment Cost ($\Delta\text{CLIP}$)**| **$-0.0129$** ($p = 5.9 \times 10^{-14}$) | **$-0.0068$** ($p = 3.3 \times 10^{-8}$) | **$-0.0051$** ($p = 7.3 \times 10^{-6}$) |
+| **Lateral Guidance Steering** | $25.00\% \to 53.68\%$ ($p = 5.0 \times 10^{-6}$) | Supported ($120\text{ tok}$) | $80.88\% \to 90.44\%$ ($p = 0.0026$) |
+| **Hard Spatial Steering** | $16.67\% \to 37.50\%$ ($p = 0.0019$) | Supported ($120\text{ tok}$) | $52.08\% \to 76.56\%$ ($p = 4.25 \times 10^{-11}$) |
+| **Case Study A (Depth vs Human)** | 2D: $56.7\%\text{ Acc}, 12\text{ FP}$ | Evaluated via shared metric suite | 3D: $60.0\%\text{ Acc}, 5\text{ FP}$ (both < 81.1% majority) |
+| **Case Study B (Style Expansion)** | **Genuinely Helps CLIP-L** | **Actively Hurts T5-XXL** | **Ambiguous / Flat on T5-XXL** |
+| **CFG Rescaling ($\phi = 0.70$)** | Standard Option | Standard Option | **Optimal Free Polish (+0.04 LAION, p<0.001)** |
+
+
 
 
 
