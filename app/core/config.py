@@ -143,6 +143,12 @@ class Settings(BaseSettings):
     CHAT_RATE_LIMIT_PER_MINUTE: int = Field(30, ge=1)
     CHAT_LOG_DECISION_CONTENT: bool = False
 
+    # Style Expansion Configuration
+    STYLE_EXPANSION_ENABLED: bool = False
+    STYLE_EXPANSION_MODEL: str = "gpt-4o-mini"
+    STYLE_EXPANSION_TIMEOUT_SECONDS: float = Field(4.0, gt=0, le=120)
+    STYLE_EXPANSION_MAX_TOKENS: int = Field(40, ge=10, le=512)
+
     @model_validator(mode="after")
     def validate_default_pixel_budget(self):
         if self.DEFAULT_WIDTH * self.DEFAULT_HEIGHT > self.MAX_BATCH_PIXELS:

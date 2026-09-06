@@ -25,6 +25,7 @@ from app.services.editing.prompt_intent import PromptIntent, analyze_prompt
 from app.services.editing.semantic_planner import (
     plan_semantic_layout,
 )
+from app.services.editing.style_expansion import expand_style
 from app.services.model_service import (
     MAX_SEED,
     PIXART_ALPHA,
@@ -129,6 +130,15 @@ class GenerateRequest(BaseModel):
         None,
         description="Enable adaptive guidance strength",
     )
+    style_expansion: bool | None = Field(
+        None,
+        description="Enable principled LLM aesthetic style expansion",
+    )
+    custom_style: str | None = Field(
+        None,
+        description="Optional user custom style clause override",
+    )
+
 
     @field_validator("prompt", mode="before")
     @classmethod
@@ -204,8 +214,11 @@ class GenerateResponse(BaseModel):
     prompt: str
     effective_prompt: str
     prompt_enhanced: bool
-    model: Literal["stable-diffusion", "pixart-alpha"]
+    style_expanded: bool = False
+    expanded_style_clause: str | None = None
+    model: str
     parameters: GenerationParameters
+
 
 
 class EditIntentSummary(BaseModel):
@@ -467,11 +480,25 @@ async def execute_generation(payload: GenerateRequest) -> GenerateResponse:
         generation_seed = payload.seed
         if payload.enhance_prompt and generation_seed is None:
             generation_seed = secrets.randbits(63)
-        effective_prompt = (
-            enhance_prompt(payload.prompt, seed=generation_seed)
-            if payload.enhance_prompt
-            else payload.prompt
+
+        style_exp_res = None
+        should_expand = (
+            payload.style_expansion
+            or (payload.style_expansion is None and settings.STYLE_EXPANSION_ENABLED)
         )
+        if should_expand:
+            style_exp_res = expand_style(
+                payload.prompt,
+                model=payload.model,
+                custom_style_clause=payload.custom_style,
+                style_expansion_enabled=True,
+            )
+            effective_prompt = style_exp_res.expanded_prompt
+        elif payload.enhance_prompt:
+            effective_prompt = enhance_prompt(payload.prompt, seed=generation_seed)
+        else:
+            effective_prompt = payload.prompt
+
         result, image_paths = await _generate_and_save(
             payload,
             generation_id,
@@ -484,6 +511,8 @@ async def execute_generation(payload: GenerateRequest) -> GenerateResponse:
             prompt=payload.prompt,
             effective_prompt=effective_prompt,
             prompt_enhanced=payload.enhance_prompt,
+            style_expanded=style_exp_res.applied if style_exp_res else False,
+            expanded_style_clause=style_exp_res.style_clause if style_exp_res else None,
             model=payload.model,
             parameters=GenerationParameters(
                 width=payload.width,
@@ -496,6 +525,7 @@ async def execute_generation(payload: GenerateRequest) -> GenerateResponse:
                 elapsed_seconds=result.elapsed_seconds,
             ),
         )
+
     except HTTPException:
         raise
     except Exception as exc:

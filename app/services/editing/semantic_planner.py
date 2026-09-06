@@ -130,10 +130,16 @@ _COMMON_ADJECTIVES = frozenset(
     round square spherical cubic cylindrical circular oval triangular flat
     majestic wild ancient modern sweet sour fresh ripe young old vintage
     glowing shining gleaming floating blooming burning lit hardcover sports rolled clear
+    natural soft shallow prime authentic fine macro delicate translucent opaque
+    rich dramatic dynamic subtle bold damp cold crisp tactile luminous expressive
+    analog nostalgic rectilinear traditional jewel saturated laid velvet
+    atmospheric archival classical clean optical reflective polymer textured tonal
+    shaded mineral architectural japanese layered cel
+    angry migrating cheering sparkling buzzing distant nearby transparent
     lush dense sparse open closed beautiful pretty peaceful quiet calm
-    angry migrating cheering sparkling buzzing distant nearby translucent transparent
-    opaque blurry sharp clear""".split()
+    blurry sharp""".split()
 )
+
 
 _ACTION_VERBS = frozenset(
     """change recolor recolour remove erase delete add insert replace swap restyle
@@ -150,8 +156,25 @@ _SPATIAL_WORDS = frozenset(
 
 _METADATA_WORDS = frozenset(
     """photo photograph picture image snapshot illustration artwork painting drawing
-    render rendering style view shot canvas wallpaper""".split()
+    render rendering style view shot canvas wallpaper lighting lens depth grading grain
+    texture textures washes brushwork glazing impasto granulation dithering palette
+    chiaroscuro bokeh exposure vignette vignetting linework smudges framing
+    color colour tone tones mood finish perspective outlines pigments pigment
+    shading cross-hatching hatching gradients layers layer surface surfaces
+    film stop-motion keyframe print washi woodblock caming refraction
+    aesthetic impressions blocking segments hierarchy contrast
+    fingerprint material pooling press wash bit wide angle wide-angle
+    mm cm inch inches px pixel pixels fov dof iso crt
+    35mm 50mm 85mm 24mm 70mm 105mm 200mm 16mm 28mm 120mm 1970s""".split()
 )
+
+
+
+
+
+
+
+
 
 _RELATION_PHRASES: list[tuple[str, str]] = [
     ("to the left of", "left_of"),
@@ -245,6 +268,10 @@ _STYLE_KEYWORDS: dict[str, list[str]] = {
         "moonlight",
         "candlelight",
         "ambient light",
+        "window light",
+        "natural light",
+        "key light",
+        "fill light",
         "bokeh",
         "lens flare",
         "god rays",
@@ -273,9 +300,13 @@ _STYLE_KEYWORDS: dict[str, list[str]] = {
         "close-up",
         "portrait",
         "wide angle",
+        "wide-angle",
+        "wide",
+        "angle",
         "panoramic",
         "macro",
         "bird's-eye view",
+        "birds-eye view",
         "low angle",
         "isometric",
         "cinematic composition",
@@ -1594,6 +1625,14 @@ def _detect_density_distribution(
     return False, "gaussian", 2.0
 
 
+_PROTECTED_OBJECT_NOUNS = frozenset(
+    """key window box chair table desk lamp tree plant car mug cup bottle
+    plate clock racket ball bear robot fork knife spoon vase apple lemon banana
+    cat dog bird fish person man woman house room""".split()
+)
+
+
+
 def _extract_quantified_nouns(prompt: str) -> list[tuple[str, int, list[str]]]:
     """Extract nouns and their explicit or inferred count from the prompt."""
     words = re.findall(r"[a-zA-Z0-9][a-zA-Z0-9'-]*", prompt.lower())
@@ -1601,15 +1640,19 @@ def _extract_quantified_nouns(prompt: str) -> list[tuple[str, int, list[str]]]:
     style_words = {w for s in style_set for w in s.split() if w not in _STOPWORDS and len(w) > 2}
 
     skip_words = (
-        _STOPWORDS
-        | style_words
-        | _ACTION_VERBS
-        | _COMMON_ADJECTIVES
-        | _SPATIAL_WORDS
-        | _METADATA_WORDS
-        | _RELATION_WORDS
-        | set(_NUM_WORDS.keys())
+        (
+            _STOPWORDS
+            | style_words
+            | _ACTION_VERBS
+            | _COMMON_ADJECTIVES
+            | _SPATIAL_WORDS
+            | _METADATA_WORDS
+            | _RELATION_WORDS
+            | set(_NUM_WORDS.keys())
+        )
+        - _PROTECTED_OBJECT_NOUNS
     )
+
 
     raw_entries: list[tuple[str, int, list[str], int]] = []
 
@@ -1708,10 +1751,12 @@ def _extract_quantified_nouns(prompt: str) -> list[tuple[str, int, list[str]]]:
             word not in skip_words
             and word not in _NUM_WORDS
             and not word.isdigit()
+            and not re.match(r"^\d+(?:mm|cm|px|k|fps|iso|bit)$", word)
             and len(word) >= 3
         ):
             raw_entries.append((word, 1, [], i))
         i += 1
+
 
     # Disambiguate duplicate nouns only when distinct attributes exist
     quantified: list[tuple[str, int, list[str]]] = []
@@ -2228,7 +2273,7 @@ def _parse_visual_context(
 
 
 def plan_semantic_layout(
-    intent: PromptIntent | str,
+    intent: PromptIntent,
     *,
     tokenizer=None,
     candidate_objects: list[dict[str, Any]] | None = None,
@@ -2242,10 +2287,9 @@ def plan_semantic_layout(
     density_entity_threshold: int = DEFAULT_DENSITY_ENTITY_THRESHOLD,
 ) -> SemanticLayoutPlan:
     """Generate a structured SemanticLayoutPlan balancing semantic logic and aesthetic freedom."""
-    if isinstance(intent, str):
-        intent = PromptIntent(prompt=intent, mode="generate")
-    elif not isinstance(intent, PromptIntent):
-        raise TypeError("plan_semantic_layout requires a PromptIntent or str")
+    if not isinstance(intent, PromptIntent):
+        raise TypeError("plan_semantic_layout requires a PromptIntent instance")
+
 
     prompt_clean = intent.prompt.strip()
     is_edit = intent.mode == "edit"
