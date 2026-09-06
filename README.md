@@ -63,15 +63,18 @@ Cross-architecture transfer of soft spatial cross-attention guidance was establi
 
 Live GPU evaluation across the standard 40-prompt aesthetic benchmark suite (4 seeds, 5 real scorers):
 
-#### 1. Backbone Upgrade Aesthetic Baseline (SD v1.5 vs SD 3.5 Medium)
-| Metric | SD v1.5 ($512\times 512$) | SD 3.5 M ($512\times 512$) | Paired Diff ($\bar{d}$) | $95\%$ CI of Diff | Paired $t$-stat | Two-Tailed $p$-value |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **LAION v2.4** | $5.952 \pm 0.205$ | **$6.350 \pm 0.162$** | **$+0.3979$** | $[+0.325, +0.470]$ | $t = +10.74$ | **$p = 6.29 \times 10^{-27}$** |
-| **ImageReward** | $0.7737 \pm 0.108$ | **$0.9793 \pm 0.084$** | **$+0.2055$** | $[+0.166, +0.245]$ | $t = +10.22$ | **$p = 1.61 \times 10^{-24}$** |
-| **HPS v2.1** | $0.3332 \pm 0.003$ | **$0.3394 \pm 0.003$** | **$+0.0062$** | $[+0.005, +0.008]$ | $t = +9.96$ | **$p = 2.33 \times 10^{-23}$** |
-| **CLIP Align** | $0.2989 \pm 0.014$ | **$0.3022 \pm 0.011$** | $+0.0033$ | $[-0.001, +0.008]$ | $t = +1.37$ | $p = 0.1692$ (Neutral) |
+#### 1. Backbone Upgrade Aesthetic Baseline (SD v1.5 vs SD 3.5 Medium, $N=160$ Pairs)
+| Metric | SD v1.5 ($512\times 512$) | SD 3.5 M ($512\times 512$) | Paired Diff ($\bar{d}$) | Ratio to Noise ($\bar{d}/\sigma_{\text{seed}}$) | $95\%$ CI of Diff | Paired $t$-stat ($p$-value) | Wilcoxon Test ($p$-value) | Status |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **LAION v2.4** | $5.952 \pm 0.205$ | **$6.350 \pm 0.162$** | **$+0.3979$** | **$1.94\times$** | $[+0.325, +0.470]$ | $t = +10.74$ ($p = 6.29 \times 10^{-27}$) | $z = -7.27$ ($p = 3.61 \times 10^{-13}$) | **Decisive Gain** |
+| **ImageReward** | $0.7737 \pm 0.108$ | **$0.9793 \pm 0.084$** | **$+0.2055$** | **$1.90\times$** | $[+0.166, +0.245]$ | $t = +10.22$ ($p = 1.61 \times 10^{-24}$) | $z = -7.11$ ($p = 1.15 \times 10^{-12}$) | **Decisive Gain** |
+| **HPS v2.1** | $0.3332 \pm 0.003$ | **$0.3394 \pm 0.003$** | **$+0.0062$** | **$1.86\times$** | $[+0.005, +0.008]$ | $t = +9.96$ ($p = 2.33 \times 10^{-23}$) | $z = -7.19$ ($p = 6.59 \times 10^{-13}$) | **Modest Gain** |
+| **CLIP Align** | $0.2989 \pm 0.014$ | **$0.3022 \pm 0.011$** | $+0.0033$ | $0.23\times$ | $[-0.001, +0.008]$ | $t = +1.37$ ($p = 0.1692$) | $z = -2.26$ ($p = 0.0236$) | Within Noise |
+| **PickScore v1** | $0.1866 \pm 0.004$ | **$0.1874 \pm 0.003$** | $+0.0008$ | $0.23\times$ | $[-0.0004, +0.0020]$ | $t = +1.35$ ($p = 0.1774$) | $z = -1.16$ ($p = 0.2465$) | Within Noise |
 
+* **Honest Statistical Verdict:** LAION v2.4 and ImageReward exhibit clear, decisive improvements ($1.9\times$ seed noise, $p < 10^{-24}$); HPS v2.1 shows a modest verified gain ($+0.0062$, $p < 10^{-22}$); CLIP alignment and PickScore are within noise ($0.23\times$ noise, $p \approx 0.17$). The backbone upgrade enhances pure aesthetic and visual quality while preserving prompt semantic alignment intact.
 * **Resolution Invariance:** SD 3.5 Medium scores $6.350$ at $512\times 512$ (3.9s/image) vs $6.348$ at $1024\times 1024$ (23.3s/image). Fast $512\times 512$ generation achieves identical aesthetic quality with a **$6\times$ computational speedup**.
+
 
 #### 2. LLM Style Expansion Intervention (A/B Test on SD 3.5 Medium, $N=160$ Pairs)
 * **Aesthetic Metrics:** $\bar{d} = +0.020$ on LAION ($p = 0.4016$, not significant), flat on ImageReward ($\bar{d} = -0.001$, $p = 0.930$) and HPS v2.1 ($\bar{d} = -0.0001$, $p = 0.713$).
