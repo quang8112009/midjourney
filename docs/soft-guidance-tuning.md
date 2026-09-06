@@ -12,7 +12,7 @@ Traditional approaches enforce layout constraints via **hard negative masking** 
 
 **Soft Cross-Attention Layout Guidance** resolves this dilemma through a selective, additive, per-relation formulation:
 1. **Per-Relation Guidance Strength Dispatch:** 
-   - **Lateral Relations (`left_of`, `right_of`, `beside`):** High strength ($+6.0$, validated $p = 0.000394$, $n=192$ paired).
+   - **Lateral Relations (`left_of`, `right_of`, `beside`):** High strength ($+6.0$, validated $p = 5.0 \times 10^{-6}$, $n=192$ paired).
    - **Depth Relations (`in_front_of`, `behind`):** Disabled by default ($0.0$, unvalidated on real 3D camera depth).
    - **Vertical-On (`on`, `resting_on`):** Disabled by default ($0.0$, unguided prior is stronger at 70.8%).
    - **Vertical-Under (`under`, `below`):** Preserved default ($+0.3$).
