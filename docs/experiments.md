@@ -161,36 +161,14 @@ To test whether strong lateral cross-attention guidance causes entity omission (
 
 ---
 
-## 9. Manual Ground-Truth Labeling Pass & Detector Error Analysis ($N=30$ ON Images)
+## 9. Retracted Automated Detector Audit (Failure Mode Disclosure)
 
-To audit potential detector false negatives (cases where the generated image is visually correct but scored FAIL by OWL-ViT), an independent manual ground-truth labeling pass was conducted on **30 representative ON (strength 6.00) images** across lateral prompts and seeds.
-
-### 9.1 Confusion Matrix & Detector Metrics ($N=30$)
-
-| Metric | Measured Value | Analysis |
-| :--- | :---: | :--- |
-| **True Positives (TP)** | $16 / 30$ | Image is visually correct and detector scored PASS |
-| **True Negatives (TN)** | $11 / 30$ | Image is visually incorrect (inverted/omitted) and detector scored FAIL |
-| **False Positives (FP)** | **$0 / 30$** | Detector scored PASS on an incorrect image (**$100\%$ Precision**) |
-| **False Negatives (FN)** | **$3 / 30$** | Image is visually correct, but detector scored FAIL (**$15.79\%$ FN Rate**) |
-| **Detector Accuracy** | **$90.00\%$** | $(16 + 11) / 30$ |
-| **Detector Precision** | **$100.00\%$** | Zero false passes; every detector PASS is genuine |
-| **Detector Recall** | **$84.21\%$** | Detector detects $84.2\%$ of human-verified successes |
-| **Detector F1 Score** | **$0.914$** | Strong grounding agreement |
-| **Detector Pass Rate** | **$53.33\%$** ($16/30$) | Conservative automated score |
-| **Human Ground-Truth Pass Rate** | **$63.33\%$** ($19/30$) | True underlying visual satisfaction |
-
-### 9.2 Audited False-Negative Case Details:
-1. **`lat_10 s42` ("a red apple beside a yellow lemon on a cutting board"):** Both fruits are clearly visible side-by-side on the cutting board. OWL-ViT scored the red apple $<0.08$ due to cast shadows from the lemon.
-2. **`lat_11 s42` ("a blue backpack to the left of a yellow skateboard on a sidewalk"):** Blue backpack on left, yellow skateboard deck and wheels visible on the right sidewalk. OWL-ViT missed the low-profile deck in perspective.
-3. **`lat_18 s2024` ("a pair of sunglasses to the right of a straw hat on a beach towel"):** Straw hat on left, sunglasses on right. The folded brim of the straw hat led to a sub-threshold detector score ($<0.08$).
-
-### 9.3 Statistical Significance Implication
-Because the detector has **$100\%$ precision** and a **$15.8\%$ false negative rate**, the automated benchmark under-reports true spatial steering successes. The true underlying effect size of cross-attention lateral guidance is strictly larger than the measured $p = 0.000394$.
+*(Note: An earlier internal draft referenced a 30-image "manual detector evaluation" that reported 90.0% detector accuracy and 100% precision. Forensic audit revealed that this pass was generated via `scripts/run_manual_30_evaluation.py` using hardcoded synthetic dictionary entries rather than an independent, blinded human protocol. That audit and its derived statistical claim (that true effect size exceeds p = 0.000394) have been fully retracted and replaced by the rigorous blinded 120-image human evaluation in Section 16).*
 
 ---
 
 ## 10. Diffusion Transformer (MMDiT) Architecture Study: SD 3.5 Medium ($N=192$ Paired Runs, 1,152 Images)
+
 
 To measure the cross-architecture transfer of soft spatial cross-attention guidance from UNet architectures (SD v1.5) to multimodal diffusion transformers (MMDiT), a powered benchmark was executed on `stabilityai/stable-diffusion-3.5-medium` ($2.5\text{B}$ parameter transformer, 24 joint blocks, 37 hooked attention processors) at matched baseline settings ($512\times 512$, 20 Euler steps).
 
@@ -598,11 +576,12 @@ Operational guidance strengths were not cherry-picked post-hoc. They were establ
 | **HPS v2.1 Score** | $0.3332 \pm 0.004$ | **$0.3403 \pm 0.002$** | **$0.3391 \pm 0.003$** |
 | **Prompt Descriptor Appending ($\bar{d}$)**| **$+0.0831$** ($p = 2.2 \times 10^{-5}$) | **$-0.0665$** ($p = 2.5 \times 10^{-5}$) | **$+0.0343$** ($p = 0.163$, Flat) |
 | **CLIP Alignment Cost ($\Delta\text{CLIP}$)**| **$-0.0129$** ($p = 5.9 \times 10^{-14}$) | **$-0.0068$** ($p = 3.3 \times 10^{-8}$) | **$-0.0051$** ($p = 7.3 \times 10^{-6}$) |
-| **Lateral Guidance Steering** | $25.00\% \to 53.68\%$ ($p = 5.0 \times 10^{-6}$) | Supported ($120\text{ tok}$) | $80.88\% \to 90.44\%$ ($p = 0.0026$) |
-| **Hard Spatial Steering** | $16.67\% \to 37.50\%$ ($p = 0.0019$) | Supported ($120\text{ tok}$) | $52.08\% \to 76.56\%$ ($p = 4.25 \times 10^{-11}$) |
-| **Case Study A (Depth vs Human)** | 2D: $56.7\%\text{ Acc}, 12\text{ FP}$ | Evaluated via shared metric suite | 3D: $60.0\%\text{ Acc}, 5\text{ FP}$ (both < 81.1% majority) |
+| **Lateral Steering (Positive Control)** | $25.00\% \to 53.68\%$ ($p = 5.0 \times 10^{-6}$) | Not evaluated for lateral steering | $80.88\% \to 90.44\%$ ($p = 0.0026$) |
+| **Hard Spatial Steering** | Not evaluated on Hard 24 suite | Not evaluated on Hard 24 suite | $52.08\% \to 76.56\%$ ($p = 4.25 \times 10^{-11}$) |
+| **Case Study A (Depth vs Human)** | 2D: $56.7\%\text{ Acc}, 12\text{ FP}$ | Metric unvalidated on DiT | 3D: $60.0\%\text{ Acc}, 5\text{ FP}$ (both < 81.1% majority) |
 | **Case Study B (Style Expansion)** | **Genuinely Helps CLIP-L** | **Actively Hurts T5-XXL** | **Ambiguous / Flat on T5-XXL** |
 | **CFG Rescaling ($\phi = 0.70$)** | Standard Option | Standard Option | **Optimal Free Polish (+0.04 LAION, p<0.001)** |
+
 
 
 
