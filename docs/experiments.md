@@ -528,7 +528,18 @@ On the 90 evaluable human-labeled pairs:
 * **Net Difference:** $+3$ images out of $90$ ($54/90 = 60.00\%$ vs $51/90 = 56.67\%$).
 * **McNemar Exact Two-Tailed Test:** **$p = 0.5811$** (Not statistically significant). Depth Anything V2 is not statistically separable from the 2D predicate.
 
-### 16.3 Sub-Group Breakdown by Condition
+### 16.3 Inter-Annotator Agreement & Human Ceiling ($N=120$)
+To establish the practical human ceiling and prevent single-annotator bias, an independent second-annotator pass was completed on the 120 blinded samples using re-randomized presentation order:
+* **Three-Way Agreement (Yes / No / Can't tell):** **$75.83\%$ raw agreement ($91/120$)**, **Cohen's $\kappa = 0.5453$**.
+* **Binary Agreement (both evaluable, $N=80$):** **$93.75\%$ raw agreement ($75/80$)**, **Cohen's $\kappa = 0.7041$** (substantial agreement, establishing an empirical human ceiling of $\sim 94\%$).
+* **Metric Accuracy Invariance across Annotator Ground Truths:**
+  - *Against Annotator 1 alone ($N=90$):* 2D = $56.67\%$, Depth Anything V2 = $60.00\%$ (McNemar $p = 0.5811$).
+  - *Against Annotator 2 alone ($N=94$):* 2D = $61.70\%$, Depth Anything V2 = $63.83\%$ (McNemar $p = 0.8145$).
+  - *Against Unanimous Consensus ($N=75$):* 2D = $61.33\%$, Depth Anything V2 = $62.67\%$ (McNemar $p = 1.0000$).
+* **Conclusion:** Under every human reference set, both automated metrics land near $60\%$ (well below the $81\%\text{--}91\%$ majority baseline) and are not statistically separable.
+
+### 16.4 Sub-Group Breakdown by Condition
+
 * **Condition OFF ($0.00$, $N=48$ evaluable):**
   - 2D Predicate Accuracy: $62.50\%$ (Precision = $81.25\%$, Recall = $68.42\%$, F1 = $74.29\%$, FP = $6$, FN = $12$)
   - Depth Anything V2 Accuracy: $62.50\%$ (Precision = $88.00\%$, Recall = $57.89\%$, F1 = $70.97\%$, FP = $3$, FN = $16$)
