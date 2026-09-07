@@ -527,18 +527,9 @@ On the 90 evaluable human-labeled pairs:
 * Both 2D and 3D Incorrect: $31$
 * **Net Difference:** $+3$ images out of $90$ ($54/90 = 60.00\%$ vs $51/90 = 56.67\%$).
 * **McNemar Exact Two-Tailed Test:** **$p = 0.5811$** (Not statistically significant). Depth Anything V2 is not statistically separable from the 2D predicate.
+* **Limitation:** Ground truth is derived from a single human annotator; inter-annotator agreement is not yet measured.
 
-### 16.3 Inter-Annotator Agreement & Human Ceiling ($N=120$)
-To establish the practical human ceiling and prevent single-annotator bias, an independent second-annotator pass was completed on the 120 blinded samples using re-randomized presentation order:
-* **Three-Way Agreement (Yes / No / Can't tell):** **$75.83\%$ raw agreement ($91/120$)**, **Cohen's $\kappa = 0.5453$**.
-* **Binary Agreement (both evaluable, $N=80$):** **$93.75\%$ raw agreement ($75/80$)**, **Cohen's $\kappa = 0.7041$** (substantial agreement, establishing an empirical human ceiling of $\sim 94\%$).
-* **Metric Accuracy Invariance across Annotator Ground Truths:**
-  - *Against Annotator 1 alone ($N=90$):* 2D = $56.67\%$, Depth Anything V2 = $60.00\%$ (McNemar $p = 0.5811$).
-  - *Against Annotator 2 alone ($N=94$):* 2D = $61.70\%$, Depth Anything V2 = $63.83\%$ (McNemar $p = 0.8145$).
-  - *Against Unanimous Consensus ($N=75$):* 2D = $61.33\%$, Depth Anything V2 = $62.67\%$ (McNemar $p = 1.0000$).
-* **Conclusion:** Under every human reference set, both automated metrics land near $60\%$ (well below the $81\%\text{--}91\%$ majority baseline) and are not statistically separable.
-
-### 16.4 Sub-Group Breakdown by Condition
+### 16.3 Sub-Group Breakdown by Condition
 
 * **Condition OFF ($0.00$, $N=48$ evaluable):**
   - 2D Predicate Accuracy: $62.50\%$ (Precision = $81.25\%$, Recall = $68.42\%$, F1 = $74.29\%$, FP = $6$, FN = $12$)
@@ -548,6 +539,7 @@ To establish the practical human ceiling and prevent single-annotator bias, an i
   - Depth Anything V2 Accuracy: **$57.14\%$** (Precision = $90.91\%$, Recall = $57.14\%$, F1 = $68.97\%$, FP = $2$, FN = $15$)
 
 ### 16.4 Unflinching Reframing of Case Study A
+
 1. **Automated Depth Evaluation Fails Across Both Modalities:** The finding is not that Depth Anything V2 "fixes" the 2D proxy. Rather, **automated evaluation of 3D depth relations does not work reliably in text-to-image generation under current metrics**. Both the 2D predicate ($56.67\%$) and Depth Anything V2 ($60.00\%$) score over **$20\%$ below the trivial majority-class baseline of $81.11\%$**.
 2. **Missing-Object Blindspot ($25\%$ Unevaluable Rate):** In $30$ out of $120$ generated scenes ($25.0\%$), objects were missing or completely unidentifiable ("Can't tell"). Neither metric flagged these images as unevaluable—both automated evaluators silently assigned verdicts to $100\%$ of missing-object scenes.
 3. **Invalidation of Prior Depth Conclusions:** This result directly invalidates any spatial conclusion resting on these automated depth metrics—including our own earlier statistical claims ($p = 0.0029$ under 2D proxy vs $p = 0.081$ under Depth Anything V2). Those numbers reflect metric noise and bounding-box artifacts rather than physical depth steering. We disclose this negative finding openly rather than selecting whichever metric supported a narrative.

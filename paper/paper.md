@@ -67,22 +67,18 @@ To resolve whether either metric measures physical reality, we conducted a rigor
 
 * **Total Samples:** $120$
 * **"Can't Tell" (Missing or Unidentifiable Objects):** **$30$ images ($25.0\%$)**
-### 3.2 Human Ground-Truth Results & Inter-Annotator Agreement ($N = 120$)
+* **Evaluable Binary Labels:** **$90$ images ($73\text{ Yes} = 81.11\%, 17\text{ No} = 18.89\%$)**
+* **Trivial Majority-Class Baseline ("Always Yes"):** **$81.11\%$ Accuracy**
 
-To establish the empirical ceiling of the task and prevent single-annotator bias, an independent second-annotator pass was conducted across the 120 blinded samples using re-randomized presentation order and isolated state:
-* **Inter-Annotator Agreement:**
-  - **Three-Way Agreement (Yes / No / Can't tell):** **$75.83\%$ raw agreement ($91/120$)**, **Cohen's $\kappa = 0.5453$** (moderate agreement).
-  - **Binary Agreement (both evaluable, $N = 80$):** **$93.75\%$ raw agreement ($75/80$)**, **Cohen's $\kappa = 0.7041$** (substantial agreement, establishing a practical human ceiling of $\sim 94\%$).
-  - **"Can't Tell" Agreement:** Both annotators agreed $16$ images were unevaluable; Annotator 1 identified 30 total ($25.0\%$) while Annotator 2 identified 26 total ($21.7\%$). Disagreements on unevaluability were evenly split across relations ($25.0\%$ on `in_front_of`, $23.3\%$ on `behind`) and conditions ($21.7\%$ on OFF, $26.7\%$ on ON).
+| Metric / Evaluator | Accuracy vs Human | Precision | Recall | F1 Score | False Positives (FP) | False Negatives (FN) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Majority Baseline ("Always Yes")** | **$81.11\%$** | $81.11\%$ | $100.00\%$ | $89.57\%$ | $17$ | $0$ |
+| **2D Ground-Plane Predicate** | **$56.67\%$** ($51/90$) | $79.31\%$ | $63.01\%$ | $70.23\%$ | **$12$** | $27$ |
+| **Depth Anything V2 (3D Depth)** | **$60.00\%$** ($54/90$) | **$89.36\%$** | $57.53\%$ | $70.00\%$ | **$5$** | $31$ |
 
-#### Metric Accuracy Across Annotator Ground-Truth Variants:
-| Ground-Truth Reference | Sample Size ($N$) | Majority Baseline ("Always Yes") | 2D Predicate Accuracy | Depth Anything V2 Accuracy | McNemar Paired $p$-value |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **Annotator 1 Alone** | $90$ evaluable | **$81.11\%$** ($73/90$) | $56.67\%$ ($51/90$, $12\text{ FP}$) | $60.00\%$ ($54/90$, $5\text{ FP}$) | $p = 0.5811$ (Not Signif.) |
-| **Annotator 2 Alone** | $94$ evaluable | **$82.98\%$** ($78/94$) | $61.70\%$ ($58/94$, $11\text{ FP}$) | $63.83\%$ ($60/94$, $4\text{ FP}$) | $p = 0.8145$ (Not Signif.) |
-| **Consensus Subset (Both Agree)**| $75$ consensus | **$90.67\%$** ($68/75$) | $61.33\%$ ($46/75$, $7\text{ FP}$) | $62.67\%$ ($47/75$, $2\text{ FP}$) | $p = 1.0000$ (Not Signif.) |
+* **Paired Statistical Test:** Comparing Depth Anything V2 to the 2D predicate on the 90 human labels yields a net difference of $+3$ images ($54/90$ vs $51/90$), which is **not statistically significant (McNemar exact $p = 0.5811$)**.
+* **Limitation:** Ground truth is derived from a single human annotator; inter-annotator agreement is not yet measured.
 
-* **Invariant Failure Across All Ground Truths:** Under every ground-truth variant (Annotator 1, Annotator 2, or unanimous consensus), both automated metrics land in the narrow **$56\%\text{--}64\%$ accuracy range**, consistently scoring **$> 20\%$ below the trivial majority baseline**. In all three cases, Depth Anything V2 is not statistically separable from the simple 2D predicate (McNemar $p \ge 0.58$).
 
 
 ### 3.3 Diagnostic Failure Analysis & Metric Repair Ablations
