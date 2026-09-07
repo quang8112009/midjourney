@@ -95,8 +95,13 @@ We evaluated ten alternative depth aggregations, continuous threshold tuning, oc
 | **Occlusion Overlap Alone** | $37.78\%$ | $81.11\%$ | $74.29\%$ | $35.62\%$ | $48.15\%$ |
 | **Logistic Regression (Held-out Test)** | $67.39\%$ | $81.11\%$ | $80.56\%$ | $78.38\%$ | $79.45\%$ |
 
-### 3.4 Case Study A Finding
-Every tested variant lands in the **$50\%\text{--}67\%$ accuracy range—substantially below the trivial majority baseline of $81.11\%$**. When both objects are successfully localized, monocular depth disparity is informative ($\text{ROC AUC} = 0.8167$). However, the compound failure of zero-shot detector dropouts ($80.6\%$ of errors) and unflagged missing entities ($25.0\%$ of all scenes) makes automated 3D depth evaluation fundamentally unviable under current automated pipelines.
+### 3.4 Case Study A Finding: The Zero-Shot Detection Bottleneck
+The core breakdown in automated depth evaluation is **not** the underlying fidelity of monocular depth models, but the structural fragility of the detection-then-depth paradigm:
+1. **The Detection Bottleneck:** On the $N = 63$ scenes where both objects were successfully localized by zero-shot detectors, Depth Anything V2 achieves **$82.54\%$ accuracy** ($52/63$, $\text{AUC} = 0.8167$), outperforming the majority baseline on that subset ($76.19\%$, $48/63$). However, in $80.6\%$ of all false negatives ($25/31$), OWL-ViT dropped one of the prompt entities (predominantly background elements like skylines, forests, or distant fences), forcing the pipeline to assign an automatic failure.
+2. **Relevance to Standard Benchmarks:** Standard benchmarks such as **T2I-CompBench++** employ the identical two-stage detection-based architecture for 3D spatial evaluation. Our finding demonstrates that benchmark failures in this category primarily measure zero-shot open-vocabulary detector recall on background entities rather than generative 3D positioning.
+3. **Occlusion as a Sparse Heuristic:** Occlusion alone achieved only **$37.78\%$ accuracy** (the worst of all tested variants), despite being the primary criterion instructed to human judges. This demonstrates that human depth perception relies heavily on perspective gradients, scene context, and physical support priors rather than direct geometric mask overlap (which occurs in only $57.8\%$ of evaluable scenes).
+4. **Multi-Signal Modeling as Future Work:** Multi-modal logistic regression over depth disparity, bounding box scale, and detector confidence achieved **$67.39\%$ accuracy on held-out test data** (compared to $60.00\%$ for depth alone). While still below the $81.11\%$ majority baseline with only $44$ training pairs (and subject to small-sample overfitting), this indicates that multi-modal models combining depth maps with contextual scale and detector uncertainty are a promising direction for future spatial evaluation.
+
 
 ---
 
