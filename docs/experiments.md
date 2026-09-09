@@ -615,17 +615,18 @@ Operational guidance strengths were not cherry-picked post-hoc. They were establ
 | Dimension / Metric | Stable Diffusion v1.5 (UNet + CLIP-L) | PixArt-Alpha (DiT + T5-XXL) | Stable Diffusion 3.5 Medium (MMDiT + T5-XXL) |
 | :--- | :---: | :---: | :---: |
 | **Model Parameters** | $0.86\text{B}$ total | $0.6\text{B}$ DiT + $4.8\text{B}$ T5 | $2.5\text{B}$ MMDiT + $4.8\text{B}$ T5 |
-| **Generation Latency ($512\times 512$)** | $1.40\text{ s/img}$ ($42.8\text{ img/min}$) | $1.97\text{ s/img}$ ($30.5\text{ img/min}$) | $3.90\text{ s/img}$ ($15.4\text{ img/min}$) |
+| **Generation Latency ($512\times 512$)** | $1.76\text{ s/img}$ ($34.0\text{ img/min}$) | $2.23\text{ s/img}$ ($26.9\text{ img/min}$) | $4.14\text{ s/img}$ ($14.5\text{ img/min}$) |
 | **Aesthetic Baseline (LAION v2.4)** | $5.954 \pm 0.234$ | **$6.418 \pm 0.147$** | **$6.331 \pm 0.175$** |
 | **Human Preference (ImageReward)** | $0.774 \pm 0.126$ | **$1.009 \pm 0.077$** | **$0.968 \pm 0.095$** |
 | **HPS v2.1 Score** | $0.3332 \pm 0.004$ | **$0.3403 \pm 0.002$** | **$0.3391 \pm 0.003$** |
 | **Prompt Descriptor Appending ($\bar{d}$)**| **$+0.0831$** ($p = 2.2 \times 10^{-5}$) | **$-0.0665$** ($p = 2.5 \times 10^{-5}$) | **$+0.0343$** ($p = 0.163$, Flat) |
 | **CLIP Alignment Cost ($\Delta\text{CLIP}$)**| **$-0.0129$** ($p = 5.9 \times 10^{-14}$) | **$-0.0068$** ($p = 3.3 \times 10^{-8}$) | **$-0.0051$** ($p = 7.3 \times 10^{-6}$) |
-| **Lateral Steering (Positive Control)** | $25.00\% \to 53.68\%$ ($p = 5.0 \times 10^{-6}$) | Not evaluated for lateral steering | $80.88\% \to 90.44\%$ ($p = 0.0026$) |
-| **Hard Spatial Steering** | Not evaluated on Hard 24 suite | Not evaluated on Hard 24 suite | $52.08\% \to 76.56\%$ ($p = 4.25 \times 10^{-11}$) |
+| **Lateral Steering (Positive Control)** | $25.00\% \to 53.68\%$ ($p = 5.0 \times 10^{-6}$) | **$36.76\% \to 86.76\%$** ($p = 1.9 \times 10^{-14}$) | $80.88\% \to 90.44\%$ ($p = 0.0026$) |
+| **Hard Spatial Steering** | Not evaluated on Hard 24 suite | **$33.33\% \to 71.88\%$** ($p = 4.5 \times 10^{-17}$) | $52.08\% \to 76.56\%$ ($p = 4.25 \times 10^{-11}$) |
 | **Case Study A (Depth vs Human)** | 2D: $56.7\%\text{ Acc}, 12\text{ FP}$ | Metric unvalidated on DiT | 3D: $60.0\%\text{ Acc}, 5\text{ FP}$ (both < 81.1% majority) |
 | **Case Study B (Style Expansion)** | **Genuinely Helps CLIP-L** | **Actively Hurts T5-XXL** | **Ambiguous / Flat on T5-XXL** |
 | **CFG Rescaling ($\phi = 0.70$)** | Standard Option | Standard Option | **Optimal Free Polish (+0.04 LAION, p<0.001)** |
+
 
 
 

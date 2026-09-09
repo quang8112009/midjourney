@@ -1,0 +1,47 @@
+{
+  "0.0": {
+    "strength": 0.0,
+    "satisfaction_pct": 68.75,
+    "dual_presence_pct": 87.5,
+    "ssim_vs_off": 1.0,
+    "laion_aesthetic": 5.757,
+    "clip_alignment": 0.2672,
+    "num_runs": 16
+  },
+  "1.5": {
+    "strength": 1.5,
+    "satisfaction_pct": 81.25,
+    "dual_presence_pct": 100.0,
+    "ssim_vs_off": 0.7908,
+    "laion_aesthetic": 5.701,
+    "clip_alignment": 0.2742,
+    "num_runs": 16
+  },
+  "3.0": {
+    "strength": 3.0,
+    "satisfaction_pct": 87.5,
+    "dual_presence_pct": 100.0,
+    "ssim_vs_off": 0.629,
+    "laion_aesthetic": 5.734,
+    "clip_alignment": 0.2721,
+    "num_runs": 16
+  },
+  "6.0": {
+    "strength": 6.0,
+    "satisfaction_pct": 93.75,
+    "dual_presence_pct": 100.0,
+    "ssim_vs_off": 0.5258,
+    "laion_aesthetic": 5.478,
+    "clip_alignment": 0.2667,
+    "num_runs": 16
+  },
+  "10.0": {
+    "strength": 10.0,
+    "satisfaction_pct": 12.5,
+    "dual_presence_pct": 12.5,
+    "ssim_vs_off": 0.3066,
+    "laion_aesthetic": 4.238,
+    "clip_alignment": 0.2242,
+    "num_runs": 16
+  }
+}

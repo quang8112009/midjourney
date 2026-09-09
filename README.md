@@ -89,6 +89,12 @@ Live GPU evaluation across the standard 40-prompt aesthetic benchmark suite (8 f
 * **Metric Repair Ablations (Section 5.4):** Sweeping 10 depth aggregations (median, p10, p25, eroded box, foreground adaptive), threshold tuning, occlusion intersection rules, and multi-modal logistic regression all land between $50\%\text{--}67\%$ accuracy (well below majority baseline). $80.6\%$ of false negatives stem from upstream zero-shot object detection failures and a $25.0\%$ scene unevaluable rate ("Can't tell").
 * **Takeaway:** Automated evaluation of 3D depth relations fails under current methods. Spatial depth conclusions resting on automated evaluators are uninterpretable.
 
+#### 4. Cross-Architecture Lateral Spatial Steering (Positive Control, $N=192$ Paired Runs Each)
+* **SD v1.5 (UNet + CLIP-L):** $25.00\% \to 53.68\%$ directional accuracy at strength 6.0 ($p = 5.0 \times 10^{-6}$).
+* **PixArt-Alpha (DiT + T5-XXL):** $36.76\% \to 86.76\%$ on Standard 24 ($p = 1.87 \times 10^{-14}$) and $33.33\% \to 71.88\%$ on Hard 24 ($p = 4.48 \times 10^{-17}$) at strength 1.5.
+* **SD 3.5 Medium (MMDiT + T5-XXL):** $80.88\% \to 90.44\%$ on Standard 24 ($p = 0.0026$) and $52.08\% \to 76.56\%$ on Hard 24 ($p = 4.25 \times 10^{-11}$) at strength 3.0/6.0.
+
+
 
 
 
