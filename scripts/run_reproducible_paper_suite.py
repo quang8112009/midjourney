@@ -78,11 +78,12 @@ def main():
     print(f"{'Preference (ImageReward)':<30} | {sd15_data['imagereward']['off_mean']:.3f} +- {sd15_data['imagereward']['off_seed_std']:.3f}{'':<10} | {pixart_data['imagereward']['off_mean']:.3f} +- {pixart_data['imagereward']['off_seed_std']:.3f}{'':<10} | {sd35_data['imagereward']['off_mean']:.3f} +- {sd35_data['imagereward']['off_seed_std']:.3f}")
     print(f"{'Prompt Descriptor Exp (d)':<30} | {sd15_data['laion_aesthetic_v2_4']['d_mean']:+0.4f} (p=2.2e-5){'':<4} | {pixart_data['laion_aesthetic_v2_4']['d_mean']:+0.4f} (p=2.5e-5){'':<4} | {sd35_data['laion_aesthetic_v2_4']['d_mean']:+0.4f} (Wilcoxon p=0.163)")
     print(f"{'CLIP Alignment Cost (d)':<30} | {sd15_data['clip_alignment']['d_mean']:+0.4f} (p=5.9e-14){'':<3} | {pixart_data['clip_alignment']['d_mean']:+0.4f} (p=3.3e-8){'':<4} | {sd35_data['clip_alignment']['d_mean']:+0.4f} (p=7.3e-6)")
-    print(f"{'Lateral Steering (Standard 24)':<30} | 25.00% -> 53.68% (p=5e-6)   | Not evaluated for lateral| 80.88% -> 90.44% (p=0.0026)")
-    print(f"{'Overall Standard 24 Rate':<30} | 34.90% -> 55.21% (p=5e-6)   | Not evaluated for lateral| 83.85% -> 91.15% (p=0.0026)")
+    print(f"{'Lateral Steering (Standard 24)':<30} | 25.00% -> 53.68% (p=5e-6)   | 36.76% -> 86.76% (p=2e-14)| 80.88% -> 90.44% (p=0.0026)")
+    print(f"{'Hard Spatial Steering':<30} | 18.23% -> 45.83% (p=3e-11)  | 33.33% -> 71.88% (p=4e-17)| 52.08% -> 76.56% (p=4.25e-11)")
     print(f"{'Case Study A (Depth vs Human)':<30} | 2D: 56.7% Acc, 12 FP       | Metric unvalidated on DiT| 3D: 60.0% Acc, 5 FP (McNemar p=0.58)")
     print(f"{'Case Study B (Style Exp)':<30} | Genuinely Helps CLIP-L     | Actively Hurts T5-XXL    | Ambiguous / Flat on T5-XXL")
     print(f"{'CFG Rescale (phi = 0.70)':<30} | Standard Option            | Standard Option          | Optimal Free Polish (+0.04)")
+
 
     print("\n" + "=" * 110)
     print("[+] All empirical datasets successfully validated and ready for technical paper.")

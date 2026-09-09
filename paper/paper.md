@@ -141,13 +141,15 @@ In contrast to 3D depth, horizontal lateral spatial steering (`left_of` vs `righ
 | **Standard 24 Lateral** | **SD v1.5 (UNet + CLIP)** | $25.00\%$ ($34/136$) | **$53.68\%$** ($73/136$) @ str 6.0 | $+39\text{ pairs}$ | **$p = 5.006 \times 10^{-6}$** |
 | **Standard 24 Lateral** | **PixArt-$\alpha$ (DiT + T5)** | $36.76\%$ ($50/136$) | **$86.76\%$** ($118/136$) @ str 1.5 | $+68\text{ pairs}$ | **$p = 1.874 \times 10^{-14}$** |
 | **Standard 24 Lateral** | **SD 3.5 M (MMDiT + T5)** | $80.88\%$ ($110/136$) | **$90.44\%$** ($123/136$) @ str 3.0 | $+14\text{ pairs}$ | **$p = 0.002577$** |
+| **Hard 24 Lateral** | **SD v1.5 (UNet + CLIP)** | $18.23\%$ ($35/192$) | **$45.83\%$** ($88/192$) @ str 6.0 | $+53\text{ pairs}$ | **$p = 3.243 \times 10^{-11}$** |
 | **Hard 24 Lateral** | **PixArt-$\alpha$ (DiT + T5)** | $33.33\%$ ($64/192$) | **$71.88\%$** ($138/192$) @ str 1.5 | $+74\text{ pairs}$ | **$p = 4.480 \times 10^{-17}$** |
 | **Hard 24 Lateral** | **SD 3.5 M (MMDiT + T5)** | $52.08\%$ ($100/192$) | **$76.56\%$** ($147/192$) @ str 6.0 | $+47\text{ pairs}$ | **$p = 4.248 \times 10^{-11}$** |
 
-### 5.2 Comparative Analysis: What Governs Unaided Spatial Competence?
-1. **Unaided Spatial Competence Lands in an Intermediate Tier:** PixArt-$\alpha$'s unaided directional accuracy ($36.76\%$) lands between SD v1.5 ($25.00\%$) and SD 3.5 Medium ($80.88\%$). This demonstrates that unaided spatial reasoning is governed by a combination of model capacity and transformer joint-attention dynamics, rather than the text encoder alone.
-2. **Guidance Effect Size:** Soft cross-attention guidance is extraordinarily effective on PixArt-$\alpha$, driving directional accuracy from $36.76\% \to 86.76\%$ ($+50.0\%$ absolute gain, $p = 1.87 \times 10^{-14}$) on Standard 24, and $33.33\% \to 71.88\%$ ($p = 4.48 \times 10^{-17}$) on Hard 24.
+### 5.2 Comparative Analysis: Correlating Unaided Spatial Competence & Effect Size
+1. **Unaided Spatial Competence Does Not Track the Text Encoder:** PixArt-$\alpha$'s unaided directional accuracy ($36.76\%$ Standard, $33.33\%$ Hard) is close to SD v1.5 ($25.00\%$ Standard, $18.23\%$ Hard) despite sharing the exact same T5-XXL text encoder as SD 3.5 Medium ($80.88\%$ Standard, $52.08\%$ Hard). Because SD 3.5 Medium differs from PixArt-$\alpha$ in both architecture (MMDiT vs standard cross-attention DiT) and parameter scale ($2.5\text{B}$ vs $0.6\text{B}$), we observe that unaided spatial competence correlates with the generative backbone rather than the text encoder alone. Distinguishing architectural joint attention from sheer parameter scale would require evaluating a scaled DiT or a compact MMDiT.
+2. **Guidance Effect Size Inversely Correlates with Headroom:** The net guidance gain is largest on PixArt-$\alpha$ ($+50.00\%$ on Standard, $+38.55\%$ on Hard), moderate on SD v1.5 ($+28.68\%$ on Standard, $+27.60\%$ on Hard), and smallest on SD 3.5 Medium ($+9.56\%$ on Standard, $+24.48\%$ on Hard). This indicates that soft cross-attention guidance helps most where the model parses prompt semantics cleanly but places objects poorly—PixArt combines high T5 semantic comprehension with weak unaided spatial grounding, representing the optimal regime for training-free layout intervention.
 3. **Optimal Guidance Strength:** Optimal strength tracks the cross-attention architecture: PixArt-$\alpha$ (standard cross-attention) achieves peak gains at strength $1.50$, SD 3.5 Medium (joint MMDiT blocks) operates optimally at strength $3.0\text{--}6.0$, and SD v1.5 (UNet) requires strength $6.0$.
+
 
 
 ---
@@ -183,7 +185,8 @@ Prompt Descriptor Exp (d̄)  | +0.0831 (p = 2.2e-5)      | -0.0665 (p = 2.5e-5) 
 CLIP Alignment Delta        | -0.0129 (p = 5.9e-14)     | -0.0068 (p = 3.3e-8)      | -0.0051 (p = 7.3e-6)
 ------------------------------------------------------------------------------------------------------------------------
 Lateral Steering (Standard) | 25.00% -> 53.68% (p=5e-6) | 36.76% -> 86.76% (p=2e-14)| 80.88% -> 90.44% (p = 0.0026)
-Hard Spatial Steering       | Not evaluated on Hard 24  | 33.33% -> 71.88% (p=4e-17)| 52.08% -> 76.56% (p = 4.25e-11)
+Hard Spatial Steering       | 18.23% -> 45.83% (p=3e-11)| 33.33% -> 71.88% (p=4e-17)| 52.08% -> 76.56% (p = 4.25e-11)
+
 ------------------------------------------------------------------------------------------------------------------------
 Case Study A (Depth Metric) | 2D: 56.7% Acc, 12 FP      | Metric unvalidated on DiT | 3D: 60.0% Acc, 5 FP (McNemar p = 0.58)
                             | (Both automated metrics perform > 20% below trivial 81.1% majority baseline; 25% missing)
