@@ -73,3 +73,13 @@ This directory houses all raw empirical evaluation datasets, paired statistical 
 
 All generated PNG images are saved in `benchmarks/images/<experiment_name>/`.
 Every image is cryptographically indexed using SHA-256 (`hashlib.sha256(open(f, "rb").read()).hexdigest()`) to ensure absolute reproducibility and prevent hash collisions.
+
+---
+
+## 5. Git History Note on Rebased Commit Hashes
+
+In the repository commit log, several commits share identical commit messages across distinct hashes (e.g. `9829fb3`/`7514e5e`, `2c98ddd`/`ce947d2`, `ccaef83`/`a1fa9e5`, `ce54276`/`15fa070`). 
+
+* **Cause:** These duplicated entries resulted from standard `git pull --rebase origin main` operations during the merge of Pull Request #15 when synchronizing the feature branch with remote `main`.
+* **Note for Auditors:** These pairs reflect Git rebase commit recreation during branch synchronization rather than duplicate or repeated purge events.
+

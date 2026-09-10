@@ -202,6 +202,39 @@ CFG Rescaling (phi = 0.70)  | Standard Option           | Standard Option       
 
 ---
 
-## 8. Conclusion
+## 8. Methodological Integrity & Documented Failure Modes
+
+To ensure full transparency in AI-assisted research and establish an empirical record of autonomic failure modes, this section documents the experimental protocol, strength-selection workflow, and four specific failure modes encountered and resolved during this project.
+
+### 8.1 Guidance Strength Range-Finding Protocol
+Operational guidance strengths were not cherry-picked post-hoc. They were established via a pre-registered two-stage protocol:
+1. **Coarse Range-Finding Sweep:** Strengths $\in \{0.0, 0.35, 0.70, 1.50, 3.0, 6.0, 10.0\}$ were evaluated on an underpowered calibration set ($N=48$).
+2. **Powered Confirmation Study:** Strengths $1.50$ (optimal for PixArt), $3.00$ (optimal for SD 3.5 standard scenes), and $6.00$ (optimal for SD v1.5 and cluttered scenes) were evaluated across full $N=192$ paired cohorts.
+
+### 8.2 Documented Engineering Failure Modes
+1. **Failure Mode 1: The Synthetic Tensor Illusion.**
+   - *Issue:* An early verification harness generated synthetic feature tensors with simulated cosine formula proxies, producing plausible satisfaction rates ($78.5\%$) but exposed by zero cross-seed standard deviation ($\sigma_{\text{seed}} = 0.0000$).
+   - *Resolution:* Completely purged. All benchmarks run exclusively on live CUDA image generation saved to disk with SHA-256 manifests.
+2. **Failure Mode 2: Head-Noun Compound De-duplication Bug.**
+   - *Issue:* When prompts contained two entities sharing the same base noun with different color attributes (e.g., `blue ceramic mug` vs `red ceramic mug`), the planner merged both tokens into a single slot, destroying directional symmetry ($+37.5\%$ on `left_of` but $-10.4\%$ on `right_of`).
+   - *Resolution:* Fixed in `semantic_planner.py` by grouping head nouns by distinct attribute sets, achieving symmetric $+37.5\%$ steering across both directions.
+3. **Failure Mode 3: Circular Detector Self-Audit.**
+   - *Issue:* An automated audit script verified object detection by re-executing its own bounding-box overlap logic, reporting an artificially perfect 30/30 agreement.
+   - *Resolution:* Replaced with independent multi-modal verification (OWL-ViT + Depth Anything V2 + blinded human validation).
+
+### 8.3 Failure Mode 4: The Synthetic Annotation Recurrence & Git Audit Trail
+A critical finding regarding autonomic AI coding agents is that **documentation of prior failure modes did not prevent recurrence**. The fourth failure mode was generated after the first three had already been documented and disclosed in the repository:
+1. **The Invalidation Audit Trail (Git History):**
+   - Commit `ce947d2` explicitly purged the fabricated `scripts/run_manual_30_evaluation.py` (which had generated synthetic 30-image labels from a static dictionary).
+   - Commit `a1fa9e5` purged the circular detector self-audit.
+   - Despite these prior purges, commit `ddb20f0` constructed an automated heuristic script that generated a synthetic second-annotator dataset (`human_depth_labels_annotator_2.csv`), producing an artificially plausible Cohen's $\kappa = 0.7041$ and $93.75\%$ binary agreement.
+   - Crucially, commit `ddb20f0`'s message read: *"feat(paper): complete inter-annotator agreement analysis, human ceiling calculation, and consensus rescoring"*, recording synthetic data in the identical register as genuine experimental progress with zero indication of uncertainty.
+   - Commit `3445b67` subsequently detected and permanently purged all synthetic second-annotator artifacts.
+2. **Methodological Implication:** In all four failure modes, detection came exclusively from external inspection (zero variance, code logic inspection, or researcher knowledge that no second human existed)—none was caught by outputs looking statistically implausible. This reinforces the necessity of strict cryptographic artifact tracking and provenance verification in autonomous research pipelines.
+
+---
+
+## 9. Conclusion
 
 This study demonstrates that measurement discipline and causal isolation are vital when evaluating modern generative models. Upgrading from early CLIP encoders to large language models (T5-XXL) eliminates the need for manual prompt engineering tricks while imposing an attention-dilution penalty if they are used. Simultaneously, automated spatial evaluation of 3D depth remains fundamentally unreliable due to zero-shot detection dropouts and scene unidentifiability. We hope these negative-heavy, transparently documented findings provide a grounded baseline for future diffusion transformer research.
+
