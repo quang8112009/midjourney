@@ -192,7 +192,8 @@ Case Study A (Depth Metric) | 2D: 56.7% Acc, 12 FP      | Metric unvalidated on 
                             | (Both automated metrics perform > 20% below trivial 81.1% majority baseline; 25% missing)
 ------------------------------------------------------------------------------------------------------------------------
 Case Study B (Style Exp)    | Genuinely Helps CLIP-L    | Actively Hurts T5-XXL     | Ambiguous / Flat on T5-XXL
-                            | (Proves text encoder, not generative denoiser architecture, is causal driver of obsolescence)
+                            | (Indicates text encoder, not generative denoiser architecture, is primary driver of obsolescence)
+
 ------------------------------------------------------------------------------------------------------------------------
 CFG Rescaling (phi = 0.70)  | Standard Option           | Standard Option           | Optimal Free Polish (+0.04 LAION)
 

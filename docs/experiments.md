@@ -626,7 +626,9 @@ Operational guidance strengths were not cherry-picked post-hoc. They were establ
 
 | **Case Study A (Depth vs Human)** | 2D: $56.7\%\text{ Acc}, 12\text{ FP}$ | Metric unvalidated on DiT | 3D: $60.0\%\text{ Acc}, 5\text{ FP}$ (both < 81.1% majority) |
 | **Case Study B (Style Expansion)** | **Genuinely Helps CLIP-L** | **Actively Hurts T5-XXL** | **Ambiguous / Flat on T5-XXL** |
+| | (Consistent with text encoder, not denoiser architecture, as primary driver of obsolescence) |
 | **CFG Rescaling ($\phi = 0.70$)** | Standard Option | Standard Option | **Optimal Free Polish (+0.04 LAION, p<0.001)** |
+
 
 
 

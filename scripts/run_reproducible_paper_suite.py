@@ -82,7 +82,9 @@ def main():
     print(f"{'Hard Spatial Steering':<30} | 18.23% -> 45.83% (p=3e-11)  | 33.33% -> 71.88% (p=4e-17)| 52.08% -> 76.56% (p=4.25e-11)")
     print(f"{'Case Study A (Depth vs Human)':<30} | 2D: 56.7% Acc, 12 FP       | Metric unvalidated on DiT| 3D: 60.0% Acc, 5 FP (McNemar p=0.58)")
     print(f"{'Case Study B (Style Exp)':<30} | Genuinely Helps CLIP-L     | Actively Hurts T5-XXL    | Ambiguous / Flat on T5-XXL")
+    print(f"{'':<30} | (Consistent with text encoder, not denoiser architecture, as primary driver)")
     print(f"{'CFG Rescale (phi = 0.70)':<30} | Standard Option            | Standard Option          | Optimal Free Polish (+0.04)")
+
 
 
     print("\n" + "=" * 110)

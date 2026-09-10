@@ -19,7 +19,11 @@ This directory houses all raw empirical evaluation datasets, paired statistical 
 | `depth_human_validation_results.json` | Human vs 2D vs Depth Anything V2 accuracy report | `SEEDS_5` | $N=120$ samples | Accuracy, Precision, Recall, F1 |
 | `inference_time_sweep_results.json` | Sequential 4-stage inference-time sweep on SD 3.5 | `SEEDS_4` | $N=1,120$ runs | Sampler, Steps, CFG Rescale, Refiner |
 | `cfg_rescale_extended_sweep.json` | Extended CFG rescale sweep ($\phi \in [0.50, 1.00]$) | `SEEDS_4` | $N=160$ pairs | LAION, ImageReward, HPSv2.1, CLIP |
+| `pixart_standard24_results.json` | PixArt-Alpha Standard 24 lateral powered study | `SEEDS_192` | $N=192$ pairs | 36.8% -> 86.8% (p = 1.87e-14) |
+| `pixart_hard24_results.json` | PixArt-Alpha Hard 24 lateral powered study | `SEEDS_192` | $N=192$ pairs | 33.3% -> 71.9% (p = 4.48e-17) |
+| `sd15_hard24_results.json` | SD v1.5 Hard 24 lateral powered study | `SEEDS_192` | $N=192$ pairs | 18.2% -> 45.8% (p = 3.24e-11) |
 | `style_expansion_regression_report.json` | Spatial coordinate invariance verification | `SEEDS_8` | 64 spatial prompts | 100% $\Delta \mu = 0.0000$ invariant proof |
+
 
 ---
 
