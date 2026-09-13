@@ -19,3 +19,13 @@ htmlcov/
 benchmarks/images/
 *.pt
 
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.out
+*.xdv
+*.fls
+*.fdb_latexmk
+
+
