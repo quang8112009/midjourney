@@ -59,7 +59,7 @@ In their discussion of limitations, the authors of T2I-CompBench explicitly note
 However, in automated multi-stage evaluation pipelines, three distinct failure modes—the generative model placing objects incorrectly, the object detector failing to localise an entity, or the evaluation predicate failing to match human perceptual judgment—all produce the exact same outcome: a reported failure score. Separating these failure modes requires auditing the metrics against blinded human perceptual judgments on generated imagery rather than evaluating pipeline components in isolation.
 
 ### 2.2 Prompt Engineering and Classifier-Free Guidance Dynamics
-In early CLIP-conditioned models, users and practitioners widely adopted prompt engineering heuristics—specifically appending photography craft descriptors (e.g. "cinematic lighting", "35mm prime lens", "photorealistic")—to activate high-aesthetic feature clusters in text-image embedding space (Oppenlaender, 2023). Classifier-Free Guidance (CFG; Ho & Salimans, 2022) amplifies conditioning signals by extrapolating predictions away from an unconditional baseline. However, high CFG scales induce dynamic range blowout and color saturation artifacts (Lin et al., 2023), motivating variance-preserving rescaling techniques. Whether legacy prompt elaboration techniques remain effective or become counterproductive when scaling from small CLIP encoders to modern language representations (such as T5-XXL; Raffel et al., 2020) has remained unexamined under controlled multi-backbone experimental conditions.
+In early CLIP-conditioned models, users and practitioners widely adopted prompt engineering heuristics—specifically appending photography craft descriptors (e.g. "cinematic lighting", "35mm prime lens", "photorealistic")—to activate high-aesthetic feature clusters in text-image embedding space (Oppenlaender, 2023). Classifier-Free Guidance (CFG; Ho & Salimans, 2022) amplifies conditioning signals by extrapolating predictions away from an unconditional baseline. However, high CFG scales induce dynamic range blowout and color saturation artifacts (Lin et al., 2023), motivating variance-preserving rescaling techniques. Whether legacy prompt elaboration techniques remain effective or become counterproductive when scaling from small CLIP encoders to modern language representations (such as T5-XXL; Raffel et al., 2020) has received limited systematic attention under controlled multi-backbone experimental conditions.
 
 ---
 
@@ -299,7 +299,7 @@ To ensure transparency in AI-assisted research and establish an empirical record
 Operational guidance strengths were established via the two-stage protocol described in Section 3.5: coarse range-finding on a calibration set ($N = 16$), followed by powered confirmation at the selected values across full $N = 192$ cohorts.
 
 ### 8.2 Silent Software Defect: Compound Head-Noun De-duplication
-During spatial planner development, when prompts contained two entities sharing the same base noun with different color attributes (e.g. `blue ceramic mug` vs `red ceramic mug`), the planner merged both tokens into a single slot. This destroyed directional symmetry: the defect produced $+25.0\%$ on `left_of` against $-10.4\%$ on `right_of`. The defect was resolved in `semantic_planner.py` by grouping head nouns by distinct attribute sets, achieving symmetric $+37.5\%$ steering across both directions (at strength 6.0 on same-class pairs).
+During spatial planner development, when prompts contained two entities sharing the same base noun with different color attributes (e.g. `blue ceramic mug` vs `red ceramic mug`), the planner merged both tokens into a single slot. This destroyed directional symmetry: relative to the unguided OFF baseline, the defect produced $+25.0\%$ steering on `left_of` against $-10.4\%$ on `right_of` (at guidance strength 6.0 on the same-class directional subset). The defect was resolved in `semantic_planner.py` by grouping head nouns by distinct attribute sets, achieving symmetric $+37.5\%$ steering across both directions (at strength 6.0 on same-class pairs).
 
 ### 8.3 Data Fabrication Incidents & Failure Modes
 1. **Failure Mode 1: Synthetic Feature Tensors.**
@@ -344,7 +344,7 @@ Table 6 consolidates our empirical findings across all three foundation backbone
 | **Aesthetic Baseline (LAION v2.4)** | $5.954 \pm 0.234$ | $6.418 \pm 0.147$ | $6.331 \pm 0.175$ |
 | **Human Preference (ImageReward)** | $0.774 \pm 0.126$ | $1.009 \pm 0.077$ | $0.968 \pm 0.095$ |
 | **HPS v2.1 Score** | $0.3332 \pm 0.004$ | $0.3403 \pm 0.002$ | $0.3391 \pm 0.003$ |
-| **Prompt Descriptor Expansion** | $+0.0831$ LAION ($p = 2.18\times 10^{-5}$) | $-0.0468$ ImageReward (Wilcoxon $p = 0.0009$) | $+0.0343$ LAION (Wilcoxon $p = 0.1630$, Flat) |
+| **Prompt Descriptor Expansion** | $+0.0831$ LAION (Wilcoxon $p = 0.0095$) | $-0.0468$ ImageReward (Wilcoxon $p = 0.0009$) | $+0.0343$ LAION (Wilcoxon $p = 0.1630$, Flat) |
 | **CLIP Alignment Delta** | $-0.0129$ ($p = 5.91\times 10^{-14}$) | $-0.0068$ ($p = 3.32\times 10^{-8}$) | $-0.0051$ ($p = 7.30\times 10^{-6}$) |
 | **Lateral Steering (Standard 24)** | $25.00\% \to 53.68\%$ ($p = 8.07\times 10^{-8}$) | $36.76\% \to 86.76\%$ ($p = 1.11\times 10^{-18}$) | $80.88\% \to 90.44\%$ ($p = 9.77\times 10^{-4}$) |
 | **Hard Spatial Steering (Hard 24)** | $18.23\% \to 45.83\%$ ($p = 3.24\times 10^{-11}$) | $33.33\% \to 71.88\%$ ($p = 4.48\times 10^{-17}$) | $52.08\% \to 76.56\%$ ($p = 2.05\times 10^{-9}$) |
@@ -385,7 +385,7 @@ This study is subject to several key constraints:
 
 ## 11. Conclusion
 
-This study demonstrates that measurement discipline, causal isolation, and provenance verification are vital when evaluating modern generative models. Upgrading from early CLIP encoders to large language models (T5-XXL) eliminates the need for manual prompt engineering tricks while imposing an attention-dilution penalty if they are used. Simultaneously, automated spatial evaluation of 3D depth remains bottlenecked by upstream zero-shot detection failures and scene unidentifiability, even though monocular depth estimators carry informative signal when entities are successfully localized. We hope these negative-heavy, transparently documented findings provide a grounded baseline for future diffusion transformer research.
+This study demonstrates that measurement discipline, causal isolation, and provenance verification are vital when evaluating modern generative models. Upgrading from early CLIP encoders to large language models (T5-XXL) removes the measured benefit of manual prompt descriptor appending, while imposing an attention-dilution penalty if it is used. Simultaneously, automated spatial evaluation of 3D depth remains bottlenecked by upstream zero-shot detection failures and scene unidentifiability, even though monocular depth estimators carry informative signal when entities are successfully localized. We hope these negative-heavy, transparently documented findings provide a grounded baseline for future diffusion transformer research.
 
 ---
 
