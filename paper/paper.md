@@ -12,8 +12,8 @@
 As text-to-image diffusion architectures transition from small UNets conditioned on CLIP encoders (e.g. Stable Diffusion v1.5) to Diffusion Transformers conditioned on large language models (e.g. PixArt-$\alpha$, Stable Diffusion 3.5 Medium), empirical research and practitioner heuristics increasingly suffer from unvalidated evaluation assumptions. In this paper, we present an empirical study across three foundation models:
 
 1. **Case Study A (Depth Relation Metrics):** Automated evaluation of 3D depth relationships (`in_front_of` vs `behind`)—whether using 2D contact heuristics or monocular depth estimators (Depth Anything V2)—fails when audited against blinded human ground truth ($N = 120$). Both automated metrics achieve only $56.67\%$ and $60.00\%$ accuracy, falling over $20\%$ below the trivial majority baseline ($81.11\%$). Upstream zero-shot detector dropouts account for $80.6\%$ of false negatives, while $25.0\%$ of scenes contain unidentifiable entities that automated metrics silently evaluate. Consequently, conclusions resting on these automated metrics are not interpretable from the metrics alone.
-2. **Case Study B (Prompt Engineering Obsolescence in Modern Encoders):** Appending photographic craft descriptors ("cinematic lighting, 35mm, fine grain") is an obsolete habit from the CLIP era. While beneficial on SD v1.5 ($\bar{d} = +0.0831$, $p = 2.18 \times 10^{-5}$), evaluating PixArt-$\alpha$ (DiT + T5-XXL) isolates text representation from denoiser architecture, indicating that descriptor stuffing is actively harmful on T5 DiTs ($\bar{d} = -0.0665$, $p = 2.53 \times 10^{-5}$) and flat on SD 3.5 Medium (Wilcoxon $p = 0.1630$), while imposing a universal cross-attention semantic dilution penalty ($\Delta\text{CLIP} \in [-0.0129, -0.0051]$).
-3. **Positive Control (Cross-Architecture Spatial Guidance):** Conversely, soft cross-attention lateral guidance transfers cleanly across UNet ($25.00\% \to 53.68\%$), DiT ($36.76\% \to 86.76\%$), and MMDiT backbones ($80.88\% \to 90.44\%$ standard; $52.08\% \to 76.56\%$, $p = 2.05 \times 10^{-9}$ cluttered), providing a rigorous benchmark baseline.
+2. **Case Study B (Prompt Engineering Obsolescence in Modern Encoders):** Appending photographic craft descriptors ("cinematic lighting, 35mm, fine grain") fails to improve output quality on Diffusion Transformers conditioned on large language models. While beneficial on SD v1.5 ($\bar{d} = +0.0831$ LAION, $p = 2.18 \times 10^{-5}$), evaluating PixArt-$\alpha$ (DiT + T5-XXL) isolates text representation from denoiser architecture, demonstrating that descriptor stuffing significantly degrades human preference on T5 DiTs (ImageReward $\bar{d} = -0.0468$, Wilcoxon $p = 0.0009$; HPS v2.1 $\bar{d} = -0.0015$, Wilcoxon $p = 0.0010$) and does not reach significance on SD 3.5 Medium (Wilcoxon $p = 0.1630$), while imposing a universal cross-attention semantic dilution penalty ($\Delta\text{CLIP} \in [-0.0129, -0.0051]$).
+3. **Positive Control (Cross-Architecture Spatial Guidance):** Conversely, soft cross-attention lateral guidance transfers cleanly across UNet ($25.00\% \to 53.68\%$), DiT ($36.76\% \to 86.76\%$), and MMDiT backbones ($80.88\% \to 90.44\%$ standard; $52.08\% \to 76.56\%$, $p = 2.05 \times 10^{-9}$ cluttered), confirming cross-architecture spatial transfer.
 
 ---
 
@@ -37,8 +37,8 @@ By leveraging PixArt-$\alpha$—which pairs a transformer denoiser with T5-XXL�
 ### Summary of Contributions
 This work provides five concrete contributions to generative T2I research:
 1. **Multi-Backbone Controlled Testbed:** We establish a rigorous, paired evaluation testbed across three foundation architectures ($N = 5,900+$ evaluated paired runs, over 9,600 images on disk) with all runs verified via cryptographic SHA-256 manifests.
-2. **Forensic Audit of 3D Spatial Depth Metrics (Case Study A):** Through a blinded human perceptual study ($N = 120$), we show that both 2D ground-plane heuristics and 3D monocular depth estimators (Depth Anything V2) score $>20\%$ below the trivial majority baseline ($81.11\%$). We demonstrate that $80.6\%$ of false negatives stem from upstream zero-shot object detector dropouts, indicating that automated depth metrics cannot be interpreted without human validation.
-3. **Causal Isolation of Prompt Descriptor Obsolescence (Case Study B):** We show that while photographic craft descriptor expansion aids CLIP-L backbones ($+0.0831$ LAION, $p = 2.18 \times 10^{-5}$), it is actively harmful on T5-XXL DiTs ($-0.0665$ LAION, $-0.0468$ ImageReward) and flat on MMDiTs, while imposing a universal cross-attention semantic dilution cost ($\Delta\text{CLIP} < 0$).
+2. **Human-Validated Audit of 3D Spatial Depth Metrics (Case Study A):** Through a blinded human perceptual study ($N = 120$), we show that both 2D ground-plane heuristics and 3D monocular depth estimators (Depth Anything V2) score $>20\%$ below the trivial majority baseline ($81.11\%$). We demonstrate that $80.6\%$ of false negatives stem from upstream zero-shot object detector dropouts, indicating that automated depth metrics cannot be interpreted without human validation.
+3. **Causal Isolation of Prompt Descriptor Obsolescence (Case Study B):** We show that while photographic craft descriptor expansion aids CLIP-L backbones ($+0.0831$ LAION, Wilcoxon $p = 0.0095$), it significantly degrades human-preference scores on T5-XXL DiTs (ImageReward $\bar{d} = -0.0468$, Wilcoxon $p = 0.0009$; HPS v2.1 $\bar{d} = -0.0015$, Wilcoxon $p = 0.0010$) and does not reach significance on MMDiTs (Wilcoxon $p = 0.1630$), while imposing a universal cross-attention semantic dilution cost ($\Delta\text{CLIP} < 0$).
 4. **Positive Control Validation (Lateral Spatial Steering):** We demonstrate that soft cross-attention layout guidance transfers cleanly from UNets ($25.00\% \to 53.68\%$) to DiTs ($36.76\% \to 86.76\%$) and MMDiTs ($80.88\% \to 90.44\%$ standard; $52.08\% \to 76.56\%$ hard, $p = 2.05 \times 10^{-9}$), confirming that our experimental apparatus reliably detects valid spatial control.
 5. **Inference-Time Levers & Failure Mode Disclosures:** We map the parameter sensitivity of inference samplers, step budgets, CFG rescaling, and localized inpainting refiners, while openly documenting four autonomic failure modes and synthetic data fabrication traps encountered in AI-assisted research workflows.
 
@@ -108,6 +108,8 @@ In standard cross-attention and joint-attention blocks, an additive spatial bias
 
 ### 4.1 Powered Multi-Backbone Lateral Results
 
+We evaluated lateral steering across the Standard 24 and Hard 24 suites for all three foundation backbones. The resulting directional success rates, net gains, discordant pair counts, and exact McNemar test statistics are reported in Table 2.
+
 *Table 2: Directional spatial steering efficacy across foundation backbones. Rates, net gains, discordant pairs ($b / c$), and exact McNemar $p$-values are computed strictly over directional prompt pairs ($N = 136$ for Standard 24, $N = 192$ for Hard 24).*
 
 | Model Backbone | Benchmark Suite | Baseline Rate (OFF) | Guided Rate (Best Operating Strength) | Net Paired Gain | Discordant Counts ($b / c$) | Exact McNemar $p$-value |
@@ -151,7 +153,9 @@ The evaluator was instructed to apply a strict standing criterion:
 The human evaluation revealed three clear findings:
 
 1. **Substantial Scene Unevaluability ($25.0\%$ "Can't Tell" Rate):** In $30$ out of the $120$ images ($25.0\%$), one or both entities were missing or unidentifiable. Crucially, neither automated metric flagged these scenes as unevaluable; both algorithms assigned verdicts to $100\%$ of missing-object images.
-2. **Both Metrics Fall Far Below the Majority Baseline:** Over the remaining $N = 90$ evaluable binary labels ($73\text{ Yes} = 81.11\%, 17\text{ No} = 18.89\%$), a trivial classifier that always answers "Yes" achieves **$81.11\%$ accuracy**. Both automated metrics score over $20\%$ below this trivial baseline:
+2. **Both Metrics Fall Far Below the Majority Baseline:** Over the remaining $N = 90$ evaluable binary labels ($73\text{ Yes} = 81.11\%, 17\text{ No} = 18.89\%$), a trivial classifier that always answers "Yes" achieves **$81.11\%$ accuracy**. Both automated metrics score over $20\%$ below this trivial baseline.
+
+The detailed classification performance of both automated depth metrics alongside the majority baseline against blinded human ground truth is summarized in Table 3.
 
 *Table 3: Classification performance of automated depth metrics against blinded human ground-truth labels ($N = 90$ evaluable items).*
 
@@ -168,7 +172,7 @@ An error audit of all 36 Depth Anything V2 classification errors against human l
 * **The Zero-Shot Detection Bottleneck:** $80.6\%$ ($25 / 31$) of all false negatives occurred because OWL-ViT failed to detect one of the two entities above the $0.08$ confidence threshold (predominantly background elements such as distant skylines, fences, and mountains). Because the evaluation pipeline requires bounding boxes for both entities, any detection dropout forces an automatic failure verdict.
 * **Informative Signal on Detected Subset:** On the subset of $N = 63$ images where both entities were successfully detected, Depth Anything V2 achieves **$82.54\%$ accuracy** ($52/63$) with an **ROC AUC of $0.8167$**, outperforming the majority baseline on that subset ($76.19\%$, $48/63$).
 
-To test whether the metric could be repaired through alternative spatial aggregation or multi-modal modeling, ten aggregation variants, continuous threshold sweeps, occlusion-only rules, and multi-feature logistic regression were evaluated across all 90 evaluable human labels. A representative selection of 8 evaluated variants is shown below:
+To test whether the metric could be repaired through alternative spatial aggregation or multi-modal modeling, ten aggregation variants, continuous threshold sweeps, occlusion-only rules, and multi-feature logistic regression were evaluated across all 90 evaluable human labels. A representative selection of 8 evaluated variants is presented in Table 4.
 
 *Table 4: Diagnostic evaluation of depth metric repair variants, aggregation rules, and multi-modal models against human ground truth ($N = 90$).*
 
@@ -230,7 +234,7 @@ All images were evaluated across five real neural evaluators under identical see
 ### 6.3 Causal Isolation via PixArt-$\alpha$
 A central methodological challenge in multi-backbone analysis is separating the causal influence of the generative denoiser architecture (UNet vs DiT vs MMDiT) from that of the text representation (CLIP-L vs T5-XXL). If we only compared SD v1.5 against SD 3.5 Medium, any observed divergence could be attributed either to the shift to multimodal joint attention or to the shift to T5 language representations.
 
-PixArt-$\alpha$ breaks this confound: it shares a Diffusion Transformer backbone with SD 3.5 Medium while utilizing a standalone Google T5-XXL text encoder. As shown in Table 5, PixArt-$\alpha$ does not mirror SD v1.5. Instead, on PixArt-$\alpha$, descriptor expansion produces statistically significant drops across all human-preference and aesthetic metrics: LAION drops by $-0.0665$ ($p = 2.53 \times 10^{-5}$), ImageReward drops by $-0.0468$ ($p = 2.15 \times 10^{-8}$), and HPS v2.1 drops by $-0.0015$ ($p = 3.21 \times 10^{-9}$). 
+PixArt-$\alpha$ breaks this confound: it shares a Diffusion Transformer backbone with SD 3.5 Medium while utilizing a standalone Google T5-XXL text encoder. As shown in Table 5, PixArt-$\alpha$ does not mirror SD v1.5. Instead, on PixArt-$\alpha$, descriptor expansion produces statistically significant regressions across human preference and text-image alignment metrics under non-parametric testing: ImageReward drops by $\bar{d} = -0.0468$ ($95\%\text{ CI: } [-0.0632, -0.0304]$, Wilcoxon $p = 0.0009$), HPS v2.1 drops by $\bar{d} = -0.0015$ (Wilcoxon $p = 0.0010$), CLIP alignment drops by $\bar{d} = -0.0068$ (Wilcoxon $p = 0.0002$), and PickScore drops by $\bar{d} = -0.0017$ (Wilcoxon $p = 0.0016$). We note that on PixArt-$\alpha$, LAION scores diverge between parametric and non-parametric tests ($t$-test $p = 2.53 \times 10^{-5}$ vs Wilcoxon $p = 0.0804$), mirroring the test divergence observed on SD 3.5 Medium, while the remaining four evaluators all agree on a statistically significant quality penalty.
 
 This pattern is consistent with **the text representation (T5-XXL vs CLIP-L), rather than the generative denoiser architecture, being the primary driver of prompt descriptor obsolescence**.
 
@@ -252,7 +256,7 @@ In standard cross-attention and MMDiT joint-attention blocks, attention weights 
 ### 6.6 Statistical Distribution Dynamics: Parametric Skew vs Non-Parametric Robustness
 On SD 3.5 Medium, examining LAION scores reveals an instructive divergence between parametric and non-parametric hypothesis tests: a standard paired Student's $t$-test reports a nominally significant gain ($\bar{d} = +0.0343$, $t = 2.115$, $p = 0.0344$), whereas the non-parametric Wilcoxon signed-rank test does not reach significance ($z = -1.395$, $p = 0.1630$).
 
-Inspection of the per-pair difference distribution reveals severe positive skewness driven by a small handful of outlier prompts (such as macro photography texture prompts where lens descriptors coincidentally matched training captions), while the median prompt delta was near zero ($\Delta_{\text{median}} = +0.0084$). Because parametric $t$-tests assume normal error distributions, positive skewness produces false discoveries in generative benchmark evaluation. The Wilcoxon signed-rank test properly accounts for rank-order median shifts, confirming that style expansion is statistically indistinguishable from noise on SD 3.5 Medium.
+Inspection of the per-pair difference distribution reveals severe positive skewness driven by a small handful of outlier prompts (such as macro photography texture prompts where lens descriptors coincidentally matched training captions), while the median prompt delta was near zero ($\Delta_{\text{median}} = +0.0084$). Because parametric $t$-tests assume normal error distributions, positive skewness can produce false discoveries in generative benchmark evaluation. The Wilcoxon signed-rank test properly accounts for rank-order median shifts, indicating that style expansion does not reach statistical significance on SD 3.5 Medium.
 
 ---
 
@@ -265,14 +269,14 @@ To identify real inference-time aesthetic improvements without combinatorial fal
 ### 7.1 Stage 1: Sampler Comparison (Fixed 20 Steps, CFG 4.5)
 Comparing FlowMatchEuler (1st-order Flow Matching, incumbent) vs FlowMatchHeun (2nd-order Flow Matching):
 * **LAION Aesthetic v2.4:** FlowMatchEuler ($6.350 \pm 0.162$) vs FlowMatchHeun ($6.301 \pm 0.162$), yielding $\bar{d} = -0.0490$ ($95\%\text{ CI: } [-0.0779, -0.0200]$, $t = -3.315$, $p = 0.0009$).
-* **Decision:** FlowMatchHeun does not separate positively from the incumbent ($\Delta \text{LAION} = -0.049$, within seed noise $\pm 0.162$). **FlowMatchEuler is strictly retained as the production default**.
+* **Decision:** FlowMatchHeun performs significantly worse than the incumbent ($\bar{d} = -0.0490$, $95\%\text{ CI: } [-0.0779, -0.0200]$, $p = 0.0009$). **FlowMatchEuler is strictly retained as the production default**.
 
 ### 7.2 Stage 2: Step Budget Pareto Curve (14, 20, 28, 36 Steps on FlowMatchEuler)
 * **14 Steps:** $2.77\text{ s/img}$ ($21.6\text{ img/min}$), LAION $6.312$ ($\bar{d} = -0.0376$, $95\%\text{ CI: } [-0.0694, -0.0058]$, $p = 0.0207$). Slight quality drop.
 * **20 Steps:** $3.90\text{ s/img}$ ($15.4\text{ img/min}$), LAION $6.350$ (Fast Incumbent Baseline).
 * **28 Steps:** $5.54\text{ s/img}$ ($10.8\text{ img/min}$), LAION $6.370$ ($\bar{d} = +0.0198$, $95\%\text{ CI: } [-0.0059, +0.0454]$, $p = 0.1314$). Indistinguishable from 20 steps.
 * **36 Steps:** $7.13\text{ s/img}$ ($8.4\text{ img/min}$), LAION $6.357$ ($\bar{d} = +0.0075$, $95\%\text{ CI: } [-0.0189, +0.0339]$, $p = 0.5775$). Indistinguishable from 20 steps.
-* **Decision:** 28 and 36 steps sit inside the cross-seed noise envelope ($\pm 0.162$). **20 steps is confirmed as the Pareto sweet spot**.
+* **Decision:** Because the 95% confidence intervals for 28 steps ($[-0.0059, +0.0454]$, $p = 0.1314$) and 36 steps ($[-0.0189, +0.0339]$, $p = 0.5775$) both include zero, neither yields a statistically significant improvement over 20 steps. **20 steps is confirmed as the Pareto sweet spot**.
 
 ### 7.3 Stage 3: Variance-Preserving CFG Rescaling Dynamics ($\phi \in [0.00, 1.00]$)
 * **$\phi = 0.00$ (Standard CFG 4.5):** LAION $6.350$, ImageReward $0.9793$.
@@ -327,36 +331,28 @@ Crucially, none of the fabrications produced statistically implausible distribut
 
 ## 9. Master Consolidated Results & Architectural Matrix
 
-```
-========================================================================================================================
-MASTER TECHNICAL PAPER CONSOLIDATED RESULTS TABLE
-========================================================================================================================
-Dimension / Metric          | Stable Diffusion v1.5     | PixArt-Alpha              | Stable Diffusion 3.5 Medium
-------------------------------------------------------------------------------------------------------------------------
-Architecture                | UNet (0.86B params)       | DiT (0.60B params)        | MMDiT (2.50B params)
-Text Encoder                | CLIP-L (77 tokens)        | T5-XXL (120 tokens)       | CLIP-L + CLIP-G + T5-XXL (512 tokens)
-Inference Latency (512x512) | 1.764 s/img (34.0 img/min)| 2.229 s/img (26.9 img/min)| 4.137 s/img (14.5 img/min)
-Dedicated VRAM (Half-Prec)  | 2.01 GB                   | 12.06 GB (T5-XXL dominant)| 12.05 GB (T5-XXL dominant)
-------------------------------------------------------------------------------------------------------------------------
-Aesthetic Baseline (LAION)  | 5.954 +- 0.234            | 6.418 +- 0.147            | 6.331 +- 0.175
-Human Preference (ImageRew) | 0.774 +- 0.126            | 1.009 +- 0.077            | 0.968 +- 0.095
-HPS v2.1 Score              | 0.3332 +- 0.004           | 0.3403 +- 0.002           | 0.3391 +- 0.003
-------------------------------------------------------------------------------------------------------------------------
-Prompt Descriptor Exp (d̄)  | +0.0831 (p = 2.18e-5)     | -0.0665 (p = 2.53e-5)     | +0.0343 (Wilcoxon p = 0.1630)
-CLIP Alignment Delta        | -0.0129 (p = 5.91e-14)    | -0.0068 (p = 3.32e-8)     | -0.0051 (p = 7.30e-6)
-------------------------------------------------------------------------------------------------------------------------
-Lateral Steering (Standard) | 25.00% -> 53.68% (p=8.1e-8)| 36.76% -> 86.76%(p=1.1e-18)| 80.88% -> 90.44% (p = 9.77e-4)
-Hard Spatial Steering       | 18.23% -> 45.83%(p=3.2e-11)| 33.33% -> 71.88%(p=4.5e-17)| 52.08% -> 76.56% (p = 2.05e-9)
-------------------------------------------------------------------------------------------------------------------------
-Case Study A (Depth Metric) | 2D: 56.67% Acc, 12 FP     | Unvalidated on DiT        | 3D: 60.00% Acc, 5 FP (p = 0.5811)
-                            | (Both automated metrics perform > 20% below trivial 81.11% majority baseline; 25% missing)
-------------------------------------------------------------------------------------------------------------------------
-Case Study B (Style Exp)    | Genuinely Helps CLIP-L    | Actively Hurts T5-XXL     | Ambiguous / Flat on T5-XXL
-                            | (Consistent with text encoder, rather than denoiser architecture, as primary driver)
-------------------------------------------------------------------------------------------------------------------------
-CFG Rescaling (phi = 0.70)  | Standard Option           | Standard Option           | Optimal Free Polish (+0.0398 LAION)
-========================================================================================================================
-```
+Table 6 consolidates our empirical findings across all three foundation backbones, mapping architectural specifications, latency, VRAM footprint, prompt engineering sensitivity, spatial steering efficacy, and evaluation metric validity.
+
+*Table 6: Master consolidated results and architectural matrix across the three evaluated foundation models.*
+
+| Dimension / Metric | Stable Diffusion v1.5 | PixArt-Alpha | Stable Diffusion 3.5 Medium |
+| :--- | :--- | :--- | :--- |
+| **Architecture** | UNet ($0.86\text{B}$ params) | DiT ($0.60\text{B}$ params) | MMDiT ($2.50\text{B}$ params) |
+| **Text Encoder** | CLIP-L ($77$ tokens) | T5-XXL ($120$ tokens) | CLIP-L + CLIP-G + T5-XXL ($512$ tokens) |
+| **Inference Latency ($512\times 512$)** | $1.764\text{ s/img}$ ($34.0\text{ img/min}$) | $2.229\text{ s/img}$ ($26.9\text{ img/min}$) | $4.137\text{ s/img}$ ($14.5\text{ img/min}$) |
+| **Dedicated VRAM (Half-Precision)** | $2.01\text{ GB}$ | $12.06\text{ GB}$ (T5-XXL dominant) | $12.05\text{ GB}$ (T5-XXL dominant) |
+| **Aesthetic Baseline (LAION v2.4)** | $5.954 \pm 0.234$ | $6.418 \pm 0.147$ | $6.331 \pm 0.175$ |
+| **Human Preference (ImageReward)** | $0.774 \pm 0.126$ | $1.009 \pm 0.077$ | $0.968 \pm 0.095$ |
+| **HPS v2.1 Score** | $0.3332 \pm 0.004$ | $0.3403 \pm 0.002$ | $0.3391 \pm 0.003$ |
+| **Prompt Descriptor Expansion** | $+0.0831$ LAION ($p = 2.18\times 10^{-5}$) | $-0.0468$ ImageReward (Wilcoxon $p = 0.0009$) | $+0.0343$ LAION (Wilcoxon $p = 0.1630$, Flat) |
+| **CLIP Alignment Delta** | $-0.0129$ ($p = 5.91\times 10^{-14}$) | $-0.0068$ ($p = 3.32\times 10^{-8}$) | $-0.0051$ ($p = 7.30\times 10^{-6}$) |
+| **Lateral Steering (Standard 24)** | $25.00\% \to 53.68\%$ ($p = 8.07\times 10^{-8}$) | $36.76\% \to 86.76\%$ ($p = 1.11\times 10^{-18}$) | $80.88\% \to 90.44\%$ ($p = 9.77\times 10^{-4}$) |
+| **Hard Spatial Steering (Hard 24)** | $18.23\% \to 45.83\%$ ($p = 3.24\times 10^{-11}$) | $33.33\% \to 71.88\%$ ($p = 4.48\times 10^{-17}$) | $52.08\% \to 76.56\%$ ($p = 2.05\times 10^{-9}$) |
+| **Case Study A (Depth Metric)** | 2D: $56.67\%$ Acc, 12 FP | Unvalidated on DiT | 3D: $60.00\%$ Acc, 5 FP ($p = 0.5811$) |
+| | *(Both automated depth metrics perform $>20\%$ below trivial $81.11\%$ majority baseline; $25.0\%$ scenes unevaluable)* | | |
+| **Case Study B (Style Expansion)** | Genuinely Helps CLIP-L | Actively Hurts T5-XXL | Ambiguous / Flat on T5-XXL |
+| | *(Consistent with text representation, rather than denoiser architecture, as primary driver of obsolescence)* | | |
+| **CFG Rescaling ($\phi = 0.70$)** | Standard Option | Standard Option | Optimal Free Polish ($+0.0398$ LAION) |
 
 ---
 
@@ -370,7 +366,7 @@ The empirical findings across our two case studies, positive control experiments
 3. **Calibrate Evaluators Against Human Ground Truth:** Automated evaluation pipelines should report baseline accuracy and inter-annotator agreement (such as Cohen's $\kappa$) against blinded human labels before being deployed as standard benchmarks. As shown in Section 5, both evaluated automated depth metrics score $>20\%$ below the trivial majority-class baseline ($81.11\%$), rendering raw metric gains uninterpretable.
 
 ### 10.2 What Generative Practitioners Should Stop Doing
-1. **Cease Automatic Craft Descriptor Appending:** On modern Diffusion Transformers conditioned on large language models (such as PixArt-$\alpha$ and SD 3.5 Medium), appending photography craft keywords ("cinematic lighting, 35mm, fine grain") is either actively harmful ($\bar{d} = -0.0665$ LAION, $-0.0468$ ImageReward on PixArt) or statistically indistinguishable from noise (Wilcoxon $p = 0.1630$ on SD 3.5), while imposing a universal cross-attention semantic dilution cost ($\Delta\text{CLIP} < 0$). Automated prompt expansion wrappers should be disabled by default and preserved strictly as user-controlled stylistic options.
+1. **Cease Automatic Craft Descriptor Appending:** On modern Diffusion Transformers conditioned on large language models (such as PixArt-$\alpha$ and SD 3.5 Medium), appending photography craft keywords ("cinematic lighting, 35mm, fine grain") is either actively harmful to human preference (ImageReward $\bar{d} = -0.0468$, Wilcoxon $p = 0.0009$; HPS v2.1 $\bar{d} = -0.0015$, Wilcoxon $p = 0.0010$ on PixArt) or fails to reach statistical significance (Wilcoxon $p = 0.1630$ on SD 3.5), while imposing a universal cross-attention semantic dilution cost ($\Delta\text{CLIP} < 0$). Automated prompt expansion wrappers should be disabled by default and preserved strictly as user-controlled stylistic options.
 2. **Adopt Variance-Preserving CFG Rescaling as a Default:** High Classifier-Free Guidance scales introduce highlight blowout and oversaturation. Setting CFG rescale to $\phi = 0.70$ provides a modest, verified improvement ($+0.0398$ LAION, $+0.0200$ ImageReward) with zero inference latency overhead.
 
 ### 10.3 Methodological Implications for AI-Assisted Research
